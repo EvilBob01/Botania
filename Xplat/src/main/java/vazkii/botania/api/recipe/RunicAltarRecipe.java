@@ -19,7 +19,7 @@ import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.block.BotaniaBlocks;
 
 public interface RunicAltarRecipe extends RecipeWithReagent {
-	ResourceLocation TYPE_ID = new ResourceLocation(BotaniaAPI.MODID, "runic_altar");
+	ResourceLocation TYPE_ID = ResourceLocation.fromNamespaceAndPath(BotaniaAPI.MODID, "runic_altar");
 
 	// TODO: read from recipe definition
 	@Override

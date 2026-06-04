@@ -78,14 +78,14 @@ public class BottledManaItem extends Item {
 			// loosely based on BucketItem#emptyContent:
 			if (state.isAir() || state.canBeReplaced(Fluids.WATER)
 					|| state.getBlock() instanceof LiquidBlockContainer lbc
-							&& lbc.canPlaceLiquid(level, playerPos, state, Fluids.WATER)) {
+							&& lbc.canPlaceLiquid(null, level, playerPos, state, Fluids.WATER)) {
 				waterPos = playerPos;
 				replacedState = state;
 			} else {
 				BlockState aboveState = level.getBlockState(playerPos.above());
 				waterPos = (aboveState.isAir() || aboveState.canBeReplaced(Fluids.WATER)
 						|| aboveState.getBlock() instanceof LiquidBlockContainer lbc
-								&& lbc.canPlaceLiquid(level, playerPos.above(), aboveState, Fluids.WATER))
+								&& lbc.canPlaceLiquid(null, level, playerPos.above(), aboveState, Fluids.WATER))
 										? playerPos.above()
 										: null;
 				replacedState = aboveState;
@@ -109,7 +109,7 @@ public class BottledManaItem extends Item {
 
 	private static void effectSetOnFire(Level level, LivingEntity living) {
 		if (!level.isClientSide) {
-			living.setSecondsOnFire(4);
+			living.igniteForSeconds(4);
 		}
 	}
 
@@ -240,7 +240,7 @@ public class BottledManaItem extends Item {
 	}
 
 	@Override
-	public int getUseDuration(ItemStack stack) {
+	public int getUseDuration(ItemStack stack, LivingEntity entity) {
 		return 20;
 	}
 

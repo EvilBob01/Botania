@@ -27,7 +27,7 @@ import vazkii.botania.api.mana.ManaCollector;
  * The basic class for a Generating Flower.
  */
 public abstract class GeneratingFlowerBlockEntity extends BindableSpecialFlowerBlockEntity<ManaCollector> {
-	private static final ResourceLocation SPREADER_ID = new ResourceLocation(BotaniaAPI.MODID, "mana_spreader");
+	private static final ResourceLocation SPREADER_ID = ResourceLocation.fromNamespaceAndPath(BotaniaAPI.MODID, "mana_spreader");
 
 	public static final int LINK_RANGE = 6;
 	private static final String TAG_MANA = "mana";

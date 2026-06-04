@@ -9,6 +9,7 @@
 package vazkii.botania.common.item;
 
 import net.minecraft.ChatFormatting;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -30,6 +31,7 @@ import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.common.advancements.UseItemSuccessTrigger;
 import vazkii.botania.common.handler.BotaniaSounds;
+import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.patchouli.api.PatchouliAPI;
 
@@ -51,7 +53,7 @@ public class LexicaBotaniaItem extends Item implements ItemWithBannerPattern, Cu
 	public void addToCreativeTab(Item me, CreativeModeTab.Output output) {
 		output.accept(this);
 		ItemStack creative = new ItemStack(this);
-		creative.getOrCreateTag().putBoolean(TAG_ELVEN_UNLOCK, true);
+		ItemNBTHelper.setBoolean(creative, TAG_ELVEN_UNLOCK, true);
 		output.accept(creative);
 	}
 
@@ -87,8 +89,8 @@ public class LexicaBotaniaItem extends Item implements ItemWithBannerPattern, Cu
 
 		// Akashic tome tag contains a `text` field, which is a stringified text component
 		String akashicTomeNBT = "akashictome:displayName";
-		if (stack.hasTag() && stack.getTag().contains(akashicTomeNBT)) {
-			CompoundTag nameTextComponent = stack.getTag().getCompound(akashicTomeNBT);
+		if (ItemNBTHelper.verifyExistance(stack, akashicTomeNBT)) {
+			CompoundTag nameTextComponent = ItemNBTHelper.getCompound(stack, akashicTomeNBT, false);
 			title = Component.Serializer.fromJson(nameTextComponent.getString("text"));
 		}
 
@@ -96,7 +98,7 @@ public class LexicaBotaniaItem extends Item implements ItemWithBannerPattern, Cu
 	}
 
 	public static boolean isElven(ItemStack stack) {
-		return stack.hasTag() && stack.getTag().getBoolean(TAG_ELVEN_UNLOCK);
+		return ItemNBTHelper.getBoolean(stack, TAG_ELVEN_UNLOCK, false);
 	}
 
 	// Random item to expose this as public

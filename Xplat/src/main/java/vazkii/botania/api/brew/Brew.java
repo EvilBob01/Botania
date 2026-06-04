@@ -13,7 +13,7 @@ import com.google.common.collect.ImmutableList;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.alchemy.PotionUtils;
+import net.minecraft.world.item.alchemy.PotionContents;
 
 import vazkii.botania.api.BotaniaAPI;
 
@@ -50,7 +50,7 @@ public class Brew {
 	 * @param effects A supplier that supplies a list of effects to apply to the player when they drink it.
 	 */
 	public Brew(int cost, Supplier<List<MobEffectInstance>> effects) {
-		this.color = () -> PotionUtils.getColor(effects.get());
+		this.color = () -> PotionContents.getColor(effects.get());
 		this.cost = cost;
 		this.effects = effects;
 	}

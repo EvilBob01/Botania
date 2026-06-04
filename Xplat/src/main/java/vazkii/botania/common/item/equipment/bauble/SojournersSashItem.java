@@ -33,15 +33,11 @@ import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.proxy.Proxy;
 import vazkii.botania.xplat.XplatAbstractions;
 
-import java.util.UUID;
-
 public class SojournersSashItem extends BaubleItem {
 
-	private static final UUID STEP_BOOST_UUID = UUID.fromString("8511cd62-2650-4078-8d69-9ebe80b21eb5");
 	private static final AttributeModifier STEP_BOOST = new AttributeModifier(
-			STEP_BOOST_UUID,
-			"botania:travel_belt",
-			0.65, AttributeModifier.Operation.ADDITION);
+			ResourceLocation.fromNamespaceAndPath("botania", "travel_belt_step_boost"),
+			0.65, AttributeModifier.Operation.ADD_VALUE);
 
 	private static final ResourceLocation texture = new ResourceLocation(ResourcesLib.MODEL_TRAVEL_BELT);
 

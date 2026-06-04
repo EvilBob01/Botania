@@ -140,7 +140,7 @@ public class BlackHoleTalismanItem extends Item {
 			}
 
 			if (toTake.asItem() == stack.getItem()
-					&& (stack.getTag() == null || stack.getTag().isEmpty())) {
+					&& !stack.has(net.minecraft.core.component.DataComponents.CUSTOM_DATA)) {
 				counts[i] = stack.getCount();
 				if (highestIdx == -1) {
 					highestIdx = i;

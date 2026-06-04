@@ -57,10 +57,10 @@ public class ThornChakramEntity extends ThrowableProjectile implements ItemSuppl
 	}
 
 	@Override
-	protected void defineSynchedData() {
-		entityData.define(BOUNCES, 0);
-		entityData.define(FLARE, false);
-		entityData.define(RETURN_TO, -1);
+	protected void defineSynchedData(SynchedEntityData.Builder builder) {
+		builder.define(BOUNCES, 0);
+		builder.define(FLARE, false);
+		builder.define(RETURN_TO, -1);
 	}
 
 	@Override
@@ -171,7 +171,7 @@ public class ThornChakramEntity extends ThrowableProjectile implements ItemSuppl
 			}
 			hitEntity.hurt(src, 12);
 			if (isFire()) {
-				hitEntity.setSecondsOnFire(5);
+				hitEntity.igniteForSeconds(5);
 			} else if (level().random.nextInt(3) == 0) {
 				hitEntity.addEffect(new MobEffectInstance(MobEffects.POISON, 60, 0));
 			}

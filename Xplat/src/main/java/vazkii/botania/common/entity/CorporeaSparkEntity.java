@@ -68,10 +68,10 @@ public class CorporeaSparkEntity extends SparkBaseEntity implements CorporeaSpar
 	}
 
 	@Override
-	protected void defineSynchedData() {
-		super.defineSynchedData();
-		entityData.define(MASTER, false);
-		entityData.define(CREATIVE, false);
+	protected void defineSynchedData(SynchedEntityData.Builder builder) {
+		super.defineSynchedData(builder);
+		builder.define(MASTER, false);
+		builder.define(CREATIVE, false);
 	}
 
 	@NotNull

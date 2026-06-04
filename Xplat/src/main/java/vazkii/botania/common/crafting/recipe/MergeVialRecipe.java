@@ -28,8 +28,8 @@ import java.util.Objects;
 public class MergeVialRecipe extends CustomRecipe {
 	public static final NoOpRecipeSerializer<MergeVialRecipe> SERIALIZER = new NoOpRecipeSerializer<>(MergeVialRecipe::new);
 
-	public MergeVialRecipe(ResourceLocation id) {
-		super(id, CraftingBookCategory.MISC);
+	public MergeVialRecipe() {
+		super(CraftingBookCategory.MISC);
 	}
 
 	@Override

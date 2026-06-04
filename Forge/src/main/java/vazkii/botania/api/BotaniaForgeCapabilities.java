@@ -1,8 +1,8 @@
 package vazkii.botania.api;
 
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.CapabilityManager;
-import net.minecraftforge.common.capabilities.CapabilityToken;
+import net.neoforged.neoforge.capabilities.Capability;
+import net.neoforged.neoforge.capabilities.CapabilityManager;
+import net.neoforged.neoforge.capabilities.CapabilityToken;
 
 import vazkii.botania.api.block.*;
 import vazkii.botania.api.item.*;

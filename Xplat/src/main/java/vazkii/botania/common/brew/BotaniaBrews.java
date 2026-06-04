@@ -11,7 +11,7 @@ package vazkii.botania.common.brew;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.item.alchemy.PotionUtils;
+import net.minecraft.world.item.alchemy.PotionContents;
 
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.common.lib.LibBrewNames;
@@ -38,13 +38,13 @@ public class BotaniaBrews {
 	public static final Brew nightVision = new Brew(0x7C4BEB, 4000, new MobEffectInstance(MobEffects.NIGHT_VISION, 9600, 0));
 	public static final Brew absorption = new Brew(0xF2EB23, 7000, new MobEffectInstance(MobEffects.ABSORPTION, 1800, 3)).setNotBloodPendantInfusable().setNotIncenseInfusable();
 
-	public static final Brew allure = make(2000, new MobEffectInstance(BotaniaMobEffects.allure, 4800, 0));
-	public static final Brew soulCross = make(10000, new MobEffectInstance(BotaniaMobEffects.soulCross, 1800, 0));
-	public static final Brew featherfeet = make(7000, new MobEffectInstance(BotaniaMobEffects.featherfeet, 1800, 0));
-	public static final Brew emptiness = make(30000, new MobEffectInstance(BotaniaMobEffects.emptiness, 7200, 0));
-	public static final Brew bloodthirst = make(20000, new MobEffectInstance(BotaniaMobEffects.bloodthrst, 7200, 0));
+	public static final Brew allure = make(2000, new MobEffectInstance(BotaniaMobEffects.allureHolder(), 4800, 0));
+	public static final Brew soulCross = make(10000, new MobEffectInstance(BotaniaMobEffects.soulCrossHolder(), 1800, 0));
+	public static final Brew featherfeet = make(7000, new MobEffectInstance(BotaniaMobEffects.featherfeetHolder(), 1800, 0));
+	public static final Brew emptiness = make(30000, new MobEffectInstance(BotaniaMobEffects.emptinessHolder(), 7200, 0));
+	public static final Brew bloodthirst = make(20000, new MobEffectInstance(BotaniaMobEffects.bloodthrstHolder(), 7200, 0));
 	public static final Brew overload = new Brew(0x232323, 12000, new MobEffectInstance(MobEffects.DAMAGE_BOOST, 1800, 3), new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 1800, 2), new MobEffectInstance(MobEffects.WEAKNESS, 3600, 1), new MobEffectInstance(MobEffects.HUNGER, 200, 2));
-	public static final Brew clear = make(4000, new MobEffectInstance(BotaniaMobEffects.clear, 0, 0));
+	public static final Brew clear = make(4000, new MobEffectInstance(BotaniaMobEffects.clearHolder(), 0, 0));
 
 	public static void submitRegistrations(BiConsumer<Brew, ResourceLocation> r) {
 		r.accept(fallbackBrew, prefix("fallback"));
@@ -71,7 +71,7 @@ public class BotaniaBrews {
 	}
 
 	private static Brew make(int cost, MobEffectInstance... effects) {
-		return new Brew(PotionUtils.getColor(Arrays.asList(effects)), cost, effects);
+		return new Brew(PotionContents.getColor(Arrays.asList(effects)), cost, effects);
 	}
 
 }

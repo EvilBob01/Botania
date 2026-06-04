@@ -8,50 +8,47 @@
  */
 package vazkii.botania.common.crafting.recipe;
 
-import com.google.gson.JsonObject;
+import com.mojang.serialization.MapCodec;
 
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.GsonHelper;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.crafting.Recipe;
-import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.xplat.XplatAbstractions;
-
+/**
+ * In 1.21, GogAlternation is handled entirely in data generation (see GogAlternationResult).
+ * This class is kept for serializer registration compatibility; the serializer is never actually invoked
+ * because the GOG selection is made at data-gen time.
+ */
 public class GogAlternationRecipe {
 	public static final RecipeSerializer<Recipe<?>> SERIALIZER = new Serializer();
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	private static class Serializer implements RecipeSerializer<Recipe<?>> {
+		private final MapCodec<Recipe<?>> codec = (MapCodec) MapCodec.unit(() -> {
+			throw new IllegalStateException("GogAlternationRecipe codec should not be invoked at runtime");
+		});
+		private final StreamCodec<RegistryFriendlyByteBuf, Recipe<?>> streamCodec = StreamCodec.of(
+				(buf, recipe) -> {
+					throw new IllegalStateException("GogAlternationRecipe should not be sent over network");
+				},
+				buf -> {
+					throw new IllegalStateException("GogAlternationRecipe should not be sent over network");
+				}
+		);
+
 		@NotNull
 		@Override
-		public Recipe<?> fromJson(@NotNull ResourceLocation recipeId, @NotNull JsonObject json) {
-			// just select the recipe here
-			Recipe<?> gog = RecipeManager.fromJson(recipeId, GsonHelper.getAsJsonObject(json, "gog"));
-			Recipe<?> base = RecipeManager.fromJson(recipeId, GsonHelper.getAsJsonObject(json, "base"));
-
-			if (gog.getType() != base.getType()) {
-				throw new IllegalArgumentException("Subrecipes must have matching types");
-			}
-
-			if (XplatAbstractions.INSTANCE.gogLoaded()) {
-				return gog;
-			} else {
-				return base;
-			}
+		public MapCodec<Recipe<?>> codec() {
+			return codec;
 		}
 
 		@NotNull
 		@Override
-		public Recipe<?> fromNetwork(@NotNull ResourceLocation recipeId, @NotNull FriendlyByteBuf buffer) {
-			throw new IllegalStateException("GogAlternationRecipe should not be sent over network");
-		}
-
-		@Override
-		public void toNetwork(@NotNull FriendlyByteBuf buffer, @NotNull Recipe<?> recipe) {
-			throw new IllegalStateException("GogAlternationRecipe should not be sent over network");
+		public StreamCodec<RegistryFriendlyByteBuf, Recipe<?>> streamCodec() {
+			return streamCodec;
 		}
 	}
 }

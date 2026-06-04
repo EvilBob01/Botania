@@ -11,7 +11,9 @@ package vazkii.botania.common.item.relic;
 import com.google.common.base.Suppliers;
 
 import net.minecraft.ChatFormatting;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -84,8 +86,8 @@ public class DiceOfFateItem extends RelicItem {
 				return InteractionResultHolder.consume(toGive);
 			} else {
 				int roll = world.random.nextInt(6) + 1;
-				ResourceLocation tableId = ResourceLocationHelper.prefix("dice/roll_" + roll);
-				LootTable table = world.getServer().getLootData().getLootTable(tableId);
+				ResourceKey<LootTable> tableKey = ResourceKey.create(Registries.LOOT_TABLE, ResourceLocationHelper.prefix("dice/roll_" + roll));
+				LootTable table = world.getServer().reloadableRegistries().getLootTable(tableKey);
 				LootParams context = new LootParams.Builder((ServerLevel) world)
 						.withParameter(LootContextParams.THIS_ENTITY, player)
 						.withParameter(LootContextParams.ORIGIN, player.position())

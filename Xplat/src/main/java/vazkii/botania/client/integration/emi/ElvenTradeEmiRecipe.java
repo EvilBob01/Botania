@@ -17,7 +17,6 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.InventoryMenu;
 
-import org.joml.Matrix3f;
 import org.joml.Matrix4f;
 
 import vazkii.botania.api.recipe.ElvenTradeRecipe;
@@ -84,11 +83,10 @@ public class ElvenTradeEmiRecipe extends BotaniaEmiRecipe {
 			int stopX = x + 48;
 			int stopY = y + 48;
 			Matrix4f mat = matrices.last().pose();
-			Matrix3f n = matrices.last().normal();
-			v.vertex(mat, startX, startY, 0).color(1f, 1f, 1f, 1f).uv(sprite.getU0(), sprite.getV0()).uv2(0xF000F0).normal(n, 1, 0, 0).endVertex();
-			v.vertex(mat, startX, stopY, 0).color(1f, 1f, 1f, 1f).uv(sprite.getU0(), sprite.getV1()).uv2(0xF000F0).normal(n, 1, 0, 0).endVertex();
-			v.vertex(mat, stopX, stopY, 0).color(1f, 1f, 1f, 1f).uv(sprite.getU1(), sprite.getV1()).uv2(0xF000F0).normal(n, 1, 0, 0).endVertex();
-			v.vertex(mat, stopX, startY, 0).color(1f, 1f, 1f, 1f).uv(sprite.getU1(), sprite.getV0()).uv2(0xF000F0).normal(n, 1, 0, 0).endVertex();
+			v.addVertex(mat, startX, startY, 0).setColor(1f, 1f, 1f, 1f).setUv(sprite.getU0(), sprite.getV0()).setLight(0xF000F0).setNormal(1, 0, 0);
+			v.addVertex(mat, startX, stopY, 0).setColor(1f, 1f, 1f, 1f).setUv(sprite.getU0(), sprite.getV1()).setLight(0xF000F0).setNormal(1, 0, 0);
+			v.addVertex(mat, stopX, stopY, 0).setColor(1f, 1f, 1f, 1f).setUv(sprite.getU1(), sprite.getV1()).setLight(0xF000F0).setNormal(1, 0, 0);
+			v.addVertex(mat, stopX, startY, 0).setColor(1f, 1f, 1f, 1f).setUv(sprite.getU1(), sprite.getV0()).setLight(0xF000F0).setNormal(1, 0, 0);
 			immediate.endBatch();
 		}
 

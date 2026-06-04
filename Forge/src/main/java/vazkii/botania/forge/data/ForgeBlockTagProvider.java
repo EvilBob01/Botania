@@ -8,9 +8,9 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.block.Block;
-import net.minecraftforge.common.Tags;
-import net.minecraftforge.common.data.ExistingFileHelper;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.neoforged.neoforge.common.Tags;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
+import net.neoforged.neoforge.registries.NeoForgeRegistries;
 
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.helper.ColorHelper;
@@ -32,7 +32,7 @@ public class ForgeBlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
 	public static final TagKey<Block> BLAZE_MESH = forge("storage_blocks/blaze_mesh");
 	public static final Map<DyeColor, TagKey<Block>> PETAL_BLOCKS = ColorHelper.supportedColors().collect(
 			Collectors.toMap(Function.identity(), color -> forge("storage_blocks/"
-					+ ForgeRegistries.BLOCKS.getKey(BotaniaBlocks.getPetalBlock(color)).getPath())));
+					+ NeoForgeRegistries.BLOCKS.getKey(BotaniaBlocks.getPetalBlock(color)).getPath())));
 
 	public ForgeBlockTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> provider,
 			ExistingFileHelper existingFileHelper) {

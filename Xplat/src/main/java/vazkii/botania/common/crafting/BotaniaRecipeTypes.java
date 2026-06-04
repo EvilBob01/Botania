@@ -10,8 +10,8 @@ package vazkii.botania.common.crafting;
 
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.Container;
 import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
@@ -20,10 +20,11 @@ import vazkii.botania.api.recipe.*;
 import vazkii.botania.common.crafting.recipe.HeadRecipe;
 import vazkii.botania.common.crafting.recipe.NoOpRecipeSerializer;
 import vazkii.botania.common.crafting.recipe.StateCopyingPureDaisyRecipe;
-import vazkii.botania.mixin.RecipeManagerAccessor;
 
+import java.util.List;
 import java.util.Map;
 import java.util.function.BiConsumer;
+import java.util.stream.Collectors;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
@@ -97,7 +98,19 @@ public class BotaniaRecipeTypes {
 		}
 	}
 
-	public static <C extends Container, T extends Recipe<C>> Map<ResourceLocation, T> getRecipes(Level world, RecipeType<T> type) {
-		return ((RecipeManagerAccessor) world.getRecipeManager()).botania_getAll(type);
+	/**
+	 * Gets all recipes of the given type from the world's recipe manager,
+	 * unwrapping RecipeHolder to return just the recipe instances keyed by ID.
+	 */
+	public static <T extends Recipe<?>> Map<ResourceLocation, T> getRecipes(Level world, RecipeType<T> type) {
+		return world.getRecipeManager().getAllRecipesFor(type).stream()
+				.collect(Collectors.toMap(RecipeHolder::id, RecipeHolder::value));
+	}
+
+	/**
+	 * Gets all recipe holders of the given type.
+	 */
+	public static <T extends Recipe<?>> List<RecipeHolder<T>> getRecipeHolders(Level world, RecipeType<T> type) {
+		return world.getRecipeManager().getAllRecipesFor(type);
 	}
 }

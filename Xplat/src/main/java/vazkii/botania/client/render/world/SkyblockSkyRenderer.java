@@ -10,6 +10,8 @@ package vazkii.botania.client.render.world;
 
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.BufferBuilder;
+import com.mojang.blaze3d.vertex.BufferUploader;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.Tesselator;
@@ -34,15 +36,15 @@ import java.util.Random;
 
 public class SkyblockSkyRenderer {
 
-	private static final ResourceLocation textureSkybox = new ResourceLocation(ResourcesLib.MISC_SKYBOX);
-	private static final ResourceLocation textureRainbow = new ResourceLocation(ResourcesLib.MISC_RAINBOW);
+	private static final ResourceLocation textureSkybox = ResourceLocation.parse(ResourcesLib.MISC_SKYBOX);
+	private static final ResourceLocation textureRainbow = ResourceLocation.parse(ResourcesLib.MISC_RAINBOW);
 	private static final ResourceLocation[] planetTextures = new ResourceLocation[] {
-			new ResourceLocation(ResourcesLib.MISC_PLANET + "0.png"),
-			new ResourceLocation(ResourcesLib.MISC_PLANET + "1.png"),
-			new ResourceLocation(ResourcesLib.MISC_PLANET + "2.png"),
-			new ResourceLocation(ResourcesLib.MISC_PLANET + "3.png"),
-			new ResourceLocation(ResourcesLib.MISC_PLANET + "4.png"),
-			new ResourceLocation(ResourcesLib.MISC_PLANET + "5.png")
+			ResourceLocation.parse(ResourcesLib.MISC_PLANET + "0.png"),
+			ResourceLocation.parse(ResourcesLib.MISC_PLANET + "1.png"),
+			ResourceLocation.parse(ResourcesLib.MISC_PLANET + "2.png"),
+			ResourceLocation.parse(ResourcesLib.MISC_PLANET + "3.png"),
+			ResourceLocation.parse(ResourcesLib.MISC_PLANET + "4.png"),
+			ResourceLocation.parse(ResourcesLib.MISC_PLANET + "5.png")
 	};
 
 	public static void renderExtra(PoseStack ms, ClientLevel world, float partialTicks, float insideVoid) {
@@ -68,12 +70,12 @@ public class SkyblockSkyRenderer {
 			RenderSystem.setShader(GameRenderer::getPositionTexShader);
 			RenderSystem.setShaderTexture(0, planetTextures[p]);
 			Matrix4f mat = ms.last().pose();
-			tessellator.getBuilder().begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
-			tessellator.getBuilder().vertex(mat, -scale, 100, -scale).uv(0.0F, 0.0F).endVertex();
-			tessellator.getBuilder().vertex(mat, scale, 100, -scale).uv(1.0F, 0.0F).endVertex();
-			tessellator.getBuilder().vertex(mat, scale, 100, scale).uv(1.0F, 1.0F).endVertex();
-			tessellator.getBuilder().vertex(mat, -scale, 100, scale).uv(0.0F, 1.0F).endVertex();
-			tessellator.end();
+			BufferBuilder planetBuf = tessellator.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
+			planetBuf.addVertex(mat, -scale, 100, -scale).setUv(0.0F, 0.0F);
+			planetBuf.addVertex(mat, scale, 100, -scale).setUv(1.0F, 0.0F);
+			planetBuf.addVertex(mat, scale, 100, scale).setUv(1.0F, 1.0F);
+			planetBuf.addVertex(mat, -scale, 100, scale).setUv(0.0F, 1.0F);
+			BufferUploader.drawWithShader(planetBuf.buildOrThrow());
 
 			switch (p) {
 				case 0 -> {
@@ -125,7 +127,7 @@ public class SkyblockSkyRenderer {
 			ms.mulPose(VecHelper.rotateY((ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks) * 0.25F * rotSpeed * rotSpeedMod));
 
 			Matrix4f mat = ms.last().pose();
-			tessellator.getBuilder().begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
+			BufferBuilder rayBuf = tessellator.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
 			for (int i = 0; i < angles; i++) {
 				int j = i;
 				if (i % 2 == 0) {
@@ -139,15 +141,15 @@ public class SkyblockSkyRenderer {
 
 				float ut = ang * uPer;
 				if (i % 2 == 0) {
-					tessellator.getBuilder().vertex(mat, xp, yo + y0 + y, zp).uv(ut, 1F).endVertex();
-					tessellator.getBuilder().vertex(mat, xp, yo + y0, zp).uv(ut, 0).endVertex();
+					rayBuf.addVertex(mat, xp, yo + y0 + y, zp).setUv(ut, 1F);
+					rayBuf.addVertex(mat, xp, yo + y0, zp).setUv(ut, 0);
 				} else {
-					tessellator.getBuilder().vertex(mat, xp, yo + y0, zp).uv(ut, 0).endVertex();
-					tessellator.getBuilder().vertex(mat, xp, yo + y0 + y, zp).uv(ut, 1F).endVertex();
+					rayBuf.addVertex(mat, xp, yo + y0, zp).setUv(ut, 0);
+					rayBuf.addVertex(mat, xp, yo + y0 + y, zp).setUv(ut, 1F);
 				}
 
 			}
-			tessellator.end();
+			BufferUploader.drawWithShader(rayBuf.buildOrThrow());
 
 			switch (p) {
 				case 0 -> {
@@ -187,7 +189,7 @@ public class SkyblockSkyRenderer {
 		ms.mulPose(VecHelper.rotateZ(angle2));
 
 		Matrix4f mat = ms.last().pose();
-		tessellator.getBuilder().begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
+		BufferBuilder rainbowBuf = tessellator.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
 		for (int i = 0; i < angles; i++) {
 			int j = i;
 			if (i % 2 == 0) {
@@ -201,15 +203,15 @@ public class SkyblockSkyRenderer {
 
 			float ut = ang * uPer;
 			if (i % 2 == 0) {
-				tessellator.getBuilder().vertex(mat, xp, yo + y0 + y, zp).uv(ut, 1F).endVertex();
-				tessellator.getBuilder().vertex(mat, xp, yo + y0, zp).uv(ut, 0).endVertex();
+				rainbowBuf.addVertex(mat, xp, yo + y0 + y, zp).setUv(ut, 1F);
+				rainbowBuf.addVertex(mat, xp, yo + y0, zp).setUv(ut, 0);
 			} else {
-				tessellator.getBuilder().vertex(mat, xp, yo + y0, zp).uv(ut, 0).endVertex();
-				tessellator.getBuilder().vertex(mat, xp, yo + y0 + y, zp).uv(ut, 1F).endVertex();
+				rainbowBuf.addVertex(mat, xp, yo + y0, zp).setUv(ut, 0);
+				rainbowBuf.addVertex(mat, xp, yo + y0 + y, zp).setUv(ut, 1F);
 			}
 
 		}
-		tessellator.end();
+		BufferUploader.drawWithShader(rainbowBuf.buildOrThrow());
 		ms.popPose();
 		RenderSystem.setShaderColor(1F, 1F, 1F, 1F - insideVoid);
 		GlStateManager._blendFuncSeparate(770, 1, 1, 0);

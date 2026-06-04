@@ -9,17 +9,16 @@
 package vazkii.botania.common.crafting;
 
 import com.google.common.collect.ImmutableList;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 
 import net.minecraft.core.NonNullList;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.GsonHelper;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraft.world.item.crafting.ShapedRecipe;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -31,15 +30,17 @@ import java.util.List;
 import java.util.Optional;
 
 public class ElvenTradeRecipe implements vazkii.botania.api.recipe.ElvenTradeRecipe {
-	private final ResourceLocation id;
 	private final ImmutableList<ItemStack> outputs;
 	private final NonNullList<Ingredient> inputs;
 
-	public ElvenTradeRecipe(ResourceLocation id, ItemStack[] outputs, Ingredient... inputs) {
-		this.id = id;
+	public ElvenTradeRecipe(List<ItemStack> outputs, List<Ingredient> inputs) {
 		this.outputs = ImmutableList.copyOf(outputs);
 		this.inputs = NonNullList.create();
-		this.inputs.addAll(Arrays.asList(inputs));
+		this.inputs.addAll(inputs);
+	}
+
+	public ElvenTradeRecipe(ItemStack[] outputs, Ingredient... inputs) {
+		this(Arrays.asList(outputs), Arrays.asList(inputs));
 	}
 
 	@Override
@@ -104,12 +105,6 @@ public class ElvenTradeRecipe implements vazkii.botania.api.recipe.ElvenTradeRec
 		return new ItemStack(BotaniaBlocks.alfPortal);
 	}
 
-	@NotNull
-	@Override
-	public ResourceLocation getId() {
-		return id;
-	}
-
 	@Override
 	public List<ItemStack> getOutputs() {
 		return outputs;
@@ -121,56 +116,27 @@ public class ElvenTradeRecipe implements vazkii.botania.api.recipe.ElvenTradeRec
 	}
 
 	public static class Serializer implements RecipeSerializer<ElvenTradeRecipe> {
+		public static final MapCodec<ElvenTradeRecipe> CODEC = RecordCodecBuilder.mapCodec(inst -> inst.group(
+				ItemStack.STRICT_CODEC.listOf().fieldOf("output").forGetter(r -> r.outputs),
+				Ingredient.CODEC_NONEMPTY.listOf().fieldOf("ingredients").forGetter(r -> r.inputs)
+		).apply(inst, ElvenTradeRecipe::new));
+
+		public static final StreamCodec<RegistryFriendlyByteBuf, ElvenTradeRecipe> STREAM_CODEC =
+				StreamCodec.composite(
+						ItemStack.STREAM_CODEC.apply(ByteBufCodecs.list()), r -> r.outputs,
+						Ingredient.CONTENTS_STREAM_CODEC.apply(ByteBufCodecs.list()), r -> new ArrayList<>(r.inputs),
+						ElvenTradeRecipe::new);
 
 		@NotNull
 		@Override
-		public ElvenTradeRecipe fromJson(@NotNull ResourceLocation id, @NotNull JsonObject json) {
-			JsonElement output = json.get("output");
-			List<ItemStack> outputStacks = new ArrayList<>();
-			if (output.isJsonArray()) {
-				for (JsonElement e : output.getAsJsonArray()) {
-					JsonObject o = GsonHelper.convertToJsonObject(e, "output stack");
-					outputStacks.add(ShapedRecipe.itemStackFromJson(o));
-				}
-			} else {
-				JsonObject o = GsonHelper.convertToJsonObject(output, "output stack");
-				outputStacks.add(ShapedRecipe.itemStackFromJson(o));
-			}
-
-			List<Ingredient> inputs = new ArrayList<>();
-			for (JsonElement e : GsonHelper.getAsJsonArray(json, "ingredients")) {
-				Ingredient ing = Ingredient.fromJson(e);
-				if (!ing.isEmpty()) {
-					inputs.add(ing);
-				}
-			}
-
-			return new ElvenTradeRecipe(id, outputStacks.toArray(new ItemStack[0]), inputs.toArray(new Ingredient[0]));
+		public MapCodec<ElvenTradeRecipe> codec() {
+			return CODEC;
 		}
 
+		@NotNull
 		@Override
-		public ElvenTradeRecipe fromNetwork(@NotNull ResourceLocation id, FriendlyByteBuf buf) {
-			Ingredient[] inputs = new Ingredient[buf.readVarInt()];
-			for (int i = 0; i < inputs.length; i++) {
-				inputs[i] = Ingredient.fromNetwork(buf);
-			}
-			ItemStack[] outputs = new ItemStack[buf.readVarInt()];
-			for (int i = 0; i < outputs.length; i++) {
-				outputs[i] = buf.readItem();
-			}
-			return new ElvenTradeRecipe(id, outputs, inputs);
-		}
-
-		@Override
-		public void toNetwork(FriendlyByteBuf buf, ElvenTradeRecipe recipe) {
-			buf.writeVarInt(recipe.getIngredients().size());
-			for (Ingredient input : recipe.getIngredients()) {
-				input.toNetwork(buf);
-			}
-			buf.writeVarInt(recipe.getOutputs().size());
-			for (ItemStack output : recipe.getOutputs()) {
-				buf.writeItem(output);
-			}
+		public StreamCodec<RegistryFriendlyByteBuf, ElvenTradeRecipe> streamCodec() {
+			return STREAM_CODEC;
 		}
 	}
 }

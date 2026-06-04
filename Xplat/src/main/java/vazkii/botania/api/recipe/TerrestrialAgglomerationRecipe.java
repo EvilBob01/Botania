@@ -20,7 +20,7 @@ import org.jetbrains.annotations.NotNull;
 import vazkii.botania.api.BotaniaAPI;
 
 public interface TerrestrialAgglomerationRecipe extends Recipe<Container> {
-	ResourceLocation TERRA_PLATE_ID = new ResourceLocation(BotaniaAPI.MODID, "terra_plate");
+	ResourceLocation TERRA_PLATE_ID = ResourceLocation.fromNamespaceAndPath(BotaniaAPI.MODID, "terra_plate");
 	ResourceLocation TYPE_ID = TERRA_PLATE_ID;
 
 	int getMana();

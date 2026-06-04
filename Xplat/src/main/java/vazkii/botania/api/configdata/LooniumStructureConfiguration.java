@@ -54,7 +54,7 @@ public class LooniumStructureConfiguration {
 				}
 				return DataResult.success(lsc);
 			});
-	public static final ResourceLocation DEFAULT_CONFIG_ID = new ResourceLocation(BotaniaAPI.MODID, "default");
+	public static final ResourceLocation DEFAULT_CONFIG_ID = ResourceLocation.fromNamespaceAndPath(BotaniaAPI.MODID, "default");
 
 	public final Integer manaCost;
 	public final Integer maxNearbyMobs;

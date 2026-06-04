@@ -25,6 +25,7 @@ import net.minecraft.world.effect.MobEffectUtil;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.core.Holder;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
@@ -62,7 +63,7 @@ public class BaseBrewItem extends Item implements BrewItem, CustomCreativeTabCon
 	}
 
 	@Override
-	public int getUseDuration(ItemStack stack) {
+	public int getUseDuration(ItemStack stack, LivingEntity entity) {
 		return drinkSpeed;
 	}
 
@@ -84,8 +85,8 @@ public class BaseBrewItem extends Item implements BrewItem, CustomCreativeTabCon
 		if (!world.isClientSide) {
 			for (MobEffectInstance effect : getBrew(stack).getPotionEffects(stack)) {
 				MobEffectInstance newEffect = new MobEffectInstance(effect.getEffect(), effect.getDuration(), effect.getAmplifier(), true, true);
-				if (effect.getEffect().isInstantenous()) {
-					effect.getEffect().applyInstantenousEffect(living, living, living, newEffect.getAmplifier(), 1F);
+				if (effect.getEffect().value().isInstantenous()) {
+					effect.getEffect().value().applyInstantenousEffect(living, living, living, newEffect.getAmplifier(), 1F);
 				} else {
 					living.addEffect(newEffect);
 				}
@@ -135,18 +136,19 @@ public class BaseBrewItem extends Item implements BrewItem, CustomCreativeTabCon
 
 	// [VanillaCopy] PotionUtils.addPotionTooltip, with custom effect list
 	public static void addPotionTooltip(List<MobEffectInstance> list, List<Component> lores, float durationFactor) {
-		List<Pair<Attribute, AttributeModifier>> list1 = Lists.newArrayList();
+		List<Pair<Holder<Attribute>, AttributeModifier>> list1 = Lists.newArrayList();
 		if (list.isEmpty()) {
 			lores.add((Component.translatable("effect.none")).withStyle(ChatFormatting.GRAY));
 		} else {
 			for (MobEffectInstance effectinstance : list) {
 				MutableComponent iformattabletextcomponent = Component.translatable(effectinstance.getDescriptionId());
-				MobEffect effect = effectinstance.getEffect();
-				Map<Attribute, AttributeModifier> map = effect.getAttributeModifiers();
+				MobEffect effect = effectinstance.getEffect().value();
+				Map<Holder<Attribute>, AttributeModifier> map = effect.getAttributeModifiers();
 				if (!map.isEmpty()) {
-					for (Map.Entry<Attribute, AttributeModifier> entry : map.entrySet()) {
+					for (Map.Entry<Holder<Attribute>, AttributeModifier> entry : map.entrySet()) {
 						AttributeModifier attributemodifier = entry.getValue();
-						AttributeModifier attributemodifier1 = new AttributeModifier(attributemodifier.getName(), effect.getAttributeModifierValue(effectinstance.getAmplifier(), attributemodifier), attributemodifier.getOperation());
+						double scaledAmount = effect.getAttributeModifierValue(effectinstance.getAmplifier(), attributemodifier);
+						AttributeModifier attributemodifier1 = new AttributeModifier(attributemodifier.id(), scaledAmount, attributemodifier.operation());
 						list1.add(new Pair<>(entry.getKey(), attributemodifier1));
 					}
 				}
@@ -167,21 +169,21 @@ public class BaseBrewItem extends Item implements BrewItem, CustomCreativeTabCon
 			lores.add(Component.empty());
 			lores.add((Component.translatable("potion.whenDrank")).withStyle(ChatFormatting.DARK_PURPLE));
 
-			for (Pair<Attribute, AttributeModifier> pair : list1) {
+			for (Pair<Holder<Attribute>, AttributeModifier> pair : list1) {
 				AttributeModifier attributemodifier2 = pair.getSecond();
-				double d0 = attributemodifier2.getAmount();
+				double d0 = attributemodifier2.amount();
 				double d1;
-				if (attributemodifier2.getOperation() != AttributeModifier.Operation.MULTIPLY_BASE && attributemodifier2.getOperation() != AttributeModifier.Operation.MULTIPLY_TOTAL) {
-					d1 = attributemodifier2.getAmount();
+				if (attributemodifier2.operation() != AttributeModifier.Operation.ADD_MULTIPLIED_BASE && attributemodifier2.operation() != AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL) {
+					d1 = attributemodifier2.amount();
 				} else {
-					d1 = attributemodifier2.getAmount() * 100.0D;
+					d1 = attributemodifier2.amount() * 100.0D;
 				}
 
 				if (d0 > 0.0D) {
-					lores.add((Component.translatable("attribute.modifier.plus." + attributemodifier2.getOperation().toValue(), ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(d1), Component.translatable(pair.getFirst().getDescriptionId()))).withStyle(ChatFormatting.BLUE));
+					lores.add((Component.translatable("attribute.modifier.plus." + attributemodifier2.operation().toValue(), ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(d1), Component.translatable(pair.getFirst().value().getDescriptionId()))).withStyle(ChatFormatting.BLUE));
 				} else if (d0 < 0.0D) {
 					d1 = d1 * -1.0D;
-					lores.add((Component.translatable("attribute.modifier.take." + attributemodifier2.getOperation().toValue(), ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(d1), Component.translatable(pair.getFirst().getDescriptionId()))).withStyle(ChatFormatting.RED));
+					lores.add((Component.translatable("attribute.modifier.take." + attributemodifier2.operation().toValue(), ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(d1), Component.translatable(pair.getFirst().value().getDescriptionId()))).withStyle(ChatFormatting.RED));
 				}
 			}
 		}
@@ -214,7 +216,7 @@ public class BaseBrewItem extends Item implements BrewItem, CustomCreativeTabCon
 
 	@NotNull
 	public static String getSubtype(ItemStack stack) {
-		return stack.hasTag() ? ItemNBTHelper.getString(stack, TAG_BREW_KEY, "none") : "none";
+		return ItemNBTHelper.verifyExistance(stack, TAG_BREW_KEY) ? ItemNBTHelper.getString(stack, TAG_BREW_KEY, "none") : "none";
 	}
 
 	public int getSwigs() {

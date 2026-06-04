@@ -314,8 +314,8 @@ public class LuminizerBlockEntity extends BotaniaBlockEntity implements WandBind
 		}
 
 		@Override
-		protected void defineSynchedData() {
-			entityData.define(EXIT_POS, ManaBurst.NO_SOURCE);
+		protected void defineSynchedData(SynchedEntityData.Builder builder) {
+			builder.define(EXIT_POS, ManaBurst.NO_SOURCE);
 		}
 
 		@Override

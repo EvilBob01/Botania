@@ -31,7 +31,6 @@ import vazkii.botania.common.item.equipment.armor.elementium.ElementiumHelmItem;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 import java.util.function.BiConsumer;
 import java.util.function.Supplier;
 
@@ -42,13 +41,13 @@ public final class PixieHandler {
 	private PixieHandler() {}
 
 	public static final Attribute PIXIE_SPAWN_CHANCE = new RangedAttribute("attribute.name.botania.pixieSpawnChance", 0, 0, 1);
-	private static final Map<EquipmentSlot, UUID> DEFAULT_MODIFIER_UUIDS = Util.make(new EnumMap<>(EquipmentSlot.class), m -> {
-		m.put(EquipmentSlot.HEAD, UUID.fromString("3c1f559c-9ec4-412d-ada0-dbf3e714088e"));
-		m.put(EquipmentSlot.CHEST, UUID.fromString("9631121c-16f0-4ed4-ba0a-0e7a063cb71c"));
-		m.put(EquipmentSlot.LEGS, UUID.fromString("a87117a1-ac15-4b17-9fd5-e98d5fe31ff1"));
-		m.put(EquipmentSlot.FEET, UUID.fromString("ff67d38a-c5be-4a00-90ed-76bb12c45523"));
-		m.put(EquipmentSlot.MAINHAND, UUID.fromString("995829fa-94c0-41bd-b046-0468c509a488"));
-		m.put(EquipmentSlot.OFFHAND, UUID.fromString("34f62de8-f652-4fe7-899f-a8fc938c4940"));
+	private static final Map<EquipmentSlot, ResourceLocation> DEFAULT_MODIFIER_IDS = Util.make(new EnumMap<>(EquipmentSlot.class), m -> {
+		m.put(EquipmentSlot.HEAD, prefix("pixie_spawn_chance_head"));
+		m.put(EquipmentSlot.CHEST, prefix("pixie_spawn_chance_chest"));
+		m.put(EquipmentSlot.LEGS, prefix("pixie_spawn_chance_legs"));
+		m.put(EquipmentSlot.FEET, prefix("pixie_spawn_chance_feet"));
+		m.put(EquipmentSlot.MAINHAND, prefix("pixie_spawn_chance_mainhand"));
+		m.put(EquipmentSlot.OFFHAND, prefix("pixie_spawn_chance_offhand"));
 	});
 
 	private static final List<Supplier<MobEffectInstance>> effectSuppliers = List.of(
@@ -63,7 +62,7 @@ public final class PixieHandler {
 	}
 
 	public static AttributeModifier makeModifier(EquipmentSlot slot, String name, double amount) {
-		return new AttributeModifier(DEFAULT_MODIFIER_UUIDS.get(slot), name, amount, AttributeModifier.Operation.ADDITION);
+		return new AttributeModifier(DEFAULT_MODIFIER_IDS.get(slot), amount, AttributeModifier.Operation.ADD_VALUE);
 	}
 
 	public static void onDamageTaken(Player player, DamageSource source) {

@@ -9,10 +9,13 @@
 package vazkii.botania.common.item.equipment.tool;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Tier;
+import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
@@ -81,7 +84,10 @@ public class VitreousPickaxeItem extends ManasteelPickaxeItem {
 		}
 
 		itemstack.enchant(Enchantments.SILK_TOUCH, 1);
-		itemstack.getTag().putBoolean(TAG_SILK_HACK, true);
+		// Set silk hack flag in custom data
+		CompoundTag silkHackTag = itemstack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
+		silkHackTag.putBoolean(TAG_SILK_HACK, true);
+		itemstack.set(DataComponents.CUSTOM_DATA, CustomData.of(silkHackTag));
 
 		return false;
 	}
@@ -89,8 +95,14 @@ public class VitreousPickaxeItem extends ManasteelPickaxeItem {
 	@Override
 	public void inventoryTick(ItemStack stack, Level world, Entity player, int slot, boolean selected) {
 		super.inventoryTick(stack, world, player, slot, selected);
-		if (stack.getOrCreateTag().getBoolean(TAG_SILK_HACK)) {
-			stack.getTag().remove(TAG_SILK_HACK);
+		CompoundTag customTag = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
+		if (customTag.getBoolean(TAG_SILK_HACK)) {
+			customTag.remove(TAG_SILK_HACK);
+			if (customTag.isEmpty()) {
+				stack.remove(DataComponents.CUSTOM_DATA);
+			} else {
+				stack.set(DataComponents.CUSTOM_DATA, CustomData.of(customTag));
+			}
 			Map<Enchantment, Integer> ench = EnchantmentHelper.deserializeEnchantments(stack.getEnchantmentTags());
 			ench.remove(Enchantments.SILK_TOUCH);
 			EnchantmentHelper.setEnchantments(ench, stack);

@@ -26,8 +26,8 @@ import vazkii.botania.common.item.ManaBlasterItem;
 public class ManaBlasterRemoveLensRecipe extends CustomRecipe {
 	public static final NoOpRecipeSerializer<ManaBlasterRemoveLensRecipe> SERIALIZER = new NoOpRecipeSerializer<>(ManaBlasterRemoveLensRecipe::new);
 
-	public ManaBlasterRemoveLensRecipe(ResourceLocation id) {
-		super(id, CraftingBookCategory.EQUIPMENT);
+	public ManaBlasterRemoveLensRecipe() {
+		super(CraftingBookCategory.EQUIPMENT);
 	}
 
 	@Override

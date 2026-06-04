@@ -35,8 +35,8 @@ public abstract class SparkBaseEntity extends Entity implements SparkEntity, Man
 	}
 
 	@Override
-	protected void defineSynchedData() {
-		entityData.define(NETWORK, 0);
+	protected void defineSynchedData(SynchedEntityData.Builder builder) {
+		builder.define(NETWORK, 0);
 	}
 
 	@Override

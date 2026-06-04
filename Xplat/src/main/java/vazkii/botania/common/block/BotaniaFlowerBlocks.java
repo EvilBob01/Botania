@@ -10,7 +10,6 @@ package vazkii.botania.common.block;
 
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -40,7 +39,7 @@ import java.util.function.BiConsumer;
 import java.util.function.Supplier;
 
 public class BotaniaFlowerBlocks {
-	private static final BlockBehaviour.Properties FLOWER_PROPS = BlockBehaviour.Properties.copy(Blocks.POPPY);
+	private static final BlockBehaviour.Properties FLOWER_PROPS = BlockBehaviour.Properties.ofFullCopy(Blocks.POPPY);
 	private static final BlockBehaviour.Properties FLOATING_PROPS = BotaniaBlocks.FLOATING_PROPS;
 
 	public static final Block pureDaisy = createSpecialFlowerBlock(BotaniaMobEffects.clear, 1, FLOWER_PROPS, () -> BotaniaFlowerBlocks.PURE_DAISY);
@@ -295,15 +294,15 @@ public class BotaniaFlowerBlocks {
 	public static final BlockEntityType<OrechidIgnemBlockEntity> ORECHID_IGNEM = XplatAbstractions.INSTANCE.createBlockEntityType(OrechidIgnemBlockEntity::new, orechidIgnem, orechidIgnemFloating);
 
 	private static ResourceLocation floating(ResourceLocation orig) {
-		return new ResourceLocation(orig.getNamespace(), "floating_" + orig.getPath());
+		return ResourceLocation.fromNamespaceAndPath(orig.getNamespace(), "floating_" + orig.getPath());
 	}
 
 	private static ResourceLocation potted(ResourceLocation orig) {
-		return new ResourceLocation(orig.getNamespace(), "potted_" + orig.getPath());
+		return ResourceLocation.fromNamespaceAndPath(orig.getNamespace(), "potted_" + orig.getPath());
 	}
 
 	private static ResourceLocation chibi(ResourceLocation orig) {
-		return new ResourceLocation(orig.getNamespace(), orig.getPath() + "_chibi");
+		return ResourceLocation.fromNamespaceAndPath(orig.getNamespace(), orig.getPath() + "_chibi");
 	}
 
 	private static ResourceLocation getId(Block b) {
@@ -756,7 +755,7 @@ public class BotaniaFlowerBlocks {
 		registerBlocks((block, resourceLocation) -> {
 			if (block instanceof FlowerPotBlock) {
 				var id = getId(block);
-				consumer.accept(new ResourceLocation(id.getNamespace(), id.getPath().substring(LibBlockNames.POTTED_PREFIX.length())), () -> block);
+				consumer.accept(ResourceLocation.fromNamespaceAndPath(id.getNamespace(), id.getPath().substring(LibBlockNames.POTTED_PREFIX.length())), () -> block);
 			}
 		});
 	}

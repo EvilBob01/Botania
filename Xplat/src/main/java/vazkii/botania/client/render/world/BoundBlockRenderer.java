@@ -9,9 +9,8 @@
 package vazkii.botania.client.render.world;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.BufferBuilder;
+import com.mojang.blaze3d.vertex.ByteBufferBuilder;
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.Tesselator;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 
 import net.minecraft.Util;
@@ -41,13 +40,13 @@ import java.util.Map;
 
 public final class BoundBlockRenderer {
 	private static final MultiBufferSource.BufferSource LINE_BUFFERS = MultiBufferSource.immediateWithBuffers(Util.make(() -> {
-		Map<RenderType, BufferBuilder> ret = new IdentityHashMap<>();
-		ret.put(RenderHelper.LINE_1_NO_DEPTH, new BufferBuilder(RenderHelper.LINE_1_NO_DEPTH.bufferSize()));
-		ret.put(RenderHelper.LINE_4_NO_DEPTH, new BufferBuilder(RenderHelper.LINE_4_NO_DEPTH.bufferSize()));
-		ret.put(RenderHelper.LINE_5_NO_DEPTH, new BufferBuilder(RenderHelper.LINE_5_NO_DEPTH.bufferSize()));
-		ret.put(RenderHelper.LINE_8_NO_DEPTH, new BufferBuilder(RenderHelper.LINE_8_NO_DEPTH.bufferSize()));
+		Map<RenderType, ByteBufferBuilder> ret = new IdentityHashMap<>();
+		ret.put(RenderHelper.LINE_1_NO_DEPTH, new ByteBufferBuilder(RenderHelper.LINE_1_NO_DEPTH.bufferSize()));
+		ret.put(RenderHelper.LINE_4_NO_DEPTH, new ByteBufferBuilder(RenderHelper.LINE_4_NO_DEPTH.bufferSize()));
+		ret.put(RenderHelper.LINE_5_NO_DEPTH, new ByteBufferBuilder(RenderHelper.LINE_5_NO_DEPTH.bufferSize()));
+		ret.put(RenderHelper.LINE_8_NO_DEPTH, new ByteBufferBuilder(RenderHelper.LINE_8_NO_DEPTH.bufferSize()));
 		return ret;
-	}), Tesselator.getInstance().getBuilder());
+	}), new ByteBufferBuilder(1536));
 
 	private BoundBlockRenderer() {}
 

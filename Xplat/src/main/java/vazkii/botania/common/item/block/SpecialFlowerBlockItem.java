@@ -9,6 +9,7 @@
 package vazkii.botania.common.item.block;
 
 import net.minecraft.ChatFormatting;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -18,6 +19,7 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 
@@ -62,15 +64,21 @@ public class SpecialFlowerBlockItem extends BlockItem {
 		}
 	}
 
+	/** Returns the block entity NBT stored in this item's BLOCK_ENTITY_DATA component, or null. */
+	private static CompoundTag getBlockEntityTag(ItemStack stack) {
+		CustomData data = stack.getOrDefault(DataComponents.BLOCK_ENTITY_DATA, CustomData.EMPTY);
+		return data.isEmpty() ? null : data.copyTag();
+	}
+
 	@Override
 	public boolean isBarVisible(ItemStack stack) {
-		CompoundTag tag = stack.getTagElement("BlockEntityTag");
+		CompoundTag tag = getBlockEntityTag(stack);
 		return tag != null && tag.contains(HydroangeasBlockEntity.TAG_PASSIVE_DECAY_TICKS);
 	}
 
 	@Override
 	public int getBarWidth(ItemStack stack) {
-		CompoundTag tag = stack.getTagElement("BlockEntityTag");
+		CompoundTag tag = getBlockEntityTag(stack);
 		if (tag != null) {
 			float frac = 1 - tag.getInt(HydroangeasBlockEntity.TAG_PASSIVE_DECAY_TICKS) / (float) HydroangeasBlockEntity.DECAY_TIME;
 			return Math.round(13F * frac);
@@ -80,7 +88,7 @@ public class SpecialFlowerBlockItem extends BlockItem {
 
 	@Override
 	public int getBarColor(ItemStack stack) {
-		CompoundTag tag = stack.getTagElement("BlockEntityTag");
+		CompoundTag tag = getBlockEntityTag(stack);
 		if (tag != null) {
 			float frac = 1 - tag.getInt(HydroangeasBlockEntity.TAG_PASSIVE_DECAY_TICKS) / (float) HydroangeasBlockEntity.DECAY_TIME;
 			return Mth.hsvToRgb(frac / 3.0F, 1.0F, 1.0F);

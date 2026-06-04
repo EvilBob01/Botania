@@ -26,8 +26,8 @@ import vazkii.botania.common.item.ResoluteIvyItem;
 public class ResoluteIvyRecipe extends CustomRecipe {
 	public static final NoOpRecipeSerializer<ResoluteIvyRecipe> SERIALIZER = new NoOpRecipeSerializer<>(ResoluteIvyRecipe::new);
 
-	public ResoluteIvyRecipe(ResourceLocation id) {
-		super(id, CraftingBookCategory.EQUIPMENT);
+	public ResoluteIvyRecipe() {
+		super(CraftingBookCategory.EQUIPMENT);
 	}
 
 	@Override

@@ -1,33 +1,44 @@
 package vazkii.botania.common.crafting.recipe;
 
-import com.google.gson.JsonObject;
+import com.mojang.serialization.MapCodec;
 
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 
-import java.util.function.Function;
+import java.util.function.Supplier;
 
-// Serializer for dynamic recipes that don't have a json/network representation
-// The recipe type fully identifies the recipe
+// Serializer for dynamic recipes that don't have a json/network representation.
+// The recipe type fully identifies the recipe; a fixed instance is used.
 public class NoOpRecipeSerializer<T extends Recipe<?>> implements RecipeSerializer<T> {
-	private final Function<ResourceLocation, T> constructor;
+	private final Supplier<T> constructor;
+	private final MapCodec<T> codec;
+	private final StreamCodec<RegistryFriendlyByteBuf, T> streamCodec;
 
-	public NoOpRecipeSerializer(Function<ResourceLocation, T> constructor) {
+	public NoOpRecipeSerializer(Supplier<T> constructor) {
 		this.constructor = constructor;
+		// Codec always returns the same singleton instance
+		this.codec = MapCodec.unit(constructor::get);
+		this.streamCodec = StreamCodec.of(
+				(buf, recipe) -> {},
+				buf -> constructor.get()
+		);
+	}
+
+	/** Legacy constructor accepting a Function<ResourceLocation, T>; ResourceLocation is ignored in 1.21. */
+	public NoOpRecipeSerializer(java.util.function.Function<ResourceLocation, T> constructor) {
+		this(() -> constructor.apply(new ResourceLocation("botania", "noop")));
 	}
 
 	@Override
-	public T fromJson(ResourceLocation recipeId, JsonObject serializedRecipe) {
-		return this.constructor.apply(recipeId);
+	public MapCodec<T> codec() {
+		return codec;
 	}
 
 	@Override
-	public T fromNetwork(ResourceLocation recipeId, FriendlyByteBuf buffer) {
-		return this.constructor.apply(recipeId);
+	public StreamCodec<RegistryFriendlyByteBuf, T> streamCodec() {
+		return streamCodec;
 	}
-
-	@Override
-	public void toNetwork(FriendlyByteBuf buffer, T recipe) {}
 }

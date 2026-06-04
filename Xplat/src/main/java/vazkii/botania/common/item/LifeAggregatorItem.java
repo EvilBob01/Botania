@@ -11,6 +11,7 @@ package vazkii.botania.common.item;
 import com.mojang.datafixers.util.Pair;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
@@ -26,6 +27,7 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.SpawnData;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.SpawnerBlockEntity;
 
@@ -51,7 +53,10 @@ public class LifeAggregatorItem extends Item {
 
 	@Nullable
 	private static ResourceLocation getEntityId(ItemStack stack) {
-		CompoundTag tag = stack.getTagElement(TAG_SPAWNER);
+		CustomData customData = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY);
+		if (customData.isEmpty()) return null;
+		CompoundTag rootTag = customData.copyTag();
+		CompoundTag tag = rootTag.contains(TAG_SPAWNER) ? rootTag.getCompound(TAG_SPAWNER) : null;
 		if (tag != null && tag.contains(TAG_SPAWN_DATA)) {
 			tag = tag.getCompound(TAG_SPAWN_DATA);
 			var spawnData = SpawnData.CODEC.parse(NbtOps.INSTANCE, tag);
@@ -105,7 +110,9 @@ public class LifeAggregatorItem extends Item {
 
 				BlockEntity te = world.getBlockEntity(pos);
 				if (te instanceof SpawnerBlockEntity) {
-					CompoundTag spawnerTag = ctx.getItemInHand().getTagElement(TAG_SPAWNER).copy();
+					CustomData customData = ctx.getItemInHand().getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY);
+					CompoundTag rootTag = customData.copyTag();
+					CompoundTag spawnerTag = rootTag.getCompound(TAG_SPAWNER).copy();
 					spawnerTag.putInt("x", pos.getX());
 					spawnerTag.putInt("y", pos.getY());
 					spawnerTag.putInt("z", pos.getZ());

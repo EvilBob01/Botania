@@ -45,7 +45,7 @@ public class TectonicGirdleItem extends BaubleItem {
 	@Override
 	public Multimap<Attribute, AttributeModifier> getEquippedAttributeModifiers(ItemStack stack) {
 		Multimap<Attribute, AttributeModifier> attributes = HashMultimap.create();
-		attributes.put(Attributes.KNOCKBACK_RESISTANCE, new AttributeModifier(getBaubleUUID(stack), "Knockback Belt", 1, AttributeModifier.Operation.ADDITION));
+		attributes.put(Attributes.KNOCKBACK_RESISTANCE, new AttributeModifier(ResourceLocation.fromNamespaceAndPath("botania", "tectonic_girdle_knockback_resistance"), 1, AttributeModifier.Operation.ADD_VALUE));
 		return attributes;
 	}
 

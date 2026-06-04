@@ -8,6 +8,8 @@
  */
 package vazkii.botania.common.brew;
 
+import net.minecraft.core.Holder;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffect;
 
@@ -26,6 +28,30 @@ public class BotaniaMobEffects {
 	public static final MobEffect bloodthrst = new BloodthirstMobEffect();
 	public static final MobEffect allure = new AllureMobEffect();
 	public static final MobEffect clear = new AbsolutionMobEffect();
+
+	public static Holder<MobEffect> soulCrossHolder() {
+		return BuiltInRegistries.MOB_EFFECT.wrapAsHolder(soulCross);
+	}
+
+	public static Holder<MobEffect> featherfeetHolder() {
+		return BuiltInRegistries.MOB_EFFECT.wrapAsHolder(featherfeet);
+	}
+
+	public static Holder<MobEffect> emptinessHolder() {
+		return BuiltInRegistries.MOB_EFFECT.wrapAsHolder(emptiness);
+	}
+
+	public static Holder<MobEffect> bloodthrstHolder() {
+		return BuiltInRegistries.MOB_EFFECT.wrapAsHolder(bloodthrst);
+	}
+
+	public static Holder<MobEffect> allureHolder() {
+		return BuiltInRegistries.MOB_EFFECT.wrapAsHolder(allure);
+	}
+
+	public static Holder<MobEffect> clearHolder() {
+		return BuiltInRegistries.MOB_EFFECT.wrapAsHolder(clear);
+	}
 
 	public static void registerPotions(BiConsumer<MobEffect, ResourceLocation> r) {
 		r.accept(soulCross, prefix(LibPotionNames.SOUL_CROSS));

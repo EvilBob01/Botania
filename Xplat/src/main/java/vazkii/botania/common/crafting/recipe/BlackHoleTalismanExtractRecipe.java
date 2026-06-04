@@ -28,8 +28,8 @@ import vazkii.botania.common.item.BotaniaItems;
 public class BlackHoleTalismanExtractRecipe extends CustomRecipe {
 	public static final NoOpRecipeSerializer<BlackHoleTalismanExtractRecipe> SERIALIZER = new NoOpRecipeSerializer<>(BlackHoleTalismanExtractRecipe::new);
 
-	public BlackHoleTalismanExtractRecipe(ResourceLocation id) {
-		super(id, CraftingBookCategory.MISC);
+	public BlackHoleTalismanExtractRecipe() {
+		super(CraftingBookCategory.MISC);
 	}
 
 	@Override

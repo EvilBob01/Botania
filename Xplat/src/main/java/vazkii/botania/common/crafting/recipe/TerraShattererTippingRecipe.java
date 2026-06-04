@@ -25,8 +25,8 @@ import vazkii.botania.common.item.equipment.tool.terrasteel.TerraShattererItem;
 public class TerraShattererTippingRecipe extends CustomRecipe {
 	public static final NoOpRecipeSerializer<TerraShattererTippingRecipe> SERIALIZER = new NoOpRecipeSerializer<>(TerraShattererTippingRecipe::new);
 
-	public TerraShattererTippingRecipe(ResourceLocation id) {
-		super(id, CraftingBookCategory.EQUIPMENT);
+	public TerraShattererTippingRecipe() {
+		super(CraftingBookCategory.EQUIPMENT);
 	}
 
 	@NotNull

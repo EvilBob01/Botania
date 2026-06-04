@@ -25,8 +25,8 @@ import vazkii.botania.api.item.CosmeticBauble;
 public class CosmeticAttachRecipe extends CustomRecipe {
 	public static final NoOpRecipeSerializer<CosmeticAttachRecipe> SERIALIZER = new NoOpRecipeSerializer<>(CosmeticAttachRecipe::new);
 
-	public CosmeticAttachRecipe(ResourceLocation id) {
-		super(id, CraftingBookCategory.EQUIPMENT);
+	public CosmeticAttachRecipe() {
+		super(CraftingBookCategory.EQUIPMENT);
 	}
 
 	@Override

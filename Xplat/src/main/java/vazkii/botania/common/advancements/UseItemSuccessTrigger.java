@@ -8,15 +8,19 @@
  */
 package vazkii.botania.common.advancements;
 
-import com.google.gson.JsonObject;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 
-import net.minecraft.advancements.critereon.*;
+import net.minecraft.advancements.critereon.CriterionTriggerInstance;
+import net.minecraft.advancements.critereon.ItemPredicate;
+import net.minecraft.advancements.critereon.LocationPredicate;
+import net.minecraft.advancements.critereon.SimpleCriterionTrigger;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
 
-import org.jetbrains.annotations.NotNull;
+import java.util.Optional;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
@@ -28,59 +32,39 @@ public class UseItemSuccessTrigger extends SimpleCriterionTrigger<UseItemSuccess
 
 	private UseItemSuccessTrigger() {}
 
-	@NotNull
 	@Override
-	public ResourceLocation getId() {
-		return ID;
-	}
-
-	@NotNull
-	@Override
-	public UseItemSuccessTrigger.Instance createInstance(@NotNull JsonObject json, @NotNull ContextAwarePredicate playerPred, DeserializationContext conditions) {
-		return new UseItemSuccessTrigger.Instance(playerPred, ItemPredicate.fromJson(json.get("item")), LocationPredicate.fromJson(json.get("location")));
+	public Codec<UseItemSuccessTrigger.Instance> codec() {
+		return Instance.CODEC;
 	}
 
 	public void trigger(ServerPlayer player, ItemStack stack, ServerLevel world, double x, double y, double z) {
 		trigger(player, instance -> instance.test(stack, world, x, y, z));
 	}
 
-	public static class Instance extends AbstractCriterionTriggerInstance {
-		private final ItemPredicate item;
-		private final LocationPredicate location;
+	public static class Instance implements CriterionTriggerInstance {
+		public static final Codec<Instance> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+				ItemPredicate.CODEC.optionalFieldOf("item").forGetter(Instance::getItem),
+				LocationPredicate.CODEC.optionalFieldOf("location").forGetter(Instance::getLocation)
+		).apply(instance, Instance::new));
 
-		public Instance(ContextAwarePredicate playerPred, ItemPredicate count, LocationPredicate indexPos) {
-			super(ID, playerPred);
-			this.item = count;
-			this.location = indexPos;
-		}
+		private final Optional<ItemPredicate> item;
+		private final Optional<LocationPredicate> location;
 
-		@NotNull
-		@Override
-		public ResourceLocation getCriterion() {
-			return ID;
+		public Instance(Optional<ItemPredicate> item, Optional<LocationPredicate> location) {
+			this.item = item;
+			this.location = location;
 		}
 
 		boolean test(ItemStack stack, ServerLevel world, double x, double y, double z) {
-			return this.item.matches(stack) && this.location.matches(world, x, y, z);
+			return this.item.map(p -> p.test(stack)).orElse(true)
+					&& this.location.map(p -> p.matches(world, x, y, z)).orElse(true);
 		}
 
-		public ItemPredicate getItem() {
+		public Optional<ItemPredicate> getItem() {
 			return this.item;
 		}
 
-		@Override
-		public JsonObject serializeToJson(SerializationContext serializationContext) {
-			JsonObject json = super.serializeToJson(serializationContext);
-			if (item != ItemPredicate.ANY) {
-				json.add("item", item.serializeToJson());
-			}
-			if (location != LocationPredicate.ANY) {
-				json.add("location", location.serializeToJson());
-			}
-			return json;
-		}
-
-		public LocationPredicate getLocation() {
+		public Optional<LocationPredicate> getLocation() {
 			return this.location;
 		}
 	}

@@ -11,6 +11,9 @@ package vazkii.botania.common.entity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.damagesource.DamageSource;
@@ -48,7 +51,7 @@ import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class EnderAirBottleEntity extends ThrowableProjectile implements ItemSupplier {
 	public static final int PARTICLE_COLOR = 0x000008;
-	private static final ResourceLocation GHAST_LOOT_TABLE = prefix("ghast_ender_air_crying");
+	private static final ResourceKey<LootTable> GHAST_LOOT_TABLE = ResourceKey.create(Registries.LOOT_TABLE, prefix("ghast_ender_air_crying"));
 
 	public EnderAirBottleEntity(EntityType<EnderAirBottleEntity> type, Level world) {
 		super(type, world);
@@ -107,7 +110,7 @@ public class EnderAirBottleEntity extends ThrowableProjectile implements ItemSup
 					40,
 					Math.abs(vec.z) + 0.15, 0.2, Math.abs(vec.x) + 0.15, 0.2);
 
-			LootTable table = this.level().getServer().getLootData().getLootTable(GHAST_LOOT_TABLE);
+			LootTable table = this.level().getServer().reloadableRegistries().getLootTable(GHAST_LOOT_TABLE);
 			LootParams.Builder builder = new LootParams.Builder(((ServerLevel) level()));
 			builder.withParameter(LootContextParams.THIS_ENTITY, entity);
 			builder.withParameter(LootContextParams.ORIGIN, entity.position());
@@ -147,7 +150,7 @@ public class EnderAirBottleEntity extends ThrowableProjectile implements ItemSup
 	}
 
 	@Override
-	protected void defineSynchedData() {}
+	protected void defineSynchedData(SynchedEntityData.Builder builder) {}
 
 	@NotNull
 	@Override

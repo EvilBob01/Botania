@@ -25,8 +25,8 @@ import vazkii.botania.common.item.BotaniaItems;
 public class PhantomInkRecipe extends CustomRecipe {
 	public static final NoOpRecipeSerializer<PhantomInkRecipe> SERIALIZER = new NoOpRecipeSerializer<>(PhantomInkRecipe::new);
 
-	public PhantomInkRecipe(ResourceLocation id) {
-		super(id, CraftingBookCategory.EQUIPMENT);
+	public PhantomInkRecipe() {
+		super(CraftingBookCategory.EQUIPMENT);
 	}
 
 	@Override

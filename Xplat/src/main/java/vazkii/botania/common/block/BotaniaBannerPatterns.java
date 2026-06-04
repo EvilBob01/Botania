@@ -48,7 +48,7 @@ public final class BotaniaBannerPatterns {
 
 	public static void submitRegistrations(BiConsumer<BannerPattern, ResourceLocation> consumer) {
 		for (var pattern : ALL) {
-			consumer.accept(pattern, new ResourceLocation(pattern.getHashname()));
+			consumer.accept(pattern, ResourceLocation.parse(pattern.getHashname()));
 		}
 	}
 }

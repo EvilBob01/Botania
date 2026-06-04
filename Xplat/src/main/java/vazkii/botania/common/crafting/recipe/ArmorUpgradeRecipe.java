@@ -8,11 +8,11 @@
  */
 package vazkii.botania.common.crafting.recipe;
 
-import com.google.gson.JsonObject;
+import com.mojang.serialization.MapCodec;
 
 import net.minecraft.core.RegistryAccess;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ItemStack;
@@ -23,8 +23,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class ArmorUpgradeRecipe extends ShapedRecipe {
 	public ArmorUpgradeRecipe(ShapedRecipe compose) {
-		super(compose.getId(), compose.getGroup(), compose.category(), compose.getWidth(), compose.getHeight(),
-				compose.getIngredients(),
+		super(compose.getGroup(), compose.category(), compose.pattern(),
 				// XXX: Hacky, but compose should always be a vanilla shaped recipe which doesn't do anything with the
 				// RegistryAccess
 				compose.getResultItem(RegistryAccess.EMPTY));
@@ -53,19 +52,26 @@ public class ArmorUpgradeRecipe extends ShapedRecipe {
 	public static final RecipeSerializer<ArmorUpgradeRecipe> SERIALIZER = new Serializer();
 
 	private static class Serializer implements RecipeSerializer<ArmorUpgradeRecipe> {
+		private static final MapCodec<ArmorUpgradeRecipe> CODEC =
+				ShapedRecipe.Serializer.CODEC.xmap(
+						ArmorUpgradeRecipe::new,
+						r -> r
+				);
+
+		private static final StreamCodec<RegistryFriendlyByteBuf, ArmorUpgradeRecipe> STREAM_CODEC =
+				ShapedRecipe.Serializer.STREAM_CODEC.map(
+						ArmorUpgradeRecipe::new,
+						r -> r
+				);
+
 		@Override
-		public ArmorUpgradeRecipe fromJson(@NotNull ResourceLocation recipeId, @NotNull JsonObject json) {
-			return new ArmorUpgradeRecipe(SHAPED_RECIPE.fromJson(recipeId, json));
+		public MapCodec<ArmorUpgradeRecipe> codec() {
+			return CODEC;
 		}
 
 		@Override
-		public ArmorUpgradeRecipe fromNetwork(@NotNull ResourceLocation recipeId, @NotNull FriendlyByteBuf buffer) {
-			return new ArmorUpgradeRecipe(SHAPED_RECIPE.fromNetwork(recipeId, buffer));
-		}
-
-		@Override
-		public void toNetwork(@NotNull FriendlyByteBuf buffer, @NotNull ArmorUpgradeRecipe recipe) {
-			SHAPED_RECIPE.toNetwork(buffer, recipe);
+		public StreamCodec<RegistryFriendlyByteBuf, ArmorUpgradeRecipe> streamCodec() {
+			return STREAM_CODEC;
 		}
 	}
 }

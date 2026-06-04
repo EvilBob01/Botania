@@ -1,5 +1,5 @@
 modLoader="javafml"
-loaderVersion="[47,)"
+loaderVersion="[4,)"
 license="Botania License"
 issueTrackerURL="https://github.com/Vazkii/Botania/issues"
 logoFile="logo.png"
@@ -13,23 +13,40 @@ description="Botania is a mod that adds nature magic to Minecraft."
 authors="Vazkii, wiiv, williewillus, dylan4ever, Hubry, Alwinfy, artemisSystem, Falkory220"
 credits="Azanor, Flaxbeard, Futureazoo, Rorax, Lorc, Adubbz, WTFG33ks, Auric245524, MegaManki, Kain Vinosec, Kihira, mDiyo, Mikeemoo, ChickenBones, PowerCrystals, cpw, quat1024, ToMe25, Eutro and others"
 
+[[mixins]]
+config="botania_xplat.mixins.json"
+
+[[mixins]]
+config="botania_forge.mixins.json"
+
 itemIcon="botania:cosmetic_botanist_emblem" # custom icon for Catalogue's mod list
 configBackground="botania:textures/block/livingrock_bricks.png" # background for Configured's generated config screen
 
 [[dependencies.botania]]
-    modId="forge"
+    modId="neoforge"
     mandatory=true
-    versionRange="[47.1.3,)"
+    versionRange="[21.1,)"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.botania]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.21.1,1.22)"
+    ordering="NONE"
+    side="BOTH"
 
 [[dependencies.botania]]
     modId="patchouli"
     mandatory=true
-    versionRange="[1.20.1-83,)"
+    # TODO: verify minimum Patchouli version for 1.21.1
+    versionRange="[1.21.1-88,)"
 
 [[dependencies.botania]]
     modId="curios"
     mandatory=true
-    versionRange="[1.20.1-5.4.2,)"
+    # TODO: verify minimum Curios version for 1.21.1
+    versionRange="[9.1,)"
 
 [[dependencies.botania]]
     modId="gardenofglass"

@@ -5,6 +5,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 
@@ -34,23 +35,23 @@ public class LooniumMobAttributeModifier {
 	}
 
 	public AttributeModifier createAttributeModifier() {
-		return new AttributeModifier(name, amount, operation);
+		String path = name.toLowerCase(java.util.Locale.ROOT).replaceAll("[^a-z0-9_.-]", "_");
+		return new AttributeModifier(ResourceLocation.fromNamespaceAndPath("botania", path), amount, operation);
 	}
 
 	private static String operationToString(AttributeModifier.Operation operation) {
 		return switch (operation) {
-			case ADDITION -> "addition";
-			case MULTIPLY_BASE -> "multiply_base";
-			case MULTIPLY_TOTAL -> "multiply_total";
-			default -> throw new IllegalArgumentException("Unknown operation " + operation);
+			case ADD_VALUE -> "addition";
+			case ADD_MULTIPLIED_BASE -> "multiply_base";
+			case ADD_MULTIPLIED_TOTAL -> "multiply_total";
 		};
 	}
 
 	private static AttributeModifier.Operation operationFromString(String operation) {
 		return switch (operation) {
-			case "addition" -> AttributeModifier.Operation.ADDITION;
-			case "multiply_base" -> AttributeModifier.Operation.MULTIPLY_BASE;
-			case "multiply_total" -> AttributeModifier.Operation.MULTIPLY_TOTAL;
+			case "addition" -> AttributeModifier.Operation.ADD_VALUE;
+			case "multiply_base" -> AttributeModifier.Operation.ADD_MULTIPLIED_BASE;
+			case "multiply_total" -> AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL;
 			default -> throw new JsonSyntaxException("Unknown attribute modifier operation " + operation);
 		};
 	}

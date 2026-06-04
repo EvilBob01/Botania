@@ -8,10 +8,9 @@
  */
 package vazkii.botania.data.recipes;
 
-import net.minecraft.advancements.CriterionTriggerInstance;
+import net.minecraft.advancements.Criterion;
 import net.minecraft.advancements.critereon.InventoryChangeTrigger;
 import net.minecraft.advancements.critereon.ItemPredicate;
-import net.minecraft.advancements.critereon.RecipeUnlockedTrigger;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
@@ -21,15 +20,13 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.*;
-import net.minecraft.world.item.alchemy.PotionUtils;
+import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.item.crafting.CraftingRecipe;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-
-import org.apache.commons.lang3.mutable.MutableObject;
 
 import vazkii.botania.api.state.enums.CraftyCratePattern;
 import vazkii.botania.common.block.BotaniaBlocks;
@@ -41,10 +38,8 @@ import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibItemNames;
 import vazkii.botania.common.lib.ResourceLocationHelper;
-import vazkii.botania.mixin.RecipeProviderAccessor;
 
 import java.util.List;
-import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -54,50 +49,45 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 	}
 
 	@Override
-	public void buildRecipes(Consumer<FinishedRecipe> consumer) {
-		specialRecipe(consumer, AncientWillRecipe.SERIALIZER);
-		specialRecipe(consumer, BlackHoleTalismanExtractRecipe.SERIALIZER);
-		specialRecipe(consumer, CompositeLensRecipe.SERIALIZER);
-		specialRecipe(consumer, CosmeticAttachRecipe.SERIALIZER);
-		specialRecipe(consumer, CosmeticRemoveRecipe.SERIALIZER);
-		specialRecipe(consumer, ResoluteIvyRecipe.SERIALIZER);
-		specialRecipe(consumer, LaputaShardUpgradeRecipe.SERIALIZER);
-		specialRecipe(consumer, LensDyeingRecipe.SERIALIZER);
-		specialRecipe(consumer, ManaBlasterClipRecipe.SERIALIZER);
-		specialRecipe(consumer, ManaBlasterLensRecipe.SERIALIZER);
-		specialRecipe(consumer, ManaBlasterRemoveLensRecipe.SERIALIZER);
-		specialRecipe(consumer, MergeVialRecipe.SERIALIZER);
-		specialRecipe(consumer, PhantomInkRecipe.SERIALIZER);
-		specialRecipe(consumer, SpellbindingClothRecipe.SERIALIZER);
-		specialRecipe(consumer, SplitLensRecipe.SERIALIZER);
-		specialRecipe(consumer, TerraShattererTippingRecipe.SERIALIZER);
+	public void buildRecipes(RecipeOutput output) {
+		specialRecipe(output, AncientWillRecipe.SERIALIZER);
+		specialRecipe(output, BlackHoleTalismanExtractRecipe.SERIALIZER);
+		specialRecipe(output, CompositeLensRecipe.SERIALIZER);
+		specialRecipe(output, CosmeticAttachRecipe.SERIALIZER);
+		specialRecipe(output, CosmeticRemoveRecipe.SERIALIZER);
+		specialRecipe(output, ResoluteIvyRecipe.SERIALIZER);
+		specialRecipe(output, LaputaShardUpgradeRecipe.SERIALIZER);
+		specialRecipe(output, LensDyeingRecipe.SERIALIZER);
+		specialRecipe(output, ManaBlasterClipRecipe.SERIALIZER);
+		specialRecipe(output, ManaBlasterLensRecipe.SERIALIZER);
+		specialRecipe(output, ManaBlasterRemoveLensRecipe.SERIALIZER);
+		specialRecipe(output, MergeVialRecipe.SERIALIZER);
+		specialRecipe(output, PhantomInkRecipe.SERIALIZER);
+		specialRecipe(output, SpellbindingClothRecipe.SERIALIZER);
+		specialRecipe(output, SplitLensRecipe.SERIALIZER);
+		specialRecipe(output, TerraShattererTippingRecipe.SERIALIZER);
 
-		registerMain(consumer);
-		registerMisc(consumer);
-		registerTools(consumer);
-		registerTrinkets(consumer);
-		registerLenses(consumer);
-		registerCorporeaAndRedString(consumer);
-		registerFloatingFlowers(consumer);
-		registerConversions(consumer);
-		registerDecor(consumer);
+		registerMain(output);
+		registerMisc(output);
+		registerTools(output);
+		registerTrinkets(output);
+		registerLenses(output);
+		registerCorporeaAndRedString(output);
+		registerFloatingFlowers(output);
+		registerConversions(output);
+		registerDecor(output);
 	}
 
-	public static InventoryChangeTrigger.TriggerInstance conditionsFromItem(ItemLike item) {
-		return RecipeProviderAccessor.botania_condition(ItemPredicate.Builder.item().of(item).build());
+	public static Criterion<InventoryChangeTrigger.TriggerInstance> conditionsFromItem(ItemLike item) {
+		return InventoryChangeTrigger.TriggerInstance.hasItems(item);
 	}
 
-	private static InventoryChangeTrigger.TriggerInstance conditionsFromItems(ItemLike... items) {
-		ItemPredicate[] preds = new ItemPredicate[items.length];
-		for (int i = 0; i < items.length; i++) {
-			preds[i] = ItemPredicate.Builder.item().of(items[i]).build();
-		}
-
-		return RecipeProviderAccessor.botania_condition(preds);
+	private static Criterion<InventoryChangeTrigger.TriggerInstance> conditionsFromItems(ItemLike... items) {
+		return InventoryChangeTrigger.TriggerInstance.hasItems(items);
 	}
 
-	public static InventoryChangeTrigger.TriggerInstance conditionsFromTag(TagKey<Item> tag) {
-		return RecipeProviderAccessor.botania_condition(ItemPredicate.Builder.item().of(tag).build());
+	public static Criterion<InventoryChangeTrigger.TriggerInstance> conditionsFromTag(TagKey<Item> tag) {
+		return InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item().of(tag).build());
 	}
 
 	/** Addons: override this to return your modid */
@@ -105,9 +95,9 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 		return ResourceLocationHelper.prefix(path);
 	}
 
-	private void registerMain(Consumer<FinishedRecipe> consumer) {
-		MutableObject<FinishedRecipe> base = new MutableObject<>();
-		MutableObject<FinishedRecipe> gog = new MutableObject<>();
+	private void registerMain(RecipeOutput output) {
+		GogAlternationResult.RecipeCapture base = new GogAlternationResult.RecipeCapture();
+		GogAlternationResult.RecipeCapture gog = new GogAlternationResult.RecipeCapture();
 		ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, BotaniaBlocks.manaSpreader)
 				.define('P', BotaniaTags.Items.PETALS)
 				.define('W', BotaniaTags.Items.LIVINGWOOD_LOGS)
@@ -117,7 +107,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern("WWW")
 				.group("botania:spreader")
 				.unlockedBy("has_item", conditionsFromTag(BotaniaTags.Items.LIVINGWOOD_LOGS))
-				.save(base::setValue);
+				.save(base);
 		ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, BotaniaBlocks.manaSpreader)
 				.define('P', BotaniaTags.Items.PETALS)
 				.define('W', BotaniaTags.Items.LIVINGWOOD_LOGS)
@@ -126,14 +116,14 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern("WWW")
 				.group("botania:spreader")
 				.unlockedBy("has_item", conditionsFromTag(BotaniaTags.Items.LIVINGWOOD_LOGS))
-				.save(gog::setValue);
-		consumer.accept(new GogAlternationResult(gog.getValue(), base.getValue()));
+				.save(gog);
+		new GogAlternationResult(gog, base).save(output);
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.REDSTONE, BotaniaBlocks.redstoneSpreader)
 				.requires(BotaniaBlocks.manaSpreader)
 				.requires(Items.REDSTONE)
 				.group("botania:spreader")
 				.unlockedBy("has_item", conditionsFromItem(BotaniaBlocks.manaSpreader))
-				.save(consumer);
+				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, BotaniaBlocks.elvenSpreader)
 				.define('P', BotaniaTags.Items.PETALS)
 				.define('E', BotaniaTags.Items.INGOTS_ELEMENTIUM)
@@ -144,33 +134,33 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.group("botania:spreader")
 				.unlockedBy("has_item", conditionsFromTag(BotaniaTags.Items.INGOTS_ELEMENTIUM))
 				.unlockedBy("has_alt_item", conditionsFromTag(BotaniaTags.Items.DREAMWOOD_LOGS))
-				.save(consumer);
+				.save(output);
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.REDSTONE, BotaniaBlocks.gaiaSpreader)
 				.requires(BotaniaBlocks.elvenSpreader)
 				.requires(BotaniaTags.Items.GEMS_DRAGONSTONE)
 				.requires(BotaniaItems.lifeEssence)
 				.group("botania:spreader")
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.lifeEssence))
-				.save(consumer);
+				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, BotaniaBlocks.manaPool)
 				.define('R', BotaniaBlocks.livingrock)
 				.pattern("R R")
 				.pattern("RRR")
 				.unlockedBy("has_item", conditionsFromItem(BotaniaBlocks.livingrock))
-				.save(consumer);
+				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, BotaniaBlocks.dilutedPool)
 				.define('R', BotaniaBlocks.livingrockSlab)
 				.pattern("R R")
 				.pattern("RRR")
 				.unlockedBy("has_item", conditionsFromItem(BotaniaBlocks.livingrock))
-				.save(consumer);
+				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, BotaniaBlocks.fabulousPool)
 				.define('R', BotaniaBlocks.shimmerrock)
 				.pattern("R R")
 				.pattern("RRR")
 				.unlockedBy("has_item", conditionsFromItem(BotaniaBlocks.shimmerrock))
 				.unlockedBy("has_alt_item", conditionsFromItem(BotaniaItems.rainbowRod))
-				.save(consumer);
+				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, BotaniaBlocks.fabulousPool)
 				.define('P', BotaniaBlocks.manaPool)
 				.define('B', BotaniaBlocks.bifrostPerm)
@@ -178,21 +168,21 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern("BBB")
 				.unlockedBy("has_item", conditionsFromItem(BotaniaBlocks.bifrostPerm))
 				.unlockedBy("has_alt_item", conditionsFromItem(BotaniaItems.rainbowRod))
-				.save(consumer, prefix(BuiltInRegistries.ITEM.getKey(BotaniaBlocks.fabulousPool.asItem()).getPath() + "_upgrade"));
+				.save(output,prefix(BuiltInRegistries.ITEM.getKey(BotaniaBlocks.fabulousPool.asItem()).getPath() + "_upgrade"));
 		ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, BotaniaBlocks.runeAltar)
 				.define('P', BotaniaItems.manaPearl)
 				.define('S', BotaniaBlocks.livingrock)
 				.pattern("SSS")
 				.pattern("SPS")
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.manaPearl))
-				.save(consumer);
+				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, BotaniaBlocks.runeAltar)
 				.define('P', BotaniaTags.Items.GEMS_MANA_DIAMOND)
 				.define('S', BotaniaBlocks.livingrock)
 				.pattern("SSS")
 				.pattern("SPS")
 				.unlockedBy("has_item", conditionsFromTag(BotaniaTags.Items.GEMS_MANA_DIAMOND))
-				.save(consumer, prefix("runic_altar_alt"));
+				.save(output,prefix("runic_altar_alt"));
 		ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, BotaniaBlocks.manaPylon)
 				.define('D', BotaniaTags.Items.GEMS_MANA_DIAMOND)
 				.define('G', Items.GOLD_INGOT)
@@ -201,7 +191,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern("MDM")
 				.pattern(" G ")
 				.unlockedBy("has_item", conditionsFromTag(BotaniaTags.Items.GEMS_MANA_DIAMOND))
-				.save(consumer);
+				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, BotaniaBlocks.naturaPylon)
 				.define('P', BotaniaBlocks.manaPylon)
 				.define('T', BotaniaTags.Items.NUGGETS_TERRASTEEL)
@@ -211,7 +201,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern(" E ")
 				.unlockedBy("has_item", conditionsFromItem(BotaniaBlocks.manaPylon))
 				.unlockedBy("has_alt_item", conditionsFromTag(BotaniaTags.Items.INGOTS_TERRASTEEL))
-				.save(consumer);
+				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, BotaniaBlocks.gaiaPylon)
 				.define('P', BotaniaBlocks.manaPylon)
 				.define('D', BotaniaItems.pixieDust)
@@ -221,7 +211,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern(" D ")
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.pixieDust))
 				.unlockedBy("has_alt_item", conditionsFromTag(BotaniaTags.Items.INGOTS_ELEMENTIUM))
-				.save(consumer);
+				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, BotaniaBlocks.distributor)
 				.define('R', BotaniaBlocks.livingrock)
 				.define('S', BotaniaTags.Items.INGOTS_MANASTEEL)
@@ -229,7 +219,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern("S S")
 				.pattern("RRR")
 				.unlockedBy("has_item", conditionsFromTag(BotaniaTags.Items.INGOTS_MANASTEEL))
-				.save(consumer);
+				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, BotaniaBlocks.manaVoid)
 				.define('S', BotaniaBlocks.livingrock)
 				.define('O', Items.OBSIDIAN)
@@ -237,7 +227,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern("O O")
 				.pattern("SSS")
 				.unlockedBy("has_item", conditionsFromItem(BotaniaBlocks.livingrock))
-				.save(consumer);
+				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, BotaniaBlocks.manaDetector)
 				.define('R', Items.REDSTONE)
 				.define('T', Blocks.TARGET)
@@ -247,7 +237,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern("RSR")
 				.unlockedBy("has_item", conditionsFromItem(Blocks.TARGET))
 				.unlockedBy("has_alt_item", conditionsFromItem(BotaniaBlocks.livingrock))
-				.save(consumer);
+				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, BotaniaBlocks.turntable)
 				.define('P', Items.STICKY_PISTON)
 				.define('W', BotaniaTags.Items.LIVINGWOOD_LOGS)
@@ -256,7 +246,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern("WWW")
 				.unlockedBy("has_item", conditionsFromTag(BotaniaTags.Items.LIVINGWOOD_LOGS))
 				.unlockedBy("has_alt_item", conditionsFromItem(Items.STICKY_PISTON))
-				.save(consumer);
+				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, BotaniaBlocks.tinyPlanet)
 				.define('P', BotaniaItems.tinyPlanet)
 				.define('S', Items.STONE)
@@ -265,7 +255,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern("SSS")
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.tinyPlanet))
 				.unlockedBy("has_alt_item", conditionsFromItem(BotaniaItems.manaPearl))
-				.save(consumer);
+				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, BotaniaBlocks.alchemyCatalyst)
 				.define('P', BotaniaItems.manaPearl)
 				.define('B', Items.BREWING_STAND)
@@ -276,14 +266,14 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern("SGS")
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.manaPearl))
 				.unlockedBy("has_alt_item", conditionsFromItem(Items.BREWING_STAND))
-				.save(consumer);
+				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, BotaniaBlocks.openCrate)
 				.define('W', BotaniaBlocks.livingwoodPlanks)
 				.pattern("WWW")
 				.pattern("W W")
 				.pattern("W W")
 				.unlockedBy("has_item", conditionsFromItem(BotaniaBlocks.livingwoodPlanks))
-				.save(consumer);
+				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, BotaniaBlocks.craftCrate)
 				.define('C', Items.CRAFTING_TABLE)
 				.define('W', BotaniaBlocks.dreamwoodPlanks)
@@ -291,7 +281,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern("W W")
 				.pattern("W W")
 				.unlockedBy("has_item", conditionsFromItem(BotaniaBlocks.dreamwoodPlanks))
-				.save(consumer);
+				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, BotaniaBlocks.forestEye)
 				.define('S', BotaniaBlocks.livingrock)
 				.define('E', Items.ENDER_EYE)
@@ -300,7 +290,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern("SES")
 				.pattern("MSM")
 				.unlockedBy("has_item", conditionsFromTag(BotaniaTags.Items.INGOTS_MANASTEEL))
-				.save(consumer);
+				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, BotaniaBlocks.wildDrum)
 				.define('W', BotaniaTags.Items.LIVINGWOOD_LOGS)
 				.define('H', BotaniaItems.grassHorn)
@@ -309,7 +299,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern("WHW")
 				.pattern("WLW")
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.grassHorn))
-				.save(consumer);
+				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, BotaniaBlocks.gatheringDrum)
 				.define('E', BotaniaTags.Items.INGOTS_ELEMENTIUM)
 				.define('W', BotaniaTags.Items.DREAMWOOD_LOGS)
@@ -319,7 +309,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern("WLW")
 				.unlockedBy("has_item", conditionsFromTag(BotaniaTags.Items.INGOTS_ELEMENTIUM))
 				.unlockedBy("has_alt_item", conditionsFromTag(BotaniaTags.Items.DREAMWOOD_LOGS))
-				.save(consumer);
+				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, BotaniaBlocks.canopyDrum)
 				.define('W', BotaniaTags.Items.LIVINGWOOD_LOGS)
 				.define('H', BotaniaItems.leavesHorn)
@@ -328,7 +318,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern("WHW")
 				.pattern("WLW")
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.leavesHorn))
-				.save(consumer);
+				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, BotaniaBlocks.abstrusePlatform, 2)
 				.define('0', BotaniaTags.Items.LIVINGWOOD_LOGS)
 				.define('P', BotaniaItems.manaPearl)
@@ -337,7 +327,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern("343")
 				.pattern("0P0")
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.manaPearl))
-				.save(consumer);
+				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, BotaniaBlocks.spectralPlatform, 2)
 				.define('0', BotaniaTags.Items.DREAMWOOD_LOGS)
 				.define('3', BotaniaBlocks.dreamwoodFramed)
@@ -346,7 +336,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern("343")
 				.pattern("0D0")
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.pixieDust))
-				.save(consumer);
+				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, BotaniaBlocks.alfPortal)
 				.define('T', BotaniaTags.Items.NUGGETS_TERRASTEEL)
 				.define('W', BotaniaTags.Items.LIVINGWOOD_LOGS)
@@ -354,7 +344,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern("WTW")
 				.pattern("WTW")
 				.unlockedBy("has_item", conditionsFromTag(BotaniaTags.Items.INGOTS_TERRASTEEL))
-				.save(consumer);
+				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, BotaniaBlocks.conjurationCatalyst)
 				.define('P', BotaniaBlocks.alchemyCatalyst)
 				.define('B', BotaniaItems.pixieDust)
@@ -365,7 +355,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern("SGS")
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.pixieDust))
 				.unlockedBy("has_alt_item", conditionsFromTag(BotaniaTags.Items.INGOTS_ELEMENTIUM))
-				.save(consumer);
+				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, BotaniaBlocks.spawnerClaw)
 				.define('P', Items.PRISMARINE_BRICKS)
 				.define('B', Items.BLAZE_ROD)
@@ -376,7 +366,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern("PMP")
 				.pattern("PEP")
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.enderAirBottle))
-				.save(consumer);
+				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, BotaniaBlocks.enderEye)
 				.define('R', Items.REDSTONE)
 				.define('E', Items.ENDER_EYE)
@@ -385,7 +375,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern("EOE")
 				.pattern("RER")
 				.unlockedBy("has_item", conditionsFromItem(Items.ENDER_EYE))
-				.save(consumer);
+				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, BotaniaBlocks.starfield)
 				.define('P', BotaniaItems.pixieDust)
 				.define('E', BotaniaTags.Items.INGOTS_ELEMENTIUM)
@@ -394,7 +384,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern("EOE")
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.pixieDust))
 				.unlockedBy("has_alt_item", conditionsFromTag(BotaniaTags.Items.INGOTS_ELEMENTIUM))
-				.save(consumer);
+				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, BotaniaBlocks.rfGenerator)
 				.define('R', Items.REDSTONE_BLOCK)
 				.define('S', BotaniaBlocks.livingrock)
@@ -404,7 +394,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern("SRS")
 				.unlockedBy("has_item", conditionsFromItem(Items.REDSTONE_BLOCK))
 				.unlockedBy("has_alt_item", conditionsFromTag(BotaniaTags.Items.INGOTS_MANASTEEL))
-				.save(consumer);
+				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, BotaniaBlocks.brewery)
 				.define('A', BotaniaItems.runeMana)
 				.define('R', BotaniaBlocks.livingrock)
@@ -415,7 +405,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern("RMR")
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.runeMana))
 				.unlockedBy("has_alt_item", conditionsFromItem(Items.BREWING_STAND))
-				.save(consumer);
+				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, BotaniaBlocks.terraPlate)
 				.define('0', BotaniaItems.runeWater)
 				.define('1', BotaniaItems.runeFire)
@@ -428,7 +418,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern("0M1")
 				.pattern("283")
 				.unlockedBy("has_item", conditionsFromTag(BotaniaTags.Items.RUNES))
-				.save(consumer);
+				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, BotaniaBlocks.pump)
 				.define('B', Items.BUCKET)
 				.define('S', BotaniaBlocks.livingrock)
@@ -437,13 +427,13 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern("IBI")
 				.pattern("SSS")
 				.unlockedBy("has_item", conditionsFromTag(BotaniaTags.Items.INGOTS_MANASTEEL))
-				.save(consumer);
+				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, BotaniaBlocks.incensePlate)
 				.define('S', BotaniaBlocks.livingwoodSlab)
 				.define('W', BotaniaTags.Items.LIVINGWOOD_LOGS)
 				.pattern("SSW")
 				.unlockedBy("has_item", conditionsFromTag(BotaniaTags.Items.LIVINGWOOD_LOGS))
-				.save(consumer);
+				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, BotaniaBlocks.hourglass)
 				.define('R', Items.REDSTONE)
 				.define('S', BotaniaTags.Items.INGOTS_MANASTEEL)
@@ -453,13 +443,13 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern("RSR")
 				.pattern("GMG")
 				.unlockedBy("has_item", conditionsFromItem(BotaniaBlocks.manaGlass))
-				.save(consumer);
+				.save(output);
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.TRANSPORTATION, BotaniaBlocks.ghostRail)
 				.requires(Items.RAIL)
 				.requires(BotaniaBlocks.spectralPlatform)
 				.unlockedBy("has_item", conditionsFromItem(Items.RAIL))
 				.unlockedBy("has_alt_item", conditionsFromItem(BotaniaBlocks.spectralPlatform))
-				.save(consumer);
+				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, BotaniaBlocks.sparkChanger)
 				.define('R', Items.REDSTONE)
 				.define('S', BotaniaBlocks.livingrock)
@@ -467,7 +457,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern("ESE")
 				.pattern("SRS")
 				.unlockedBy("has_item", conditionsFromTag(BotaniaTags.Items.INGOTS_ELEMENTIUM))
-				.save(consumer);
+				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, BotaniaBlocks.felPumpkin)
 				.define('P', Items.PUMPKIN)
 				.define('B', Items.BONE)
@@ -478,7 +468,9 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern("BPF")
 				.pattern(" G ")
 				.unlockedBy("has_item", conditionsFromItem(Items.PUMPKIN))
-				.save(consumer);
+				.save(output);
+		base = new GogAlternationResult.RecipeCapture();
+		gog = new GogAlternationResult.RecipeCapture();
 		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, BotaniaBlocks.cocoon)
 				.define('S', Items.STRING)
 				.define('C', BotaniaItems.manaweaveCloth)
@@ -488,7 +480,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern("CPC")
 				.pattern("SDS")
 				.unlockedBy("has_item", conditionsFromItem(BotaniaBlocks.felPumpkin))
-				.save(base::setValue);
+				.save(base);
 		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, BotaniaBlocks.cocoon)
 				.define('S', Items.STRING)
 				.define('P', BotaniaBlocks.felPumpkin)
@@ -497,37 +489,37 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern("SPS")
 				.pattern("SIS")
 				.unlockedBy("has_item", conditionsFromItem(BotaniaBlocks.felPumpkin))
-				.save(gog::setValue);
-		consumer.accept(new GogAlternationResult(gog.getValue(), base.getValue()));
+				.save(gog);
+		new GogAlternationResult(gog, base).save(output);
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.TRANSPORTATION, BotaniaBlocks.lightRelayDefault)
 				.requires(BotaniaItems.redString)
 				.requires(BotaniaTags.Items.GEMS_DRAGONSTONE)
 				.requires(Items.GLOWSTONE_DUST)
 				.requires(Items.GLOWSTONE_DUST)
 				.unlockedBy("has_item", conditionsFromTag(BotaniaTags.Items.GEMS_DRAGONSTONE))
-				.save(consumer);
+				.save(output);
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.TRANSPORTATION, BotaniaBlocks.lightRelayDetector)
 				.requires(BotaniaBlocks.lightRelayDefault)
 				.requires(Items.REDSTONE)
 				.unlockedBy("has_item", conditionsFromItem(BotaniaBlocks.lightRelayDefault))
-				.save(consumer);
+				.save(output);
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.TRANSPORTATION, BotaniaBlocks.lightRelayFork)
 				.requires(BotaniaBlocks.lightRelayDefault)
 				.requires(Items.REDSTONE_TORCH)
 				.unlockedBy("has_item", conditionsFromItem(BotaniaBlocks.lightRelayDefault))
-				.save(consumer);
+				.save(output);
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.TRANSPORTATION, BotaniaBlocks.lightRelayToggle)
 				.requires(BotaniaBlocks.lightRelayDefault)
 				.requires(Items.LEVER)
 				.unlockedBy("has_item", conditionsFromItem(BotaniaBlocks.lightRelayDefault))
-				.save(consumer);
+				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, BotaniaBlocks.lightLauncher)
 				.define('D', BotaniaTags.Items.DREAMWOOD_LOGS)
 				.define('L', BotaniaBlocks.lightRelayDefault)
 				.pattern("DDD")
 				.pattern("DLD")
 				.unlockedBy("has_item", conditionsFromItem(BotaniaBlocks.lightRelayDefault))
-				.save(consumer);
+				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, BotaniaBlocks.manaBomb)
 				.define('T', Items.TNT)
 				.define('G', BotaniaItems.lifeEssence)
@@ -536,7 +528,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern("TGT")
 				.pattern("LTL")
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.lifeEssence))
-				.save(consumer);
+				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, BotaniaBlocks.bellows)
 				.define('R', BotaniaItems.runeAir)
 				.define('S', BotaniaBlocks.livingwoodSlab)
@@ -545,19 +537,19 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern("RL ")
 				.pattern("SSS")
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.runeAir))
-				.save(consumer);
+				.save(output);
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, BotaniaBlocks.bifrostPerm)
 				.requires(BotaniaItems.rainbowRod)
 				.requires(BotaniaBlocks.elfGlass)
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.rainbowRod))
-				.save(consumer);
+				.save(output);
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.DECORATIONS, BotaniaBlocks.cellBlock, 3)
 				.requires(Items.CACTUS, 3)
 				.requires(Items.BEETROOT)
 				.requires(Items.CARROT)
 				.requires(Items.POTATO)
 				.unlockedBy("has_item", conditionsFromItem(BotaniaFlowerBlocks.dandelifeon))
-				.save(consumer);
+				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, BotaniaBlocks.teruTeruBozu)
 				.define('C', BotaniaItems.manaweaveCloth)
 				.define('S', Items.SUNFLOWER)
@@ -565,7 +557,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern("C")
 				.pattern("S")
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.manaweaveCloth))
-				.save(consumer);
+				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, BotaniaBlocks.avatar)
 				.define('D', BotaniaTags.Items.GEMS_MANA_DIAMOND)
 				.define('W', BotaniaTags.Items.LIVINGWOOD_LOGS)
@@ -573,7 +565,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern("WDW")
 				.pattern("W W")
 				.unlockedBy("has_item", conditionsFromTag(BotaniaTags.Items.GEMS_MANA_DIAMOND))
-				.save(consumer);
+				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, BotaniaBlocks.animatedTorch)
 				.define('D', BotaniaTags.Items.DUSTS_MANA)
 				.define('T', Items.REDSTONE_TORCH)
@@ -581,24 +573,24 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern("T")
 				.unlockedBy("has_item", conditionsFromItem(Items.REDSTONE_TORCH))
 				.unlockedBy("has_alt_item", conditionsFromTag(BotaniaTags.Items.DUSTS_MANA))
-				.save(consumer);
+				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, BotaniaItems.livingwoodTwig)
 				.define('W', BotaniaTags.Items.LIVINGWOOD_LOGS)
 				.pattern(" W")
 				.pattern("W ")
 				.unlockedBy("has_item", conditionsFromTag(BotaniaTags.Items.LIVINGWOOD_LOGS))
-				.save(consumer);
+				.save(output);
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BotaniaItems.redstoneRoot)
 				.requires(Items.REDSTONE)
 				.requires(Ingredient.of(Items.FERN, Items.GRASS))
 				.unlockedBy("has_item", conditionsFromItem(Items.REDSTONE))
-				.save(consumer);
+				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, BotaniaItems.dreamwoodTwig)
 				.define('W', BotaniaTags.Items.DREAMWOOD_LOGS)
 				.pattern(" W")
 				.pattern("W ")
 				.unlockedBy("has_item", conditionsFromTag(BotaniaTags.Items.DREAMWOOD_LOGS))
-				.save(consumer);
+				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, BotaniaItems.gaiaIngot)
 				.define('S', BotaniaItems.lifeEssence)
 				.define('I', BotaniaTags.Items.INGOTS_TERRASTEEL)
@@ -606,49 +598,49 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern("SIS")
 				.pattern(" S ")
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.lifeEssence))
-				.save(consumer);
+				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, BotaniaItems.manaweaveCloth)
 				.define('S', BotaniaItems.manaString)
 				.pattern("SS")
 				.pattern("SS")
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.manaString))
-				.save(consumer);
+				.save(output);
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BotaniaItems.drySeeds)
 				.requires(BotaniaItems.grassSeeds)
 				.requires(Items.DEAD_BUSH)
 				.group("botania:seeds")
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.grassSeeds))
-				.save(consumer);
+				.save(output);
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BotaniaItems.goldenSeeds)
 				.requires(BotaniaItems.grassSeeds)
 				.requires(Items.WHEAT)
 				.group("botania:seeds")
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.grassSeeds))
-				.save(consumer);
+				.save(output);
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BotaniaItems.vividSeeds)
 				.requires(BotaniaItems.grassSeeds)
 				.requires(Items.GREEN_DYE)
 				.group("botania:seeds")
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.grassSeeds))
-				.save(consumer);
+				.save(output);
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BotaniaItems.scorchedSeeds)
 				.requires(BotaniaItems.grassSeeds)
 				.requires(Items.BLAZE_POWDER)
 				.group("botania:seeds")
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.grassSeeds))
-				.save(consumer);
+				.save(output);
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BotaniaItems.infusedSeeds)
 				.requires(BotaniaItems.grassSeeds)
 				.requires(Items.PRISMARINE_SHARD)
 				.group("botania:seeds")
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.grassSeeds))
-				.save(consumer);
+				.save(output);
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BotaniaItems.mutatedSeeds)
 				.requires(BotaniaItems.grassSeeds)
 				.requires(Items.SPIDER_EYE)
 				.group("botania:seeds")
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.grassSeeds))
-				.save(consumer);
+				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, BotaniaItems.darkQuartz, 8)
 				.define('Q', Items.QUARTZ)
 				.define('C', Ingredient.of(Items.COAL, Items.CHARCOAL))
@@ -656,7 +648,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern("QCQ")
 				.pattern("QQQ")
 				.unlockedBy("has_item", conditionsFromItem(Items.QUARTZ))
-				.save(consumer);
+				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, BotaniaItems.blazeQuartz, 8)
 				.define('Q', Items.QUARTZ)
 				.define('C', Items.BLAZE_POWDER)
@@ -664,7 +656,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern("QCQ")
 				.pattern("QQQ")
 				.unlockedBy("has_item", conditionsFromItem(Items.QUARTZ))
-				.save(consumer);
+				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, BotaniaItems.lavenderQuartz, 8)
 				.define('Q', Items.QUARTZ)
 				.define('C', Ingredient.of(Items.ALLIUM, Items.PINK_TULIP, Items.LILAC, Items.PEONY))
@@ -672,7 +664,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern("QCQ")
 				.pattern("QQQ")
 				.unlockedBy("has_item", conditionsFromItem(Items.QUARTZ))
-				.save(consumer);
+				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, BotaniaItems.redQuartz, 8)
 				.define('Q', Items.QUARTZ)
 				.define('C', Items.REDSTONE)
@@ -680,7 +672,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern("QCQ")
 				.pattern("QQQ")
 				.unlockedBy("has_item", conditionsFromItem(Items.QUARTZ))
-				.save(consumer);
+				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, BotaniaItems.sunnyQuartz, 8)
 				.define('Q', Items.QUARTZ)
 				.define('C', Items.SUNFLOWER)
@@ -688,14 +680,14 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern("QCQ")
 				.pattern("QQQ")
 				.unlockedBy("has_item", conditionsFromItem(Items.QUARTZ))
-				.save(consumer);
+				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, BotaniaItems.vineBall)
 				.define('V', Items.VINE)
 				.pattern("VVV")
 				.pattern("VVV")
 				.pattern("VVV")
 				.unlockedBy("has_item", conditionsFromItem(Items.VINE))
-				.save(consumer);
+				.save(output);
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.TOOLS, BotaniaItems.necroVirus)
 				.requires(BotaniaItems.pixieDust)
 				.requires(BotaniaItems.vineBall)
@@ -705,7 +697,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.requires(Items.ZOMBIE_HEAD)
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.pixieDust))
 				.unlockedBy("has_alt_item", conditionsFromItem(Items.ZOMBIE_HEAD))
-				.save(consumer);
+				.save(output);
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.TOOLS, BotaniaItems.nullVirus)
 				.requires(BotaniaItems.pixieDust)
 				.requires(BotaniaItems.vineBall)
@@ -715,7 +707,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.requires(Items.SKELETON_SKULL)
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.pixieDust))
 				.unlockedBy("has_alt_item", conditionsFromItem(Items.SKELETON_SKULL))
-				.save(consumer);
+				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, BotaniaItems.spark)
 				.define('P', BotaniaTags.Items.PETALS)
 				.define('B', Items.BLAZE_POWDER)
@@ -724,7 +716,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern("BNB")
 				.pattern(" P ")
 				.unlockedBy("has_item", conditionsFromItem(Items.BLAZE_POWDER))
-				.save(consumer);
+				.save(output);
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.DECORATIONS, BotaniaItems.sparkUpgradeDispersive)
 				.requires(BotaniaItems.pixieDust)
 				.requires(BotaniaTags.Items.INGOTS_MANASTEEL)
@@ -732,7 +724,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.group("botania:spark_upgrade")
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.pixieDust))
 				.unlockedBy("has_alt_item", conditionsFromItem(BotaniaItems.spark))
-				.save(consumer);
+				.save(output);
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BotaniaItems.sparkUpgradeDominant)
 				.requires(BotaniaItems.pixieDust)
 				.requires(BotaniaTags.Items.INGOTS_MANASTEEL)
@@ -740,7 +732,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.group("botania:spark_upgrade")
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.pixieDust))
 				.unlockedBy("has_alt_item", conditionsFromItem(BotaniaItems.spark))
-				.save(consumer);
+				.save(output);
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BotaniaItems.sparkUpgradeRecessive)
 				.requires(BotaniaItems.pixieDust)
 				.requires(BotaniaTags.Items.INGOTS_MANASTEEL)
@@ -748,7 +740,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.group("botania:spark_upgrade")
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.pixieDust))
 				.unlockedBy("has_alt_item", conditionsFromItem(BotaniaItems.spark))
-				.save(consumer);
+				.save(output);
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BotaniaItems.sparkUpgradeIsolated)
 				.requires(BotaniaItems.pixieDust)
 				.requires(BotaniaTags.Items.INGOTS_MANASTEEL)
@@ -756,20 +748,20 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.group("botania:spark_upgrade")
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.pixieDust))
 				.unlockedBy("has_alt_item", conditionsFromItem(BotaniaItems.spark))
-				.save(consumer);
+				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, BotaniaItems.vial, 3)
 				.define('G', BotaniaBlocks.manaGlass)
 				.pattern("G G")
 				.pattern(" G ")
 				.unlockedBy("has_item", conditionsFromItem(BotaniaBlocks.manaGlass))
 				.unlockedBy("has_alt_item", conditionsFromItem(BotaniaBlocks.brewery))
-				.save(consumer);
+				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, BotaniaItems.flask, 3)
 				.define('G', BotaniaBlocks.elfGlass)
 				.pattern("G G")
 				.pattern(" G ")
 				.unlockedBy("has_item", conditionsFromItem(BotaniaBlocks.elfGlass))
-				.save(consumer);
+				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, BotaniaItems.worldSeed, 4)
 				.define('S', Items.WHEAT_SEEDS)
 				.define('D', BotaniaTags.Items.GEMS_DRAGONSTONE)
@@ -778,7 +770,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern("S")
 				.pattern("D")
 				.unlockedBy("has_item", conditionsFromTag(BotaniaTags.Items.GEMS_DRAGONSTONE))
-				.save(consumer);
+				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, BotaniaItems.thornChakram, 2)
 				.define('T', BotaniaTags.Items.INGOTS_TERRASTEEL)
 				.define('V', Items.VINE)
@@ -786,7 +778,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern("VTV")
 				.pattern("VVV")
 				.unlockedBy("has_item", conditionsFromTag(BotaniaTags.Items.INGOTS_TERRASTEEL))
-				.save(consumer);
+				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, BotaniaItems.flareChakram, 2)
 				.define('P', BotaniaItems.pixieDust)
 				.define('B', Items.BLAZE_POWDER)
@@ -795,17 +787,17 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern("CPC")
 				.pattern("BBB")
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.thornChakram))
-				.save(consumer);
+				.save(output);
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BotaniaItems.keepIvy)
 				.requires(BotaniaItems.pixieDust)
 				.requires(Items.VINE)
 				.requires(BotaniaItems.enderAirBottle)
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.enderAirBottle))
-				.save(consumer);
+				.save(output);
 
 	}
 
-	private void registerMisc(Consumer<FinishedRecipe> consumer) {
+	private void registerMisc(RecipeOutput output) {
 		Ingredient mushrooms = Ingredient.of(BotaniaBlocks.whiteMushroom, BotaniaBlocks.orangeMushroom,
 				BotaniaBlocks.magentaMushroom, BotaniaBlocks.lightBlueMushroom, BotaniaBlocks.yellowMushroom,
 				BotaniaBlocks.limeMushroom, BotaniaBlocks.pinkMushroom, BotaniaBlocks.grayMushroom, BotaniaBlocks.lightGrayMushroom,
@@ -815,8 +807,8 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.requires(mushrooms, 2)
 				.requires(Items.BOWL)
 				.unlockedBy("has_item", conditionsFromItem(Items.BOWL))
-				.unlockedBy("has_orig_recipe", RecipeUnlockedTrigger.unlocked(new ResourceLocation("mushroom_stew")))
-				.save(consumer, "botania:mushroom_stew");
+				.unlockedBy("has_orig_recipe", RecipeUnlockedTrigger.unlocked(ResourceKey.create(net.minecraft.core.registries.Registries.RECIPE, ResourceLocation.parse("mushroom_stew"))))
+				.save(output,"botania:mushroom_stew");
 
 		ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, Items.COBWEB)
 				.define('S', Items.STRING)
@@ -825,20 +817,20 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern(" M ")
 				.pattern("S S")
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.manaString))
-				.save(consumer, prefix("cobweb"));
+				.save(output,prefix("cobweb"));
 
 		petalApothecary(Items.COBBLESTONE, BotaniaBlocks.defaultAltar)
 				.unlockedBy("has_item", conditionsFromTag(BotaniaTags.Items.PETALS))
-				.save(consumer);
+				.save(output);
 		petalApothecary(Items.MOSSY_COBBLESTONE, BotaniaBlocks.mossyAltar)
 				.unlockedBy("has_item", conditionsFromTag(BotaniaTags.Items.PETALS))
-				.save(consumer);
+				.save(output);
 		petalApothecary(BotaniaBlocks.livingrock, BotaniaBlocks.livingrockAltar)
 				.unlockedBy("has_item", conditionsFromItem(BotaniaBlocks.livingrock))
-				.save(consumer);
+				.save(output);
 		petalApothecary(Items.COBBLED_DEEPSLATE, BotaniaBlocks.deepslateAltar)
 				.unlockedBy("has_item", conditionsFromTag(BotaniaTags.Items.PETALS))
-				.save(consumer);
+				.save(output);
 		for (String metamorphicVariant : LibBlockNames.METAMORPHIC_VARIANTS) {
 			Block apothecary = getBlockOrThrow(prefix("apothecary_" + metamorphicVariant));
 			Block cobble = getBlockOrThrow(prefix(LibBlockNames.METAMORPHIC_PREFIX + metamorphicVariant + "_cobblestone"));
@@ -846,7 +838,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 					.group("botania:metamorphic_apothecary")
 					.unlockedBy("has_item", conditionsFromItem(cobble))
 					.unlockedBy("has_flower_item", conditionsFromItem(BotaniaFlowerBlocks.marimorphosis))
-					.save(consumer);
+					.save(output);
 		}
 		ColorHelper.supportedColors().forEach(color -> {
 			ShapelessRecipeBuilder.shapeless(RecipeCategory.DECORATIONS, BotaniaBlocks.getShinyFlower(color))
@@ -855,7 +847,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 					.requires(BotaniaBlocks.getFlower(color))
 					.group("botania:shiny_flower")
 					.unlockedBy("has_item", conditionsFromItem(BotaniaBlocks.getFlower(color)))
-					.save(consumer);
+					.save(output);
 			ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, BotaniaBlocks.getFloatingFlower(color))
 					.define('S', BotaniaItems.grassSeeds)
 					.define('D', Items.DIRT)
@@ -865,7 +857,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 					.pattern("D")
 					.group("botania:floating_flowers")
 					.unlockedBy("has_item", conditionsFromItem(BotaniaBlocks.getShinyFlower(color)))
-					.save(consumer);
+					.save(output);
 			ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, BotaniaBlocks.getPetalBlock(color))
 					.define('P', BotaniaItems.getPetal(color))
 					.pattern("PPP")
@@ -873,41 +865,41 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 					.pattern("PPP")
 					.group("botania:petal_block")
 					.unlockedBy("has_item", conditionsFromItem(BotaniaItems.getPetal(color)))
-					.save(consumer);
+					.save(output);
 			ShapelessRecipeBuilder.shapeless(RecipeCategory.DECORATIONS, BotaniaBlocks.getMushroom(color))
 					.requires(Ingredient.of(Items.RED_MUSHROOM, Items.BROWN_MUSHROOM))
 					.requires(DyeItem.byColor(color))
 					.group("botania:mushroom")
 					.unlockedBy("has_item", conditionsFromItem(Items.RED_MUSHROOM))
 					.unlockedBy("has_alt_item", conditionsFromItem(Items.BROWN_MUSHROOM))
-					.save(consumer, "botania:mushroom_" + color.ordinal());
+					.save(output,"botania:mushroom_" + color.ordinal());
 			ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BotaniaItems.getPetal(color), 4)
 					.requires(BotaniaBlocks.getDoubleFlower(color))
 					.group("botania:petal_double")
 					.unlockedBy("has_item", conditionsFromItem(BotaniaBlocks.getDoubleFlower(color)))
 					.unlockedBy("has_alt_item", conditionsFromItem(BotaniaItems.getPetal(color)))
-					.save(consumer, "botania:petal_" + color.getName() + "_double");
+					.save(output,"botania:petal_" + color.getName() + "_double");
 			ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BotaniaItems.getPetal(color), 2)
 					.requires(BotaniaBlocks.getFlower(color))
 					.group("botania:petal")
 					.unlockedBy("has_item", conditionsFromItem(BotaniaBlocks.getFlower(color)))
 					.unlockedBy("has_alt_item", conditionsFromItem(BotaniaItems.getPetal(color)))
-					.save(consumer, "botania:petal_" + color.getName());
+					.save(output,"botania:petal_" + color.getName());
 			ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, DyeItem.byColor(color))
 					.requires(Ingredient.of(BotaniaTags.Items.getPetalTag(color)))
 					.group("botania:dye")
 					.unlockedBy("has_item", conditionsFromItem(BotaniaItems.getPetal(color)))
-					.save(consumer, "botania:dye_" + color.getName());
+					.save(output,"botania:dye_" + color.getName());
 		});
 	}
 
-	private void registerTools(Consumer<FinishedRecipe> consumer) {
+	private void registerTools(RecipeOutput output) {
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.TOOLS, BotaniaItems.lexicon)
 				.requires(ItemTags.SAPLINGS)
 				.requires(Items.BOOK)
 				.unlockedBy("has_item", conditionsFromTag(ItemTags.SAPLINGS))
 				.unlockedBy("has_alt_item", conditionsFromItem(Items.BOOK))
-				.save(consumer);
+				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, BotaniaItems.twigWand)
 				.define('P', BotaniaTags.Items.PETALS)
 				.define('S', BotaniaItems.livingwoodTwig)
@@ -916,7 +908,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern("S  ")
 				.group("botania:twig_wand")
 				.unlockedBy("has_item", conditionsFromTag(BotaniaTags.Items.PETALS))
-				.save(WrapperResult.ofType(WandOfTheForestRecipe.SERIALIZER, consumer));
+				.save(WrapperResult.ofType(WandOfTheForestRecipe.SERIALIZER, output));
 		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, BotaniaItems.dreamwoodWand)
 				.define('P', BotaniaTags.Items.PETALS)
 				.define('S', BotaniaItems.dreamwoodTwig)
@@ -925,7 +917,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern("S  ")
 				.group("botania:twig_wand")
 				.unlockedBy("has_item", conditionsFromTag(BotaniaTags.Items.PETALS))
-				.save(WrapperResult.ofType(WandOfTheForestRecipe.SERIALIZER, consumer));
+				.save(WrapperResult.ofType(WandOfTheForestRecipe.SERIALIZER, output));
 		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, BotaniaItems.manaTablet)
 				.define('P', BotaniaItems.manaPearl)
 				.define('S', BotaniaBlocks.livingrock)
@@ -933,7 +925,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern("SPS")
 				.pattern("SSS")
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.manaPearl))
-				.save(consumer);
+				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, BotaniaItems.manaTablet)
 				.define('P', BotaniaTags.Items.GEMS_MANA_DIAMOND)
 				.define('S', BotaniaBlocks.livingrock)
@@ -941,7 +933,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern("SPS")
 				.pattern("SSS")
 				.unlockedBy("has_item", conditionsFromTag(BotaniaTags.Items.GEMS_MANA_DIAMOND))
-				.save(consumer, prefix("mana_tablet_alt"));
+				.save(output,prefix("mana_tablet_alt"));
 
 		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, BotaniaItems.cacophonium)
 				.define('N', Items.NOTE_BLOCK)
@@ -950,7 +942,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern("GNG")
 				.pattern("GG ")
 				.unlockedBy("has_item", conditionsFromItem(Items.NOTE_BLOCK))
-				.save(consumer);
+				.save(output);
 
 		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, BotaniaItems.grassHorn)
 				.define('S', BotaniaItems.grassSeeds)
@@ -959,17 +951,17 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern("WSW")
 				.pattern("WW ")
 				.unlockedBy("has_item", conditionsFromTag(BotaniaTags.Items.LIVINGWOOD_LOGS))
-				.save(consumer);
+				.save(output);
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.TOOLS, BotaniaItems.leavesHorn)
 				.requires(BotaniaItems.grassHorn)
 				.requires(ItemTags.LEAVES)
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.grassHorn))
-				.save(consumer);
+				.save(output);
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.TOOLS, BotaniaItems.snowHorn)
 				.requires(BotaniaItems.grassHorn)
 				.requires(Items.SNOWBALL)
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.grassHorn))
-				.save(consumer);
+				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, BotaniaItems.manaMirror)
 				.define('P', BotaniaItems.manaPearl)
 				.define('R', BotaniaBlocks.livingrock)
@@ -981,13 +973,13 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern("T  ")
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.manaTablet))
 				.unlockedBy("has_alt_item", conditionsFromTag(BotaniaTags.Items.INGOTS_TERRASTEEL))
-				.save(consumer);
+				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, BotaniaItems.openBucket)
 				.define('E', BotaniaTags.Items.INGOTS_ELEMENTIUM)
 				.pattern("E E")
 				.pattern(" E ")
 				.unlockedBy("has_item", conditionsFromTag(BotaniaTags.Items.INGOTS_ELEMENTIUM))
-				.save(consumer);
+				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, BotaniaItems.spawnerMover)
 				.define('A', BotaniaItems.enderAirBottle)
 				.define('D', BotaniaTags.Items.GEMS_DRAGONSTONE)
@@ -997,7 +989,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern("ADA")
 				.pattern("EIE")
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.lifeEssence))
-				.save(consumer);
+				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, BotaniaItems.slingshot)
 				.define('A', BotaniaItems.runeAir)
 				.define('T', BotaniaItems.livingwoodTwig)
@@ -1005,21 +997,21 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern(" TT")
 				.pattern("T  ")
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.runeAir))
-				.save(consumer);
+				.save(output);
 
-		registerSimpleArmorSet(consumer, Ingredient.of(BotaniaTags.Items.INGOTS_MANASTEEL), "manasteel", conditionsFromTag(BotaniaTags.Items.INGOTS_MANASTEEL));
-		registerSimpleArmorSet(consumer, Ingredient.of(BotaniaTags.Items.INGOTS_ELEMENTIUM), "elementium", conditionsFromTag(BotaniaTags.Items.INGOTS_ELEMENTIUM));
-		registerSimpleArmorSet(consumer, Ingredient.of(BotaniaItems.manaweaveCloth), "manaweave", conditionsFromItem(BotaniaItems.manaweaveCloth));
+		registerSimpleArmorSet(output,Ingredient.of(BotaniaTags.Items.INGOTS_MANASTEEL), "manasteel", conditionsFromTag(BotaniaTags.Items.INGOTS_MANASTEEL));
+		registerSimpleArmorSet(output,Ingredient.of(BotaniaTags.Items.INGOTS_ELEMENTIUM), "elementium", conditionsFromTag(BotaniaTags.Items.INGOTS_ELEMENTIUM));
+		registerSimpleArmorSet(output,Ingredient.of(BotaniaItems.manaweaveCloth), "manaweave", conditionsFromItem(BotaniaItems.manaweaveCloth));
 
-		registerTerrasteelUpgradeRecipe(consumer, BotaniaItems.terrasteelHelm, BotaniaItems.manasteelHelm, BotaniaItems.runeSpring);
-		registerTerrasteelUpgradeRecipe(consumer, BotaniaItems.terrasteelChest, BotaniaItems.manasteelChest, BotaniaItems.runeSummer);
-		registerTerrasteelUpgradeRecipe(consumer, BotaniaItems.terrasteelLegs, BotaniaItems.manasteelLegs, BotaniaItems.runeAutumn);
-		registerTerrasteelUpgradeRecipe(consumer, BotaniaItems.terrasteelBoots, BotaniaItems.manasteelBoots, BotaniaItems.runeWinter);
+		registerTerrasteelUpgradeRecipe(output,BotaniaItems.terrasteelHelm, BotaniaItems.manasteelHelm, BotaniaItems.runeSpring);
+		registerTerrasteelUpgradeRecipe(output,BotaniaItems.terrasteelChest, BotaniaItems.manasteelChest, BotaniaItems.runeSummer);
+		registerTerrasteelUpgradeRecipe(output,BotaniaItems.terrasteelLegs, BotaniaItems.manasteelLegs, BotaniaItems.runeAutumn);
+		registerTerrasteelUpgradeRecipe(output,BotaniaItems.terrasteelBoots, BotaniaItems.manasteelBoots, BotaniaItems.runeWinter);
 
-		registerToolSetRecipes(consumer, Ingredient.of(BotaniaTags.Items.INGOTS_MANASTEEL), Ingredient.of(BotaniaItems.livingwoodTwig),
+		registerToolSetRecipes(output,Ingredient.of(BotaniaTags.Items.INGOTS_MANASTEEL), Ingredient.of(BotaniaItems.livingwoodTwig),
 				conditionsFromTag(BotaniaTags.Items.INGOTS_MANASTEEL), BotaniaItems.manasteelSword, BotaniaItems.manasteelPick, BotaniaItems.manasteelAxe,
 				BotaniaItems.manasteelHoe, BotaniaItems.manasteelShovel, BotaniaItems.manasteelShears);
-		registerToolSetRecipes(consumer, Ingredient.of(BotaniaTags.Items.INGOTS_ELEMENTIUM), Ingredient.of(BotaniaItems.dreamwoodTwig),
+		registerToolSetRecipes(output,Ingredient.of(BotaniaTags.Items.INGOTS_ELEMENTIUM), Ingredient.of(BotaniaItems.dreamwoodTwig),
 				conditionsFromTag(BotaniaTags.Items.INGOTS_ELEMENTIUM), BotaniaItems.elementiumSword, BotaniaItems.elementiumPick, BotaniaItems.elementiumAxe,
 				BotaniaItems.elementiumHoe, BotaniaItems.elementiumShovel, BotaniaItems.elementiumShears);
 
@@ -1030,7 +1022,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern("I")
 				.pattern("S")
 				.unlockedBy("has_item", conditionsFromTag(BotaniaTags.Items.INGOTS_TERRASTEEL))
-				.save(consumer);
+				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, BotaniaItems.terraPick)
 				.define('T', BotaniaItems.manaTablet)
 				.define('I', BotaniaTags.Items.INGOTS_TERRASTEEL)
@@ -1039,7 +1031,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern("ILI")
 				.pattern(" L ")
 				.unlockedBy("has_item", conditionsFromTag(BotaniaTags.Items.INGOTS_TERRASTEEL))
-				.save(WrapperResult.ofType(ManaUpgradeRecipe.SERIALIZER, consumer));
+				.save(WrapperResult.ofType(ManaUpgradeRecipe.SERIALIZER, output));
 		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, BotaniaItems.terraAxe)
 				.define('S', BotaniaItems.livingwoodTwig)
 				.define('T', BotaniaTags.Items.INGOTS_TERRASTEEL)
@@ -1048,7 +1040,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern("TST")
 				.pattern(" S ")
 				.unlockedBy("has_item", conditionsFromTag(BotaniaTags.Items.INGOTS_TERRASTEEL))
-				.save(consumer);
+				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, BotaniaItems.starSword)
 				.define('A', BotaniaItems.enderAirBottle)
 				.define('D', BotaniaTags.Items.GEMS_DRAGONSTONE)
@@ -1059,7 +1051,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern("TA ")
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.terraAxe))
 				.unlockedBy("has_terrasteel", conditionsFromTag(BotaniaTags.Items.INGOTS_TERRASTEEL))
-				.save(consumer);
+				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, BotaniaItems.thunderSword)
 				.define('A', BotaniaItems.enderAirBottle)
 				.define('D', BotaniaTags.Items.GEMS_MANA_DIAMOND)
@@ -1070,7 +1062,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern("TA ")
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.terraAxe))
 				.unlockedBy("has_terrasteel", conditionsFromTag(BotaniaTags.Items.INGOTS_TERRASTEEL))
-				.save(consumer);
+				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, BotaniaItems.livingwoodBow)
 				.define('S', BotaniaItems.manaString)
 				.define('T', BotaniaItems.livingwoodTwig)
@@ -1079,7 +1071,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern(" TS")
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.manaString))
 				.unlockedBy("has_twig", conditionsFromItem(BotaniaItems.livingwoodTwig))
-				.save(consumer);
+				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, BotaniaItems.crystalBow)
 				.define('S', BotaniaItems.manaString)
 				.define('T', BotaniaItems.livingwoodTwig)
@@ -1088,7 +1080,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern("T S")
 				.pattern(" DS")
 				.unlockedBy("has_item", conditionsFromTag(BotaniaTags.Items.GEMS_DRAGONSTONE))
-				.save(consumer);
+				.save(output);
 
 		ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, BotaniaItems.enderDagger)
 				.define('P', BotaniaItems.manaPearl)
@@ -1098,7 +1090,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern("S")
 				.pattern("T")
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.manaPearl))
-				.save(consumer);
+				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, BotaniaItems.enderHand)
 				.define('P', BotaniaItems.manaPearl)
 				.define('E', Items.ENDER_CHEST)
@@ -1109,14 +1101,14 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern("OL ")
 				.unlockedBy("has_item", conditionsFromItem(Items.ENDER_CHEST))
 				.unlockedBy("has_alt_item", conditionsFromItem(Items.ENDER_EYE))
-				.save(consumer);
+				.save(output);
 
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BotaniaItems.placeholder, 32)
 				.requires(Items.CRAFTING_TABLE)
 				.requires(BotaniaBlocks.livingrock)
 				.unlockedBy("has_dreamwood", conditionsFromTag(BotaniaTags.Items.DREAMWOOD_LOGS))
 				.unlockedBy("has_crafty_crate", conditionsFromItem(BotaniaBlocks.craftCrate))
-				.save(consumer);
+				.save(output);
 
 		for (CraftyCratePattern pattern : CraftyCratePattern.values()) {
 			if (pattern == CraftyCratePattern.NONE) {
@@ -1133,7 +1125,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 					.group("botania:craft_pattern")
 					.unlockedBy("has_item", conditionsFromItem(BotaniaItems.placeholder))
 					.unlockedBy("has_crafty_crate", conditionsFromItem(BotaniaBlocks.craftCrate))
-					.save(consumer);
+					.save(output);
 		}
 
 		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, BotaniaItems.manaGun)
@@ -1146,7 +1138,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern(" WT")
 				.pattern("  W")
 				.unlockedBy("has_item", conditionsFromTag(BotaniaTags.Items.GEMS_MANA_DIAMOND))
-				.save(consumer);
+				.save(output);
 
 		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, BotaniaItems.dirtRod)
 				.define('D', Items.DIRT)
@@ -1156,7 +1148,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern(" T ")
 				.pattern("E  ")
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.runeEarth))
-				.save(consumer);
+				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, BotaniaItems.terraformRod)
 				.define('A', BotaniaItems.runeAutumn)
 				.define('R', BotaniaItems.dirtRod)
@@ -1169,7 +1161,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern("ARS")
 				.pattern("GM ")
 				.unlockedBy("has_item", conditionsFromTag(BotaniaTags.Items.INGOTS_TERRASTEEL))
-				.save(consumer);
+				.save(output);
 
 		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, BotaniaItems.waterRod)
 				.define('B', Ingredient.of(PotionUtils.setPotion(new ItemStack(Items.POTION), Potions.WATER)))
@@ -1179,7 +1171,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern(" T ")
 				.pattern("R  ")
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.runeWater))
-				.save(WrapperResult.ofType(WaterBottleMatchingRecipe.SERIALIZER, consumer));
+				.save(WrapperResult.ofType(WaterBottleMatchingRecipe.SERIALIZER, output));
 
 		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, BotaniaItems.rainbowRod)
 				.define('P', BotaniaItems.pixieDust)
@@ -1189,7 +1181,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern(" EP")
 				.pattern("E  ")
 				.unlockedBy("has_item", conditionsFromTag(BotaniaTags.Items.GEMS_DRAGONSTONE))
-				.save(consumer);
+				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, BotaniaItems.tornadoRod)
 				.define('R', BotaniaItems.runeAir)
 				.define('T', BotaniaItems.livingwoodTwig)
@@ -1198,7 +1190,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern(" T ")
 				.pattern("R  ")
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.runeAir))
-				.save(consumer);
+				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, BotaniaItems.fireRod)
 				.define('R', BotaniaItems.runeFire)
 				.define('T', BotaniaItems.livingwoodTwig)
@@ -1207,13 +1199,13 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern(" T ")
 				.pattern("R  ")
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.runeFire))
-				.save(consumer);
+				.save(output);
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.TOOLS, BotaniaItems.skyDirtRod)
 				.requires(BotaniaItems.dirtRod)
 				.requires(BotaniaItems.pixieDust)
 				.requires(BotaniaItems.runeAir)
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.pixieDust))
-				.save(consumer);
+				.save(output);
 
 		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, BotaniaItems.diviningRod)
 				.define('T', BotaniaItems.livingwoodTwig)
@@ -1222,7 +1214,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern(" TT")
 				.pattern("T  ")
 				.unlockedBy("has_item", conditionsFromTag(BotaniaTags.Items.GEMS_MANA_DIAMOND))
-				.save(consumer);
+				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, BotaniaItems.gravityRod)
 				.define('T', BotaniaItems.dreamwoodTwig)
 				.define('D', BotaniaTags.Items.GEMS_DRAGONSTONE)
@@ -1231,7 +1223,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern(" WT")
 				.pattern("T  ")
 				.unlockedBy("has_item", conditionsFromTag(BotaniaTags.Items.GEMS_DRAGONSTONE))
-				.save(consumer);
+				.save(output);
 
 		ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, BotaniaItems.missileRod)
 				.define('D', BotaniaTags.Items.GEMS_DRAGONSTONE)
@@ -1241,7 +1233,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern(" TD")
 				.pattern("T G")
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.lifeEssence))
-				.save(consumer);
+				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, BotaniaItems.cobbleRod)
 				.define('C', Items.COBBLESTONE)
 				.define('T', BotaniaItems.livingwoodTwig)
@@ -1252,7 +1244,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern("T  ")
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.runeFire))
 				.unlockedBy("has_alt_item", conditionsFromItem(BotaniaItems.runeWater))
-				.save(consumer);
+				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, BotaniaItems.smeltRod)
 				.define('B', Items.BLAZE_ROD)
 				.define('T', BotaniaItems.livingwoodTwig)
@@ -1261,7 +1253,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern(" TB")
 				.pattern("T  ")
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.runeFire))
-				.save(consumer);
+				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, BotaniaItems.exchangeRod)
 				.define('R', BotaniaItems.runeSloth)
 				.define('S', Items.STONE)
@@ -1270,7 +1262,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern(" TS")
 				.pattern("T  ")
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.runeSloth))
-				.save(consumer);
+				.save(output);
 
 		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, BotaniaItems.laputaShard)
 				.define('P', Items.PRISMARINE_CRYSTALS)
@@ -1283,7 +1275,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern("PDP")
 				.pattern("ASE")
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.lifeEssence))
-				.save(consumer);
+				.save(output);
 
 		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, BotaniaItems.craftingHalo)
 				.define('P', BotaniaItems.manaPearl)
@@ -1293,14 +1285,14 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern("ICI")
 				.pattern(" I ")
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.manaPearl))
-				.save(consumer);
+				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, BotaniaItems.clip)
 				.define('D', BotaniaTags.Items.DREAMWOOD_LOGS)
 				.pattern(" D ")
 				.pattern("D D")
 				.pattern("DD ")
 				.unlockedBy("has_item", conditionsFromTag(BotaniaTags.Items.DREAMWOOD_LOGS))
-				.save(consumer);
+				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, BotaniaItems.spellCloth)
 				.define('P', BotaniaItems.manaPearl)
 				.define('C', BotaniaItems.manaweaveCloth)
@@ -1308,7 +1300,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern("CPC")
 				.pattern(" C ")
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.manaweaveCloth))
-				.save(consumer);
+				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, BotaniaItems.flowerBag)
 				.define('P', BotaniaTags.Items.PETALS)
 				.define('W', ItemTags.WOOL)
@@ -1316,12 +1308,12 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern("W W")
 				.pattern(" W ")
 				.unlockedBy("has_item", conditionsFromTag(BotaniaTags.Items.MYSTICAL_FLOWERS))
-				.save(consumer);
+				.save(output);
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.TRANSPORTATION, BotaniaItems.poolMinecart)
 				.requires(Items.MINECART)
 				.requires(BotaniaBlocks.manaPool)
 				.unlockedBy("has_item", conditionsFromItem(Items.MINECART))
-				.save(consumer);
+				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, BotaniaItems.blackHoleTalisman)
 				.define('A', BotaniaItems.enderAirBottle)
 				.define('E', BotaniaTags.Items.INGOTS_ELEMENTIUM)
@@ -1330,7 +1322,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern("EAE")
 				.pattern(" E ")
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.lifeEssence))
-				.save(consumer);
+				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, BotaniaItems.temperanceStone)
 				.define('R', BotaniaItems.runeEarth)
 				.define('S', Items.STONE)
@@ -1338,7 +1330,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern("SRS")
 				.pattern(" S ")
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.runeEarth))
-				.save(consumer);
+				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, BotaniaItems.incenseStick)
 				.define('B', Items.BLAZE_POWDER)
 				.define('T', BotaniaItems.livingwoodTwig)
@@ -1347,7 +1339,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern(" B ")
 				.pattern("T  ")
 				.unlockedBy("has_item", conditionsFromItem(Items.GHAST_TEAR))
-				.save(consumer);
+				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, BotaniaItems.obedienceStick)
 				.define('T', BotaniaItems.livingwoodTwig)
 				.define('M', BotaniaTags.Items.INGOTS_MANASTEEL)
@@ -1355,7 +1347,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern(" T ")
 				.pattern("T  ")
 				.unlockedBy("has_item", conditionsFromTag(BotaniaTags.Items.INGOTS_MANASTEEL))
-				.save(consumer);
+				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, BotaniaItems.slimeBottle)
 				.define('S', Items.SLIME_BALL)
 				.define('E', BotaniaTags.Items.INGOTS_ELEMENTIUM)
@@ -1364,12 +1356,12 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern("ESE")
 				.pattern(" E ")
 				.unlockedBy("has_item", conditionsFromTag(BotaniaTags.Items.INGOTS_ELEMENTIUM))
-				.save(consumer);
+				.save(output);
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.TOOLS, BotaniaItems.autocraftingHalo)
 				.requires(BotaniaItems.craftingHalo)
 				.requires(BotaniaTags.Items.GEMS_MANA_DIAMOND)
 				.unlockedBy("has_item", conditionsFromTag(BotaniaTags.Items.GEMS_MANA_DIAMOND))
-				.save(consumer);
+				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, BotaniaItems.sextant)
 				.define('T', BotaniaItems.livingwoodTwig)
 				.define('I', BotaniaTags.Items.INGOTS_MANASTEEL)
@@ -1377,7 +1369,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern(" TT")
 				.pattern("III")
 				.unlockedBy("has_item", conditionsFromTag(BotaniaTags.Items.INGOTS_MANASTEEL))
-				.save(consumer);
+				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, BotaniaItems.astrolabe)
 				.define('D', BotaniaTags.Items.DREAMWOOD_LOGS)
 				.define('E', BotaniaTags.Items.INGOTS_ELEMENTIUM)
@@ -1386,11 +1378,11 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern("EEE")
 				.pattern("GED")
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.lifeEssence))
-				.save(consumer);
+				.save(output);
 
 	}
 
-	private void registerTrinkets(Consumer<FinishedRecipe> consumer) {
+	private void registerTrinkets(RecipeOutput output) {
 		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, BotaniaItems.tinyPlanet)
 				.define('P', BotaniaItems.manaPearl)
 				.define('S', Items.STONE)
@@ -1399,7 +1391,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern("SPS")
 				.pattern("LSL")
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.manaPearl))
-				.save(consumer);
+				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, BotaniaItems.manaRing)
 				.define('T', BotaniaItems.manaTablet)
 				.define('I', BotaniaItems.manaSteel)
@@ -1407,7 +1399,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern("I I")
 				.pattern(" I ")
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.manaTablet))
-				.save(WrapperResult.ofType(ManaUpgradeRecipe.SERIALIZER, consumer));
+				.save(WrapperResult.ofType(ManaUpgradeRecipe.SERIALIZER, output));
 		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, BotaniaItems.auraRing)
 				.define('R', BotaniaItems.runeMana)
 				.define('I', BotaniaTags.Items.INGOTS_MANASTEEL)
@@ -1415,17 +1407,17 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern("I I")
 				.pattern(" I ")
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.runeMana))
-				.save(consumer);
+				.save(output);
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.TOOLS, BotaniaItems.manaRingGreater)
 				.requires(BotaniaTags.Items.INGOTS_TERRASTEEL)
 				.requires(BotaniaItems.manaRing)
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.terrasteel))
-				.save(WrapperResult.ofType(ShapelessManaUpgradeRecipe.SERIALIZER, consumer));
+				.save(WrapperResult.ofType(ShapelessManaUpgradeRecipe.SERIALIZER, output));
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.TOOLS, BotaniaItems.auraRingGreater)
 				.requires(BotaniaTags.Items.INGOTS_TERRASTEEL)
 				.requires(BotaniaItems.auraRing)
 				.unlockedBy("has_item", conditionsFromTag(BotaniaTags.Items.INGOTS_TERRASTEEL))
-				.save(consumer);
+				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, BotaniaItems.travelBelt)
 				.define('A', BotaniaItems.runeAir)
 				.define('S', BotaniaTags.Items.INGOTS_MANASTEEL)
@@ -1435,7 +1427,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern("L L")
 				.pattern("SLA")
 				.unlockedBy("has_item", conditionsFromTag(BotaniaTags.Items.INGOTS_MANASTEEL))
-				.save(consumer);
+				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, BotaniaItems.knockbackBelt)
 				.define('A', BotaniaItems.runeFire)
 				.define('S', BotaniaTags.Items.INGOTS_MANASTEEL)
@@ -1445,7 +1437,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern("L L")
 				.pattern("SLE")
 				.unlockedBy("has_item", conditionsFromTag(BotaniaTags.Items.INGOTS_MANASTEEL))
-				.save(consumer);
+				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, BotaniaItems.icePendant)
 				.define('R', BotaniaItems.runeWater)
 				.define('S', BotaniaItems.manaString)
@@ -1455,7 +1447,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern("S S")
 				.pattern("MSR")
 				.unlockedBy("has_item", conditionsFromTag(BotaniaTags.Items.INGOTS_MANASTEEL))
-				.save(consumer);
+				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, BotaniaItems.lavaPendant)
 				.define('S', BotaniaItems.manaString)
 				.define('D', BotaniaTags.Items.INGOTS_MANASTEEL)
@@ -1465,7 +1457,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern("S S")
 				.pattern("DSF")
 				.unlockedBy("has_item", conditionsFromTag(BotaniaTags.Items.INGOTS_MANASTEEL))
-				.save(consumer);
+				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, BotaniaItems.magnetRing)
 				.define('L', BotaniaItems.lensMagnet)
 				.define('M', BotaniaTags.Items.INGOTS_MANASTEEL)
@@ -1473,7 +1465,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern("M M")
 				.pattern(" M ")
 				.unlockedBy("has_item", conditionsFromTag(BotaniaTags.Items.INGOTS_MANASTEEL))
-				.save(consumer);
+				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, BotaniaItems.waterRing)
 				.define('P', Items.PUFFERFISH)
 				.define('C', Items.COD)
@@ -1484,7 +1476,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern("MHM")
 				.pattern("CM ")
 				.unlockedBy("has_item", conditionsFromItem(Items.HEART_OF_THE_SEA))
-				.save(consumer);
+				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, BotaniaItems.miningRing)
 				.define('P', Items.GOLDEN_PICKAXE)
 				.define('E', BotaniaItems.runeEarth)
@@ -1493,7 +1485,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern("M M")
 				.pattern(" M ")
 				.unlockedBy("has_item", conditionsFromTag(BotaniaTags.Items.INGOTS_MANASTEEL))
-				.save(consumer);
+				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, BotaniaItems.divaCharm)
 				.define('P', BotaniaItems.tinyPlanet)
 				.define('G', Items.GOLD_INGOT)
@@ -1503,7 +1495,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern(" HG")
 				.pattern(" GL")
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.lifeEssence))
-				.save(consumer);
+				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, BotaniaItems.flightTiara)
 				.define('E', BotaniaItems.enderAirBottle)
 				.define('F', Items.FEATHER)
@@ -1513,7 +1505,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern("ILI")
 				.pattern("FEF")
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.lifeEssence))
-				.save(consumer, "botania:flighttiara_0");
+				.save(output,"botania:flighttiara_0");
 
 		// Normal quartz and not Tags.Items.QUARTZ because the recipes conflict.
 		Item[] items = { Items.QUARTZ, BotaniaItems.darkQuartz, BotaniaItems.manaQuartz, BotaniaItems.blazeQuartz,
@@ -1525,7 +1517,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 					.requires(items[i])
 					.group("botania:flight_tiara_wings")
 					.unlockedBy("has_item", conditionsFromItem(BotaniaItems.flightTiara))
-					.save(NbtOutputResult.with(consumer, tag -> tag.putInt("variant", tiaraType)),
+					.save(NbtOutputResult.with(output, tag -> tag.putInt("variant", tiaraType)),
 							"botania:flighttiara_" + tiaraType);
 		}
 		ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, BotaniaItems.pixieRing)
@@ -1535,7 +1527,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern("E E")
 				.pattern(" E ")
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.pixieDust))
-				.save(consumer);
+				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, BotaniaItems.superTravelBelt)
 				.define('S', BotaniaItems.travelBelt)
 				.define('E', BotaniaTags.Items.INGOTS_ELEMENTIUM)
@@ -1544,7 +1536,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern(" S ")
 				.pattern("L E")
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.lifeEssence))
-				.save(consumer);
+				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, BotaniaItems.reachRing)
 				.define('R', BotaniaItems.runePride)
 				.define('E', BotaniaTags.Items.INGOTS_ELEMENTIUM)
@@ -1552,7 +1544,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern("E E")
 				.pattern(" E ")
 				.unlockedBy("has_item", conditionsFromTag(BotaniaTags.Items.INGOTS_ELEMENTIUM))
-				.save(consumer);
+				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, BotaniaItems.itemFinder)
 				.define('E', Items.EMERALD)
 				.define('I', Items.IRON_INGOT)
@@ -1561,7 +1553,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern("IYI")
 				.pattern("IEI")
 				.unlockedBy("has_item", conditionsFromItem(Items.ENDER_EYE))
-				.save(consumer);
+				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, BotaniaItems.superLavaPendant)
 				.define('P', BotaniaItems.lavaPendant)
 				.define('B', Items.BLAZE_ROD)
@@ -1571,7 +1563,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern("BPB")
 				.pattern("NGN")
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.lifeEssence))
-				.save(consumer);
+				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, BotaniaItems.bloodPendant)
 				.define('P', Items.PRISMARINE_CRYSTALS)
 				.define('D', BotaniaTags.Items.GEMS_MANA_DIAMOND)
@@ -1580,7 +1572,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern("PGP")
 				.pattern("DP ")
 				.unlockedBy("has_item", conditionsFromItem(Items.GHAST_TEAR))
-				.save(consumer);
+				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, BotaniaItems.holyCloak)
 				.define('S', BotaniaItems.lifeEssence)
 				.define('W', Items.WHITE_WOOL)
@@ -1589,7 +1581,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern("GWG")
 				.pattern("GSG")
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.lifeEssence))
-				.save(consumer);
+				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, BotaniaItems.unholyCloak)
 				.define('R', Items.REDSTONE)
 				.define('S', BotaniaItems.lifeEssence)
@@ -1598,7 +1590,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern("RWR")
 				.pattern("RSR")
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.lifeEssence))
-				.save(consumer);
+				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, BotaniaItems.balanceCloak)
 				.define('R', Items.EMERALD)
 				.define('S', BotaniaItems.lifeEssence)
@@ -1607,7 +1599,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern("RWR")
 				.pattern("RSR")
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.lifeEssence))
-				.save(consumer);
+				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, BotaniaItems.monocle)
 				.define('G', BotaniaBlocks.manaGlass)
 				.define('I', BotaniaTags.Items.INGOTS_MANASTEEL)
@@ -1616,7 +1608,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern("IN")
 				.pattern(" N")
 				.unlockedBy("has_item", conditionsFromTag(BotaniaTags.Items.INGOTS_MANASTEEL))
-				.save(consumer);
+				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, BotaniaItems.swapRing)
 				.define('C', Items.CLAY)
 				.define('M', BotaniaTags.Items.INGOTS_MANASTEEL)
@@ -1624,12 +1616,12 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern("M M")
 				.pattern(" M ")
 				.unlockedBy("has_item", conditionsFromTag(BotaniaTags.Items.INGOTS_MANASTEEL))
-				.save(consumer);
+				.save(output);
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.TOOLS, BotaniaItems.magnetRingGreater)
 				.requires(BotaniaTags.Items.INGOTS_TERRASTEEL)
 				.requires(BotaniaItems.magnetRing)
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.magnetRing))
-				.save(consumer);
+				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, BotaniaItems.speedUpBelt)
 				.define('P', BotaniaItems.grassSeeds)
 				.define('B', BotaniaItems.travelBelt)
@@ -1640,7 +1632,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern(" S ")
 				.unlockedBy("has_item", conditionsFromItem(Items.MAP))
 				.unlockedBy("has_alt_item", conditionsFromItem(BotaniaItems.travelBelt))
-				.save(consumer);
+				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, BotaniaItems.dodgeRing)
 				.define('R', BotaniaItems.runeAir)
 				.define('E', Items.EMERALD)
@@ -1649,7 +1641,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern("M M")
 				.pattern(" MR")
 				.unlockedBy("has_item", conditionsFromTag(BotaniaTags.Items.INGOTS_MANASTEEL))
-				.save(consumer);
+				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, BotaniaItems.invisibilityCloak)
 				.define('P', BotaniaItems.manaPearl)
 				.define('C', Items.PRISMARINE_CRYSTALS)
@@ -1659,7 +1651,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern("GWG")
 				.pattern("GPG")
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.manaPearl))
-				.save(consumer);
+				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, BotaniaItems.cloudPendant)
 				.define('S', BotaniaItems.manaString)
 				.define('D', BotaniaTags.Items.INGOTS_MANASTEEL)
@@ -1669,7 +1661,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern("S S")
 				.pattern("DSF")
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.manaString))
-				.save(consumer);
+				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, BotaniaItems.superCloudPendant)
 				.define('P', BotaniaItems.cloudPendant)
 				.define('B', Items.GHAST_TEAR)
@@ -1681,7 +1673,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern("NGN")
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.cloudPendant))
 				.unlockedBy("has_alt_item", conditionsFromItem(BotaniaItems.lifeEssence))
-				.save(consumer);
+				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, BotaniaItems.thirdEye)
 				.define('Q', Items.QUARTZ_BLOCK)
 				.define('R', Items.GOLDEN_CARROT)
@@ -1692,7 +1684,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern("QEQ")
 				.pattern("RDR")
 				.unlockedBy("has_item", conditionsFromTag(BotaniaTags.Items.GEMS_MANA_DIAMOND))
-				.save(consumer);
+				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, BotaniaItems.goddessCharm)
 				.define('P', BotaniaTags.Items.PETALS_PINK)
 				.define('A', BotaniaItems.runeWater)
@@ -1702,11 +1694,11 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern(" P ")
 				.pattern("ADS")
 				.unlockedBy("has_item", conditionsFromTag(BotaniaTags.Items.GEMS_MANA_DIAMOND))
-				.save(consumer);
+				.save(output);
 
 	}
 
-	private void registerCorporeaAndRedString(Consumer<FinishedRecipe> consumer) {
+	private void registerCorporeaAndRedString(RecipeOutput output) {
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BotaniaItems.redString)
 				.requires(Items.STRING)
 				.requires(Items.REDSTONE_BLOCK)
@@ -1714,7 +1706,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.requires(BotaniaItems.enderAirBottle)
 				.group("botania:red_string")
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.enderAirBottle))
-				.save(consumer);
+				.save(output);
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BotaniaItems.redString)
 				.requires(Items.STRING)
 				.requires(Items.REDSTONE_BLOCK)
@@ -1723,24 +1715,24 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.requires(Items.PUMPKIN)
 				.group("botania:red_string")
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.enderAirBottle))
-				.save(consumer, "botania:red_string_alt");
-		registerRedStringBlock(consumer, BotaniaBlocks.redStringDispenser, Ingredient.of(Items.DISPENSER), conditionsFromItem(Items.DISPENSER));
-		registerRedStringBlock(consumer, BotaniaBlocks.redStringFertilizer, Ingredient.of(BotaniaItems.fertilizer), conditionsFromItem(BotaniaItems.fertilizer));
-		registerRedStringBlock(consumer, BotaniaBlocks.redStringComparator, Ingredient.of(Items.COMPARATOR), conditionsFromItem(Items.COMPARATOR));
-		registerRedStringBlock(consumer, BotaniaBlocks.redStringRelay, Ingredient.of(BotaniaBlocks.manaSpreader), conditionsFromItem(BotaniaBlocks.manaSpreader));
-		registerRedStringBlock(consumer, BotaniaBlocks.redStringInterceptor, Ingredient.of(Items.STONE_BUTTON), conditionsFromItem(Items.STONE_BUTTON));
+				.save(output,"botania:red_string_alt");
+		registerRedStringBlock(output,BotaniaBlocks.redStringDispenser, Ingredient.of(Items.DISPENSER), conditionsFromItem(Items.DISPENSER));
+		registerRedStringBlock(output,BotaniaBlocks.redStringFertilizer, Ingredient.of(BotaniaItems.fertilizer), conditionsFromItem(BotaniaItems.fertilizer));
+		registerRedStringBlock(output,BotaniaBlocks.redStringComparator, Ingredient.of(Items.COMPARATOR), conditionsFromItem(Items.COMPARATOR));
+		registerRedStringBlock(output,BotaniaBlocks.redStringRelay, Ingredient.of(BotaniaBlocks.manaSpreader), conditionsFromItem(BotaniaBlocks.manaSpreader));
+		registerRedStringBlock(output,BotaniaBlocks.redStringInterceptor, Ingredient.of(Items.STONE_BUTTON), conditionsFromItem(Items.STONE_BUTTON));
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.REDSTONE, BotaniaItems.corporeaSpark, 4)
 				.requires(BotaniaItems.spark)
 				.requires(BotaniaItems.pixieDust)
 				.requires(BotaniaItems.enderAirBottle)
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.enderAirBottle))
 				.unlockedBy("has_alt_item", conditionsFromItem(BotaniaItems.pixieDust))
-				.save(consumer);
+				.save(output);
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.REDSTONE, BotaniaItems.corporeaSparkMaster)
 				.requires(BotaniaItems.corporeaSpark)
 				.requires(BotaniaTags.Items.GEMS_DRAGONSTONE)
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.corporeaSpark))
-				.save(consumer);
+				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, BotaniaBlocks.corporeaIndex)
 				.define('A', BotaniaItems.enderAirBottle)
 				.define('S', BotaniaItems.corporeaSpark)
@@ -1750,17 +1742,17 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern("OSO")
 				.pattern("DOD")
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.corporeaSpark))
-				.save(consumer);
+				.save(output);
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.REDSTONE, BotaniaBlocks.corporeaFunnel)
 				.requires(Items.DROPPER)
 				.requires(BotaniaItems.corporeaSpark)
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.corporeaSpark))
-				.save(consumer);
+				.save(output);
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.REDSTONE, BotaniaBlocks.corporeaInterceptor)
 				.requires(Items.REDSTONE_BLOCK)
 				.requires(BotaniaItems.corporeaSpark)
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.corporeaSpark))
-				.save(consumer);
+				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, BotaniaBlocks.corporeaCrystalCube)
 				.define('C', BotaniaItems.corporeaSpark)
 				.define('G', BotaniaBlocks.elfGlass)
@@ -1769,56 +1761,56 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern("G")
 				.pattern("W")
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.corporeaSpark))
-				.save(consumer);
+				.save(output);
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, BotaniaBlocks.corporeaBlock, 8)
 				.requires(BotaniaBlocks.livingrockPolished)
 				.requires(BotaniaItems.corporeaSpark)
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.corporeaSpark))
-				.save(consumer);
-		slabShape(BotaniaBlocks.corporeaSlab, BotaniaBlocks.corporeaBlock).save(consumer);
-		stairs(BotaniaBlocks.corporeaStairs, BotaniaBlocks.corporeaBlock).save(consumer);
+				.save(output);
+		slabShape(BotaniaBlocks.corporeaSlab, BotaniaBlocks.corporeaBlock).save(output);
+		stairs(BotaniaBlocks.corporeaStairs, BotaniaBlocks.corporeaBlock).save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, BotaniaBlocks.corporeaBrick, 4)
 				.define('R', BotaniaBlocks.corporeaBlock)
 				.pattern("RR")
 				.pattern("RR")
 				.unlockedBy("has_item", conditionsFromItem(BotaniaBlocks.corporeaBlock))
-				.save(consumer);
-		slabShape(BotaniaBlocks.corporeaBrickSlab, BotaniaBlocks.corporeaBrick).save(consumer);
-		stairs(BotaniaBlocks.corporeaBrickStairs, BotaniaBlocks.corporeaBrick).save(consumer);
-		wallShape(BotaniaBlocks.corporeaBrickWall, BotaniaBlocks.corporeaBrick, 6).save(consumer);
+				.save(output);
+		slabShape(BotaniaBlocks.corporeaBrickSlab, BotaniaBlocks.corporeaBrick).save(output);
+		stairs(BotaniaBlocks.corporeaBrickStairs, BotaniaBlocks.corporeaBrick).save(output);
+		wallShape(BotaniaBlocks.corporeaBrickWall, BotaniaBlocks.corporeaBrick, 6).save(output);
 	}
 
-	private void registerLenses(Consumer<FinishedRecipe> consumer) {
+	private void registerLenses(RecipeOutput output) {
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BotaniaItems.lensSpeed)
 				.requires(BotaniaItems.lensNormal)
 				.requires(BotaniaItems.runeAir)
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.lensNormal))
-				.save(consumer);
+				.save(output);
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BotaniaItems.lensPower)
 				.requires(BotaniaItems.lensNormal)
 				.requires(BotaniaItems.runeFire)
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.lensNormal))
-				.save(consumer);
+				.save(output);
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BotaniaItems.lensTime)
 				.requires(BotaniaItems.lensNormal)
 				.requires(BotaniaItems.runeEarth)
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.lensNormal))
-				.save(consumer);
+				.save(output);
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BotaniaItems.lensEfficiency)
 				.requires(BotaniaItems.lensNormal)
 				.requires(BotaniaItems.runeWater)
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.lensNormal))
-				.save(consumer);
+				.save(output);
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BotaniaItems.lensBounce)
 				.requires(BotaniaItems.lensNormal)
 				.requires(BotaniaItems.runeSummer)
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.lensNormal))
-				.save(consumer);
+				.save(output);
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BotaniaItems.lensGravity)
 				.requires(BotaniaItems.lensNormal)
 				.requires(BotaniaItems.runeWinter)
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.lensNormal))
-				.save(consumer);
+				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, BotaniaItems.lensMine)
 				.define('P', Items.PISTON)
 				.define('A', Items.LAPIS_LAZULI)
@@ -1828,28 +1820,28 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern("ALA")
 				.pattern(" R ")
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.lensNormal))
-				.save(consumer);
+				.save(output);
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BotaniaItems.lensDamage)
 				.requires(BotaniaItems.lensNormal)
 				.requires(BotaniaItems.runeWrath)
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.lensNormal))
-				.save(consumer);
+				.save(output);
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BotaniaItems.lensPhantom)
 				.requires(BotaniaItems.lensNormal)
 				.requires(BotaniaBlocks.abstrusePlatform)
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.lensNormal))
-				.save(consumer);
+				.save(output);
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BotaniaItems.lensMagnet)
 				.requires(BotaniaItems.lensNormal)
 				.requires(Items.IRON_INGOT)
 				.requires(Items.GOLD_INGOT)
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.lensNormal))
-				.save(consumer);
+				.save(output);
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BotaniaItems.lensExplosive)
 				.requires(BotaniaItems.lensNormal)
 				.requires(BotaniaItems.runeEnvy)
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.lensNormal))
-				.save(consumer);
+				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, BotaniaItems.lensInfluence)
 				.define('P', Items.PRISMARINE_CRYSTALS)
 				.define('R', BotaniaItems.runeAir)
@@ -1858,7 +1850,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern("PLP")
 				.pattern("PPP")
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.lensNormal))
-				.save(consumer);
+				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, BotaniaItems.lensWeight)
 				.define('P', Items.PRISMARINE_CRYSTALS)
 				.define('R', BotaniaItems.runeWater)
@@ -1867,7 +1859,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern("PLP")
 				.pattern("PRP")
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.lensNormal))
-				.save(consumer);
+				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, BotaniaItems.lensPaint)
 				.define('E', BotaniaTags.Items.INGOTS_ELEMENTIUM)
 				.define('W', ItemTags.WOOL)
@@ -1876,17 +1868,17 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern("WLW")
 				.pattern(" E ")
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.lensNormal))
-				.save(consumer);
+				.save(output);
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BotaniaItems.lensFire)
 				.requires(BotaniaItems.lensNormal)
 				.requires(Items.FIRE_CHARGE)
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.lensNormal))
-				.save(consumer);
+				.save(output);
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BotaniaItems.lensPiston)
 				.requires(BotaniaItems.lensNormal)
 				.requires(BotaniaBlocks.pistonRelay)
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.lensNormal))
-				.save(consumer);
+				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, BotaniaItems.lensLight)
 				.define('F', Items.FIRE_CHARGE)
 				.define('G', Items.GLOWSTONE)
@@ -1895,7 +1887,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern("FLF")
 				.pattern("GFG")
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.lensNormal))
-				.save(consumer);
+				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, BotaniaItems.lensLight)
 				.define('F', Items.FIRE_CHARGE)
 				.define('G', Items.GLOWSTONE)
@@ -1904,7 +1896,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern("GLG")
 				.pattern("FGF")
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.lensNormal))
-				.save(consumer, "botania:lens_light_alt");
+				.save(output,"botania:lens_light_alt");
 		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, BotaniaItems.lensMessenger)
 				.define('P', Items.PAPER)
 				.define('L', BotaniaItems.lensNormal)
@@ -1912,40 +1904,40 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern("PLP")
 				.pattern(" P ")
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.lensNormal))
-				.save(consumer);
+				.save(output);
 
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BotaniaItems.lensWarp)
 				.requires(BotaniaItems.lensNormal)
 				.requires(BotaniaItems.pixieDust)
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.pixieDust))
-				.save(consumer);
+				.save(output);
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BotaniaItems.lensRedirect)
 				.requires(BotaniaItems.lensNormal)
 				.requires(BotaniaTags.Items.LIVINGWOOD_LOGS)
 				.requires(BotaniaTags.Items.INGOTS_ELEMENTIUM)
 				.unlockedBy("has_item", conditionsFromTag(BotaniaTags.Items.INGOTS_ELEMENTIUM))
-				.save(consumer);
+				.save(output);
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BotaniaItems.lensFirework)
 				.requires(BotaniaItems.lensNormal)
 				.requires(Items.FIREWORK_ROCKET)
 				.requires(BotaniaTags.Items.INGOTS_ELEMENTIUM)
 				.unlockedBy("has_item", conditionsFromTag(BotaniaTags.Items.INGOTS_ELEMENTIUM))
-				.save(consumer);
+				.save(output);
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BotaniaItems.lensFlare)
 				.requires(BotaniaItems.lensNormal)
 				.requires(BotaniaBlocks.elfGlass)
 				.requires(BotaniaTags.Items.INGOTS_ELEMENTIUM)
 				.unlockedBy("has_item", conditionsFromTag(BotaniaTags.Items.INGOTS_ELEMENTIUM))
-				.save(consumer);
+				.save(output);
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BotaniaItems.lensTripwire)
 				.requires(BotaniaItems.lensNormal)
 				.requires(Items.TRIPWIRE_HOOK)
 				.requires(BotaniaTags.Items.INGOTS_ELEMENTIUM)
 				.unlockedBy("has_item", conditionsFromTag(BotaniaTags.Items.INGOTS_ELEMENTIUM))
-				.save(consumer);
+				.save(output);
 	}
 
-	private void registerFloatingFlowers(Consumer<FinishedRecipe> consumer) {
+	private void registerFloatingFlowers(RecipeOutput output) {
 		for (Block block : new Block[] {
 				BotaniaFlowerBlocks.pureDaisy, BotaniaFlowerBlocks.manastar, BotaniaFlowerBlocks.hydroangeas, BotaniaFlowerBlocks.endoflame,
 				BotaniaFlowerBlocks.thermalily, BotaniaFlowerBlocks.rosaArcana, BotaniaFlowerBlocks.munchdew, BotaniaFlowerBlocks.entropinnyum,
@@ -1961,206 +1953,208 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				BotaniaFlowerBlocks.spectranthemum, BotaniaFlowerBlocks.medumone, BotaniaFlowerBlocks.marimorphosis, BotaniaFlowerBlocks.marimorphosisChibi,
 				BotaniaFlowerBlocks.bubbell, BotaniaFlowerBlocks.bubbellChibi, BotaniaFlowerBlocks.solegnolia, BotaniaFlowerBlocks.solegnoliaChibi,
 				BotaniaFlowerBlocks.orechidIgnem, BotaniaFlowerBlocks.labellia }) {
-			createFloatingFlowerRecipe(consumer, block);
+			createFloatingFlowerRecipe(output, block);
 		}
 	}
 
-	private void registerConversions(Consumer<FinishedRecipe> consumer) {
+	private void registerConversions(RecipeOutput output) {
 		compression(BotaniaItems.manaSteel, BotaniaTags.Items.NUGGETS_MANASTEEL)
-				.save(consumer, prefix("conversions/manasteel_from_nuggets"));
+				.save(output,prefix("conversions/manasteel_from_nuggets"));
 		compression(BotaniaItems.elementium, BotaniaTags.Items.NUGGETS_ELEMENTIUM)
-				.save(consumer, prefix("conversions/elementium_from_nuggets"));
+				.save(output,prefix("conversions/elementium_from_nuggets"));
 		compression(BotaniaItems.terrasteel, BotaniaTags.Items.NUGGETS_TERRASTEEL)
-				.save(consumer, prefix("conversions/terrasteel_from_nugget"));
-		compression(BotaniaBlocks.manasteelBlock, BotaniaTags.Items.INGOTS_MANASTEEL).save(consumer);
-		compression(BotaniaBlocks.terrasteelBlock, BotaniaTags.Items.INGOTS_TERRASTEEL).save(consumer);
-		compression(BotaniaBlocks.elementiumBlock, BotaniaTags.Items.INGOTS_ELEMENTIUM).save(consumer);
-		compression(BotaniaBlocks.manaDiamondBlock, BotaniaTags.Items.GEMS_MANA_DIAMOND).save(consumer);
-		compression(BotaniaBlocks.dragonstoneBlock, BotaniaTags.Items.GEMS_DRAGONSTONE).save(consumer);
+				.save(output,prefix("conversions/terrasteel_from_nugget"));
+		compression(BotaniaBlocks.manasteelBlock, BotaniaTags.Items.INGOTS_MANASTEEL).save(output);
+		compression(BotaniaBlocks.terrasteelBlock, BotaniaTags.Items.INGOTS_TERRASTEEL).save(output);
+		compression(BotaniaBlocks.elementiumBlock, BotaniaTags.Items.INGOTS_ELEMENTIUM).save(output);
+		compression(BotaniaBlocks.manaDiamondBlock, BotaniaTags.Items.GEMS_MANA_DIAMOND).save(output);
+		compression(BotaniaBlocks.dragonstoneBlock, BotaniaTags.Items.GEMS_DRAGONSTONE).save(output);
 
-		MutableObject<FinishedRecipe> base = new MutableObject<>();
-		MutableObject<FinishedRecipe> gog = new MutableObject<>();
-		compression(BotaniaBlocks.blazeBlock, Items.BLAZE_ROD).save(base::setValue);
+		GogAlternationResult.RecipeCapture base = new GogAlternationResult.RecipeCapture();
+		GogAlternationResult.RecipeCapture gog = new GogAlternationResult.RecipeCapture();
+		compression(BotaniaBlocks.blazeBlock, Items.BLAZE_ROD).save(base);
 		ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, BotaniaBlocks.blazeBlock)
 				.define('I', Items.BLAZE_POWDER)
 				.pattern("III")
 				.pattern("III")
 				.pattern("III")
 				.unlockedBy("has_item", conditionsFromItem(Items.BLAZE_POWDER))
-				.save(gog::setValue);
-		consumer.accept(new GogAlternationResult(gog.getValue(), base.getValue()));
+				.save(gog);
+		new GogAlternationResult(gog, base).save(output);
 
-		deconstructPetalBlock(consumer, BotaniaItems.whitePetal, BotaniaBlocks.petalBlockWhite);
-		deconstructPetalBlock(consumer, BotaniaItems.orangePetal, BotaniaBlocks.petalBlockOrange);
-		deconstructPetalBlock(consumer, BotaniaItems.magentaPetal, BotaniaBlocks.petalBlockMagenta);
-		deconstructPetalBlock(consumer, BotaniaItems.lightBluePetal, BotaniaBlocks.petalBlockLightBlue);
-		deconstructPetalBlock(consumer, BotaniaItems.yellowPetal, BotaniaBlocks.petalBlockYellow);
-		deconstructPetalBlock(consumer, BotaniaItems.limePetal, BotaniaBlocks.petalBlockLime);
-		deconstructPetalBlock(consumer, BotaniaItems.pinkPetal, BotaniaBlocks.petalBlockPink);
-		deconstructPetalBlock(consumer, BotaniaItems.grayPetal, BotaniaBlocks.petalBlockGray);
-		deconstructPetalBlock(consumer, BotaniaItems.lightGrayPetal, BotaniaBlocks.petalBlockSilver);
-		deconstructPetalBlock(consumer, BotaniaItems.cyanPetal, BotaniaBlocks.petalBlockCyan);
-		deconstructPetalBlock(consumer, BotaniaItems.purplePetal, BotaniaBlocks.petalBlockPurple);
-		deconstructPetalBlock(consumer, BotaniaItems.bluePetal, BotaniaBlocks.petalBlockBlue);
-		deconstructPetalBlock(consumer, BotaniaItems.brownPetal, BotaniaBlocks.petalBlockBrown);
-		deconstructPetalBlock(consumer, BotaniaItems.greenPetal, BotaniaBlocks.petalBlockGreen);
-		deconstructPetalBlock(consumer, BotaniaItems.redPetal, BotaniaBlocks.petalBlockRed);
-		deconstructPetalBlock(consumer, BotaniaItems.blackPetal, BotaniaBlocks.petalBlockBlack);
+		deconstructPetalBlock(output,BotaniaItems.whitePetal, BotaniaBlocks.petalBlockWhite);
+		deconstructPetalBlock(output,BotaniaItems.orangePetal, BotaniaBlocks.petalBlockOrange);
+		deconstructPetalBlock(output,BotaniaItems.magentaPetal, BotaniaBlocks.petalBlockMagenta);
+		deconstructPetalBlock(output,BotaniaItems.lightBluePetal, BotaniaBlocks.petalBlockLightBlue);
+		deconstructPetalBlock(output,BotaniaItems.yellowPetal, BotaniaBlocks.petalBlockYellow);
+		deconstructPetalBlock(output,BotaniaItems.limePetal, BotaniaBlocks.petalBlockLime);
+		deconstructPetalBlock(output,BotaniaItems.pinkPetal, BotaniaBlocks.petalBlockPink);
+		deconstructPetalBlock(output,BotaniaItems.grayPetal, BotaniaBlocks.petalBlockGray);
+		deconstructPetalBlock(output,BotaniaItems.lightGrayPetal, BotaniaBlocks.petalBlockSilver);
+		deconstructPetalBlock(output,BotaniaItems.cyanPetal, BotaniaBlocks.petalBlockCyan);
+		deconstructPetalBlock(output,BotaniaItems.purplePetal, BotaniaBlocks.petalBlockPurple);
+		deconstructPetalBlock(output,BotaniaItems.bluePetal, BotaniaBlocks.petalBlockBlue);
+		deconstructPetalBlock(output,BotaniaItems.brownPetal, BotaniaBlocks.petalBlockBrown);
+		deconstructPetalBlock(output,BotaniaItems.greenPetal, BotaniaBlocks.petalBlockGreen);
+		deconstructPetalBlock(output,BotaniaItems.redPetal, BotaniaBlocks.petalBlockRed);
+		deconstructPetalBlock(output,BotaniaItems.blackPetal, BotaniaBlocks.petalBlockBlack);
 
-		deconstruct(base::setValue, Items.BLAZE_ROD, BotaniaBlocks.blazeBlock, "blazeblock_deconstruct");
-		deconstruct(gog::setValue, Items.BLAZE_POWDER, BotaniaBlocks.blazeBlock, "blazeblock_deconstruct");
-		consumer.accept(new GogAlternationResult(gog.getValue(), base.getValue()));
-		deconstruct(consumer, BotaniaItems.manaSteel, BotaniaTags.Items.BLOCKS_MANASTEEL, "manasteel_block_deconstruct");
-		deconstruct(consumer, BotaniaItems.manaDiamond, BotaniaBlocks.manaDiamondBlock, "manadiamond_block_deconstruct");
-		deconstruct(consumer, BotaniaItems.terrasteel, BotaniaTags.Items.BLOCKS_TERRASTEEL, "terrasteel_block_deconstruct");
-		deconstruct(consumer, BotaniaItems.elementium, BotaniaTags.Items.BLOCKS_ELEMENTIUM, "elementium_block_deconstruct");
-		deconstruct(consumer, BotaniaItems.dragonstone, BotaniaBlocks.dragonstoneBlock, "dragonstone_block_deconstruct");
-		deconstruct(consumer, BotaniaItems.manasteelNugget, BotaniaTags.Items.INGOTS_MANASTEEL, "manasteel_to_nuggets");
-		deconstruct(consumer, BotaniaItems.terrasteelNugget, BotaniaTags.Items.INGOTS_TERRASTEEL, "terrasteel_to_nugget");
-		deconstruct(consumer, BotaniaItems.elementiumNugget, BotaniaTags.Items.INGOTS_ELEMENTIUM, "elementium_to_nuggets");
+		base = new GogAlternationResult.RecipeCapture();
+		gog = new GogAlternationResult.RecipeCapture();
+		deconstruct(base, Items.BLAZE_ROD, BotaniaBlocks.blazeBlock, "blazeblock_deconstruct");
+		deconstruct(gog, Items.BLAZE_POWDER, BotaniaBlocks.blazeBlock, "blazeblock_deconstruct");
+		new GogAlternationResult(gog, base).save(output);
+		deconstruct(output,BotaniaItems.manaSteel, BotaniaTags.Items.BLOCKS_MANASTEEL, "manasteel_block_deconstruct");
+		deconstruct(output,BotaniaItems.manaDiamond, BotaniaBlocks.manaDiamondBlock, "manadiamond_block_deconstruct");
+		deconstruct(output,BotaniaItems.terrasteel, BotaniaTags.Items.BLOCKS_TERRASTEEL, "terrasteel_block_deconstruct");
+		deconstruct(output,BotaniaItems.elementium, BotaniaTags.Items.BLOCKS_ELEMENTIUM, "elementium_block_deconstruct");
+		deconstruct(output,BotaniaItems.dragonstone, BotaniaBlocks.dragonstoneBlock, "dragonstone_block_deconstruct");
+		deconstruct(output,BotaniaItems.manasteelNugget, BotaniaTags.Items.INGOTS_MANASTEEL, "manasteel_to_nuggets");
+		deconstruct(output,BotaniaItems.terrasteelNugget, BotaniaTags.Items.INGOTS_TERRASTEEL, "terrasteel_to_nugget");
+		deconstruct(output,BotaniaItems.elementiumNugget, BotaniaTags.Items.INGOTS_ELEMENTIUM, "elementium_to_nuggets");
 
-		recombineSlab(consumer, BotaniaBlocks.livingrock, BotaniaBlocks.livingrockSlab);
-		recombineSlab(consumer, BotaniaBlocks.livingrockPolished, BotaniaBlocks.livingrockPolishedSlab);
-		recombineSlab(consumer, BotaniaBlocks.livingrockBrick, BotaniaBlocks.livingrockBrickSlab);
-		recombineSlab(consumer, BotaniaBlocks.livingwood, BotaniaBlocks.livingwoodSlab);
-		recombineSlab(consumer, BotaniaBlocks.livingwoodPlanks, BotaniaBlocks.livingwoodPlankSlab);
-		recombineSlab(consumer, BotaniaBlocks.dreamwood, BotaniaBlocks.dreamwoodSlab);
-		recombineSlab(consumer, BotaniaBlocks.dreamwoodPlanks, BotaniaBlocks.dreamwoodPlankSlab);
-		recombineSlab(consumer, BotaniaBlocks.shimmerrock, BotaniaBlocks.shimmerrockSlab);
-		recombineSlab(consumer, BotaniaBlocks.shimmerwoodPlanks, BotaniaBlocks.shimmerwoodPlankSlab);
-		recombineSlab(consumer, BotaniaBlocks.biomeStoneForest, BotaniaBlocks.biomeStoneForestSlab);
-		recombineSlab(consumer, BotaniaBlocks.biomeBrickForest, BotaniaBlocks.biomeBrickForestSlab);
-		recombineSlab(consumer, BotaniaBlocks.biomeCobblestoneForest, BotaniaBlocks.biomeCobblestoneForestSlab);
-		recombineSlab(consumer, BotaniaBlocks.biomeStonePlains, BotaniaBlocks.biomeStonePlainsSlab);
-		recombineSlab(consumer, BotaniaBlocks.biomeBrickPlains, BotaniaBlocks.biomeBrickPlainsSlab);
-		recombineSlab(consumer, BotaniaBlocks.biomeCobblestonePlains, BotaniaBlocks.biomeCobblestonePlainsSlab);
-		recombineSlab(consumer, BotaniaBlocks.biomeStoneMountain, BotaniaBlocks.biomeStoneMountainSlab);
-		recombineSlab(consumer, BotaniaBlocks.biomeBrickMountain, BotaniaBlocks.biomeBrickMountainSlab);
-		recombineSlab(consumer, BotaniaBlocks.biomeCobblestoneMountain, BotaniaBlocks.biomeCobblestoneMountainSlab);
-		recombineSlab(consumer, BotaniaBlocks.biomeStoneFungal, BotaniaBlocks.biomeStoneFungalSlab);
-		recombineSlab(consumer, BotaniaBlocks.biomeBrickFungal, BotaniaBlocks.biomeBrickFungalSlab);
-		recombineSlab(consumer, BotaniaBlocks.biomeCobblestoneFungal, BotaniaBlocks.biomeCobblestoneFungalSlab);
-		recombineSlab(consumer, BotaniaBlocks.biomeStoneSwamp, BotaniaBlocks.biomeStoneSwampSlab);
-		recombineSlab(consumer, BotaniaBlocks.biomeBrickSwamp, BotaniaBlocks.biomeBrickSwampSlab);
-		recombineSlab(consumer, BotaniaBlocks.biomeCobblestoneSwamp, BotaniaBlocks.biomeCobblestoneSwampSlab);
-		recombineSlab(consumer, BotaniaBlocks.biomeStoneDesert, BotaniaBlocks.biomeStoneDesertSlab);
-		recombineSlab(consumer, BotaniaBlocks.biomeBrickDesert, BotaniaBlocks.biomeBrickDesertSlab);
-		recombineSlab(consumer, BotaniaBlocks.biomeCobblestoneDesert, BotaniaBlocks.biomeCobblestoneDesertSlab);
-		recombineSlab(consumer, BotaniaBlocks.biomeStoneTaiga, BotaniaBlocks.biomeStoneTaigaSlab);
-		recombineSlab(consumer, BotaniaBlocks.biomeBrickTaiga, BotaniaBlocks.biomeBrickTaigaSlab);
-		recombineSlab(consumer, BotaniaBlocks.biomeCobblestoneTaiga, BotaniaBlocks.biomeCobblestoneTaigaSlab);
-		recombineSlab(consumer, BotaniaBlocks.biomeStoneMesa, BotaniaBlocks.biomeStoneMesaSlab);
-		recombineSlab(consumer, BotaniaBlocks.biomeBrickMesa, BotaniaBlocks.biomeBrickMesaSlab);
-		recombineSlab(consumer, BotaniaBlocks.biomeCobblestoneMesa, BotaniaBlocks.biomeCobblestoneMesaSlab);
-		recombineSlab(consumer, BotaniaBlocks.whitePavement, BotaniaBlocks.whitePavementSlab);
-		recombineSlab(consumer, BotaniaBlocks.blackPavement, BotaniaBlocks.blackPavementSlab);
-		recombineSlab(consumer, BotaniaBlocks.bluePavement, BotaniaBlocks.bluePavementSlab);
-		recombineSlab(consumer, BotaniaBlocks.yellowPavement, BotaniaBlocks.yellowPavementSlab);
-		recombineSlab(consumer, BotaniaBlocks.redPavement, BotaniaBlocks.redPavementSlab);
-		recombineSlab(consumer, BotaniaBlocks.greenPavement, BotaniaBlocks.greenPavementSlab);
-		recombineSlab(consumer, BotaniaBlocks.darkQuartz, BotaniaBlocks.darkQuartzSlab);
-		recombineSlab(consumer, BotaniaBlocks.manaQuartz, BotaniaBlocks.manaQuartzSlab);
-		recombineSlab(consumer, BotaniaBlocks.blazeQuartz, BotaniaBlocks.blazeQuartzSlab);
-		recombineSlab(consumer, BotaniaBlocks.lavenderQuartz, BotaniaBlocks.lavenderQuartzSlab);
-		recombineSlab(consumer, BotaniaBlocks.redQuartz, BotaniaBlocks.redQuartzSlab);
-		recombineSlab(consumer, BotaniaBlocks.elfQuartz, BotaniaBlocks.elfQuartzSlab);
-		recombineSlab(consumer, BotaniaBlocks.sunnyQuartz, BotaniaBlocks.sunnyQuartzSlab);
-		recombineSlab(consumer, BotaniaBlocks.corporeaBlock, BotaniaBlocks.corporeaSlab);
-		recombineSlab(consumer, BotaniaBlocks.corporeaBrick, BotaniaBlocks.corporeaBrickSlab);
+		recombineSlab(output,BotaniaBlocks.livingrock, BotaniaBlocks.livingrockSlab);
+		recombineSlab(output,BotaniaBlocks.livingrockPolished, BotaniaBlocks.livingrockPolishedSlab);
+		recombineSlab(output,BotaniaBlocks.livingrockBrick, BotaniaBlocks.livingrockBrickSlab);
+		recombineSlab(output,BotaniaBlocks.livingwood, BotaniaBlocks.livingwoodSlab);
+		recombineSlab(output,BotaniaBlocks.livingwoodPlanks, BotaniaBlocks.livingwoodPlankSlab);
+		recombineSlab(output,BotaniaBlocks.dreamwood, BotaniaBlocks.dreamwoodSlab);
+		recombineSlab(output,BotaniaBlocks.dreamwoodPlanks, BotaniaBlocks.dreamwoodPlankSlab);
+		recombineSlab(output,BotaniaBlocks.shimmerrock, BotaniaBlocks.shimmerrockSlab);
+		recombineSlab(output,BotaniaBlocks.shimmerwoodPlanks, BotaniaBlocks.shimmerwoodPlankSlab);
+		recombineSlab(output,BotaniaBlocks.biomeStoneForest, BotaniaBlocks.biomeStoneForestSlab);
+		recombineSlab(output,BotaniaBlocks.biomeBrickForest, BotaniaBlocks.biomeBrickForestSlab);
+		recombineSlab(output,BotaniaBlocks.biomeCobblestoneForest, BotaniaBlocks.biomeCobblestoneForestSlab);
+		recombineSlab(output,BotaniaBlocks.biomeStonePlains, BotaniaBlocks.biomeStonePlainsSlab);
+		recombineSlab(output,BotaniaBlocks.biomeBrickPlains, BotaniaBlocks.biomeBrickPlainsSlab);
+		recombineSlab(output,BotaniaBlocks.biomeCobblestonePlains, BotaniaBlocks.biomeCobblestonePlainsSlab);
+		recombineSlab(output,BotaniaBlocks.biomeStoneMountain, BotaniaBlocks.biomeStoneMountainSlab);
+		recombineSlab(output,BotaniaBlocks.biomeBrickMountain, BotaniaBlocks.biomeBrickMountainSlab);
+		recombineSlab(output,BotaniaBlocks.biomeCobblestoneMountain, BotaniaBlocks.biomeCobblestoneMountainSlab);
+		recombineSlab(output,BotaniaBlocks.biomeStoneFungal, BotaniaBlocks.biomeStoneFungalSlab);
+		recombineSlab(output,BotaniaBlocks.biomeBrickFungal, BotaniaBlocks.biomeBrickFungalSlab);
+		recombineSlab(output,BotaniaBlocks.biomeCobblestoneFungal, BotaniaBlocks.biomeCobblestoneFungalSlab);
+		recombineSlab(output,BotaniaBlocks.biomeStoneSwamp, BotaniaBlocks.biomeStoneSwampSlab);
+		recombineSlab(output,BotaniaBlocks.biomeBrickSwamp, BotaniaBlocks.biomeBrickSwampSlab);
+		recombineSlab(output,BotaniaBlocks.biomeCobblestoneSwamp, BotaniaBlocks.biomeCobblestoneSwampSlab);
+		recombineSlab(output,BotaniaBlocks.biomeStoneDesert, BotaniaBlocks.biomeStoneDesertSlab);
+		recombineSlab(output,BotaniaBlocks.biomeBrickDesert, BotaniaBlocks.biomeBrickDesertSlab);
+		recombineSlab(output,BotaniaBlocks.biomeCobblestoneDesert, BotaniaBlocks.biomeCobblestoneDesertSlab);
+		recombineSlab(output,BotaniaBlocks.biomeStoneTaiga, BotaniaBlocks.biomeStoneTaigaSlab);
+		recombineSlab(output,BotaniaBlocks.biomeBrickTaiga, BotaniaBlocks.biomeBrickTaigaSlab);
+		recombineSlab(output,BotaniaBlocks.biomeCobblestoneTaiga, BotaniaBlocks.biomeCobblestoneTaigaSlab);
+		recombineSlab(output,BotaniaBlocks.biomeStoneMesa, BotaniaBlocks.biomeStoneMesaSlab);
+		recombineSlab(output,BotaniaBlocks.biomeBrickMesa, BotaniaBlocks.biomeBrickMesaSlab);
+		recombineSlab(output,BotaniaBlocks.biomeCobblestoneMesa, BotaniaBlocks.biomeCobblestoneMesaSlab);
+		recombineSlab(output,BotaniaBlocks.whitePavement, BotaniaBlocks.whitePavementSlab);
+		recombineSlab(output,BotaniaBlocks.blackPavement, BotaniaBlocks.blackPavementSlab);
+		recombineSlab(output,BotaniaBlocks.bluePavement, BotaniaBlocks.bluePavementSlab);
+		recombineSlab(output,BotaniaBlocks.yellowPavement, BotaniaBlocks.yellowPavementSlab);
+		recombineSlab(output,BotaniaBlocks.redPavement, BotaniaBlocks.redPavementSlab);
+		recombineSlab(output,BotaniaBlocks.greenPavement, BotaniaBlocks.greenPavementSlab);
+		recombineSlab(output,BotaniaBlocks.darkQuartz, BotaniaBlocks.darkQuartzSlab);
+		recombineSlab(output,BotaniaBlocks.manaQuartz, BotaniaBlocks.manaQuartzSlab);
+		recombineSlab(output,BotaniaBlocks.blazeQuartz, BotaniaBlocks.blazeQuartzSlab);
+		recombineSlab(output,BotaniaBlocks.lavenderQuartz, BotaniaBlocks.lavenderQuartzSlab);
+		recombineSlab(output,BotaniaBlocks.redQuartz, BotaniaBlocks.redQuartzSlab);
+		recombineSlab(output,BotaniaBlocks.elfQuartz, BotaniaBlocks.elfQuartzSlab);
+		recombineSlab(output,BotaniaBlocks.sunnyQuartz, BotaniaBlocks.sunnyQuartzSlab);
+		recombineSlab(output,BotaniaBlocks.corporeaBlock, BotaniaBlocks.corporeaSlab);
+		recombineSlab(output,BotaniaBlocks.corporeaBrick, BotaniaBlocks.corporeaBrickSlab);
 	}
 
-	private void registerDecor(Consumer<FinishedRecipe> consumer) {
+	private void registerDecor(RecipeOutput output) {
 		ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, BotaniaBlocks.livingrockPolished, 4)
 				.define('R', BotaniaBlocks.livingrock)
 				.pattern("RR")
 				.pattern("RR")
 				.unlockedBy("has_item", conditionsFromItem(BotaniaBlocks.livingrock))
-				.save(consumer);
+				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, BotaniaBlocks.livingrockSlate)
 				.define('R', BotaniaBlocks.livingrockSlab)
 				.pattern("R")
 				.pattern("R")
 				.unlockedBy("has_item", conditionsFromItem(BotaniaBlocks.livingrock))
-				.save(consumer);
+				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, BotaniaBlocks.livingrockBrick, 4)
 				.define('R', BotaniaBlocks.livingrockPolished)
 				.pattern("RR")
 				.pattern("RR")
 				.unlockedBy("has_item", conditionsFromItem(BotaniaBlocks.livingrockPolished))
-				.save(consumer);
+				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, BotaniaBlocks.livingrockBrickChiseled)
 				.define('R', BotaniaBlocks.livingrockBrickSlab)
 				.pattern("R")
 				.pattern("R")
 				.unlockedBy("has_item", conditionsFromItem(BotaniaBlocks.livingrockBrick))
-				.save(consumer);
+				.save(output);
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, BotaniaBlocks.livingrockBrickMossy)
 				.requires(BotaniaBlocks.livingrockBrick)
 				.requires(Items.MOSS_BLOCK)
 				.unlockedBy("has_item", conditionsFromItem(BotaniaBlocks.livingrockBrick))
-				.save(consumer);
+				.save(output);
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, BotaniaBlocks.livingrockBrickMossy)
 				.requires(BotaniaBlocks.livingrockBrick)
 				.requires(Items.VINE)
 				.unlockedBy("has_item", conditionsFromItem(BotaniaBlocks.livingrockBrick))
-				.save(consumer, "botania:mossy_livingrock_bricks_vine");
+				.save(output,"botania:mossy_livingrock_bricks_vine");
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, BotaniaBlocks.shimmerrock)
 				.requires(BotaniaBlocks.livingrock)
 				.requires(BotaniaBlocks.bifrostPerm)
 				.unlockedBy("has_item", conditionsFromItem(BotaniaBlocks.bifrostPerm))
 				.unlockedBy("has_alt_item", conditionsFromItem(BotaniaItems.rainbowRod))
-				.save(consumer);
+				.save(output);
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, BotaniaBlocks.shimmerwoodPlanks)
 				.requires(BotaniaBlocks.dreamwoodPlanks)
 				.requires(BotaniaBlocks.bifrostPerm)
 				.unlockedBy("has_item", conditionsFromItem(BotaniaBlocks.bifrostPerm))
 				.unlockedBy("has_alt_item", conditionsFromItem(BotaniaItems.rainbowRod))
-				.save(consumer);
+				.save(output);
 
-		registerForQuartz(consumer, LibBlockNames.QUARTZ_DARK, BotaniaItems.darkQuartz);
-		registerForQuartz(consumer, LibBlockNames.QUARTZ_MANA, BotaniaItems.manaQuartz);
-		registerForQuartz(consumer, LibBlockNames.QUARTZ_BLAZE, BotaniaItems.blazeQuartz);
-		registerForQuartz(consumer, LibBlockNames.QUARTZ_LAVENDER, BotaniaItems.lavenderQuartz);
-		registerForQuartz(consumer, LibBlockNames.QUARTZ_RED, BotaniaItems.redQuartz);
-		registerForQuartz(consumer, LibBlockNames.QUARTZ_ELF, BotaniaItems.elfQuartz);
-		registerForQuartz(consumer, LibBlockNames.QUARTZ_SUNNY, BotaniaItems.sunnyQuartz);
+		registerForQuartz(output,LibBlockNames.QUARTZ_DARK, BotaniaItems.darkQuartz);
+		registerForQuartz(output,LibBlockNames.QUARTZ_MANA, BotaniaItems.manaQuartz);
+		registerForQuartz(output,LibBlockNames.QUARTZ_BLAZE, BotaniaItems.blazeQuartz);
+		registerForQuartz(output,LibBlockNames.QUARTZ_LAVENDER, BotaniaItems.lavenderQuartz);
+		registerForQuartz(output,LibBlockNames.QUARTZ_RED, BotaniaItems.redQuartz);
+		registerForQuartz(output,LibBlockNames.QUARTZ_ELF, BotaniaItems.elfQuartz);
+		registerForQuartz(output,LibBlockNames.QUARTZ_SUNNY, BotaniaItems.sunnyQuartz);
 
-		registerForWood(consumer, LibBlockNames.LIVING_WOOD);
-		registerForWood(consumer, LibBlockNames.DREAM_WOOD);
+		registerForWood(output,LibBlockNames.LIVING_WOOD);
+		registerForWood(output,LibBlockNames.DREAM_WOOD);
 
-		stairs(BotaniaBlocks.livingrockStairs, BotaniaBlocks.livingrock).save(consumer);
-		slabShape(BotaniaBlocks.livingrockSlab, BotaniaBlocks.livingrock).save(consumer);
-		wallShape(BotaniaBlocks.livingrockWall, BotaniaBlocks.livingrock, 6).save(consumer);
+		stairs(BotaniaBlocks.livingrockStairs, BotaniaBlocks.livingrock).save(output);
+		slabShape(BotaniaBlocks.livingrockSlab, BotaniaBlocks.livingrock).save(output);
+		wallShape(BotaniaBlocks.livingrockWall, BotaniaBlocks.livingrock, 6).save(output);
 
-		stairs(BotaniaBlocks.livingrockPolishedStairs, BotaniaBlocks.livingrockPolished).save(consumer);
-		slabShape(BotaniaBlocks.livingrockPolishedSlab, BotaniaBlocks.livingrockPolished).save(consumer);
-		wallShape(BotaniaBlocks.livingrockPolishedWall, BotaniaBlocks.livingrockPolished, 6).save(consumer);
+		stairs(BotaniaBlocks.livingrockPolishedStairs, BotaniaBlocks.livingrockPolished).save(output);
+		slabShape(BotaniaBlocks.livingrockPolishedSlab, BotaniaBlocks.livingrockPolished).save(output);
+		wallShape(BotaniaBlocks.livingrockPolishedWall, BotaniaBlocks.livingrockPolished, 6).save(output);
 
-		stairs(BotaniaBlocks.livingrockBrickStairs, BotaniaBlocks.livingrockBrick).save(consumer);
-		slabShape(BotaniaBlocks.livingrockBrickSlab, BotaniaBlocks.livingrockBrick).save(consumer);
-		wallShape(BotaniaBlocks.livingrockBrickWall, BotaniaBlocks.livingrockBrick, 6).save(consumer);
+		stairs(BotaniaBlocks.livingrockBrickStairs, BotaniaBlocks.livingrockBrick).save(output);
+		slabShape(BotaniaBlocks.livingrockBrickSlab, BotaniaBlocks.livingrockBrick).save(output);
+		wallShape(BotaniaBlocks.livingrockBrickWall, BotaniaBlocks.livingrockBrick, 6).save(output);
 
-		stairs(BotaniaBlocks.livingrockBrickMossyStairs, BotaniaBlocks.livingrockBrickMossy).save(consumer);
-		slabShape(BotaniaBlocks.livingrockBrickMossySlab, BotaniaBlocks.livingrockBrickMossy).save(consumer);
-		wallShape(BotaniaBlocks.livingrockBrickMossyWall, BotaniaBlocks.livingrockBrickMossy, 6).save(consumer);
+		stairs(BotaniaBlocks.livingrockBrickMossyStairs, BotaniaBlocks.livingrockBrickMossy).save(output);
+		slabShape(BotaniaBlocks.livingrockBrickMossySlab, BotaniaBlocks.livingrockBrickMossy).save(output);
+		wallShape(BotaniaBlocks.livingrockBrickMossyWall, BotaniaBlocks.livingrockBrickMossy, 6).save(output);
 
-		stairs(BotaniaBlocks.shimmerrockStairs, BotaniaBlocks.shimmerrock).save(consumer);
-		slabShape(BotaniaBlocks.shimmerrockSlab, BotaniaBlocks.shimmerrock).save(consumer);
-		stairs(BotaniaBlocks.shimmerwoodPlankStairs, BotaniaBlocks.shimmerwoodPlanks).save(consumer);
-		slabShape(BotaniaBlocks.shimmerwoodPlankSlab, BotaniaBlocks.shimmerwoodPlanks).save(consumer);
+		stairs(BotaniaBlocks.shimmerrockStairs, BotaniaBlocks.shimmerrock).save(output);
+		slabShape(BotaniaBlocks.shimmerrockSlab, BotaniaBlocks.shimmerrock).save(output);
+		stairs(BotaniaBlocks.shimmerwoodPlankStairs, BotaniaBlocks.shimmerwoodPlanks).save(output);
+		slabShape(BotaniaBlocks.shimmerwoodPlankSlab, BotaniaBlocks.shimmerwoodPlanks).save(output);
 
 		for (String variant : LibBlockNames.METAMORPHIC_VARIANTS) {
-			registerForMetamorphic(consumer, variant);
+			registerForMetamorphic(output,variant);
 		}
 
 		Item[] pavementIngredients = { Items.AIR, Items.COAL, Items.LAPIS_LAZULI, Items.REDSTONE, Items.WHEAT, Items.SLIME_BALL };
 		for (int i = 0; i < pavementIngredients.length; i++) {
-			registerForPavement(consumer, LibBlockNames.PAVEMENT_VARIANTS[i], pavementIngredients[i]);
+			registerForPavement(output,LibBlockNames.PAVEMENT_VARIANTS[i], pavementIngredients[i]);
 		}
 
-		wallShape(BotaniaBlocks.managlassPane, BotaniaBlocks.manaGlass, 16).save(consumer);
-		wallShape(BotaniaBlocks.alfglassPane, BotaniaBlocks.elfGlass, 16).save(consumer);
-		wallShape(BotaniaBlocks.bifrostPane, BotaniaBlocks.bifrostPerm, 16).save(consumer);
+		wallShape(BotaniaBlocks.managlassPane, BotaniaBlocks.manaGlass, 16).save(output);
+		wallShape(BotaniaBlocks.alfglassPane, BotaniaBlocks.elfGlass, 16).save(output);
+		wallShape(BotaniaBlocks.bifrostPane, BotaniaBlocks.bifrostPerm, 16).save(output);
 
 		// azulejo0 recipe in loader-specific datagen
 
@@ -2178,45 +2172,45 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 					.requires(allAzulejos.get(i))
 					.unlockedBy("has_azulejo", conditionsFromItem(BotaniaBlocks.azulejo0))
 					.group("botania:azulejo_cycling")
-					.save(consumer, prefix(recipeName));
+					.save(output,prefix(recipeName));
 		}
 
-		cosmeticBauble(consumer, BotaniaItems.blackBowtie, BotaniaItems.whitePetal);
-		cosmeticBauble(consumer, BotaniaItems.blackTie, BotaniaItems.orangePetal);
-		cosmeticBauble(consumer, BotaniaItems.redGlasses, BotaniaItems.magentaPetal);
-		cosmeticBauble(consumer, BotaniaItems.puffyScarf, BotaniaItems.lightBluePetal);
-		cosmeticBauble(consumer, BotaniaItems.engineerGoggles, BotaniaItems.yellowPetal);
-		cosmeticBauble(consumer, BotaniaItems.eyepatch, BotaniaItems.limePetal);
-		cosmeticBauble(consumer, BotaniaItems.wickedEyepatch, BotaniaItems.pinkPetal);
-		cosmeticBauble(consumer, BotaniaItems.redRibbons, BotaniaItems.grayPetal);
-		cosmeticBauble(consumer, BotaniaItems.pinkFlowerBud, BotaniaItems.lightGrayPetal);
-		cosmeticBauble(consumer, BotaniaItems.polkaDottedBows, BotaniaItems.cyanPetal);
-		cosmeticBauble(consumer, BotaniaItems.blueButterfly, BotaniaItems.purplePetal);
-		cosmeticBauble(consumer, BotaniaItems.catEars, BotaniaItems.bluePetal);
-		cosmeticBauble(consumer, BotaniaItems.witchPin, BotaniaItems.brownPetal);
-		cosmeticBauble(consumer, BotaniaItems.devilTail, BotaniaItems.greenPetal);
-		cosmeticBauble(consumer, BotaniaItems.kamuiEye, BotaniaItems.redPetal);
-		cosmeticBauble(consumer, BotaniaItems.googlyEyes, BotaniaItems.blackPetal);
-		cosmeticBauble(consumer, BotaniaItems.fourLeafClover, Items.WHITE_DYE);
-		cosmeticBauble(consumer, BotaniaItems.clockEye, Items.ORANGE_DYE);
-		cosmeticBauble(consumer, BotaniaItems.unicornHorn, Items.MAGENTA_DYE);
-		cosmeticBauble(consumer, BotaniaItems.devilHorns, Items.LIGHT_BLUE_DYE);
-		cosmeticBauble(consumer, BotaniaItems.hyperPlus, Items.YELLOW_DYE);
-		cosmeticBauble(consumer, BotaniaItems.botanistEmblem, Items.LIME_DYE);
-		cosmeticBauble(consumer, BotaniaItems.ancientMask, Items.PINK_DYE);
-		cosmeticBauble(consumer, BotaniaItems.eerieMask, Items.GRAY_DYE);
-		cosmeticBauble(consumer, BotaniaItems.alienAntenna, Items.LIGHT_GRAY_DYE);
-		cosmeticBauble(consumer, BotaniaItems.anaglyphGlasses, Items.CYAN_DYE);
-		cosmeticBauble(consumer, BotaniaItems.orangeShades, Items.PURPLE_DYE);
-		cosmeticBauble(consumer, BotaniaItems.grouchoGlasses, Items.BLUE_DYE);
-		cosmeticBauble(consumer, BotaniaItems.thickEyebrows, Items.BROWN_DYE);
-		cosmeticBauble(consumer, BotaniaItems.lusitanicShield, Items.GREEN_DYE);
-		cosmeticBauble(consumer, BotaniaItems.tinyPotatoMask, Items.RED_DYE);
-		cosmeticBauble(consumer, BotaniaItems.questgiverMark, Items.BLACK_DYE);
-		cosmeticBauble(consumer, BotaniaItems.thinkingHand, BotaniaBlocks.tinyPotato);
+		cosmeticBauble(output,BotaniaItems.blackBowtie, BotaniaItems.whitePetal);
+		cosmeticBauble(output,BotaniaItems.blackTie, BotaniaItems.orangePetal);
+		cosmeticBauble(output,BotaniaItems.redGlasses, BotaniaItems.magentaPetal);
+		cosmeticBauble(output,BotaniaItems.puffyScarf, BotaniaItems.lightBluePetal);
+		cosmeticBauble(output,BotaniaItems.engineerGoggles, BotaniaItems.yellowPetal);
+		cosmeticBauble(output,BotaniaItems.eyepatch, BotaniaItems.limePetal);
+		cosmeticBauble(output,BotaniaItems.wickedEyepatch, BotaniaItems.pinkPetal);
+		cosmeticBauble(output,BotaniaItems.redRibbons, BotaniaItems.grayPetal);
+		cosmeticBauble(output,BotaniaItems.pinkFlowerBud, BotaniaItems.lightGrayPetal);
+		cosmeticBauble(output,BotaniaItems.polkaDottedBows, BotaniaItems.cyanPetal);
+		cosmeticBauble(output,BotaniaItems.blueButterfly, BotaniaItems.purplePetal);
+		cosmeticBauble(output,BotaniaItems.catEars, BotaniaItems.bluePetal);
+		cosmeticBauble(output,BotaniaItems.witchPin, BotaniaItems.brownPetal);
+		cosmeticBauble(output,BotaniaItems.devilTail, BotaniaItems.greenPetal);
+		cosmeticBauble(output,BotaniaItems.kamuiEye, BotaniaItems.redPetal);
+		cosmeticBauble(output,BotaniaItems.googlyEyes, BotaniaItems.blackPetal);
+		cosmeticBauble(output,BotaniaItems.fourLeafClover, Items.WHITE_DYE);
+		cosmeticBauble(output,BotaniaItems.clockEye, Items.ORANGE_DYE);
+		cosmeticBauble(output,BotaniaItems.unicornHorn, Items.MAGENTA_DYE);
+		cosmeticBauble(output,BotaniaItems.devilHorns, Items.LIGHT_BLUE_DYE);
+		cosmeticBauble(output,BotaniaItems.hyperPlus, Items.YELLOW_DYE);
+		cosmeticBauble(output,BotaniaItems.botanistEmblem, Items.LIME_DYE);
+		cosmeticBauble(output,BotaniaItems.ancientMask, Items.PINK_DYE);
+		cosmeticBauble(output,BotaniaItems.eerieMask, Items.GRAY_DYE);
+		cosmeticBauble(output,BotaniaItems.alienAntenna, Items.LIGHT_GRAY_DYE);
+		cosmeticBauble(output,BotaniaItems.anaglyphGlasses, Items.CYAN_DYE);
+		cosmeticBauble(output,BotaniaItems.orangeShades, Items.PURPLE_DYE);
+		cosmeticBauble(output,BotaniaItems.grouchoGlasses, Items.BLUE_DYE);
+		cosmeticBauble(output,BotaniaItems.thickEyebrows, Items.BROWN_DYE);
+		cosmeticBauble(output,BotaniaItems.lusitanicShield, Items.GREEN_DYE);
+		cosmeticBauble(output,BotaniaItems.tinyPotatoMask, Items.RED_DYE);
+		cosmeticBauble(output,BotaniaItems.questgiverMark, Items.BLACK_DYE);
+		cosmeticBauble(output,BotaniaItems.thinkingHand, BotaniaBlocks.tinyPotato);
 	}
 
-	protected void registerSimpleArmorSet(Consumer<FinishedRecipe> consumer, Ingredient item, String variant,
+	protected void registerSimpleArmorSet(RecipeOutput output, Ingredient item, String variant,
 			CriterionTriggerInstance criterion) {
 		Item helmet = getItemOrThrow(prefix(variant + "_helmet"));
 		Item chestplate = getItemOrThrow(prefix(variant + "_chestplate"));
@@ -2227,30 +2221,30 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern("SSS")
 				.pattern("S S")
 				.unlockedBy("has_item", criterion)
-				.save(consumer);
+				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, chestplate)
 				.define('S', item)
 				.pattern("S S")
 				.pattern("SSS")
 				.pattern("SSS")
 				.unlockedBy("has_item", criterion)
-				.save(consumer);
+				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, leggings)
 				.define('S', item)
 				.pattern("SSS")
 				.pattern("S S")
 				.pattern("S S")
 				.unlockedBy("has_item", criterion)
-				.save(consumer);
+				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, boots)
 				.define('S', item)
 				.pattern("S S")
 				.pattern("S S")
 				.unlockedBy("has_item", criterion)
-				.save(consumer);
+				.save(output);
 	}
 
-	protected void registerToolSetRecipes(Consumer<FinishedRecipe> consumer, Ingredient item, Ingredient stick,
+	protected void registerToolSetRecipes(RecipeOutput output, Ingredient item, Ingredient stick,
 			CriterionTriggerInstance criterion, ItemLike sword, ItemLike pickaxe,
 			ItemLike axe, ItemLike hoe, ItemLike shovel, ItemLike shears) {
 		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, pickaxe)
@@ -2260,7 +2254,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern(" T ")
 				.pattern(" T ")
 				.unlockedBy("has_item", criterion)
-				.save(consumer);
+				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, shovel)
 				.define('S', item)
 				.define('T', stick)
@@ -2268,7 +2262,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern("T")
 				.pattern("T")
 				.unlockedBy("has_item", criterion)
-				.save(consumer);
+				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, axe)
 				.define('S', item)
 				.define('T', stick)
@@ -2276,7 +2270,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern("ST")
 				.pattern(" T")
 				.unlockedBy("has_item", criterion)
-				.save(consumer);
+				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, hoe)
 				.define('S', item)
 				.define('T', stick)
@@ -2284,7 +2278,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern(" T")
 				.pattern(" T")
 				.unlockedBy("has_item", criterion)
-				.save(consumer);
+				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, sword)
 				.define('S', item)
 				.define('T', stick)
@@ -2292,19 +2286,19 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern("S")
 				.pattern("T")
 				.unlockedBy("has_item", criterion)
-				.save(consumer);
+				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, shears)
 				.define('S', item)
 				.pattern(" S")
 				.pattern("S ")
 				.unlockedBy("has_item", criterion)
-				.save(consumer);
+				.save(output);
 
 	}
 
-	protected void registerTerrasteelUpgradeRecipe(Consumer<FinishedRecipe> consumer, ItemLike output,
+	protected void registerTerrasteelUpgradeRecipe(RecipeOutput output, ItemLike result,
 			ItemLike upgradedInput, ItemLike runeInput) {
-		ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, output)
+		ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, result)
 				.define('T', BotaniaItems.livingwoodTwig)
 				.define('S', BotaniaTags.Items.INGOTS_TERRASTEEL)
 				.define('R', runeInput)
@@ -2314,11 +2308,11 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern(" S ")
 				.unlockedBy("has_item", conditionsFromTag(BotaniaTags.Items.INGOTS_TERRASTEEL))
 				.unlockedBy("has_prev_tier", conditionsFromItem(upgradedInput))
-				.save(WrapperResult.ofType(ArmorUpgradeRecipe.SERIALIZER, consumer));
+				.save(WrapperResult.ofType(ArmorUpgradeRecipe.SERIALIZER, output));
 	}
 
-	public static void registerRedStringBlock(Consumer<FinishedRecipe> consumer, ItemLike output, Ingredient input, CriterionTriggerInstance criterion) {
-		ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, output)
+	public static void registerRedStringBlock(RecipeOutput output, ItemLike result, Ingredient input, CriterionTriggerInstance criterion) {
+		ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, result)
 				.define('R', BotaniaBlocks.livingrock)
 				.define('S', BotaniaItems.redString)
 				.define('M', input)
@@ -2327,47 +2321,47 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern("RRR")
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.redString))
 				.unlockedBy("has_base_block", criterion)
-				.save(consumer);
+				.save(output);
 	}
 
-	protected void createFloatingFlowerRecipe(Consumer<FinishedRecipe> consumer, ItemLike input) {
+	protected void createFloatingFlowerRecipe(RecipeOutput recipeOutput, ItemLike input) {
 		ResourceLocation inputName = BuiltInRegistries.ITEM.getKey(input.asItem());
-		Item output = getItemOrThrow(new ResourceLocation(inputName.getNamespace(), "floating_" + inputName.getPath()));
-		ShapelessRecipeBuilder.shapeless(RecipeCategory.DECORATIONS, output)
+		Item result = getItemOrThrow(new ResourceLocation(inputName.getNamespace(), "floating_" + inputName.getPath()));
+		ShapelessRecipeBuilder.shapeless(RecipeCategory.DECORATIONS, result)
 				.requires(BotaniaTags.Items.FLOATING_FLOWERS)
 				.requires(input)
 				.group("botania:floating_flower")
 				.unlockedBy("has_item", conditionsFromItem(input))
-				.save(consumer);
+				.save(recipeOutput);
 	}
 
-	protected void deconstruct(Consumer<FinishedRecipe> consumer, ItemLike output, ItemLike input, String name) {
-		ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, output, 9)
-				.unlockedBy("has_item", conditionsFromItem(output))
+	protected void deconstruct(RecipeOutput recipeOutput, ItemLike result, ItemLike input, String name) {
+		ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, result, 9)
+				.unlockedBy("has_item", conditionsFromItem(result))
 				.requires(input)
-				.save(consumer, prefix("conversions/" + name));
+				.save(recipeOutput, prefix("conversions/" + name));
 	}
 
-	protected void deconstruct(Consumer<FinishedRecipe> consumer, ItemLike output, TagKey<Item> input, String name) {
-		ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, output, 9)
-				.unlockedBy("has_item", conditionsFromItem(output))
+	protected void deconstruct(RecipeOutput recipeOutput, ItemLike result, TagKey<Item> input, String name) {
+		ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, result, 9)
+				.unlockedBy("has_item", conditionsFromItem(result))
 				.requires(input)
-				.save(consumer, prefix("conversions/" + name));
+				.save(recipeOutput, prefix("conversions/" + name));
 	}
 
-	protected void deconstructPetalBlock(Consumer<FinishedRecipe> consumer, ItemLike output, ItemLike input) {
-		ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, output, 9)
-				.unlockedBy("has_item", conditionsFromItem(output))
+	protected void deconstructPetalBlock(RecipeOutput recipeOutput, ItemLike result, ItemLike input) {
+		ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, result, 9)
+				.unlockedBy("has_item", conditionsFromItem(result))
 				.requires(input).group("botania:petal_block_deconstruct")
-				.save(consumer, prefix("conversions/" + BuiltInRegistries.ITEM.getKey(input.asItem()).getPath() + "_deconstruct"));
+				.save(recipeOutput, prefix("conversions/" + BuiltInRegistries.ITEM.getKey(input.asItem()).getPath() + "_deconstruct"));
 	}
 
-	protected void recombineSlab(Consumer<FinishedRecipe> consumer, ItemLike fullBlock, ItemLike slab) {
+	protected void recombineSlab(RecipeOutput recipeOutput, ItemLike fullBlock, ItemLike slab) {
 		ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, fullBlock)
 				.define('Q', slab)
 				.pattern("QQ")
 				.unlockedBy("has_item", conditionsFromItem(slab))
-				.save(consumer, prefix("slab_recombine/" + BuiltInRegistries.ITEM.getKey(fullBlock.asItem()).getPath()));
+				.save(recipeOutput, prefix("slab_recombine/" + BuiltInRegistries.ITEM.getKey(fullBlock.asItem()).getPath()));
 	}
 
 	protected ShapedRecipeBuilder petalApothecary(ItemLike block, ItemLike apothecary) {
@@ -2379,7 +2373,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern("CCC");
 	}
 
-	protected void registerForQuartz(Consumer<FinishedRecipe> consumer, String variant, ItemLike baseItem) {
+	protected void registerForQuartz(RecipeOutput output, String variant, ItemLike baseItem) {
 		Block base = getBlockOrThrow(prefix(variant));
 		Block slab = getBlockOrThrow(prefix(variant + LibBlockNames.SLAB_SUFFIX));
 		Block stairs = getBlockOrThrow(prefix(variant + LibBlockNames.STAIR_SUFFIX));
@@ -2392,15 +2386,15 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern("QQ")
 				.group("botania:quartz_block")
 				.unlockedBy("has_item", conditionsFromItem(baseItem))
-				.save(consumer);
-		stairs(stairs, base).group("botania:quartz_stairs").save(consumer);
-		slabShape(slab, base).group("botania:quartz_slab").save(consumer);
-		pillar(pillar, base).group("botania:quartz_pillar").save(consumer);
+				.save(output);
+		stairs(stairs, base).group("botania:quartz_stairs").save(output);
+		slabShape(slab, base).group("botania:quartz_slab").save(output);
+		pillar(pillar, base).group("botania:quartz_pillar").save(output);
 		chiseled(chiseled, slab).group("botania:quartz_chiseled")
-				.unlockedBy("has_base_item", conditionsFromItem(base)).save(consumer);
+				.unlockedBy("has_base_item", conditionsFromItem(base)).save(output);
 	}
 
-	protected void registerForWood(Consumer<FinishedRecipe> consumer, String variant) {
+	protected void registerForWood(RecipeOutput output, String variant) {
 
 		TagKey<Item> tag = variant.contains("livingwood") ? BotaniaTags.Items.LIVINGWOOD_LOGS : BotaniaTags.Items.DREAMWOOD_LOGS;
 		Block log = getBlockOrThrow(prefix(variant + "_log"));
@@ -2428,82 +2422,82 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 		Block fenceGate = getBlockOrThrow(prefix(variant + "_fence_gate"));
 
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, planks, 4).requires(tag).group("planks")
-				.unlockedBy("has_item", conditionsFromTag(tag)).save(consumer);
+				.unlockedBy("has_item", conditionsFromTag(tag)).save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, wood, 3).group("wood").unlockedBy("has_log", conditionsFromItem(log))
 				.define('#', log)
 				.pattern("##")
 				.pattern("##")
-				.save(consumer);
+				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, strippedWood, 3).group("wood").unlockedBy("has_log", conditionsFromItem(strippedLog))
 				.define('#', strippedLog)
 				.pattern("##")
 				.pattern("##")
-				.save(consumer);
+				.save(output);
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, glimmeringLog).group("botania:glimmering_" + variant)
 				.requires(log)
 				.requires(Items.GLOWSTONE_DUST)
 				.unlockedBy("has_item", conditionsFromItem(log))
-				.save(consumer);
+				.save(output);
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, glimmeringWood).group("botania:glimmering_" + variant)
 				.requires(wood)
 				.requires(Items.GLOWSTONE_DUST)
 				.unlockedBy("has_item", conditionsFromItem(wood))
-				.save(consumer);
+				.save(output);
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, glimmeringStrippedLog).group("botania:glimmering_" + variant)
 				.requires(strippedLog)
 				.requires(Items.GLOWSTONE_DUST)
 				.unlockedBy("has_item", conditionsFromItem(strippedLog))
-				.save(consumer);
+				.save(output);
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, glimmeringStrippedWood).group("botania:glimmering_" + variant)
 				.requires(strippedWood)
 				.requires(Items.GLOWSTONE_DUST)
 				.unlockedBy("has_item", conditionsFromItem(strippedWood))
-				.save(consumer);
+				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, glimmeringWood, 3).group("botania:glimmering_" + variant)
 				.unlockedBy("has_log", conditionsFromItem(glimmeringLog))
 				.define('#', glimmeringLog)
 				.pattern("##")
 				.pattern("##")
-				.save(consumer, prefix("glimmering_" + variant + "_from_log"));
+				.save(output,prefix("glimmering_" + variant + "_from_log"));
 		ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, glimmeringStrippedWood, 3).group("botania:glimmering_" + variant)
 				.unlockedBy("has_log", conditionsFromItem(glimmeringStrippedLog))
 				.define('#', glimmeringStrippedLog)
 				.pattern("##")
 				.pattern("##")
-				.save(consumer, prefix("glimmering_stripped_" + variant + "_from_log"));
+				.save(output,prefix("glimmering_stripped_" + variant + "_from_log"));
 
-		stairs(stairs, wood).save(consumer);
-		slabShape(slab, wood).save(consumer);
-		wallShape(wall, wood, 6).save(consumer);
-		fence(fence, planks).save(consumer);
-		fenceGate(fenceGate, planks).save(consumer);
+		stairs(stairs, wood).save(output);
+		slabShape(slab, wood).save(output);
+		wallShape(wall, wood, 6).save(output);
+		fence(fence, planks).save(output);
+		fenceGate(fenceGate, planks).save(output);
 
-		stairs(strippedStairs, strippedWood).save(consumer);
-		slabShape(strippedSlab, strippedWood).save(consumer);
-		wallShape(strippedWall, strippedWood, 6).save(consumer);
+		stairs(strippedStairs, strippedWood).save(output);
+		slabShape(strippedSlab, strippedWood).save(output);
+		wallShape(strippedWall, strippedWood, 6).save(output);
 
-		stairs(planksStairs, planks).save(consumer);
-		slabShape(planksSlab, planks).save(consumer);
+		stairs(planksStairs, planks).save(output);
+		slabShape(planksSlab, planks).save(output);
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, mossyPlanks)
 				.requires(planks)
 				.requires(Items.MOSS_BLOCK)
 				.unlockedBy("has_item", conditionsFromItem(planks))
-				.save(consumer);
+				.save(output);
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, mossyPlanks)
 				.requires(planks)
 				.requires(Items.VINE)
 				.unlockedBy("has_item", conditionsFromItem(planks))
-				.save(consumer, prefix("mossy_" + variant + "_planks_vine"));
+				.save(output,prefix("mossy_" + variant + "_planks_vine"));
 		ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, framed, 4)
 				.define('W', planks)
 				.pattern("W W")
 				.pattern("W W")
 				.unlockedBy("has_item", conditionsFromItem(planks))
-				.save(consumer);
-		ringShape(patternFramed, planks).save(consumer);
+				.save(output);
+		ringShape(patternFramed, planks).save(output);
 	}
 
-	private void registerForPavement(Consumer<FinishedRecipe> consumer, String color, Item mainInput) {
+	private void registerForPavement(RecipeOutput output, String color, Item mainInput) {
 		String baseName = color + LibBlockNames.PAVEMENT_SUFFIX;
 		Block base = getBlockOrThrow(prefix(baseName));
 		Block stair = getBlockOrThrow(prefix(baseName + LibBlockNames.STAIR_SUFFIX));
@@ -2518,13 +2512,13 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 		if (mainInput != Items.AIR) {
 			builder.requires(mainInput);
 		}
-		builder.save(consumer);
+		builder.save(output);
 
-		slabShape(slab, base).group("botania:pavement_slab").save(consumer);
-		stairs(stair, base).group("botania:pavement_stairs").save(consumer);
+		slabShape(slab, base).group("botania:pavement_slab").save(output);
+		stairs(stair, base).group("botania:pavement_stairs").save(output);
 	}
 
-	private void registerForMetamorphic(Consumer<FinishedRecipe> consumer, String variant) {
+	private void registerForMetamorphic(RecipeOutput output, String variant) {
 		Block base = getBlockOrThrow(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_stone"));
 		Block slab = getBlockOrThrow(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_stone" + LibBlockNames.SLAB_SUFFIX));
 		Block stair = getBlockOrThrow(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_stone" + LibBlockNames.STAIR_SUFFIX));
@@ -2541,29 +2535,29 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 
 		InventoryChangeTrigger.TriggerInstance marimorphosis = conditionsFromItem(BotaniaFlowerBlocks.marimorphosis);
 		slabShape(slab, base).group("botania:metamorphic_stone_slab")
-				.unlockedBy("has_flower_item", marimorphosis).save(consumer);
+				.unlockedBy("has_flower_item", marimorphosis).save(output);
 		stairs(stair, base).group("botania:metamorphic_stone_stairs")
-				.unlockedBy("has_flower_item", marimorphosis).save(consumer);
+				.unlockedBy("has_flower_item", marimorphosis).save(output);
 		wallShape(wall, base, 6).group("botania:metamorphic_stone_wall")
-				.unlockedBy("has_flower_item", marimorphosis).save(consumer);
+				.unlockedBy("has_flower_item", marimorphosis).save(output);
 
 		brick(brick, base).group("botania:metamorphic_brick")
-				.unlockedBy("has_flower_item", marimorphosis).save(consumer);
+				.unlockedBy("has_flower_item", marimorphosis).save(output);
 		slabShape(brickSlab, brick).group("botania:metamorphic_brick_slab")
-				.unlockedBy("has_flower_item", marimorphosis).save(consumer);
+				.unlockedBy("has_flower_item", marimorphosis).save(output);
 		stairs(brickStair, brick).group("botania:metamorphic_brick_stairs")
-				.unlockedBy("has_flower_item", marimorphosis).save(consumer);
+				.unlockedBy("has_flower_item", marimorphosis).save(output);
 		wallShape(brickWall, brick, 6).group("botania:metamorphic_brick_wall")
-				.unlockedBy("has_flower_item", marimorphosis).save(consumer);
+				.unlockedBy("has_flower_item", marimorphosis).save(output);
 		chiseled(chiseledBrick, brickSlab).unlockedBy("has_base_item", conditionsFromItem(brick))
-				.unlockedBy("has_flower_item", marimorphosis).save(consumer);
+				.unlockedBy("has_flower_item", marimorphosis).save(output);
 
 		slabShape(cobbleSlab, cobble).group("botania:metamorphic_cobble_slab")
-				.unlockedBy("has_flower_item", marimorphosis).save(consumer);
+				.unlockedBy("has_flower_item", marimorphosis).save(output);
 		stairs(cobbleStair, cobble).group("botania:metamorphic_cobble_stairs")
-				.unlockedBy("has_flower_item", marimorphosis).save(consumer);
+				.unlockedBy("has_flower_item", marimorphosis).save(output);
 		wallShape(cobbleWall, cobble, 6).group("botania:metamorphic_cobble_wall")
-				.unlockedBy("has_flower_item", marimorphosis).save(consumer);
+				.unlockedBy("has_flower_item", marimorphosis).save(output);
 	}
 
 	private ShapedRecipeBuilder compression(ItemLike output, TagKey<Item> input) {
@@ -2661,8 +2655,8 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.unlockedBy("has_item", conditionsFromItem(input));
 	}
 
-	protected void cosmeticBauble(Consumer<FinishedRecipe> consumer, ItemLike output, ItemLike input) {
-		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, output)
+	protected void cosmeticBauble(RecipeOutput recipeOutput, ItemLike result, ItemLike input) {
+		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, result)
 				.define('P', input)
 				.define('S', BotaniaItems.manaString)
 				.pattern("PPP")
@@ -2670,12 +2664,12 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern("PPP")
 				.group("botania:cosmetic_bauble")
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.manaString))
-				.save(consumer);
+				.save(recipeOutput);
 	}
 
-	protected void specialRecipe(Consumer<FinishedRecipe> consumer, NoOpRecipeSerializer<? extends CraftingRecipe> serializer) {
+	protected void specialRecipe(RecipeOutput output, NoOpRecipeSerializer<? extends CraftingRecipe> serializer) {
 		ResourceLocation name = BuiltInRegistries.RECIPE_SERIALIZER.getKey(serializer);
-		SpecialRecipeBuilder.special(serializer).save(consumer, prefix("dynamic/" + name.getPath()).toString());
+		SpecialRecipeBuilder.special(serializer).save(output, prefix("dynamic/" + name.getPath()).toString());
 	}
 
 	protected Block getBlockOrThrow(ResourceLocation location) {

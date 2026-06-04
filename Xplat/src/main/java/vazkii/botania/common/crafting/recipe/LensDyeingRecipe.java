@@ -46,8 +46,8 @@ public class LensDyeingRecipe extends CustomRecipe {
 			Ingredient.of(BotaniaItems.manaPearl)
 	));
 
-	public LensDyeingRecipe(ResourceLocation id) {
-		super(id, CraftingBookCategory.REDSTONE);
+	public LensDyeingRecipe() {
+		super(CraftingBookCategory.REDSTONE);
 	}
 
 	@NotNull

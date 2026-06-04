@@ -22,16 +22,16 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.item.*;
-import net.minecraft.world.item.alchemy.PotionUtils;
+import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.item.armortrim.*;
 import net.minecraft.world.level.storage.loot.Deserializers;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
-import net.minecraft.world.level.storage.loot.entries.LootTableReference;
+import net.minecraft.world.level.storage.loot.entries.NestedLootTable;
 import net.minecraft.world.level.storage.loot.functions.EnchantRandomlyFunction;
-import net.minecraft.world.level.storage.loot.functions.SetNbtFunction;
+import net.minecraft.world.level.storage.loot.functions.SetComponentsFunction;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.predicates.AnyOfCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemEntityPropertyCondition;
@@ -196,7 +196,7 @@ public class LooniumEquipmentLootProvider implements DataProvider {
 		);
 		tables.put(BotaniaLootTables.LOONIUM_WEAPON_BY_PROFESSION,
 				LootTable.lootTable().withPool(LootPool.lootPool()
-						.add(LootTableReference.lootTableReference(BotaniaLootTables.LOONIUM_WEAPON_AXE)
+						.add(NestedLootTable.lootTableReference(ResourceKey.create(Registries.LOOT_TABLE,BotaniaLootTables.LOONIUM_WEAPON_AXE)
 								.apply(EnchantRandomlyFunction.randomApplicableEnchantment()
 										.when(LootItemRandomChanceCondition.randomChance(0.3f)))
 								.when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS,
@@ -214,7 +214,7 @@ public class LooniumEquipmentLootProvider implements DataProvider {
 								.when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS,
 										EntityPredicate.Builder.entity().nbt(
 												new NbtPredicate(getProfessionNbt(VillagerProfession.TOOLSMITH))))))
-						.add(LootTableReference.lootTableReference(BotaniaLootTables.LOONIUM_WEAPON_SWORD)
+						.add(NestedLootTable.lootTableReference(ResourceKey.create(Registries.LOOT_TABLE,BotaniaLootTables.LOONIUM_WEAPON_SWORD)
 								.apply(EnchantRandomlyFunction.randomApplicableEnchantment()
 										.when(LootItemRandomChanceCondition.randomChance(0.3f)))
 								.when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS,
@@ -226,8 +226,8 @@ public class LooniumEquipmentLootProvider implements DataProvider {
 				LootTable.lootTable().withPool(LootPool.lootPool()
 						.apply(EnchantRandomlyFunction.randomApplicableEnchantment()
 								.when(LootItemRandomChanceCondition.randomChance(0.3f)))
-						.add(LootTableReference.lootTableReference(BotaniaLootTables.LOONIUM_WEAPON_SWORD_GOLD))
-						.add(LootTableReference.lootTableReference(BotaniaLootTables.LOONIUM_WEAPON_CROSSBOW))
+						.add(NestedLootTable.lootTableReference(ResourceKey.create(Registries.LOOT_TABLE,BotaniaLootTables.LOONIUM_WEAPON_SWORD_GOLD))
+						.add(NestedLootTable.lootTableReference(ResourceKey.create(Registries.LOOT_TABLE,BotaniaLootTables.LOONIUM_WEAPON_CROSSBOW))
 				)
 		);
 		tables.put(BotaniaLootTables.LOONIUM_WEAPON_FOR_WITHER_SKELETON,
@@ -267,10 +267,10 @@ public class LooniumEquipmentLootProvider implements DataProvider {
 		CompoundTag darknessEffectTag = getPotionEffectTag(MobEffects.DARKNESS, 200);
 		tables.put(BotaniaLootTables.LOONIUM_ARMOR_ANCIENT_CITY,
 				LootTable.lootTable().withPool(LootPool.lootPool()
-						.add(LootTableReference.lootTableReference(BotaniaLootTables.LOONIUM_ARMORSET_WARD_IRON).setWeight(11))
-						.add(LootTableReference.lootTableReference(BotaniaLootTables.LOONIUM_ARMORSET_WARD_DIAMOND).setWeight(5))
-						.add(LootTableReference.lootTableReference(BotaniaLootTables.LOONIUM_ARMORSET_SILENCE_GOLD).setWeight(3))
-						.add(LootTableReference.lootTableReference(BotaniaLootTables.LOONIUM_ARMORSET_SILENCE_DIAMOND).setWeight(1))
+						.add(NestedLootTable.lootTableReference(ResourceKey.create(Registries.LOOT_TABLE,BotaniaLootTables.LOONIUM_ARMORSET_WARD_IRON).setWeight(11))
+						.add(NestedLootTable.lootTableReference(ResourceKey.create(Registries.LOOT_TABLE,BotaniaLootTables.LOONIUM_ARMORSET_WARD_DIAMOND).setWeight(5))
+						.add(NestedLootTable.lootTableReference(ResourceKey.create(Registries.LOOT_TABLE,BotaniaLootTables.LOONIUM_ARMORSET_SILENCE_GOLD).setWeight(3))
+						.add(NestedLootTable.lootTableReference(ResourceKey.create(Registries.LOOT_TABLE,BotaniaLootTables.LOONIUM_ARMORSET_SILENCE_DIAMOND).setWeight(1))
 				).withPool(LootPool.lootPool()
 						// Note: Slowness from Strays stacks with tipped arrow effects, so just checking for bow here
 						.when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS,
@@ -282,18 +282,18 @@ public class LooniumEquipmentLootProvider implements DataProvider {
 		);
 		tables.put(BotaniaLootTables.LOONIUM_DROWNED_ANCIENT_CITY,
 				LootTable.lootTable()
-						.withPool(LootPool.lootPool().add(LootTableReference.lootTableReference(BotaniaLootTables.LOONIUM_WEAPON_TRIDENT)))
-						.withPool(LootPool.lootPool().add(LootTableReference.lootTableReference(BotaniaLootTables.LOONIUM_ARMOR_ANCIENT_CITY)))
+						.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(ResourceKey.create(Registries.LOOT_TABLE,BotaniaLootTables.LOONIUM_WEAPON_TRIDENT)))
+						.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(ResourceKey.create(Registries.LOOT_TABLE,BotaniaLootTables.LOONIUM_ARMOR_ANCIENT_CITY)))
 		);
 		tables.put(BotaniaLootTables.LOONIUM_SKELETON_ANCIENT_CITY,
 				LootTable.lootTable()
-						.withPool(LootPool.lootPool().add(LootTableReference.lootTableReference(BotaniaLootTables.LOONIUM_WEAPON_BOW)))
-						.withPool(LootPool.lootPool().add(LootTableReference.lootTableReference(BotaniaLootTables.LOONIUM_ARMOR_ANCIENT_CITY)))
+						.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(ResourceKey.create(Registries.LOOT_TABLE,BotaniaLootTables.LOONIUM_WEAPON_BOW)))
+						.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(ResourceKey.create(Registries.LOOT_TABLE,BotaniaLootTables.LOONIUM_ARMOR_ANCIENT_CITY)))
 		);
 		tables.put(BotaniaLootTables.LOONIUM_ZOMBIE_ANCIENT_CITY,
 				LootTable.lootTable()
-						.withPool(LootPool.lootPool().add(LootTableReference.lootTableReference(BotaniaLootTables.LOONIUM_WEAPON_SWORD)))
-						.withPool(LootPool.lootPool().add(LootTableReference.lootTableReference(BotaniaLootTables.LOONIUM_ARMOR_ANCIENT_CITY)))
+						.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(ResourceKey.create(Registries.LOOT_TABLE,BotaniaLootTables.LOONIUM_WEAPON_SWORD)))
+						.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(ResourceKey.create(Registries.LOOT_TABLE,BotaniaLootTables.LOONIUM_ARMOR_ANCIENT_CITY)))
 		);
 	}
 
@@ -311,14 +311,14 @@ public class LooniumEquipmentLootProvider implements DataProvider {
 
 		tables.put(BotaniaLootTables.LOONIUM_ARMOR_BASTION_REMNANT,
 				LootTable.lootTable().withPool(LootPool.lootPool()
-						.add(LootTableReference.lootTableReference(BotaniaLootTables.LOONIUM_ARMORSET_SNOUT_GOLD).setWeight(4))
-						.add(LootTableReference.lootTableReference(BotaniaLootTables.LOONIUM_ARMORSET_SNOUT_NETHERITE).setWeight(1))
+						.add(NestedLootTable.lootTableReference(ResourceKey.create(Registries.LOOT_TABLE,BotaniaLootTables.LOONIUM_ARMORSET_SNOUT_GOLD).setWeight(4))
+						.add(NestedLootTable.lootTableReference(ResourceKey.create(Registries.LOOT_TABLE,BotaniaLootTables.LOONIUM_ARMORSET_SNOUT_NETHERITE).setWeight(1))
 				)
 		);
 		tables.put(BotaniaLootTables.LOONIUM_PIGLIN_BASTION_REMNANT,
 				LootTable.lootTable()
-						.withPool(LootPool.lootPool().add(LootTableReference.lootTableReference(BotaniaLootTables.LOONIUM_WEAPON_FOR_PIGLIN)))
-						.withPool(LootPool.lootPool().add(LootTableReference.lootTableReference(BotaniaLootTables.LOONIUM_ARMOR_BASTION_REMNANT)))
+						.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(ResourceKey.create(Registries.LOOT_TABLE,BotaniaLootTables.LOONIUM_WEAPON_FOR_PIGLIN)))
+						.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(ResourceKey.create(Registries.LOOT_TABLE,BotaniaLootTables.LOONIUM_ARMOR_BASTION_REMNANT)))
 		);
 	}
 
@@ -337,20 +337,20 @@ public class LooniumEquipmentLootProvider implements DataProvider {
 
 		tables.put(BotaniaLootTables.LOONIUM_ARMOR_DESERT_PYRAMID,
 				LootTable.lootTable().withPool(LootPool.lootPool()
-						.add(LootTableReference.lootTableReference(BotaniaLootTables.LOONIUM_ARMORSET_DUNE_IRON).setWeight(5))
-						.add(LootTableReference.lootTableReference(BotaniaLootTables.LOONIUM_ARMORSET_DUNE_GOLD).setWeight(2))
-						.add(LootTableReference.lootTableReference(BotaniaLootTables.LOONIUM_ARMORSET_DUNE_DIAMOND).setWeight(1))
+						.add(NestedLootTable.lootTableReference(ResourceKey.create(Registries.LOOT_TABLE,BotaniaLootTables.LOONIUM_ARMORSET_DUNE_IRON).setWeight(5))
+						.add(NestedLootTable.lootTableReference(ResourceKey.create(Registries.LOOT_TABLE,BotaniaLootTables.LOONIUM_ARMORSET_DUNE_GOLD).setWeight(2))
+						.add(NestedLootTable.lootTableReference(ResourceKey.create(Registries.LOOT_TABLE,BotaniaLootTables.LOONIUM_ARMORSET_DUNE_DIAMOND).setWeight(1))
 				)
 		);
 		tables.put(BotaniaLootTables.LOONIUM_SKELETON_DESERT_PYRAMID,
 				LootTable.lootTable()
-						.withPool(LootPool.lootPool().add(LootTableReference.lootTableReference(BotaniaLootTables.LOONIUM_WEAPON_BOW)))
-						.withPool(LootPool.lootPool().add(LootTableReference.lootTableReference(BotaniaLootTables.LOONIUM_ARMOR_DESERT_PYRAMID)))
+						.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(ResourceKey.create(Registries.LOOT_TABLE,BotaniaLootTables.LOONIUM_WEAPON_BOW)))
+						.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(ResourceKey.create(Registries.LOOT_TABLE,BotaniaLootTables.LOONIUM_ARMOR_DESERT_PYRAMID)))
 		);
 		tables.put(BotaniaLootTables.LOONIUM_ZOMBIE_DESERT_PYRAMID,
 				LootTable.lootTable()
-						.withPool(LootPool.lootPool().add(LootTableReference.lootTableReference(BotaniaLootTables.LOONIUM_WEAPON_SWORD)))
-						.withPool(LootPool.lootPool().add(LootTableReference.lootTableReference(BotaniaLootTables.LOONIUM_ARMOR_DESERT_PYRAMID)))
+						.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(ResourceKey.create(Registries.LOOT_TABLE,BotaniaLootTables.LOONIUM_WEAPON_SWORD)))
+						.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(ResourceKey.create(Registries.LOOT_TABLE,BotaniaLootTables.LOONIUM_ARMOR_DESERT_PYRAMID)))
 		);
 	}
 
@@ -372,9 +372,9 @@ public class LooniumEquipmentLootProvider implements DataProvider {
 				LootTable.lootTable().withPool(LootPool.lootPool()
 						.apply(EnchantRandomlyFunction.randomApplicableEnchantment()
 								.when(LootItemRandomChanceCondition.randomChance(0.3f)))
-						.add(LootTableReference.lootTableReference(BotaniaLootTables.LOONIUM_ARMORSET_SPIRE_IRON).setWeight(3))
-						.add(LootTableReference.lootTableReference(BotaniaLootTables.LOONIUM_ARMORSET_SPIRE_GOLD).setWeight(2))
-						.add(LootTableReference.lootTableReference(BotaniaLootTables.LOONIUM_ARMORSET_SPIRE_DIAMOND).setWeight(2))
+						.add(NestedLootTable.lootTableReference(ResourceKey.create(Registries.LOOT_TABLE,BotaniaLootTables.LOONIUM_ARMORSET_SPIRE_IRON).setWeight(3))
+						.add(NestedLootTable.lootTableReference(ResourceKey.create(Registries.LOOT_TABLE,BotaniaLootTables.LOONIUM_ARMORSET_SPIRE_GOLD).setWeight(2))
+						.add(NestedLootTable.lootTableReference(ResourceKey.create(Registries.LOOT_TABLE,BotaniaLootTables.LOONIUM_ARMORSET_SPIRE_DIAMOND).setWeight(2))
 				).withPool(LootPool.lootPool()
 						.when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS,
 								EntityPredicate.Builder.entity()
@@ -386,13 +386,13 @@ public class LooniumEquipmentLootProvider implements DataProvider {
 		);
 		tables.put(BotaniaLootTables.LOONIUM_SKELETON_END_CITY,
 				LootTable.lootTable()
-						.withPool(LootPool.lootPool().add(LootTableReference.lootTableReference(BotaniaLootTables.LOONIUM_WEAPON_BOW)))
-						.withPool(LootPool.lootPool().add(LootTableReference.lootTableReference(BotaniaLootTables.LOONIUM_ARMOR_END_CITY)))
+						.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(ResourceKey.create(Registries.LOOT_TABLE,BotaniaLootTables.LOONIUM_WEAPON_BOW)))
+						.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(ResourceKey.create(Registries.LOOT_TABLE,BotaniaLootTables.LOONIUM_ARMOR_END_CITY)))
 		);
 		tables.put(BotaniaLootTables.LOONIUM_ZOMBIE_END_CITY,
 				LootTable.lootTable()
-						.withPool(LootPool.lootPool().add(LootTableReference.lootTableReference(BotaniaLootTables.LOONIUM_WEAPON_SWORD)))
-						.withPool(LootPool.lootPool().add(LootTableReference.lootTableReference(BotaniaLootTables.LOONIUM_ARMOR_END_CITY)))
+						.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(ResourceKey.create(Registries.LOOT_TABLE,BotaniaLootTables.LOONIUM_WEAPON_SWORD)))
+						.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(ResourceKey.create(Registries.LOOT_TABLE,BotaniaLootTables.LOONIUM_ARMOR_END_CITY)))
 		);
 	}
 
@@ -423,20 +423,20 @@ public class LooniumEquipmentLootProvider implements DataProvider {
 
 		tables.put(BotaniaLootTables.LOONIUM_ARMOR_FORTRESS,
 				LootTable.lootTable().withPool(LootPool.lootPool()
-						.add(LootTableReference.lootTableReference(BotaniaLootTables.LOONIUM_ARMORSET_RIB_IRON).setWeight(7))
-						.add(LootTableReference.lootTableReference(BotaniaLootTables.LOONIUM_ARMORSET_RIB_GOLD).setWeight(3))
-						.add(LootTableReference.lootTableReference(BotaniaLootTables.LOONIUM_ARMORSET_RIB_DIAMOND).setWeight(2))
+						.add(NestedLootTable.lootTableReference(ResourceKey.create(Registries.LOOT_TABLE,BotaniaLootTables.LOONIUM_ARMORSET_RIB_IRON).setWeight(7))
+						.add(NestedLootTable.lootTableReference(ResourceKey.create(Registries.LOOT_TABLE,BotaniaLootTables.LOONIUM_ARMORSET_RIB_GOLD).setWeight(3))
+						.add(NestedLootTable.lootTableReference(ResourceKey.create(Registries.LOOT_TABLE,BotaniaLootTables.LOONIUM_ARMORSET_RIB_DIAMOND).setWeight(2))
 				)
 		);
 		tables.put(BotaniaLootTables.LOONIUM_SKELETON_FORTRESS,
 				LootTable.lootTable()
-						.withPool(LootPool.lootPool().add(LootTableReference.lootTableReference(BotaniaLootTables.LOONIUM_WEAPON_FOR_WITHER_SKELETON)))
-						.withPool(LootPool.lootPool().add(LootTableReference.lootTableReference(BotaniaLootTables.LOONIUM_ARMOR_FORTRESS)))
+						.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(ResourceKey.create(Registries.LOOT_TABLE,BotaniaLootTables.LOONIUM_WEAPON_FOR_WITHER_SKELETON)))
+						.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(ResourceKey.create(Registries.LOOT_TABLE,BotaniaLootTables.LOONIUM_ARMOR_FORTRESS)))
 		);
 		tables.put(BotaniaLootTables.LOONIUM_ZOMBIE_FORTRESS,
 				LootTable.lootTable()
-						.withPool(LootPool.lootPool().add(LootTableReference.lootTableReference(BotaniaLootTables.LOONIUM_WEAPON_SWORD_GOLD)))
-						.withPool(LootPool.lootPool().add(LootTableReference.lootTableReference(BotaniaLootTables.LOONIUM_ARMOR_FORTRESS)))
+						.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(ResourceKey.create(Registries.LOOT_TABLE,BotaniaLootTables.LOONIUM_WEAPON_SWORD_GOLD)))
+						.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(ResourceKey.create(Registries.LOOT_TABLE,BotaniaLootTables.LOONIUM_ARMOR_FORTRESS)))
 		);
 	}
 
@@ -455,25 +455,25 @@ public class LooniumEquipmentLootProvider implements DataProvider {
 
 		tables.put(BotaniaLootTables.LOONIUM_ARMOR_JUNGLE_TEMPLE,
 				LootTable.lootTable().withPool(LootPool.lootPool()
-						.add(LootTableReference.lootTableReference(BotaniaLootTables.LOONIUM_ARMORSET_WILD_CHAIN).setWeight(4))
-						.add(LootTableReference.lootTableReference(BotaniaLootTables.LOONIUM_ARMORSET_WILD_GOLD).setWeight(2))
-						.add(LootTableReference.lootTableReference(BotaniaLootTables.LOONIUM_ARMORSET_WILD_DIAMOND).setWeight(1))
+						.add(NestedLootTable.lootTableReference(ResourceKey.create(Registries.LOOT_TABLE,BotaniaLootTables.LOONIUM_ARMORSET_WILD_CHAIN).setWeight(4))
+						.add(NestedLootTable.lootTableReference(ResourceKey.create(Registries.LOOT_TABLE,BotaniaLootTables.LOONIUM_ARMORSET_WILD_GOLD).setWeight(2))
+						.add(NestedLootTable.lootTableReference(ResourceKey.create(Registries.LOOT_TABLE,BotaniaLootTables.LOONIUM_ARMORSET_WILD_DIAMOND).setWeight(1))
 				)
 		);
 		tables.put(BotaniaLootTables.LOONIUM_DROWNED_JUNGLE_TEMPLE,
 				LootTable.lootTable()
-						.withPool(LootPool.lootPool().add(LootTableReference.lootTableReference(BotaniaLootTables.LOONIUM_WEAPON_TRIDENT)))
-						.withPool(LootPool.lootPool().add(LootTableReference.lootTableReference(BotaniaLootTables.LOONIUM_ARMOR_JUNGLE_TEMPLE)))
+						.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(ResourceKey.create(Registries.LOOT_TABLE,BotaniaLootTables.LOONIUM_WEAPON_TRIDENT)))
+						.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(ResourceKey.create(Registries.LOOT_TABLE,BotaniaLootTables.LOONIUM_ARMOR_JUNGLE_TEMPLE)))
 		);
 		tables.put(BotaniaLootTables.LOONIUM_SKELETON_JUNGLE_TEMPLE,
 				LootTable.lootTable()
-						.withPool(LootPool.lootPool().add(LootTableReference.lootTableReference(BotaniaLootTables.LOONIUM_WEAPON_BOW)))
-						.withPool(LootPool.lootPool().add(LootTableReference.lootTableReference(BotaniaLootTables.LOONIUM_ARMOR_JUNGLE_TEMPLE)))
+						.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(ResourceKey.create(Registries.LOOT_TABLE,BotaniaLootTables.LOONIUM_WEAPON_BOW)))
+						.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(ResourceKey.create(Registries.LOOT_TABLE,BotaniaLootTables.LOONIUM_ARMOR_JUNGLE_TEMPLE)))
 		);
 		tables.put(BotaniaLootTables.LOONIUM_ZOMBIE_JUNGLE_TEMPLE,
 				LootTable.lootTable()
-						.withPool(LootPool.lootPool().add(LootTableReference.lootTableReference(BotaniaLootTables.LOONIUM_WEAPON_SWORD)))
-						.withPool(LootPool.lootPool().add(LootTableReference.lootTableReference(BotaniaLootTables.LOONIUM_ARMOR_JUNGLE_TEMPLE)))
+						.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(ResourceKey.create(Registries.LOOT_TABLE,BotaniaLootTables.LOONIUM_WEAPON_SWORD)))
+						.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(ResourceKey.create(Registries.LOOT_TABLE,BotaniaLootTables.LOONIUM_ARMOR_JUNGLE_TEMPLE)))
 		);
 	}
 
@@ -492,25 +492,25 @@ public class LooniumEquipmentLootProvider implements DataProvider {
 
 		tables.put(BotaniaLootTables.LOONIUM_ARMOR_MONUMENT,
 				LootTable.lootTable().withPool(LootPool.lootPool()
-						.add(LootTableReference.lootTableReference(BotaniaLootTables.LOONIUM_ARMORSET_TIDE_LEATHER).setWeight(2))
-						.add(LootTableReference.lootTableReference(BotaniaLootTables.LOONIUM_ARMORSET_TIDE_GOLD).setWeight(3))
-						.add(LootTableReference.lootTableReference(BotaniaLootTables.LOONIUM_ARMORSET_TIDE_DIAMOND).setWeight(1))
+						.add(NestedLootTable.lootTableReference(ResourceKey.create(Registries.LOOT_TABLE,BotaniaLootTables.LOONIUM_ARMORSET_TIDE_LEATHER).setWeight(2))
+						.add(NestedLootTable.lootTableReference(ResourceKey.create(Registries.LOOT_TABLE,BotaniaLootTables.LOONIUM_ARMORSET_TIDE_GOLD).setWeight(3))
+						.add(NestedLootTable.lootTableReference(ResourceKey.create(Registries.LOOT_TABLE,BotaniaLootTables.LOONIUM_ARMORSET_TIDE_DIAMOND).setWeight(1))
 				)
 		);
 		tables.put(BotaniaLootTables.LOONIUM_DROWNED_MONUMENT,
 				LootTable.lootTable()
-						.withPool(LootPool.lootPool().add(LootTableReference.lootTableReference(BotaniaLootTables.LOONIUM_WEAPON_TRIDENT)))
-						.withPool(LootPool.lootPool().add(LootTableReference.lootTableReference(BotaniaLootTables.LOONIUM_ARMOR_MONUMENT)))
+						.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(ResourceKey.create(Registries.LOOT_TABLE,BotaniaLootTables.LOONIUM_WEAPON_TRIDENT)))
+						.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(ResourceKey.create(Registries.LOOT_TABLE,BotaniaLootTables.LOONIUM_ARMOR_MONUMENT)))
 		);
 		tables.put(BotaniaLootTables.LOONIUM_SKELETON_MONUMENT,
 				LootTable.lootTable()
-						.withPool(LootPool.lootPool().add(LootTableReference.lootTableReference(BotaniaLootTables.LOONIUM_WEAPON_BOW)))
-						.withPool(LootPool.lootPool().add(LootTableReference.lootTableReference(BotaniaLootTables.LOONIUM_ARMOR_MONUMENT)))
+						.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(ResourceKey.create(Registries.LOOT_TABLE,BotaniaLootTables.LOONIUM_WEAPON_BOW)))
+						.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(ResourceKey.create(Registries.LOOT_TABLE,BotaniaLootTables.LOONIUM_ARMOR_MONUMENT)))
 		);
 		tables.put(BotaniaLootTables.LOONIUM_ZOMBIE_MONUMENT,
 				LootTable.lootTable()
-						.withPool(LootPool.lootPool().add(LootTableReference.lootTableReference(BotaniaLootTables.LOONIUM_WEAPON_SWORD)))
-						.withPool(LootPool.lootPool().add(LootTableReference.lootTableReference(BotaniaLootTables.LOONIUM_ARMOR_MONUMENT)))
+						.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(ResourceKey.create(Registries.LOOT_TABLE,BotaniaLootTables.LOONIUM_WEAPON_SWORD)))
+						.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(ResourceKey.create(Registries.LOOT_TABLE,BotaniaLootTables.LOONIUM_ARMOR_MONUMENT)))
 		);
 	}
 
@@ -529,20 +529,20 @@ public class LooniumEquipmentLootProvider implements DataProvider {
 
 		tables.put(BotaniaLootTables.LOONIUM_ARMOR_OUTPOST,
 				LootTable.lootTable().withPool(LootPool.lootPool()
-						.add(LootTableReference.lootTableReference(BotaniaLootTables.LOONIUM_ARMORSET_SENTRY_CHAIN).setWeight(5))
-						.add(LootTableReference.lootTableReference(BotaniaLootTables.LOONIUM_ARMORSET_SENTRY_IRON).setWeight(3))
-						.add(LootTableReference.lootTableReference(BotaniaLootTables.LOONIUM_ARMORSET_SENTRY_DIAMOND).setWeight(1))
+						.add(NestedLootTable.lootTableReference(ResourceKey.create(Registries.LOOT_TABLE,BotaniaLootTables.LOONIUM_ARMORSET_SENTRY_CHAIN).setWeight(5))
+						.add(NestedLootTable.lootTableReference(ResourceKey.create(Registries.LOOT_TABLE,BotaniaLootTables.LOONIUM_ARMORSET_SENTRY_IRON).setWeight(3))
+						.add(NestedLootTable.lootTableReference(ResourceKey.create(Registries.LOOT_TABLE,BotaniaLootTables.LOONIUM_ARMORSET_SENTRY_DIAMOND).setWeight(1))
 				)
 		);
 		tables.put(BotaniaLootTables.LOONIUM_SKELETON_OUTPOST,
 				LootTable.lootTable()
-						.withPool(LootPool.lootPool().add(LootTableReference.lootTableReference(BotaniaLootTables.LOONIUM_WEAPON_BOW)))
-						.withPool(LootPool.lootPool().add(LootTableReference.lootTableReference(BotaniaLootTables.LOONIUM_ARMOR_OUTPOST)))
+						.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(ResourceKey.create(Registries.LOOT_TABLE,BotaniaLootTables.LOONIUM_WEAPON_BOW)))
+						.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(ResourceKey.create(Registries.LOOT_TABLE,BotaniaLootTables.LOONIUM_ARMOR_OUTPOST)))
 		);
 		tables.put(BotaniaLootTables.LOONIUM_ZOMBIE_OUTPOST,
 				LootTable.lootTable()
-						.withPool(LootPool.lootPool().add(LootTableReference.lootTableReference(BotaniaLootTables.LOONIUM_WEAPON_SWORD)))
-						.withPool(LootPool.lootPool().add(LootTableReference.lootTableReference(BotaniaLootTables.LOONIUM_ARMOR_OUTPOST)))
+						.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(ResourceKey.create(Registries.LOOT_TABLE,BotaniaLootTables.LOONIUM_WEAPON_SWORD)))
+						.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(ResourceKey.create(Registries.LOOT_TABLE,BotaniaLootTables.LOONIUM_ARMOR_OUTPOST)))
 		);
 	}
 
@@ -563,30 +563,30 @@ public class LooniumEquipmentLootProvider implements DataProvider {
 		tables.put(BotaniaLootTables.LOONIUM_DROWNED_PORTAL,
 				LootTable.lootTable()
 						.withPool(LootPool.lootPool().add(
-								LootTableReference.lootTableReference(BotaniaLootTables.LOONIUM_ARMOR_PORTAL)))
+								NestedLootTable.lootTableReference(ResourceKey.create(Registries.LOOT_TABLE,BotaniaLootTables.LOONIUM_ARMOR_PORTAL)))
 						.withPool(LootPool.lootPool().add(
-								LootTableReference.lootTableReference(BotaniaLootTables.LOONIUM_WEAPON_TRIDENT)))
+								NestedLootTable.lootTableReference(ResourceKey.create(Registries.LOOT_TABLE,BotaniaLootTables.LOONIUM_WEAPON_TRIDENT)))
 		);
 		tables.put(BotaniaLootTables.LOONIUM_PIGLIN_PORTAL,
 				LootTable.lootTable()
 						.withPool(LootPool.lootPool().add(
-								LootTableReference.lootTableReference(BotaniaLootTables.LOONIUM_ARMOR_PORTAL)))
+								NestedLootTable.lootTableReference(ResourceKey.create(Registries.LOOT_TABLE,BotaniaLootTables.LOONIUM_ARMOR_PORTAL)))
 						.withPool(LootPool.lootPool().add(
-								LootTableReference.lootTableReference(BotaniaLootTables.LOONIUM_WEAPON_FOR_PIGLIN)))
+								NestedLootTable.lootTableReference(ResourceKey.create(Registries.LOOT_TABLE,BotaniaLootTables.LOONIUM_WEAPON_FOR_PIGLIN)))
 		);
 		tables.put(BotaniaLootTables.LOONIUM_SKELETON_PORTAL,
 				LootTable.lootTable()
 						.withPool(LootPool.lootPool().add(
-								LootTableReference.lootTableReference(BotaniaLootTables.LOONIUM_ARMOR_PORTAL)))
+								NestedLootTable.lootTableReference(ResourceKey.create(Registries.LOOT_TABLE,BotaniaLootTables.LOONIUM_ARMOR_PORTAL)))
 						.withPool(LootPool.lootPool().add(
-								LootTableReference.lootTableReference(BotaniaLootTables.LOONIUM_WEAPON_BOW)))
+								NestedLootTable.lootTableReference(ResourceKey.create(Registries.LOOT_TABLE,BotaniaLootTables.LOONIUM_WEAPON_BOW)))
 		);
 		tables.put(BotaniaLootTables.LOONIUM_ZOMBIE_PORTAL,
 				LootTable.lootTable()
 						.withPool(LootPool.lootPool().add(
-								LootTableReference.lootTableReference(BotaniaLootTables.LOONIUM_ARMOR_PORTAL)))
+								NestedLootTable.lootTableReference(ResourceKey.create(Registries.LOOT_TABLE,BotaniaLootTables.LOONIUM_ARMOR_PORTAL)))
 						.withPool(LootPool.lootPool().add(
-								LootTableReference.lootTableReference(BotaniaLootTables.LOONIUM_WEAPON_SWORD_GOLD)))
+								NestedLootTable.lootTableReference(ResourceKey.create(Registries.LOOT_TABLE,BotaniaLootTables.LOONIUM_WEAPON_SWORD_GOLD)))
 		);
 	}
 
@@ -605,25 +605,25 @@ public class LooniumEquipmentLootProvider implements DataProvider {
 
 		tables.put(BotaniaLootTables.LOONIUM_ARMOR_SHIPWRECK,
 				LootTable.lootTable().withPool(LootPool.lootPool()
-						.add(LootTableReference.lootTableReference(BotaniaLootTables.LOONIUM_ARMORSET_COAST_CHAIN).setWeight(4))
-						.add(LootTableReference.lootTableReference(BotaniaLootTables.LOONIUM_ARMORSET_COAST_IRON).setWeight(4))
-						.add(LootTableReference.lootTableReference(BotaniaLootTables.LOONIUM_ARMORSET_COAST_DIAMOND).setWeight(1))
+						.add(NestedLootTable.lootTableReference(ResourceKey.create(Registries.LOOT_TABLE,BotaniaLootTables.LOONIUM_ARMORSET_COAST_CHAIN).setWeight(4))
+						.add(NestedLootTable.lootTableReference(ResourceKey.create(Registries.LOOT_TABLE,BotaniaLootTables.LOONIUM_ARMORSET_COAST_IRON).setWeight(4))
+						.add(NestedLootTable.lootTableReference(ResourceKey.create(Registries.LOOT_TABLE,BotaniaLootTables.LOONIUM_ARMORSET_COAST_DIAMOND).setWeight(1))
 				)
 		);
 		tables.put(BotaniaLootTables.LOONIUM_DROWNED_SHIPWRECK,
 				LootTable.lootTable()
-						.withPool(LootPool.lootPool().add(LootTableReference.lootTableReference(BotaniaLootTables.LOONIUM_WEAPON_TRIDENT)))
-						.withPool(LootPool.lootPool().add(LootTableReference.lootTableReference(BotaniaLootTables.LOONIUM_ARMOR_SHIPWRECK)))
+						.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(ResourceKey.create(Registries.LOOT_TABLE,BotaniaLootTables.LOONIUM_WEAPON_TRIDENT)))
+						.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(ResourceKey.create(Registries.LOOT_TABLE,BotaniaLootTables.LOONIUM_ARMOR_SHIPWRECK)))
 		);
 		tables.put(BotaniaLootTables.LOONIUM_SKELETON_SHIPWRECK,
 				LootTable.lootTable()
-						.withPool(LootPool.lootPool().add(LootTableReference.lootTableReference(BotaniaLootTables.LOONIUM_WEAPON_BOW)))
-						.withPool(LootPool.lootPool().add(LootTableReference.lootTableReference(BotaniaLootTables.LOONIUM_ARMOR_SHIPWRECK)))
+						.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(ResourceKey.create(Registries.LOOT_TABLE,BotaniaLootTables.LOONIUM_WEAPON_BOW)))
+						.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(ResourceKey.create(Registries.LOOT_TABLE,BotaniaLootTables.LOONIUM_ARMOR_SHIPWRECK)))
 		);
 		tables.put(BotaniaLootTables.LOONIUM_ZOMBIE_SHIPWRECK,
 				LootTable.lootTable()
-						.withPool(LootPool.lootPool().add(LootTableReference.lootTableReference(BotaniaLootTables.LOONIUM_WEAPON_SWORD)))
-						.withPool(LootPool.lootPool().add(LootTableReference.lootTableReference(BotaniaLootTables.LOONIUM_ARMOR_SHIPWRECK)))
+						.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(ResourceKey.create(Registries.LOOT_TABLE,BotaniaLootTables.LOONIUM_WEAPON_SWORD)))
+						.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(ResourceKey.create(Registries.LOOT_TABLE,BotaniaLootTables.LOONIUM_ARMOR_SHIPWRECK)))
 		);
 	}
 
@@ -661,26 +661,26 @@ public class LooniumEquipmentLootProvider implements DataProvider {
 
 		tables.put(BotaniaLootTables.LOONIUM_ARMOR_STRONGHOLD,
 				LootTable.lootTable().withPool(LootPool.lootPool()
-						.add(LootTableReference.lootTableReference(BotaniaLootTables.LOONIUM_ARMORSET_EYE_IRON).setWeight(5))
-						.add(LootTableReference.lootTableReference(BotaniaLootTables.LOONIUM_ARMORSET_EYE_GOLD).setWeight(3))
-						.add(LootTableReference.lootTableReference(BotaniaLootTables.LOONIUM_ARMORSET_EYE_DIAMOND).setWeight(2))
-						.add(LootTableReference.lootTableReference(BotaniaLootTables.LOONIUM_ARMORSET_COSTUME_ENDERMAN).setWeight(1))
+						.add(NestedLootTable.lootTableReference(ResourceKey.create(Registries.LOOT_TABLE,BotaniaLootTables.LOONIUM_ARMORSET_EYE_IRON).setWeight(5))
+						.add(NestedLootTable.lootTableReference(ResourceKey.create(Registries.LOOT_TABLE,BotaniaLootTables.LOONIUM_ARMORSET_EYE_GOLD).setWeight(3))
+						.add(NestedLootTable.lootTableReference(ResourceKey.create(Registries.LOOT_TABLE,BotaniaLootTables.LOONIUM_ARMORSET_EYE_DIAMOND).setWeight(2))
+						.add(NestedLootTable.lootTableReference(ResourceKey.create(Registries.LOOT_TABLE,BotaniaLootTables.LOONIUM_ARMORSET_COSTUME_ENDERMAN).setWeight(1))
 				)
 		);
 		tables.put(BotaniaLootTables.LOONIUM_DROWNED_STRONGHOLD,
 				LootTable.lootTable()
-						.withPool(LootPool.lootPool().add(LootTableReference.lootTableReference(BotaniaLootTables.LOONIUM_WEAPON_TRIDENT)))
-						.withPool(LootPool.lootPool().add(LootTableReference.lootTableReference(BotaniaLootTables.LOONIUM_ARMOR_STRONGHOLD)))
+						.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(ResourceKey.create(Registries.LOOT_TABLE,BotaniaLootTables.LOONIUM_WEAPON_TRIDENT)))
+						.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(ResourceKey.create(Registries.LOOT_TABLE,BotaniaLootTables.LOONIUM_ARMOR_STRONGHOLD)))
 		);
 		tables.put(BotaniaLootTables.LOONIUM_SKELETON_STRONGHOLD,
 				LootTable.lootTable()
-						.withPool(LootPool.lootPool().add(LootTableReference.lootTableReference(BotaniaLootTables.LOONIUM_WEAPON_BOW)))
-						.withPool(LootPool.lootPool().add(LootTableReference.lootTableReference(BotaniaLootTables.LOONIUM_ARMOR_STRONGHOLD)))
+						.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(ResourceKey.create(Registries.LOOT_TABLE,BotaniaLootTables.LOONIUM_WEAPON_BOW)))
+						.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(ResourceKey.create(Registries.LOOT_TABLE,BotaniaLootTables.LOONIUM_ARMOR_STRONGHOLD)))
 		);
 		tables.put(BotaniaLootTables.LOONIUM_ZOMBIE_STRONGHOLD,
 				LootTable.lootTable()
-						.withPool(LootPool.lootPool().add(LootTableReference.lootTableReference(BotaniaLootTables.LOONIUM_WEAPON_SWORD)))
-						.withPool(LootPool.lootPool().add(LootTableReference.lootTableReference(BotaniaLootTables.LOONIUM_ARMOR_STRONGHOLD)))
+						.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(ResourceKey.create(Registries.LOOT_TABLE,BotaniaLootTables.LOONIUM_WEAPON_SWORD)))
+						.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(ResourceKey.create(Registries.LOOT_TABLE,BotaniaLootTables.LOONIUM_ARMOR_STRONGHOLD)))
 		);
 	}
 
@@ -715,30 +715,30 @@ public class LooniumEquipmentLootProvider implements DataProvider {
 
 		tables.put(BotaniaLootTables.LOONIUM_ARMOR_TRAIL_RUINS,
 				LootTable.lootTable().withPool(LootPool.lootPool()
-						.add(LootTableReference.lootTableReference(BotaniaLootTables.LOONIUM_ARMORSET_HOST_CHAIN).setWeight(7))
-						.add(LootTableReference.lootTableReference(BotaniaLootTables.LOONIUM_ARMORSET_WAYFINDER_CHAIN).setWeight(7))
-						.add(LootTableReference.lootTableReference(BotaniaLootTables.LOONIUM_ARMORSET_RAISER_IRON).setWeight(8))
-						.add(LootTableReference.lootTableReference(BotaniaLootTables.LOONIUM_ARMORSET_HOST_IRON).setWeight(8))
-						.add(LootTableReference.lootTableReference(BotaniaLootTables.LOONIUM_ARMORSET_RAISER_GOLD).setWeight(3))
-						.add(LootTableReference.lootTableReference(BotaniaLootTables.LOONIUM_ARMORSET_SHAPER_GOLD).setWeight(3))
-						.add(LootTableReference.lootTableReference(BotaniaLootTables.LOONIUM_ARMORSET_SHAPER_DIAMOND).setWeight(2))
-						.add(LootTableReference.lootTableReference(BotaniaLootTables.LOONIUM_ARMORSET_WAYFINDER_DIAMOND).setWeight(2))
+						.add(NestedLootTable.lootTableReference(ResourceKey.create(Registries.LOOT_TABLE,BotaniaLootTables.LOONIUM_ARMORSET_HOST_CHAIN).setWeight(7))
+						.add(NestedLootTable.lootTableReference(ResourceKey.create(Registries.LOOT_TABLE,BotaniaLootTables.LOONIUM_ARMORSET_WAYFINDER_CHAIN).setWeight(7))
+						.add(NestedLootTable.lootTableReference(ResourceKey.create(Registries.LOOT_TABLE,BotaniaLootTables.LOONIUM_ARMORSET_RAISER_IRON).setWeight(8))
+						.add(NestedLootTable.lootTableReference(ResourceKey.create(Registries.LOOT_TABLE,BotaniaLootTables.LOONIUM_ARMORSET_HOST_IRON).setWeight(8))
+						.add(NestedLootTable.lootTableReference(ResourceKey.create(Registries.LOOT_TABLE,BotaniaLootTables.LOONIUM_ARMORSET_RAISER_GOLD).setWeight(3))
+						.add(NestedLootTable.lootTableReference(ResourceKey.create(Registries.LOOT_TABLE,BotaniaLootTables.LOONIUM_ARMORSET_SHAPER_GOLD).setWeight(3))
+						.add(NestedLootTable.lootTableReference(ResourceKey.create(Registries.LOOT_TABLE,BotaniaLootTables.LOONIUM_ARMORSET_SHAPER_DIAMOND).setWeight(2))
+						.add(NestedLootTable.lootTableReference(ResourceKey.create(Registries.LOOT_TABLE,BotaniaLootTables.LOONIUM_ARMORSET_WAYFINDER_DIAMOND).setWeight(2))
 				)
 		);
 		tables.put(BotaniaLootTables.LOONIUM_DROWNED_TRAIL_RUINS,
 				LootTable.lootTable()
-						.withPool(LootPool.lootPool().add(LootTableReference.lootTableReference(BotaniaLootTables.LOONIUM_WEAPON_TRIDENT)))
-						.withPool(LootPool.lootPool().add(LootTableReference.lootTableReference(BotaniaLootTables.LOONIUM_ARMOR_TRAIL_RUINS)))
+						.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(ResourceKey.create(Registries.LOOT_TABLE,BotaniaLootTables.LOONIUM_WEAPON_TRIDENT)))
+						.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(ResourceKey.create(Registries.LOOT_TABLE,BotaniaLootTables.LOONIUM_ARMOR_TRAIL_RUINS)))
 		);
 		tables.put(BotaniaLootTables.LOONIUM_SKELETON_TRAIL_RUINS,
 				LootTable.lootTable()
-						.withPool(LootPool.lootPool().add(LootTableReference.lootTableReference(BotaniaLootTables.LOONIUM_WEAPON_BOW)))
-						.withPool(LootPool.lootPool().add(LootTableReference.lootTableReference(BotaniaLootTables.LOONIUM_ARMOR_TRAIL_RUINS)))
+						.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(ResourceKey.create(Registries.LOOT_TABLE,BotaniaLootTables.LOONIUM_WEAPON_BOW)))
+						.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(ResourceKey.create(Registries.LOOT_TABLE,BotaniaLootTables.LOONIUM_ARMOR_TRAIL_RUINS)))
 		);
 		tables.put(BotaniaLootTables.LOONIUM_ZOMBIE_TRAIL_RUINS,
 				LootTable.lootTable()
-						.withPool(LootPool.lootPool().add(LootTableReference.lootTableReference(BotaniaLootTables.LOONIUM_WEAPON_SWORD)))
-						.withPool(LootPool.lootPool().add(LootTableReference.lootTableReference(BotaniaLootTables.LOONIUM_ARMOR_TRAIL_RUINS)))
+						.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(ResourceKey.create(Registries.LOOT_TABLE,BotaniaLootTables.LOONIUM_WEAPON_SWORD)))
+						.withPool(LootPool.lootPool().add(NestedLootTable.lootTableReference(ResourceKey.create(Registries.LOOT_TABLE,BotaniaLootTables.LOONIUM_ARMOR_TRAIL_RUINS)))
 		);
 	}
 
@@ -816,10 +816,10 @@ public class LooniumEquipmentLootProvider implements DataProvider {
 		tables.put(BotaniaLootTables.LOONIUM_ARMOR_MANSION,
 				LootTable.lootTable().withPool(LootPool.lootPool()
 						// it's cosplays all the way down
-						.add(LootTableReference.lootTableReference(BotaniaLootTables.LOONIUM_ARMORSET_COSTUME_EVOKER).setWeight(2))
-						.add(LootTableReference.lootTableReference(BotaniaLootTables.LOONIUM_ARMORSET_COSTUME_VINDICATOR).setWeight(2))
-						.add(LootTableReference.lootTableReference(BotaniaLootTables.LOONIUM_ARMORSET_COSTUME_ILLUSIONER).setWeight(1))
-						.add(LootTableReference.lootTableReference(BotaniaLootTables.LOONIUM_ARMORSET_COSTUME_VEX).setWeight(45)
+						.add(NestedLootTable.lootTableReference(ResourceKey.create(Registries.LOOT_TABLE,BotaniaLootTables.LOONIUM_ARMORSET_COSTUME_EVOKER).setWeight(2))
+						.add(NestedLootTable.lootTableReference(ResourceKey.create(Registries.LOOT_TABLE,BotaniaLootTables.LOONIUM_ARMORSET_COSTUME_VINDICATOR).setWeight(2))
+						.add(NestedLootTable.lootTableReference(ResourceKey.create(Registries.LOOT_TABLE,BotaniaLootTables.LOONIUM_ARMORSET_COSTUME_ILLUSIONER).setWeight(1))
+						.add(NestedLootTable.lootTableReference(ResourceKey.create(Registries.LOOT_TABLE,BotaniaLootTables.LOONIUM_ARMORSET_COSTUME_VEX).setWeight(45)
 								.when(AnyOfCondition.anyOf(
 										// focus Vex cosplay on baby mobs, reduce chance for everyone else
 										LootItemRandomChanceCondition.randomChance(0.005f),

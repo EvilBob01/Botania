@@ -25,8 +25,8 @@ import vazkii.botania.common.lib.BotaniaTags;
 public class CompositeLensRecipe extends CustomRecipe {
 	public static final NoOpRecipeSerializer<CompositeLensRecipe> SERIALIZER = new NoOpRecipeSerializer<>(CompositeLensRecipe::new);
 
-	public CompositeLensRecipe(ResourceLocation id) {
-		super(id, CraftingBookCategory.REDSTONE);
+	public CompositeLensRecipe() {
+		super(CraftingBookCategory.REDSTONE);
 	}
 
 	@Override

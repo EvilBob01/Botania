@@ -13,8 +13,8 @@ import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 
 import net.minecraft.ChatFormatting;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
@@ -33,7 +33,6 @@ import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.equipment.armor.manasteel.ManasteelArmorItem;
 
 import java.util.List;
-import java.util.UUID;
 import java.util.function.Supplier;
 
 public class TerrasteelArmorItem extends ManasteelArmorItem {
@@ -52,11 +51,12 @@ public class TerrasteelArmorItem extends ManasteelArmorItem {
 	public Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(@NotNull EquipmentSlot slot) {
 		Multimap<Attribute, AttributeModifier> ret = super.getDefaultAttributeModifiers(slot);
 		if (slot == getType().getSlot()) {
-			UUID uuid = new UUID(BuiltInRegistries.ITEM.getKey(this).hashCode() + slot.toString().hashCode(), 0);
 			ret = HashMultimap.create(ret);
 			int reduction = getMaterial().getDefenseForType(getType());
+			String slotName = slot.getName();
+			ResourceLocation id = ResourceLocation.fromNamespaceAndPath("botania", "terrasteel_knockback_resistance_" + slotName);
 			ret.put(Attributes.KNOCKBACK_RESISTANCE,
-					new AttributeModifier(uuid, "Terrasteel modifier " + type, (double) reduction / 20, AttributeModifier.Operation.ADDITION));
+					new AttributeModifier(id, (double) reduction / 20, AttributeModifier.Operation.ADD_VALUE));
 		}
 		return ret;
 	}

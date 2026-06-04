@@ -26,8 +26,8 @@ import vazkii.botania.api.mana.BasicLensItem;
 public class SplitLensRecipe extends CustomRecipe {
 	public static final NoOpRecipeSerializer<SplitLensRecipe> SERIALIZER = new NoOpRecipeSerializer<>(SplitLensRecipe::new);
 
-	public SplitLensRecipe(ResourceLocation id) {
-		super(id, CraftingBookCategory.REDSTONE);
+	public SplitLensRecipe() {
+		super(CraftingBookCategory.REDSTONE);
 	}
 
 	@Override

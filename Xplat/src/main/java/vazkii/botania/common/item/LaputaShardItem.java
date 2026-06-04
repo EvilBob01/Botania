@@ -10,6 +10,7 @@ package vazkii.botania.common.item;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.Registries;
@@ -79,7 +80,7 @@ public class LaputaShardItem extends Item implements LensEffectItem, TinyPlanetE
 		for (int i = 0; i <= 20; i += 5) {
 			ItemStack s = new ItemStack(this);
 			if (i != 0) {
-				s.getOrCreateTag().putInt(TAG_LEVEL, i - 1);
+				ItemNBTHelper.setInt(s, TAG_LEVEL, i - 1);
 			}
 			output.accept(s);
 		}
@@ -201,8 +202,8 @@ public class LaputaShardItem extends Item implements LensEffectItem, TinyPlanetE
 					world.gameEvent(null, GameEvent.BLOCK_DESTROY, pos_);
 
 					ItemStack copyLens = new ItemStack(this);
-					copyLens.getOrCreateTag().putInt(TAG_LEVEL, getShardLevel(shard));
-					copyLens.getTag().put(TAG_STATE, NbtUtils.writeBlockState(state));
+					ItemNBTHelper.setInt(copyLens, TAG_LEVEL, getShardLevel(shard));
+					ItemNBTHelper.set(copyLens, TAG_STATE, NbtUtils.writeBlockState(state));
 					ItemNBTHelper.setCompound(copyLens, TAG_TILE, cmp);
 					ItemNBTHelper.setInt(copyLens, TAG_X, pos.getX());
 					ItemNBTHelper.setInt(copyLens, TAG_Y, pos.getY());
@@ -225,10 +226,7 @@ public class LaputaShardItem extends Item implements LensEffectItem, TinyPlanetE
 	}
 
 	public static int getShardLevel(ItemStack shard) {
-		if (!shard.hasTag()) {
-			return 0;
-		}
-		return shard.getOrCreateTag().getInt(TAG_LEVEL);
+		return ItemNBTHelper.getInt(shard, TAG_LEVEL, 0);
 	}
 
 	private boolean inRange(BlockPos pos, BlockPos srcPos, int range, double heightscale, boolean pointy) {
@@ -293,8 +291,11 @@ public class LaputaShardItem extends Item implements LensEffectItem, TinyPlanetE
 				BlockPos pos = new BlockPos(x, y, z);
 
 				BlockState placeState = Blocks.AIR.defaultBlockState();
-				if (lens.hasTag() && lens.getTag().contains(TAG_STATE)) {
-					placeState = NbtUtils.readBlockState(entity.level().holderLookup(Registries.BLOCK), lens.getTag().getCompound(TAG_STATE));
+				if (ItemNBTHelper.verifyExistance(lens, TAG_STATE)) {
+					CompoundTag stateTag = ItemNBTHelper.getCompound(lens, TAG_STATE, true);
+					if (stateTag != null) {
+						placeState = NbtUtils.readBlockState(entity.level().holderLookup(Registries.BLOCK), stateTag);
+					}
 				}
 
 				if (entity.level().dimensionType().ultraWarm() && placeState.hasProperty(BlockStateProperties.WATERLOGGED)) {
@@ -338,7 +339,8 @@ public class LaputaShardItem extends Item implements LensEffectItem, TinyPlanetE
 	public boolean doParticles(ManaBurst burst, ItemStack stack) {
 		Entity entity = burst.entity();
 		ItemStack lens = burst.getSourceLens();
-		BlockState state = NbtUtils.readBlockState(entity.level().holderLookup(Registries.BLOCK), lens.getOrCreateTag().getCompound(TAG_STATE));
+		CompoundTag stateTag = ItemNBTHelper.getCompound(lens, TAG_STATE, false);
+		BlockState state = NbtUtils.readBlockState(entity.level().holderLookup(Registries.BLOCK), stateTag);
 		entity.level().addParticle(new BlockParticleOption(ParticleTypes.BLOCK, state), entity.getX(), entity.getY(), entity.getZ(),
 				entity.getDeltaMovement().x(), entity.getDeltaMovement().y(), entity.getDeltaMovement().z());
 

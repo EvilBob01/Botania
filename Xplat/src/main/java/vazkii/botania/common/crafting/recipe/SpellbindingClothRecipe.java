@@ -25,8 +25,8 @@ import vazkii.botania.common.item.BotaniaItems;
 public class SpellbindingClothRecipe extends CustomRecipe {
 	public static final NoOpRecipeSerializer<SpellbindingClothRecipe> SERIALIZER = new NoOpRecipeSerializer<>(SpellbindingClothRecipe::new);
 
-	public SpellbindingClothRecipe(ResourceLocation id) {
-		super(id, CraftingBookCategory.EQUIPMENT);
+	public SpellbindingClothRecipe() {
+		super(CraftingBookCategory.EQUIPMENT);
 	}
 
 	@Override

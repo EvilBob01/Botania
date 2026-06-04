@@ -18,6 +18,7 @@ import net.minecraft.tags.*;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.WorldlyContainerHolder;
+import net.minecraft.core.Holder;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -55,31 +56,29 @@ import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.AABB;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.RegisterClientReloadListenersEvent;
-import net.minecraftforge.common.ForgeHooks;
-import net.minecraftforge.common.ForgeMod;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.Tags;
-import net.minecraftforge.common.ToolAction;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.extensions.IForgeMenuType;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.energy.IEnergyStorage;
-import net.minecraftforge.event.AddReloadListenerEvent;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.FluidType;
-import net.minecraftforge.fluids.FluidUtil;
-import net.minecraftforge.fluids.capability.IFluidHandler;
-import net.minecraftforge.fluids.capability.IFluidHandlerItem;
-import net.minecraftforge.fml.ModList;
-import net.minecraftforge.fml.loading.FMLLoader;
-import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.ItemHandlerHelper;
-import net.minecraftforge.items.wrapper.SidedInvWrapper;
-import net.minecraftforge.network.NetworkDirection;
-import net.minecraftforge.network.NetworkHooks;
-import net.minecraftforge.network.PacketDistributor;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.neoforge.client.event.RegisterClientReloadListenersEvent;
+import net.neoforged.neoforge.common.CommonHooks;
+import net.neoforged.neoforge.common.NeoForgeMod;
+import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.common.Tags;
+import net.neoforged.neoforge.common.ToolAction;
+import net.neoforged.neoforge.capabilities.ForgeCapabilities;
+import net.neoforged.neoforge.common.extensions.IForgeMenuType;
+import net.neoforged.neoforge.common.util.LazyOptional;
+import net.neoforged.neoforge.energy.IEnergyStorage;
+import net.neoforged.neoforge.event.AddReloadListenerEvent;
+import net.neoforged.neoforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.FluidType;
+import net.neoforged.neoforge.fluids.capability.IFluidHandler;
+import net.neoforged.fml.ModList;
+import net.neoforged.fml.loading.FMLLoader;
+import net.neoforged.neoforge.items.IItemHandler;
+import net.neoforged.neoforge.items.ItemHandlerHelper;
+import net.neoforged.neoforge.items.wrapper.SidedInvWrapper;
+import net.neoforged.neoforge.network.NetworkDirection;
+import net.neoforged.neoforge.network.NetworkHooks;
+import net.neoforged.neoforge.network.PacketDistributor;
 
 import org.apache.commons.lang3.function.TriFunction;
 import org.jetbrains.annotations.Nullable;
@@ -407,41 +406,41 @@ public class ForgeXplatImpl implements XplatAbstractions {
 
 	@Override
 	public boolean fireCorporeaRequestEvent(CorporeaRequestMatcher matcher, int itemCount, CorporeaSpark spark, boolean dryRun) {
-		return MinecraftForge.EVENT_BUS.post(new CorporeaRequestEvent(matcher, itemCount, spark, dryRun));
+		return NeoForge.EVENT_BUS.post(new CorporeaRequestEvent(matcher, itemCount, spark, dryRun));
 	}
 
 	@Override
 	public boolean fireCorporeaIndexRequestEvent(ServerPlayer player, CorporeaRequestMatcher request, int count, CorporeaSpark spark) {
-		return MinecraftForge.EVENT_BUS.post(new CorporeaIndexRequestEvent(player, request, count, spark));
+		return NeoForge.EVENT_BUS.post(new CorporeaIndexRequestEvent(player, request, count, spark));
 	}
 
 	@Override
 	public void fireManaItemEvent(Player player, List<ItemStack> toReturn) {
-		MinecraftForge.EVENT_BUS.post(new ManaItemsEvent(player, toReturn));
+		NeoForge.EVENT_BUS.post(new ManaItemsEvent(player, toReturn));
 	}
 
 	@Override
 	public float fireManaDiscountEvent(Player player, float discount, ItemStack tool) {
 		var evt = new ManaDiscountEvent(player, discount, tool);
-		MinecraftForge.EVENT_BUS.post(evt);
+		NeoForge.EVENT_BUS.post(evt);
 		return evt.getDiscount();
 	}
 
 	@Override
 	public boolean fireManaProficiencyEvent(Player player, ItemStack tool, boolean proficient) {
 		var evt = new ManaProficiencyEvent(player, tool, proficient);
-		MinecraftForge.EVENT_BUS.post(evt);
+		NeoForge.EVENT_BUS.post(evt);
 		return evt.isProficient();
 	}
 
 	@Override
 	public void fireElvenPortalUpdateEvent(BlockEntity portal, AABB bounds, boolean open, List<ItemStack> stacksInside) {
-		MinecraftForge.EVENT_BUS.post(new ElvenPortalUpdateEvent(portal, bounds, open, stacksInside));
+		NeoForge.EVENT_BUS.post(new ElvenPortalUpdateEvent(portal, bounds, open, stacksInside));
 	}
 
 	@Override
 	public void fireManaNetworkEvent(ManaReceiver thing, ManaBlockType type, ManaNetworkAction action) {
-		MinecraftForge.EVENT_BUS.post(new ManaNetworkEvent(thing, type, action));
+		NeoForge.EVENT_BUS.post(new ManaNetworkEvent(thing, type, action));
 	}
 
 	@Override
@@ -496,7 +495,7 @@ public class ForgeXplatImpl implements XplatAbstractions {
 	}
 
 	@Override
-	public FlowerBlock createSpecialFlowerBlock(MobEffect effect, int effectDuration,
+	public FlowerBlock createSpecialFlowerBlock(Holder<MobEffect> effect, int effectDuration,
 			BlockBehaviour.Properties props,
 			Supplier<BlockEntityType<? extends SpecialFlowerBlockEntity>> beType,
 			boolean hasComparatorOutput) {
@@ -511,9 +510,9 @@ public class ForgeXplatImpl implements XplatAbstractions {
 	@Override
 	public void registerReloadListener(PackType type, ResourceLocation id, PreparableReloadListener listener) {
 		switch (type) {
-			case CLIENT_RESOURCES -> MinecraftForge.EVENT_BUS.addListener(
+			case CLIENT_RESOURCES -> NeoForge.EVENT_BUS.addListener(
 					(RegisterClientReloadListenersEvent e) -> e.registerReloadListener(listener));
-			case SERVER_DATA -> MinecraftForge.EVENT_BUS.addListener(
+			case SERVER_DATA -> NeoForge.EVENT_BUS.addListener(
 					(AddReloadListenerEvent e) -> e.addListener(listener));
 		}
 	}
@@ -550,12 +549,12 @@ public class ForgeXplatImpl implements XplatAbstractions {
 
 	@Override
 	public Attribute getReachDistanceAttribute() {
-		return ForgeMod.BLOCK_REACH.get();
+		return NeoForgeMod.BLOCK_REACH.get();
 	}
 
 	@Override
 	public Attribute getStepHeightAttribute() {
-		return ForgeMod.STEP_HEIGHT_ADDITION.get();
+		return NeoForgeMod.STEP_HEIGHT_ADDITION.get();
 	}
 
 	@Override
@@ -581,7 +580,7 @@ public class ForgeXplatImpl implements XplatAbstractions {
 
 	@Override
 	public int getSmeltingBurnTime(ItemStack stack) {
-		return ForgeHooks.getBurnTime(stack, RecipeType.SMELTING);
+		return CommonHooks.getBurnTime(stack, RecipeType.SMELTING);
 	}
 
 	@Override

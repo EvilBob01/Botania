@@ -9,7 +9,12 @@
 package vazkii.botania.client.core.handler;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.*;
+import com.mojang.blaze3d.vertex.BufferBuilder;
+import com.mojang.blaze3d.vertex.BufferUploader;
+import com.mojang.blaze3d.vertex.DefaultVertexFormat;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.Tesselator;
+import com.mojang.blaze3d.vertex.VertexFormat;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
@@ -32,7 +37,7 @@ public final class BossBarHandler {
 
 	// Only access on the client thread!
 	public static final Set<GaiaGuardianEntity> bosses = Collections.newSetFromMap(new WeakHashMap<>());
-	private static final ResourceLocation BAR_TEXTURE = new ResourceLocation(ResourcesLib.GUI_BOSS_BAR);
+	private static final ResourceLocation BAR_TEXTURE = ResourceLocation.parse(ResourcesLib.GUI_BOSS_BAR);
 
 	public static OptionalInt onBarRender(GuiGraphics gui, int x, int y, BossEvent bossEvent, boolean drawName) {
 		for (GaiaGuardianEntity currentBoss : bosses) {
@@ -98,13 +103,12 @@ public final class BossBarHandler {
 
 		var matrix = gui.pose().last().pose();
 		RenderSystem.setShader(CoreShaders::dopplegangerBar);
-		BufferBuilder builder = Tesselator.getInstance().getBuilder();
-		builder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
-		builder.vertex(matrix, x, y + h, 0).uv(minU, maxV).endVertex();
-		builder.vertex(matrix, x + w, y + h, 0).uv(maxU, maxV).endVertex();
-		builder.vertex(matrix, x + w, y, 0).uv(maxU, minV).endVertex();
-		builder.vertex(matrix, x, y, 0).uv(minU, minV).endVertex();
-		Tesselator.getInstance().end();
+		BufferBuilder builder = Tesselator.getInstance().begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
+		builder.addVertex(matrix, x, y + h, 0).setUv(minU, maxV);
+		builder.addVertex(matrix, x + w, y + h, 0).setUv(maxU, maxV);
+		builder.addVertex(matrix, x + w, y, 0).setUv(maxU, minV);
+		builder.addVertex(matrix, x, y, 0).setUv(minU, minV);
+		BufferUploader.drawWithShader(builder.buildOrThrow());
 	}
 
 }

@@ -10,6 +10,7 @@ package vazkii.botania.client.fx;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.BufferBuilder;
+import com.mojang.blaze3d.vertex.BufferUploader;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.Tesselator;
 import com.mojang.blaze3d.vertex.VertexFormat;
@@ -153,7 +154,7 @@ public class FXSparkle extends TextureSheetParticle {
 		}
 	}
 
-	private static void beginRenderCommon(BufferBuilder buffer, TextureManager textureManager) {
+	private static BufferBuilder beginRenderCommon(TextureManager textureManager) {
 		Minecraft.getInstance().gameRenderer.lightTexture().turnOnLightLayer();
 		RenderSystem.enableDepthTest();
 		RenderSystem.depthMask(false);
@@ -162,10 +163,11 @@ public class FXSparkle extends TextureSheetParticle {
 		RenderSystem.setShaderTexture(0, TextureAtlas.LOCATION_PARTICLES);
 		AbstractTexture tex = textureManager.getTexture(TextureAtlas.LOCATION_PARTICLES);
 		ClientXplatAbstractions.INSTANCE.setFilterSave(tex, true, false);
-		buffer.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.PARTICLE);
+		return Tesselator.getInstance().begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.PARTICLE);
 	}
 
-	private static void endRenderCommon() {
+	private static void endRenderCommon(BufferBuilder bufferBuilder) {
+		BufferUploader.drawWithShader(bufferBuilder.buildOrThrow());
 		AbstractTexture tex = Minecraft.getInstance().getTextureManager().getTexture(TextureAtlas.LOCATION_PARTICLES);
 		ClientXplatAbstractions.INSTANCE.restoreLastFilter(tex);
 		RenderSystem.disableBlend();
@@ -174,14 +176,13 @@ public class FXSparkle extends TextureSheetParticle {
 
 	public static final ParticleRenderType NORMAL_RENDER = new ParticleRenderType() {
 		@Override
-		public void begin(BufferBuilder bufferBuilder, TextureManager textureManager) {
-			beginRenderCommon(bufferBuilder, textureManager);
+		public BufferBuilder begin(TextureManager textureManager) {
+			return beginRenderCommon(textureManager);
 		}
 
 		@Override
-		public void end(Tesselator tessellator) {
-			tessellator.end();
-			endRenderCommon();
+		public void end(BufferBuilder bufferBuilder) {
+			endRenderCommon(bufferBuilder);
 		}
 
 		@Override
@@ -192,15 +193,14 @@ public class FXSparkle extends TextureSheetParticle {
 
 	public static final ParticleRenderType CORRUPT_RENDER = new ParticleRenderType() {
 		@Override
-		public void begin(BufferBuilder bufferBuilder, TextureManager textureManager) {
-			beginRenderCommon(bufferBuilder, textureManager);
+		public BufferBuilder begin(TextureManager textureManager) {
 			RenderSystem.setShader(CoreShaders::filmGrainParticle);
+			return beginRenderCommon(textureManager);
 		}
 
 		@Override
-		public void end(Tesselator tessellator) {
-			tessellator.end();
-			endRenderCommon();
+		public void end(BufferBuilder bufferBuilder) {
+			endRenderCommon(bufferBuilder);
 		}
 
 		@Override

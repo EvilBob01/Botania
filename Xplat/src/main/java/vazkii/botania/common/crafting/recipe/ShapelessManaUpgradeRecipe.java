@@ -8,11 +8,11 @@
  */
 package vazkii.botania.common.crafting.recipe;
 
-import com.google.gson.JsonObject;
+import com.mojang.serialization.MapCodec;
 
 import net.minecraft.core.RegistryAccess;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.CraftingBookCategory;
@@ -23,8 +23,8 @@ import org.jetbrains.annotations.NotNull;
 
 public class ShapelessManaUpgradeRecipe extends ShapelessRecipe {
 	public ShapelessManaUpgradeRecipe(ShapelessRecipe compose) {
-		super(compose.getId(), compose.getGroup(), CraftingBookCategory.EQUIPMENT,
-				// XXX: Hacky, but compose should always be a vanilla shaped recipe which doesn't do anything with the
+		super(compose.getGroup(), CraftingBookCategory.EQUIPMENT,
+				// XXX: Hacky, but compose should always be a vanilla shapeless recipe which doesn't do anything with the
 				// RegistryAccess
 				compose.getResultItem(RegistryAccess.EMPTY),
 				compose.getIngredients());
@@ -45,21 +45,28 @@ public class ShapelessManaUpgradeRecipe extends ShapelessRecipe {
 	public static final RecipeSerializer<ShapelessManaUpgradeRecipe> SERIALIZER = new Serializer();
 
 	private static class Serializer implements RecipeSerializer<ShapelessManaUpgradeRecipe> {
+		private static final MapCodec<ShapelessManaUpgradeRecipe> CODEC =
+				ShapelessRecipe.Serializer.CODEC.xmap(
+						ShapelessManaUpgradeRecipe::new,
+						r -> r
+				);
+
+		private static final StreamCodec<RegistryFriendlyByteBuf, ShapelessManaUpgradeRecipe> STREAM_CODEC =
+				ShapelessRecipe.Serializer.STREAM_CODEC.map(
+						ShapelessManaUpgradeRecipe::new,
+						r -> r
+				);
+
 		@NotNull
 		@Override
-		public ShapelessManaUpgradeRecipe fromJson(@NotNull ResourceLocation recipeId, @NotNull JsonObject json) {
-			return new ShapelessManaUpgradeRecipe(SHAPELESS_RECIPE.fromJson(recipeId, json));
+		public MapCodec<ShapelessManaUpgradeRecipe> codec() {
+			return CODEC;
 		}
 
 		@NotNull
 		@Override
-		public ShapelessManaUpgradeRecipe fromNetwork(@NotNull ResourceLocation recipeId, @NotNull FriendlyByteBuf buffer) {
-			return new ShapelessManaUpgradeRecipe(SHAPELESS_RECIPE.fromNetwork(recipeId, buffer));
-		}
-
-		@Override
-		public void toNetwork(@NotNull FriendlyByteBuf buffer, @NotNull ShapelessManaUpgradeRecipe recipe) {
-			SHAPELESS_RECIPE.toNetwork(buffer, recipe);
+		public StreamCodec<RegistryFriendlyByteBuf, ShapelessManaUpgradeRecipe> streamCodec() {
+			return STREAM_CODEC;
 		}
 	}
 }

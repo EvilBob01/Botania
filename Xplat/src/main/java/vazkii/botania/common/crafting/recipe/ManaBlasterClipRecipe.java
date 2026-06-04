@@ -25,8 +25,8 @@ import vazkii.botania.common.item.ManaBlasterItem;
 public class ManaBlasterClipRecipe extends CustomRecipe {
 	public static final NoOpRecipeSerializer<ManaBlasterClipRecipe> SERIALIZER = new NoOpRecipeSerializer<>(ManaBlasterClipRecipe::new);
 
-	public ManaBlasterClipRecipe(ResourceLocation id) {
-		super(id, CraftingBookCategory.EQUIPMENT);
+	public ManaBlasterClipRecipe() {
+		super(CraftingBookCategory.EQUIPMENT);
 	}
 
 	@Override

@@ -18,4 +18,5 @@ plugins {
 }
 
 rootProject.name = 'Botania'
-include("Xplat", "Fabric", "Forge")
+// Fabric subproject excluded — pending its own 1.21.1 port
+include("Xplat", "Forge")

@@ -41,7 +41,7 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.levelgen.structure.Structure;
 import net.minecraft.world.level.levelgen.structure.StructureSpawnOverride;
 import net.minecraft.world.level.levelgen.structure.StructureStart;
-import net.minecraft.world.level.storage.loot.LootDataManager;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
@@ -259,7 +259,7 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 			looniumComponent.setDrop(lootStack);
 		}
 
-		mob.finalizeSpawn(world, world.getCurrentDifficultyAt(mob.blockPosition()), MobSpawnType.SPAWNER, null, null);
+		mob.finalizeSpawn(world, world.getCurrentDifficultyAt(mob.blockPosition()), MobSpawnType.SPAWNER, null);
 		if (Boolean.FALSE.equals(pickedMobType.spawnAsBaby) && mob.isBaby()) {
 			// Note: might have already affected initial equipment/attribute selection, or even caused a special
 			// mob configuration (such as chicken jockey) to spawn, which may look weird when reverting to adult.
@@ -267,7 +267,8 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 		}
 
 		if (pickedMobType.equipmentTable != null) {
-			LootTable equipmentTable = world.getServer().getLootData().getLootTable(pickedMobType.equipmentTable);
+			LootTable equipmentTable = world.getServer().reloadableRegistries().getLootTable(
+					ResourceKey.create(Registries.LOOT_TABLE, pickedMobType.equipmentTable));
 			if (equipmentTable != LootTable.EMPTY) {
 				LootParams lootParams = new LootParams.Builder(world)
 						.withParameter(LootContextParams.THIS_ENTITY, mob)
@@ -386,11 +387,12 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 	private List<Pair<ResourceLocation, LootTable>> determineLootTables(ServerLevel world,
 			Set<ResourceLocation> structureIds) {
 		var lootTables = new ArrayList<Pair<ResourceLocation, LootTable>>();
-		LootDataManager lootData = world.getServer().getLootData();
-		Supplier<LootTable> defaultLootTableSupplier = Suppliers.memoize(() -> lootData.getLootTable(
-				BotaniaLootTables.LOONIUM_DEFAULT_LOOT));
+		var reloadableRegistries = world.getServer().reloadableRegistries();
+		Supplier<LootTable> defaultLootTableSupplier = Suppliers.memoize(() -> reloadableRegistries.getLootTable(
+				ResourceKey.create(Registries.LOOT_TABLE, BotaniaLootTables.LOONIUM_DEFAULT_LOOT)));
 		if (lootTableOverride != null) {
-			LootTable lootTable = lootData.getLootTable(lootTableOverride);
+			LootTable lootTable = reloadableRegistries.getLootTable(
+					ResourceKey.create(Registries.LOOT_TABLE, lootTableOverride));
 			if (lootTable != LootTable.EMPTY) {
 				lootTables.add(Pair.of(LooniumStructureConfiguration.DEFAULT_CONFIG_ID, lootTable));
 			}
@@ -400,7 +402,8 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 					continue;
 				}
 				ResourceLocation lootTableId = prefix("loonium/%s/%s".formatted(structureId.getNamespace(), structureId.getPath()));
-				LootTable lootTable = lootData.getLootTable(lootTableId);
+				LootTable lootTable = reloadableRegistries.getLootTable(
+						ResourceKey.create(Registries.LOOT_TABLE, lootTableId));
 				if (lootTable != LootTable.EMPTY) {
 					lootTables.add(Pair.of(structureId, lootTable));
 				} else {

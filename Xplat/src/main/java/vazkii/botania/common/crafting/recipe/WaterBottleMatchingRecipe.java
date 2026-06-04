@@ -8,16 +8,16 @@
  */
 package vazkii.botania.common.crafting.recipe;
 
-import com.google.gson.JsonObject;
+import com.mojang.serialization.MapCodec;
 
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.alchemy.PotionUtils;
+import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.item.crafting.CraftingBookCategory;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -30,18 +30,12 @@ import org.jetbrains.annotations.NotNull;
 public class WaterBottleMatchingRecipe extends ShapedRecipe {
 	public static final RecipeSerializer<WaterBottleMatchingRecipe> SERIALIZER = new Serializer();
 
-	public WaterBottleMatchingRecipe(ResourceLocation id, String group, CraftingBookCategory category, int width, int height, NonNullList<Ingredient> recipeItems, ItemStack result) {
-		super(id, group, category, width, height, NonNullList.of(Ingredient.EMPTY, recipeItems.stream().map(i -> {
-			if (i.test(new ItemStack(Items.POTION))) {
-				return Ingredient.of(PotionUtils.setPotion(new ItemStack(Items.POTION), Potions.WATER));
-			}
-			return i;
-		}).toArray(Ingredient[]::new)), result);
+	public WaterBottleMatchingRecipe(String group, CraftingBookCategory category, net.minecraft.world.item.crafting.ShapedRecipePattern pattern, ItemStack result) {
+		super(group, category, pattern, result);
 	}
 
 	public WaterBottleMatchingRecipe(ShapedRecipe recipe) {
-		this(recipe.getId(), recipe.getGroup(), recipe.category(), recipe.getWidth(), recipe.getHeight(),
-				recipe.getIngredients(),
+		this(recipe.getGroup(), recipe.category(), recipe.pattern(),
 				// XXX: Hacky, but compose should always be a vanilla shaped recipe which doesn't do anything with the
 				// RegistryAccess
 				recipe.getResultItem(RegistryAccess.EMPTY));
@@ -54,8 +48,11 @@ public class WaterBottleMatchingRecipe extends ShapedRecipe {
 		}
 		for (int i = 0; i < craftingContainer.getContainerSize(); i++) {
 			var item = craftingContainer.getItem(i);
-			if (item.is(Items.POTION) && !(PotionUtils.getPotion(item) == Potions.WATER)) {
-				return false;
+			if (item.is(Items.POTION)) {
+				var contents = item.get(net.minecraft.core.component.DataComponents.POTION_CONTENTS);
+				if (contents != null && !contents.is(Potions.WATER)) {
+					return false;
+				}
 			}
 		}
 		return true;
@@ -67,19 +64,26 @@ public class WaterBottleMatchingRecipe extends ShapedRecipe {
 	}
 
 	private static class Serializer implements RecipeSerializer<WaterBottleMatchingRecipe> {
+		private static final MapCodec<WaterBottleMatchingRecipe> CODEC =
+				ShapedRecipe.Serializer.CODEC.xmap(
+						WaterBottleMatchingRecipe::new,
+						r -> r
+				);
+
+		private static final StreamCodec<RegistryFriendlyByteBuf, WaterBottleMatchingRecipe> STREAM_CODEC =
+				ShapedRecipe.Serializer.STREAM_CODEC.map(
+						WaterBottleMatchingRecipe::new,
+						r -> r
+				);
+
 		@Override
-		public WaterBottleMatchingRecipe fromJson(@NotNull ResourceLocation recipeId, @NotNull JsonObject json) {
-			return new WaterBottleMatchingRecipe(SHAPED_RECIPE.fromJson(recipeId, json));
+		public MapCodec<WaterBottleMatchingRecipe> codec() {
+			return CODEC;
 		}
 
 		@Override
-		public WaterBottleMatchingRecipe fromNetwork(@NotNull ResourceLocation recipeId, @NotNull FriendlyByteBuf buffer) {
-			return new WaterBottleMatchingRecipe(SHAPED_RECIPE.fromNetwork(recipeId, buffer));
-		}
-
-		@Override
-		public void toNetwork(@NotNull FriendlyByteBuf buffer, @NotNull WaterBottleMatchingRecipe recipe) {
-			SHAPED_RECIPE.toNetwork(buffer, recipe);
+		public StreamCodec<RegistryFriendlyByteBuf, WaterBottleMatchingRecipe> streamCodec() {
+			return STREAM_CODEC;
 		}
 	}
 }

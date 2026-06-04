@@ -8,82 +8,34 @@
  */
 package vazkii.botania.data.recipes;
 
-import com.google.gson.JsonObject;
-
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.advancements.AdvancementHolder;
+import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.ShapedRecipe;
 
-import org.jetbrains.annotations.Nullable;
+import java.util.function.Function;
 
-import java.util.function.Consumer;
-
-public class WrapperResult implements FinishedRecipe {
-	private final FinishedRecipe delegate;
-	@Nullable
-	private final RecipeSerializer<?> type;
-	@Nullable
-	private final Consumer<JsonObject> transform;
-
+public class WrapperResult {
 	/**
-	 * Wraps recipe consumer with one that swaps the recipe type to a different one.
+	 * Wraps a RecipeOutput so that any ShapedRecipe saved through it is
+	 * replaced by a custom recipe constructed via the given wrapper function.
 	 */
-	public static Consumer<FinishedRecipe> ofType(RecipeSerializer<?> type, Consumer<FinishedRecipe> parent) {
-		return recipe -> parent.accept(new WrapperResult(recipe, type, null));
-	}
+	public static RecipeOutput ofType(Function<ShapedRecipe, ? extends Recipe<?>> wrapper, RecipeOutput parent) {
+		return new RecipeOutput() {
+			@Override
+			public void accept(ResourceLocation id, Recipe<?> recipe, AdvancementHolder advancement) {
+				if (recipe instanceof ShapedRecipe sr) {
+					parent.accept(id, wrapper.apply(sr), advancement);
+				} else {
+					parent.accept(id, recipe, advancement);
+				}
+			}
 
-	/**
-	 * Transforms the resulting recipe json with the specified action, eg. adding NBT to an item result.
-	 */
-	public static Consumer<FinishedRecipe> transformJson(Consumer<FinishedRecipe> parent, Consumer<JsonObject> transform) {
-		return recipe -> parent.accept(new WrapperResult(recipe, null, transform));
-	}
-
-	private WrapperResult(FinishedRecipe delegate, @Nullable RecipeSerializer<?> type, @Nullable Consumer<JsonObject> transform) {
-		this.delegate = delegate;
-		this.type = type;
-		this.transform = transform;
-	}
-
-	@Override
-	public void serializeRecipeData(JsonObject json) {
-		delegate.serializeRecipeData(json);
-		if (transform != null) {
-			transform.accept(json);
-		}
-	}
-
-	@Override
-	public JsonObject serializeRecipe() {
-		if (type == null) {
-			return FinishedRecipe.super.serializeRecipe();
-		}
-		JsonObject jsonobject = new JsonObject();
-		jsonobject.addProperty("type", BuiltInRegistries.RECIPE_SERIALIZER.getKey(this.type).toString());
-		this.serializeRecipeData(jsonobject);
-		return jsonobject;
-	}
-
-	@Override
-	public ResourceLocation getId() {
-		return delegate.getId();
-	}
-
-	@Override
-	public RecipeSerializer<?> getType() {
-		return type != null ? type : delegate.getType();
-	}
-
-	@Nullable
-	@Override
-	public JsonObject serializeAdvancement() {
-		return delegate.serializeAdvancement();
-	}
-
-	@Nullable
-	@Override
-	public ResourceLocation getAdvancementId() {
-		return delegate.getAdvancementId();
+			@Override
+			public net.minecraft.advancements.Advancement.Builder advancement() {
+				return parent.advancement();
+			}
+		};
 	}
 }

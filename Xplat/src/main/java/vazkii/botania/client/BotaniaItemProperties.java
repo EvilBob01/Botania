@@ -115,13 +115,13 @@ public final class BotaniaItemProperties {
 				LivingwoodBowItem item = ((LivingwoodBowItem) stack.getItem());
 				return entity.getUseItem() != stack
 						? 0.0F
-						: (stack.getUseDuration() - entity.getUseItemRemainingTicks()) * item.chargeVelocityMultiplier() / 20.0F;
+						: (stack.getUseDuration(entity) - entity.getUseItemRemainingTicks()) * item.chargeVelocityMultiplier() / 20.0F;
 			}
 		};
-		consumer.accept(BotaniaItems.livingwoodBow, new ResourceLocation("pulling"), pulling);
-		consumer.accept(BotaniaItems.livingwoodBow, new ResourceLocation("pull"), pull);
-		consumer.accept(BotaniaItems.crystalBow, new ResourceLocation("pulling"), pulling);
-		consumer.accept(BotaniaItems.crystalBow, new ResourceLocation("pull"), pull);
+		consumer.accept(BotaniaItems.livingwoodBow, ResourceLocation.parse("pulling"), pulling);
+		consumer.accept(BotaniaItems.livingwoodBow, ResourceLocation.parse("pull"), pull);
+		consumer.accept(BotaniaItems.crystalBow, ResourceLocation.parse("pulling"), pulling);
+		consumer.accept(BotaniaItems.crystalBow, ResourceLocation.parse("pull"), pull);
 	}
 
 	private BotaniaItemProperties() {}

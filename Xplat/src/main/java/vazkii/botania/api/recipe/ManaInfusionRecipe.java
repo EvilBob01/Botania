@@ -23,7 +23,7 @@ import org.jetbrains.annotations.Nullable;
 import vazkii.botania.api.BotaniaAPI;
 
 public interface ManaInfusionRecipe extends Recipe<Container> {
-	ResourceLocation TYPE_ID = new ResourceLocation(BotaniaAPI.MODID, "mana_infusion");
+	ResourceLocation TYPE_ID = ResourceLocation.fromNamespaceAndPath(BotaniaAPI.MODID, "mana_infusion");
 
 	/**
 	 * Attempts to match the recipe.

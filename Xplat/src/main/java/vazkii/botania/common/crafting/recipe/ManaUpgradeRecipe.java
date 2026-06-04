@@ -8,11 +8,11 @@
  */
 package vazkii.botania.common.crafting.recipe;
 
-import com.google.gson.JsonObject;
+import com.mojang.serialization.MapCodec;
 
 import net.minecraft.core.RegistryAccess;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.Container;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
@@ -25,8 +25,7 @@ import vazkii.botania.xplat.XplatAbstractions;
 
 public class ManaUpgradeRecipe extends ShapedRecipe {
 	public ManaUpgradeRecipe(ShapedRecipe compose) {
-		super(compose.getId(), compose.getGroup(), compose.category(), compose.getWidth(), compose.getHeight(),
-				compose.getIngredients(),
+		super(compose.getGroup(), compose.category(), compose.pattern(),
 				// XXX: Hacky, but compose should always be a vanilla shaped recipe which doesn't do anything with the
 				// RegistryAccess
 				compose.getResultItem(RegistryAccess.EMPTY));
@@ -63,19 +62,26 @@ public class ManaUpgradeRecipe extends ShapedRecipe {
 	public static final RecipeSerializer<ManaUpgradeRecipe> SERIALIZER = new Serializer();
 
 	private static class Serializer implements RecipeSerializer<ManaUpgradeRecipe> {
+		private static final MapCodec<ManaUpgradeRecipe> CODEC =
+				ShapedRecipe.Serializer.CODEC.xmap(
+						ManaUpgradeRecipe::new,
+						r -> r
+				);
+
+		private static final StreamCodec<RegistryFriendlyByteBuf, ManaUpgradeRecipe> STREAM_CODEC =
+				ShapedRecipe.Serializer.STREAM_CODEC.map(
+						ManaUpgradeRecipe::new,
+						r -> r
+				);
+
 		@Override
-		public ManaUpgradeRecipe fromJson(@NotNull ResourceLocation recipeId, @NotNull JsonObject json) {
-			return new ManaUpgradeRecipe(SHAPED_RECIPE.fromJson(recipeId, json));
+		public MapCodec<ManaUpgradeRecipe> codec() {
+			return CODEC;
 		}
 
 		@Override
-		public ManaUpgradeRecipe fromNetwork(@NotNull ResourceLocation recipeId, @NotNull FriendlyByteBuf buffer) {
-			return new ManaUpgradeRecipe(SHAPED_RECIPE.fromNetwork(recipeId, buffer));
-		}
-
-		@Override
-		public void toNetwork(@NotNull FriendlyByteBuf buffer, @NotNull ManaUpgradeRecipe recipe) {
-			SHAPED_RECIPE.toNetwork(buffer, recipe);
+		public StreamCodec<RegistryFriendlyByteBuf, ManaUpgradeRecipe> streamCodec() {
+			return STREAM_CODEC;
 		}
 	}
 }

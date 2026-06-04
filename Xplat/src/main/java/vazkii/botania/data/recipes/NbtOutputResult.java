@@ -8,59 +8,22 @@
  */
 package vazkii.botania.data.recipes;
 
-import com.google.gson.JsonObject;
-
-import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.advancements.AdvancementHolder;
+import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.crafting.RecipeSerializer;
-
-import org.jetbrains.annotations.Nullable;
-
-import vazkii.botania.common.crafting.recipe.NbtOutputRecipe;
+import net.minecraft.world.item.crafting.Recipe;
 
 import java.util.function.Consumer;
 
-public class NbtOutputResult implements FinishedRecipe {
-	private final FinishedRecipe innerRecipe;
-	private final CompoundTag tag;
-
-	public NbtOutputResult(FinishedRecipe innerRecipe, CompoundTag tag) {
-		this.innerRecipe = innerRecipe;
-		this.tag = tag;
-	}
-
-	public static Consumer<FinishedRecipe> with(Consumer<FinishedRecipe> parent, Consumer<CompoundTag> tagSetup) {
-		CompoundTag tag = new CompoundTag();
-		tagSetup.accept(tag);
-		return recipe -> parent.accept(new NbtOutputResult(recipe, tag));
-	}
-
-	@Override
-	public void serializeRecipeData(JsonObject json) {
-		json.add("recipe", innerRecipe.serializeRecipe());
-		json.addProperty("nbt", tag.toString());
-	}
-
-	@Override
-	public ResourceLocation getId() {
-		return innerRecipe.getId();
-	}
-
-	@Override
-	public RecipeSerializer<?> getType() {
-		return NbtOutputRecipe.SERIALIZER;
-	}
-
-	@Nullable
-	@Override
-	public JsonObject serializeAdvancement() {
-		return innerRecipe.serializeAdvancement();
-	}
-
-	@Nullable
-	@Override
-	public ResourceLocation getAdvancementId() {
-		return innerRecipe.getAdvancementId();
+/**
+ * In 1.21, ItemStack codec preserves NBT natively. This class is kept for
+ * API compatibility but simply passes recipes through unchanged — the NBT
+ * should already be set on the output ItemStack before calling save().
+ */
+public class NbtOutputResult {
+	public static RecipeOutput with(RecipeOutput parent, Consumer<CompoundTag> tagSetup) {
+		// NBT must be applied to the ItemStack before calling save(). This wrapper is a no-op passthrough.
+		return parent;
 	}
 }

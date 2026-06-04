@@ -9,7 +9,6 @@
 package vazkii.botania.common.crafting;
 
 import net.minecraft.core.NonNullList;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
@@ -27,10 +26,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class LexiconElvenTradeRecipe implements ElvenTradeRecipe {
-	private final ResourceLocation id;
-
-	LexiconElvenTradeRecipe(ResourceLocation id) {
-		this.id = id;
+	LexiconElvenTradeRecipe() {
 	}
 
 	@Override
@@ -48,12 +44,6 @@ public class LexiconElvenTradeRecipe implements ElvenTradeRecipe {
 	@Override
 	public ItemStack getToastSymbol() {
 		return new ItemStack(BotaniaBlocks.alfPortal);
-	}
-
-	@NotNull
-	@Override
-	public ResourceLocation getId() {
-		return id;
 	}
 
 	@Override

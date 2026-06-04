@@ -8,34 +8,36 @@
  */
 package vazkii.botania.common.crafting.recipe;
 
-import com.google.gson.JsonObject;
-import com.google.gson.JsonSyntaxException;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 
-import net.minecraft.commands.CommandFunction;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.GsonHelper;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.block_entity.SpecialFlowerBlockEntity;
 import vazkii.botania.api.recipe.StateIngredient;
+import vazkii.botania.common.crafting.BotaniaRecipeTypes;
 import vazkii.botania.common.crafting.PureDaisyRecipe;
 import vazkii.botania.common.crafting.StateIngredientHelper;
+
+import java.util.Optional;
 
 /**
  * Recipe that copies state properties to the new block on crafting.
  */
 public class StateCopyingPureDaisyRecipe extends PureDaisyRecipe {
-	public StateCopyingPureDaisyRecipe(ResourceLocation id, StateIngredient input, Block block, int time) {
-		super(id, input, block.defaultBlockState(), time, CommandFunction.CacheableFunction.NONE);
+	public StateCopyingPureDaisyRecipe(StateIngredient input, Block block, int time) {
+		super(input, block.defaultBlockState(), time, Optional.empty());
 	}
 
 	@Override
@@ -52,33 +54,36 @@ public class StateCopyingPureDaisyRecipe extends PureDaisyRecipe {
 		return true;
 	}
 
+	@Override
+	public RecipeSerializer<?> getSerializer() {
+		return BotaniaRecipeTypes.COPYING_PURE_DAISY_SERIALIZER;
+	}
+
 	public static class Serializer implements RecipeSerializer<StateCopyingPureDaisyRecipe> {
+		public static final MapCodec<StateCopyingPureDaisyRecipe> CODEC = RecordCodecBuilder.mapCodec(inst -> inst.group(
+				StateIngredientHelper.CODEC.fieldOf("input").forGetter(r -> r.input),
+				BuiltInRegistries.BLOCK.byNameCodec().fieldOf("output").forGetter(r -> r.outputState.getBlock()),
+				Codec.INT.optionalFieldOf("time", DEFAULT_TIME).forGetter(r -> r.getTime())
+		).apply(inst, StateCopyingPureDaisyRecipe::new));
+
+		public static final StreamCodec<RegistryFriendlyByteBuf, StateCopyingPureDaisyRecipe> STREAM_CODEC =
+				StreamCodec.composite(
+						StateIngredientHelper.STREAM_CODEC, r -> r.input,
+						ByteBufCodecs.VAR_INT.map(BuiltInRegistries.BLOCK::byId, BuiltInRegistries.BLOCK::getId),
+						r -> r.outputState.getBlock(),
+						ByteBufCodecs.VAR_INT, r -> r.getTime(),
+						StateCopyingPureDaisyRecipe::new);
+
 		@NotNull
 		@Override
-		public StateCopyingPureDaisyRecipe fromJson(@NotNull ResourceLocation id, JsonObject object) {
-			StateIngredient input = StateIngredientHelper.deserialize(GsonHelper.getAsJsonObject(object, "input"));
-			ResourceLocation blockId = new ResourceLocation(GsonHelper.getAsString(object, "output"));
-			Block output = BuiltInRegistries.BLOCK.getOptional(blockId)
-					.orElseThrow(() -> new JsonSyntaxException("Unknown block id: " + blockId));
-
-			int time = GsonHelper.getAsInt(object, "time", DEFAULT_TIME);
-			return new StateCopyingPureDaisyRecipe(id, input, output, time);
+		public MapCodec<StateCopyingPureDaisyRecipe> codec() {
+			return CODEC;
 		}
 
+		@NotNull
 		@Override
-		public void toNetwork(@NotNull FriendlyByteBuf buf, StateCopyingPureDaisyRecipe recipe) {
-			recipe.getInput().write(buf);
-			buf.writeVarInt(BuiltInRegistries.BLOCK.getId(recipe.getOutputState().getBlock()));
-			buf.writeVarInt(recipe.getTime());
-		}
-
-		@Nullable
-		@Override
-		public StateCopyingPureDaisyRecipe fromNetwork(@NotNull ResourceLocation id, @NotNull FriendlyByteBuf buf) {
-			StateIngredient input = StateIngredientHelper.read(buf);
-			Block output = BuiltInRegistries.BLOCK.byId(buf.readVarInt());
-			int time = buf.readVarInt();
-			return new StateCopyingPureDaisyRecipe(id, input, output, time);
+		public StreamCodec<RegistryFriendlyByteBuf, StateCopyingPureDaisyRecipe> streamCodec() {
+			return STREAM_CODEC;
 		}
 	}
 }

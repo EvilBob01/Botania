@@ -17,6 +17,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.sounds.AbstractTickableSoundInstance;
 import net.minecraft.client.resources.sounds.SoundInstance;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
@@ -268,7 +269,7 @@ public class GaiaGuardianEntity extends Mob {
 			}
 
 			e.playSound(BotaniaSounds.gaiaSummon, 1F, 1F);
-			e.finalizeSpawn((ServerLevelAccessor) world, world.getCurrentDifficultyAt(e.blockPosition()), MobSpawnType.EVENT, null, null);
+			e.finalizeSpawn((ServerLevelAccessor) world, world.getCurrentDifficultyAt(e.blockPosition()), MobSpawnType.EVENT, null);
 			world.addFreshEntity(e);
 
 			for (Player nearbyPlayer : playersAround) {
@@ -356,9 +357,9 @@ public class GaiaGuardianEntity extends Mob {
 	}
 
 	@Override
-	protected void defineSynchedData() {
-		super.defineSynchedData();
-		entityData.define(INVUL_TIME, 0);
+	protected void defineSynchedData(SynchedEntityData.Builder builder) {
+		super.defineSynchedData(builder);
+		builder.define(INVUL_TIME, 0);
 	}
 
 	public int getInvulTime() {
@@ -662,9 +663,9 @@ public class GaiaGuardianEntity extends Mob {
 	}
 
 	private void clearPotions(Player player) {
-		Set<MobEffect> effectsToRemove = new HashSet<>();
+		Set<Holder<MobEffect>> effectsToRemove = new HashSet<>();
 		for (var effectInstance : player.getActiveEffects()) {
-			if (effectInstance.getDuration() < 160 && effectInstance.isAmbient() && effectInstance.getEffect().getCategory() != MobEffectCategory.HARMFUL) {
+			if (effectInstance.getDuration() < 160 && effectInstance.isAmbient() && effectInstance.getEffect().value().getCategory() != MobEffectCategory.HARMFUL) {
 				effectsToRemove.add(effectInstance.getEffect());
 			}
 		}

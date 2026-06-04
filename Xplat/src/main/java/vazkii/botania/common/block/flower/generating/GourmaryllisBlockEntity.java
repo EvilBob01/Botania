@@ -81,7 +81,7 @@ public class GourmaryllisBlockEntity extends GeneratingFlowerBlockEntity {
 		for (ListIterator<ItemStack> it = lastFoods.listIterator(); it.hasNext();) {
 			int index = it.nextIndex();
 			ItemStack streakFood = it.next();
-			if (ItemStack.isSameItemSameTags(streakFood, food)) {
+			if (ItemStack.isSameItemSameComponents(streakFood, food)) {
 				it.remove();
 				lastFoods.add(0, streakFood);
 				return index;

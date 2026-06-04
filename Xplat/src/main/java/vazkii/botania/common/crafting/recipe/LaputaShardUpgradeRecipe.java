@@ -27,8 +27,8 @@ import vazkii.botania.common.item.LaputaShardItem;
 public class LaputaShardUpgradeRecipe extends CustomRecipe {
 	public static final NoOpRecipeSerializer<LaputaShardUpgradeRecipe> SERIALIZER = new NoOpRecipeSerializer<>(LaputaShardUpgradeRecipe::new);
 
-	public LaputaShardUpgradeRecipe(ResourceLocation id) {
-		super(id, CraftingBookCategory.MISC);
+	public LaputaShardUpgradeRecipe() {
+		super(CraftingBookCategory.MISC);
 	}
 
 	@Override

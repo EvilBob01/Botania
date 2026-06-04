@@ -147,11 +147,11 @@ public class BotaniaEmiPlugin implements EmiPlugin {
 		registry.addWorkstation(MARIMORPHOSIS, EmiStack.of(BotaniaFlowerBlocks.marimorphosisChibi));
 		registry.addWorkstation(MARIMORPHOSIS, EmiStack.of(BotaniaFlowerBlocks.marimorphosisChibiFloating));
 
-		registry.setDefaultComparison(BotaniaItems.lexicon, Comparison.compareNbt());
-		registry.setDefaultComparison(BotaniaItems.brewFlask, Comparison.compareNbt());
-		registry.setDefaultComparison(BotaniaItems.brewVial, Comparison.compareNbt());
-		registry.setDefaultComparison(BotaniaItems.bloodPendant, Comparison.compareNbt());
-		registry.setDefaultComparison(BotaniaItems.incenseStick, Comparison.compareNbt());
+		registry.setDefaultComparison(BotaniaItems.lexicon, Comparison.compareComponents());
+		registry.setDefaultComparison(BotaniaItems.brewFlask, Comparison.compareComponents());
+		registry.setDefaultComparison(BotaniaItems.brewVial, Comparison.compareComponents());
+		registry.setDefaultComparison(BotaniaItems.bloodPendant, Comparison.compareComponents());
+		registry.setDefaultComparison(BotaniaItems.incenseStick, Comparison.compareComponents());
 		// Disables the ability to see the no wings tiara recipe, probably an nbt mismatch
 		//registry.setDefaultComparison(BotaniaItems.flightTiara, compareNbt);
 

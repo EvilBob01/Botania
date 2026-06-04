@@ -8,51 +8,61 @@
  */
 package vazkii.botania.data.recipes;
 
-import com.google.gson.JsonObject;
-
-import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.advancements.AdvancementHolder;
+import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.Recipe;
 
-import org.jetbrains.annotations.Nullable;
+import vazkii.botania.xplat.XplatAbstractions;
 
-import vazkii.botania.common.crafting.recipe.GogAlternationRecipe;
+/**
+ * Saves either the gog or base recipe variant depending on whether the
+ * Garden of Glass is loaded. Both recipes must share the same ID (the base
+ * recipe's ID is used as the canonical one).
+ */
+public class GogAlternationResult {
+	private final Recipe<?> gogRecipe;
+	private final Recipe<?> baseRecipe;
+	private final ResourceLocation id;
+	private final AdvancementHolder gogAdvancement;
+	private final AdvancementHolder baseAdvancement;
 
-public class GogAlternationResult implements FinishedRecipe {
-	private final FinishedRecipe gogRecipe;
-	private final FinishedRecipe baseRecipe;
-
-	public GogAlternationResult(FinishedRecipe gogRecipe, FinishedRecipe baseRecipe) {
-		this.gogRecipe = gogRecipe;
-		this.baseRecipe = baseRecipe;
+	public GogAlternationResult(RecipeCapture gogCapture, RecipeCapture baseCapture) {
+		this.gogRecipe = gogCapture.recipe;
+		this.baseRecipe = baseCapture.recipe;
+		this.id = baseCapture.id;
+		this.gogAdvancement = gogCapture.advancement;
+		this.baseAdvancement = baseCapture.advancement;
 	}
 
-	@Override
-	public void serializeRecipeData(JsonObject json) {
-		json.add("gog", gogRecipe.serializeRecipe());
-		json.add("base", baseRecipe.serializeRecipe());
+	/** Save the appropriate variant to the output. */
+	public void save(RecipeOutput output) {
+		if (XplatAbstractions.INSTANCE.gogLoaded()) {
+			output.accept(id, gogRecipe, gogAdvancement);
+		} else {
+			output.accept(id, baseRecipe, baseAdvancement);
+		}
 	}
 
-	@Override
-	public RecipeSerializer<?> getType() {
-		return GogAlternationRecipe.SERIALIZER;
-	}
+	/**
+	 * Helper to capture a recipe save. Use as:
+	 * {@code RecipeCapture gog = new RecipeCapture(); builder.save(gog); }
+	 */
+	public static class RecipeCapture implements RecipeOutput {
+		Recipe<?> recipe;
+		ResourceLocation id;
+		AdvancementHolder advancement;
 
-	// Take these from the base recipe
-	@Override
-	public ResourceLocation getId() {
-		return baseRecipe.getId();
-	}
+		@Override
+		public void accept(ResourceLocation id, Recipe<?> recipe, AdvancementHolder advancement) {
+			this.id = id;
+			this.recipe = recipe;
+			this.advancement = advancement;
+		}
 
-	@Nullable
-	@Override
-	public JsonObject serializeAdvancement() {
-		return baseRecipe.serializeAdvancement();
-	}
-
-	@Nullable
-	@Override
-	public ResourceLocation getAdvancementId() {
-		return baseRecipe.getAdvancementId();
+		@Override
+		public net.minecraft.advancements.Advancement.Builder advancement() {
+			return net.minecraft.advancements.Advancement.Builder.recipeAdvancement();
+		}
 	}
 }

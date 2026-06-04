@@ -17,7 +17,7 @@ import org.jetbrains.annotations.NotNull;
 import vazkii.botania.api.BotaniaAPI;
 
 public interface PetalApothecaryRecipe extends RecipeWithReagent {
-	ResourceLocation TYPE_ID = new ResourceLocation(BotaniaAPI.MODID, "petal_apothecary");
+	ResourceLocation TYPE_ID = ResourceLocation.fromNamespaceAndPath(BotaniaAPI.MODID, "petal_apothecary");
 
 	@NotNull
 	@Override

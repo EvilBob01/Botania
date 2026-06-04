@@ -27,8 +27,8 @@ import vazkii.botania.common.item.equipment.bauble.BaubleItem;
 public class CosmeticRemoveRecipe extends CustomRecipe {
 	public static final NoOpRecipeSerializer<CosmeticRemoveRecipe> SERIALIZER = new NoOpRecipeSerializer<>(CosmeticRemoveRecipe::new);
 
-	public CosmeticRemoveRecipe(ResourceLocation id) {
-		super(id, CraftingBookCategory.EQUIPMENT);
+	public CosmeticRemoveRecipe() {
+		super(CraftingBookCategory.EQUIPMENT);
 	}
 
 	@Override

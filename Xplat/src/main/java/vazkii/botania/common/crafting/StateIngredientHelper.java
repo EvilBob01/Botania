@@ -8,9 +8,11 @@
  */
 package vazkii.botania.common.crafting;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
+import com.mojang.serialization.Codec;
 import com.mojang.serialization.Dynamic;
 import com.mojang.serialization.JsonOps;
 
@@ -19,6 +21,8 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.nbt.NbtUtils;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.GsonHelper;
@@ -31,9 +35,55 @@ import org.jetbrains.annotations.Nullable;
 import vazkii.botania.api.recipe.StateIngredient;
 import vazkii.botania.common.helper.ItemNBTHelper;
 
+import java.util.Optional;
+
 import java.util.*;
 
 public class StateIngredientHelper {
+	private static final Gson GSON = new Gson();
+
+	/** Codec for StateIngredient that bridges the existing JSON serialization. */
+	public static final Codec<StateIngredient> CODEC = Codec.withAlternative(
+			net.minecraft.util.ExtraCodecs.JSON.comapFlatMap(
+					json -> {
+						try {
+							if (!(json instanceof com.google.gson.JsonObject obj)) {
+								return com.mojang.serialization.DataResult.error(() -> "StateIngredient must be a JSON object");
+							}
+							return com.mojang.serialization.DataResult.success(deserialize(obj));
+						} catch (Exception e) {
+							return com.mojang.serialization.DataResult.error(e::getMessage);
+						}
+					},
+					ingredient -> ingredient.serialize()
+			),
+			net.minecraft.util.ExtraCodecs.JSON.comapFlatMap(
+					json -> com.mojang.serialization.DataResult.error(() -> "Fallback"),
+					ingredient -> ingredient.serialize()
+			)
+	);
+
+	/** Stream codec for StateIngredient over RegistryFriendlyByteBuf. */
+	public static final StreamCodec<RegistryFriendlyByteBuf, StateIngredient> STREAM_CODEC =
+			StreamCodec.of(
+					(buf, ingredient) -> ingredient.write(buf),
+					StateIngredientHelper::read
+			);
+
+	/** Optional stream codec for nullable StateIngredient. */
+	public static final StreamCodec<RegistryFriendlyByteBuf, Optional<StateIngredient>> OPTIONAL_STREAM_CODEC =
+			StreamCodec.of(
+					(buf, opt) -> {
+						buf.writeBoolean(opt.isPresent());
+						opt.ifPresent(s -> s.write(buf));
+					},
+					buf -> {
+						if (buf.readBoolean()) {
+							return Optional.of(StateIngredientHelper.read(buf));
+						}
+						return Optional.empty();
+					}
+			);
 	public static StateIngredient of(Block block) {
 		return new BlockStateIngredient(block);
 	}
@@ -83,19 +133,19 @@ public class StateIngredientHelper {
 	public static StateIngredient deserialize(JsonObject object) {
 		switch (GsonHelper.getAsString(object, "type")) {
 			case "tag":
-				return new TagStateIngredient(new ResourceLocation(GsonHelper.getAsString(object, "tag")));
+				return new TagStateIngredient(ResourceLocation.parse(GsonHelper.getAsString(object, "tag")));
 			case "block":
-				return new BlockStateIngredient(BuiltInRegistries.BLOCK.get(new ResourceLocation(GsonHelper.getAsString(object, "block"))));
+				return new BlockStateIngredient(BuiltInRegistries.BLOCK.get(ResourceLocation.parse(GsonHelper.getAsString(object, "block"))));
 			case "state":
 				return new BlockStateStateIngredient(readBlockState(object));
 			case "blocks":
 				List<Block> blocks = new ArrayList<>();
 				for (JsonElement element : GsonHelper.getAsJsonArray(object, "blocks")) {
-					blocks.add(BuiltInRegistries.BLOCK.get(new ResourceLocation(element.getAsString())));
+					blocks.add(BuiltInRegistries.BLOCK.get(ResourceLocation.parse(element.getAsString())));
 				}
 				return new BlocksStateIngredient(blocks);
 			case "tag_excluding":
-				ResourceLocation tag = new ResourceLocation(GsonHelper.getAsString(object, "tag"));
+				ResourceLocation tag = ResourceLocation.parse(GsonHelper.getAsString(object, "tag"));
 				List<StateIngredient> ingr = new ArrayList<>();
 				for (JsonElement element : GsonHelper.getAsJsonArray(object, "exclude")) {
 					ingr.add(deserialize(GsonHelper.convertToJsonObject(element, "exclude entry")));

@@ -1,6 +1,6 @@
 plugins {
     id('java')
-    id 'net.neoforged.moddev.legacyforge' version '2.0.78'
+    id 'net.neoforged.moddev' version '2.0.78'
 }
 
 archivesBaseName = "${mod_name}-xplat"
@@ -9,15 +9,17 @@ if (System.getenv().RELEASE_MODE == null) {
     version += '-SNAPSHOT'
 }
 
-legacyForge {
-    mcpVersion = "1.20.1"
+neoForge {
+    // We only need MC + NeoForge classes available for compilation of the shared module.
+    version = "${neoforge_version}"
+    validateAccessTransformers = false
+
     accessTransformers = [file('src/main/resources/META-INF/accesstransformer.cfg')]
 
     parchment {
-        minecraftVersion = '1.20.1'
-        mappingsVersion = '2023.09.03'
+        minecraftVersion = '1.21.1'
+        mappingsVersion = '2024.11.17'
     }
-
 }
 
 repositories {
@@ -39,23 +41,17 @@ repositories {
 }
 
 dependencies {
-    compileOnly group: 'org.spongepowered', name: 'mixin', version: '0.8.5'
-    compileOnly "vazkii.patchouli:Patchouli-xplat:${minecraft_version}-84"
+    compileOnly "vazkii.patchouli:Patchouli-xplat:${minecraft_version}-93"
 
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.1'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.6.1'
 
-    // compileOnly 'com.blamejared.crafttweaker:CraftTweaker-common-1.18.2:9.1.123'
-
     compileOnly "com.unascribed:ears-api:1.4.5"
 
-    compileOnly "mezz.jei:jei-1.20.1-common-api:15.2.0.27"
-    compileOnly "dev.emi:emi-xplat-mojmap:1.0.12+${minecraft_version}:api"
+    compileOnly "mezz.jei:jei-1.21.1-common-api:19.27.0.340"
+    compileOnly "dev.emi:emi-xplat-mojmap:1.1.24+${minecraft_version}:api"
 
     compileOnly "org.jetbrains:annotations:24.0.1"
-
-    // annotationProcessor 'com.blamejared.crafttweaker:Crafttweaker_Annotation_Processors-1.18.2:2.0.0.123'
-    // annotationProcessor 'com.blamejared.crafttweaker:CraftTweaker-common-1.18.2:9.1.123'
 }
 
 test {

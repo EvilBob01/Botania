@@ -39,9 +39,9 @@ public class PixieEntity extends FlyingMob {
 	}
 
 	@Override
-	protected void defineSynchedData() {
-		super.defineSynchedData();
-		entityData.define(PIXIE_TYPE, 0);
+	protected void defineSynchedData(SynchedEntityData.Builder builder) {
+		super.defineSynchedData(builder);
+		builder.define(PIXIE_TYPE, 0);
 	}
 
 	public void setPixieType(int type) {

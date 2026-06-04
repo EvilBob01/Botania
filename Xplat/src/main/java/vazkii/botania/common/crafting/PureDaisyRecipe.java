@@ -9,14 +9,17 @@
 package vazkii.botania.common.crafting;
 
 import com.google.common.base.Preconditions;
-import com.google.gson.JsonObject;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 
-import net.minecraft.commands.CommandFunction;
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.util.GsonHelper;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -28,29 +31,19 @@ import org.jetbrains.annotations.NotNull;
 import vazkii.botania.api.block_entity.SpecialFlowerBlockEntity;
 import vazkii.botania.api.recipe.StateIngredient;
 
+import java.util.Optional;
+
 public class PureDaisyRecipe implements vazkii.botania.api.recipe.PureDaisyRecipe {
 
 	public static final int DEFAULT_TIME = 150;
 
-	private final ResourceLocation id;
 	protected final StateIngredient input;
 	protected final BlockState outputState;
 	private final int time;
-	private final CommandFunction.CacheableFunction function;
+	private final Optional<ResourceLocation> function;
 
-	/**
-	 * @param id       The ID for this recipe.
-	 * @param input    The input for the recipe. Can be a Block, BlockState, or Tag&lt;Block&gt;.
-	 * @param state    The blockstate to be placed upon recipe completion.
-	 * @param time     The amount of time in ticks to complete this recipe. Note that this is ticks on your block, not
-	 *                 total time.
-	 *                 The Pure Daisy only ticks one block at a time in a round robin fashion.
-	 * @param function An mcfunction to run at the converted block after finish. If you don't want one, pass
-	 *                 CommandFunction.CacheableFunction.NONE
-	 */
-	public PureDaisyRecipe(ResourceLocation id, StateIngredient input, BlockState state, int time, CommandFunction.CacheableFunction function) {
+	public PureDaisyRecipe(StateIngredient input, BlockState state, int time, Optional<ResourceLocation> function) {
 		Preconditions.checkArgument(time >= 0, "Time must be nonnegative");
-		this.id = id;
 		this.input = input;
 		this.outputState = state;
 		this.time = time;
@@ -69,11 +62,13 @@ public class PureDaisyRecipe implements vazkii.botania.api.recipe.PureDaisyRecip
 			if (success) {
 				var serverLevel = (ServerLevel) world;
 				var server = serverLevel.getServer();
-				this.function.get(server.getFunctions()).ifPresent(command -> {
-					var context = server.getFunctions().getGameLoopSender()
-							.withLevel((ServerLevel) world)
-							.withPosition(Vec3.atBottomCenterOf(pos));
-					server.getFunctions().execute(command, context);
+				this.function.ifPresent(funcId -> {
+					server.getFunctions().get(funcId).ifPresent(command -> {
+						var context = server.getFunctions().getGameLoopSender()
+								.withLevel((ServerLevel) world)
+								.withPosition(Vec3.atBottomCenterOf(pos));
+						server.getFunctions().execute(command, context);
+					});
 				});
 			}
 			return success;
@@ -92,7 +87,7 @@ public class PureDaisyRecipe implements vazkii.botania.api.recipe.PureDaisyRecip
 	}
 
 	@Override
-	public CommandFunction.CacheableFunction getSuccessFunction() {
+	public Optional<ResourceLocation> getSuccessFunction() {
 		return this.function;
 	}
 
@@ -102,42 +97,40 @@ public class PureDaisyRecipe implements vazkii.botania.api.recipe.PureDaisyRecip
 	}
 
 	@Override
-	public ResourceLocation getId() {
-		return id;
-	}
-
-	@Override
 	public RecipeSerializer<?> getSerializer() {
 		return BotaniaRecipeTypes.PURE_DAISY_SERIALIZER;
 	}
 
 	public static class Serializer implements RecipeSerializer<PureDaisyRecipe> {
+		// Codec for BlockState using block ID + properties
+		private static final Codec<BlockState> BLOCK_STATE_CODEC = BuiltInRegistries.BLOCK.byNameCodec()
+				.xmap(Block::defaultBlockState, BlockState::getBlock);
+
+		public static final MapCodec<PureDaisyRecipe> CODEC = RecordCodecBuilder.mapCodec(inst -> inst.group(
+				StateIngredientHelper.CODEC.fieldOf("input").forGetter(r -> r.input),
+				BLOCK_STATE_CODEC.fieldOf("output").forGetter(r -> r.outputState),
+				Codec.INT.optionalFieldOf("time", DEFAULT_TIME).forGetter(r -> r.time),
+				ResourceLocation.CODEC.optionalFieldOf("success_function").forGetter(r -> r.function)
+		).apply(inst, (input, output, time, funcId) ->
+				new PureDaisyRecipe(input, output, time, funcId)));
+
+		public static final StreamCodec<RegistryFriendlyByteBuf, PureDaisyRecipe> STREAM_CODEC =
+				StreamCodec.composite(
+						StateIngredientHelper.STREAM_CODEC, r -> r.input,
+						ByteBufCodecs.VAR_INT.map(Block::stateById, Block::getId), r -> r.outputState,
+						ByteBufCodecs.VAR_INT, r -> r.time,
+						(input, output, time) -> new PureDaisyRecipe(input, output, time, Optional.empty()));
+
 		@NotNull
 		@Override
-		public PureDaisyRecipe fromJson(@NotNull ResourceLocation id, JsonObject object) {
-			StateIngredient input = StateIngredientHelper.deserialize(GsonHelper.getAsJsonObject(object, "input"));
-			BlockState output = StateIngredientHelper.readBlockState(GsonHelper.getAsJsonObject(object, "output"));
-			int time = GsonHelper.getAsInt(object, "time", DEFAULT_TIME);
-			var functionIdString = GsonHelper.getAsString(object, "success_function", null);
-			var functionId = functionIdString == null ? null : new ResourceLocation(functionIdString);
-			var function = functionId == null ? CommandFunction.CacheableFunction.NONE : new CommandFunction.CacheableFunction(functionId);
-			return new PureDaisyRecipe(id, input, output, time, function);
-		}
-
-		@Override
-		public void toNetwork(@NotNull FriendlyByteBuf buf, PureDaisyRecipe recipe) {
-			recipe.input.write(buf);
-			buf.writeVarInt(Block.getId(recipe.outputState));
-			buf.writeVarInt(recipe.time);
+		public MapCodec<PureDaisyRecipe> codec() {
+			return CODEC;
 		}
 
 		@NotNull
 		@Override
-		public PureDaisyRecipe fromNetwork(@NotNull ResourceLocation id, @NotNull FriendlyByteBuf buf) {
-			StateIngredient input = StateIngredientHelper.read(buf);
-			BlockState output = Block.stateById(buf.readVarInt());
-			int time = buf.readVarInt();
-			return new PureDaisyRecipe(id, input, output, time, CommandFunction.CacheableFunction.NONE);
+		public StreamCodec<RegistryFriendlyByteBuf, PureDaisyRecipe> streamCodec() {
+			return STREAM_CODEC;
 		}
 	}
 }

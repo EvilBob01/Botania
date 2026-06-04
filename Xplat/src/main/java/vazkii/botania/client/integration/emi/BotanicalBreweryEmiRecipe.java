@@ -29,7 +29,7 @@ public class BotanicalBreweryEmiRecipe extends BotaniaEmiRecipe {
 		this.output = List.of(EmiStack.of(recipe.getOutput(container.copy())));
 		ResourceLocation id = recipe.getId();
 		ResourceLocation itemId = BuiltInRegistries.ITEM.getKey(container.getItem());
-		this.id = new ResourceLocation("emi", "botania/botanical_brewery/"
+		this.id = ResourceLocation.fromNamespaceAndPath("emi", "botania/botanical_brewery/"
 				+ id.getNamespace() + "/" + id.getPath() + "/"
 				+ itemId.getNamespace() + "/" + itemId.getPath());
 	}

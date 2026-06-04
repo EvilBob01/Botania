@@ -12,6 +12,7 @@ import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 
 import net.minecraft.ChatFormatting;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
@@ -21,6 +22,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.Level;
 
 import vazkii.botania.api.item.CosmeticAttachable;
@@ -77,7 +79,7 @@ public abstract class BaubleItem extends Item implements CosmeticAttachable, Pha
 	}
 
 	public static UUID getBaubleUUID(ItemStack stack) {
-		var tag = stack.getOrCreateTag();
+		CompoundTag tag = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
 
 		// Legacy handling
 		String tagBaubleUuidMostLegacy = "baubleUUIDMost";
@@ -92,6 +94,7 @@ public abstract class BaubleItem extends Item implements CosmeticAttachable, Pha
 			tag.putUUID(TAG_BAUBLE_UUID, uuid);
 		}
 
+		stack.set(DataComponents.CUSTOM_DATA, CustomData.of(tag));
 		return tag.getUUID(TAG_BAUBLE_UUID);
 	}
 

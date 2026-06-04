@@ -22,7 +22,7 @@ import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.brew.Brew;
 
 public interface BotanicalBreweryRecipe extends Recipe<Container> {
-	ResourceLocation TYPE_ID = new ResourceLocation(BotaniaAPI.MODID, "brew");
+	ResourceLocation TYPE_ID = ResourceLocation.fromNamespaceAndPath(BotaniaAPI.MODID, "brew");
 
 	Brew getBrew();
 

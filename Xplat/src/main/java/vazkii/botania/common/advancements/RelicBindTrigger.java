@@ -8,14 +8,17 @@
  */
 package vazkii.botania.common.advancements;
 
-import com.google.gson.JsonObject;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 
-import net.minecraft.advancements.critereon.*;
+import net.minecraft.advancements.critereon.CriterionTriggerInstance;
+import net.minecraft.advancements.critereon.ItemPredicate;
+import net.minecraft.advancements.critereon.SimpleCriterionTrigger;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
 
-import org.jetbrains.annotations.NotNull;
+import java.util.Optional;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
@@ -25,50 +28,31 @@ public class RelicBindTrigger extends SimpleCriterionTrigger<RelicBindTrigger.In
 
 	private RelicBindTrigger() {}
 
-	@NotNull
 	@Override
-	public ResourceLocation getId() {
-		return ID;
-	}
-
-	@NotNull
-	@Override
-	public Instance createInstance(@NotNull JsonObject json, @NotNull ContextAwarePredicate playerPred, DeserializationContext conditions) {
-		return new Instance(playerPred, ItemPredicate.fromJson(json.get("relic")));
+	public Codec<RelicBindTrigger.Instance> codec() {
+		return Instance.CODEC;
 	}
 
 	public void trigger(ServerPlayer player, ItemStack relic) {
 		trigger(player, instance -> instance.test(relic));
 	}
 
-	public static class Instance extends AbstractCriterionTriggerInstance {
-		private final ItemPredicate predicate;
+	public static class Instance implements CriterionTriggerInstance {
+		public static final Codec<Instance> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+				ItemPredicate.CODEC.optionalFieldOf("relic").forGetter(Instance::getPredicate)
+		).apply(instance, Instance::new));
 
-		public Instance(ContextAwarePredicate playerPred, ItemPredicate predicate) {
-			super(ID, playerPred);
+		private final Optional<ItemPredicate> predicate;
+
+		public Instance(Optional<ItemPredicate> predicate) {
 			this.predicate = predicate;
 		}
 
-		@NotNull
-		@Override
-		public ResourceLocation getCriterion() {
-			return ID;
-		}
-
 		boolean test(ItemStack stack) {
-			return predicate.matches(stack);
+			return predicate.map(p -> p.test(stack)).orElse(true);
 		}
 
-		@Override
-		public JsonObject serializeToJson(SerializationContext context) {
-			JsonObject json = super.serializeToJson(context);
-			if (predicate != ItemPredicate.ANY) {
-				json.add("relic", predicate.serializeToJson());
-			}
-			return json;
-		}
-
-		public ItemPredicate getPredicate() {
+		public Optional<ItemPredicate> getPredicate() {
 			return this.predicate;
 		}
 	}

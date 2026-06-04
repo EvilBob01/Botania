@@ -21,47 +21,32 @@ class DelegatedVertexConsumer implements VertexConsumer {
 	}
 
 	@Override
-	public VertexConsumer vertex(double x, double y, double z) {
-		return delegate.vertex(x, y, z);
+	public VertexConsumer addVertex(float x, float y, float z) {
+		return delegate.addVertex(x, y, z);
 	}
 
 	@Override
-	public VertexConsumer color(int red, int green, int blue, int alpha) {
-		return delegate.color(red, green, blue, alpha);
+	public VertexConsumer setColor(int red, int green, int blue, int alpha) {
+		return delegate.setColor(red, green, blue, alpha);
 	}
 
 	@Override
-	public VertexConsumer uv(float u, float v) {
-		return delegate.uv(u, v);
+	public VertexConsumer setUv(float u, float v) {
+		return delegate.setUv(u, v);
 	}
 
 	@Override
-	public VertexConsumer overlayCoords(int u, int v) {
-		return delegate.overlayCoords(u, v);
+	public VertexConsumer setOverlay(int packed) {
+		return delegate.setOverlay(packed);
 	}
 
 	@Override
-	public VertexConsumer uv2(int u, int v) {
-		return delegate.uv2(u, v);
+	public VertexConsumer setLight(int packed) {
+		return delegate.setLight(packed);
 	}
 
 	@Override
-	public VertexConsumer normal(float x, float y, float z) {
-		return delegate.normal(x, y, z);
-	}
-
-	@Override
-	public void endVertex() {
-		delegate.endVertex();
-	}
-
-	@Override
-	public void defaultColor(int red, int green, int blue, int alpha) {
-		delegate.defaultColor(red, green, blue, alpha);
-	}
-
-	@Override
-	public void unsetDefaultColor() {
-		delegate.unsetDefaultColor();
+	public VertexConsumer setNormal(float x, float y, float z) {
+		return delegate.setNormal(x, y, z);
 	}
 }

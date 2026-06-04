@@ -15,13 +15,11 @@ import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.minecraft.MinecraftProfileTexture;
 import com.mojang.authlib.properties.Property;
 import com.mojang.authlib.yggdrasil.response.MinecraftTexturesPayload;
+import com.mojang.serialization.MapCodec;
 import com.mojang.util.UUIDTypeAdapter;
 
 import net.minecraft.core.RegistryAccess;
@@ -29,18 +27,16 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.NbtUtils;
 import net.minecraft.nbt.Tag;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.FormattedText;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.GsonHelper;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.WrittenBookItem;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraft.world.item.crafting.ShapedRecipe;
 import net.minecraft.world.level.Level;
 
 import org.jetbrains.annotations.NotNull;
@@ -78,8 +74,8 @@ public class HeadRecipe extends RunicAltarRecipe {
 						}
 					});
 
-	public HeadRecipe(ResourceLocation id, ItemStack output, int mana, Ingredient... inputs) {
-		super(id, output, mana, inputs);
+	public HeadRecipe(ItemStack output, int mana, List<Ingredient> inputs) {
+		super(output, mana, inputs);
 	}
 
 	@Override
@@ -133,7 +129,6 @@ public class HeadRecipe extends RunicAltarRecipe {
 	}
 
 	private GameProfile parseProfileFromBook(ItemStack stack, boolean validateOnly) {
-		// tag has been validated, so we know all relevant elements exist
 		CompoundTag tag = stack.getTag();
 		String name = tag.getString(WrittenBookItem.TAG_TITLE);
 		if (name.isBlank()) {
@@ -142,7 +137,6 @@ public class HeadRecipe extends RunicAltarRecipe {
 
 		ListTag pages = tag.getList(WrittenBookItem.TAG_PAGES, Tag.TAG_STRING);
 
-		// no-nonsense check; at most the first two pages are scanned, and the check fails at the first error
 		int maxPages = Math.min(2, pages.size());
 		for (int i = 0; i < maxPages; ++i) {
 			String pageJson = pages.getString(i);
@@ -150,23 +144,18 @@ public class HeadRecipe extends RunicAltarRecipe {
 
 			Matcher matcher = PROFILE_PATTERN.matcher(pageText);
 			if (matcher.matches()) {
-				// this appears to be the page we were looking for, figure out the skin texture it encodes
 				String textureUrl;
 				String hash, base64, url;
 				if ((hash = matcher.group("hash")) != null) {
-					// simplest case: just the texture hash; complete the URL
 					textureUrl = TEXTURE_URL_BASE + hash;
 				} else if ((url = matcher.group("url")) != null) {
-					// an entire URL was specified; make sure it looks valid
 					try {
-						// just basic URL validation so we don't potentially spam error logs
 						URL validUrl = new URL(url);
 						textureUrl = validUrl.toString();
 					} catch (Exception e) {
 						return null;
 					}
 				} else if ((base64 = matcher.group("base64")) != null) {
-					// complete profile properties; do rudimentary parsing
 					try {
 						final String json = new String(Base64.getDecoder().decode(base64), StandardCharsets.UTF_8);
 						MinecraftTexturesPayload result = gson.get().fromJson(json, MinecraftTexturesPayload.class);
@@ -186,7 +175,6 @@ public class HeadRecipe extends RunicAltarRecipe {
 				if (validateOnly) {
 					return PROFILE_VALID_RESULT;
 				}
-				// we got something that looks like a valid skin texture URL, now build rudimentary profile data
 				String profileTextureJson = "{textures:{SKIN:{url:\"%s\"}}}".formatted(textureUrl);
 				String propertyBase64 = Base64.getEncoder().encodeToString(profileTextureJson.getBytes(StandardCharsets.UTF_8));
 				var profile = new GameProfile(GENERATED_UUID_CACHE.getUnchecked(propertyBase64), name);
@@ -206,36 +194,35 @@ public class HeadRecipe extends RunicAltarRecipe {
 		}
 	}
 
+	@Override
+	public RecipeSerializer<?> getSerializer() {
+		return BotaniaRecipeTypes.RUNE_HEAD_SERIALIZER;
+	}
+
 	public static class Serializer implements RecipeSerializer<HeadRecipe> {
+		// Reuse RunicAltarRecipe's codec, just wrapping in HeadRecipe
+		public static final MapCodec<HeadRecipe> CODEC =
+				RunicAltarRecipe.Serializer.CODEC.xmap(
+						r -> new HeadRecipe(r.getResultItem(null), r.getManaUsage(), r.getIngredients()),
+						r -> r
+				);
+
+		public static final StreamCodec<RegistryFriendlyByteBuf, HeadRecipe> STREAM_CODEC =
+				RunicAltarRecipe.Serializer.STREAM_CODEC.map(
+						r -> new HeadRecipe(r.getResultItem(null), r.getManaUsage(), r.getIngredients()),
+						r -> r
+				);
 
 		@NotNull
 		@Override
-		public HeadRecipe fromJson(@NotNull ResourceLocation id, @NotNull JsonObject json) {
-			ItemStack output = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(json, "output"));
-			int mana = GsonHelper.getAsInt(json, "mana");
-			JsonArray ingrs = GsonHelper.getAsJsonArray(json, "ingredients");
-			List<Ingredient> inputs = new ArrayList<>();
-			for (JsonElement e : ingrs) {
-				inputs.add(Ingredient.fromJson(e));
-			}
-			return new HeadRecipe(id, output, mana, inputs.toArray(new Ingredient[0]));
+		public MapCodec<HeadRecipe> codec() {
+			return CODEC;
 		}
 
+		@NotNull
 		@Override
-		public HeadRecipe fromNetwork(@NotNull ResourceLocation id, @NotNull FriendlyByteBuf buf) {
-			Ingredient[] inputs = new Ingredient[buf.readVarInt()];
-			for (int i = 0; i < inputs.length; i++) {
-				inputs[i] = Ingredient.fromNetwork(buf);
-			}
-			ItemStack output = buf.readItem();
-			int mana = buf.readVarInt();
-			return new HeadRecipe(id, output, mana, inputs);
-		}
-
-		@Override
-		public void toNetwork(@NotNull FriendlyByteBuf buf, @NotNull HeadRecipe recipe) {
-			BotaniaRecipeTypes.RUNE_SERIALIZER.toNetwork(buf, recipe);
+		public StreamCodec<RegistryFriendlyByteBuf, HeadRecipe> streamCodec() {
+			return STREAM_CODEC;
 		}
 	}
-
 }

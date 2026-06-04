@@ -8,16 +8,20 @@
  */
 package vazkii.botania.common.advancements;
 
-import com.google.gson.JsonObject;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 
-import net.minecraft.advancements.critereon.*;
+import net.minecraft.advancements.critereon.CriterionTriggerInstance;
+import net.minecraft.advancements.critereon.DamageSourcePredicate;
+import net.minecraft.advancements.critereon.EntityPredicate;
+import net.minecraft.advancements.critereon.SimpleCriterionTrigger;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.damagesource.DamageSource;
 
-import org.jetbrains.annotations.NotNull;
-
 import vazkii.botania.common.entity.GaiaGuardianEntity;
+
+import java.util.Optional;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
@@ -27,62 +31,39 @@ public class GaiaGuardianNoArmorTrigger extends SimpleCriterionTrigger<GaiaGuard
 
 	private GaiaGuardianNoArmorTrigger() {}
 
-	@NotNull
 	@Override
-	public ResourceLocation getId() {
-		return ID;
-	}
-
-	@NotNull
-	@Override
-	public GaiaGuardianNoArmorTrigger.Instance createInstance(@NotNull JsonObject json, ContextAwarePredicate playerPred, DeserializationContext conditions) {
-		return new GaiaGuardianNoArmorTrigger.Instance(playerPred,
-				EntityPredicate.fromJson(json.get("guardian")),
-				DamageSourcePredicate.fromJson(json.get("killing_blow"))
-		);
+	public Codec<GaiaGuardianNoArmorTrigger.Instance> codec() {
+		return Instance.CODEC;
 	}
 
 	public void trigger(ServerPlayer player, GaiaGuardianEntity guardian, DamageSource src) {
 		trigger(player, instance -> instance.test(player, guardian, src));
 	}
 
-	public static class Instance extends AbstractCriterionTriggerInstance {
-		private final EntityPredicate guardian;
-		private final DamageSourcePredicate killingBlow;
+	public static class Instance implements CriterionTriggerInstance {
+		public static final Codec<Instance> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+				EntityPredicate.CODEC.optionalFieldOf("guardian").forGetter(Instance::getGuardian),
+				DamageSourcePredicate.CODEC.optionalFieldOf("killing_blow").forGetter(Instance::getKillingBlow)
+		).apply(instance, Instance::new));
 
-		public Instance(ContextAwarePredicate playerPred, EntityPredicate count, DamageSourcePredicate indexPos) {
-			super(ID, playerPred);
-			this.guardian = count;
-			this.killingBlow = indexPos;
-		}
+		private final Optional<EntityPredicate> guardian;
+		private final Optional<DamageSourcePredicate> killingBlow;
 
-		@NotNull
-		@Override
-		public ResourceLocation getCriterion() {
-			return ID;
+		public Instance(Optional<EntityPredicate> guardian, Optional<DamageSourcePredicate> killingBlow) {
+			this.guardian = guardian;
+			this.killingBlow = killingBlow;
 		}
 
 		boolean test(ServerPlayer player, GaiaGuardianEntity guardian, DamageSource src) {
-			return this.guardian.matches(player, guardian) && this.killingBlow.matches(player, src);
+			return this.guardian.map(p -> p.matches(player.serverLevel(), player.position(), guardian)).orElse(true)
+					&& this.killingBlow.map(p -> p.matches(player.serverLevel(), player.position(), src)).orElse(true);
 		}
 
-		@Override
-		public JsonObject serializeToJson(SerializationContext context) {
-			JsonObject json = super.serializeToJson(context);
-			if (guardian != EntityPredicate.ANY) {
-				json.add("guardian", guardian.serializeToJson());
-			}
-			if (killingBlow != DamageSourcePredicate.ANY) {
-				json.add("killing_blow", killingBlow.serializeToJson());
-			}
-			return json;
-		}
-
-		public EntityPredicate getGuardian() {
+		public Optional<EntityPredicate> getGuardian() {
 			return this.guardian;
 		}
 
-		public DamageSourcePredicate getKillingBlow() {
+		public Optional<DamageSourcePredicate> getKillingBlow() {
 			return this.killingBlow;
 		}
 	}

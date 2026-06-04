@@ -131,7 +131,7 @@ public class MiscellaneousModels {
 			if (LibMisc.MOD_ID.equals(model.getNamespace())) {
 				String path = model.getPath();
 				path = path.substring(ResourcesLib.PREFIX_MODELS.length(), path.length() - ResourcesLib.ENDING_JSON.length());
-				consumer.accept(new ResourceLocation(LibMisc.MOD_ID, path));
+				consumer.accept(ResourceLocation.fromNamespaceAndPath(LibMisc.MOD_ID, path));
 			}
 		}
 	}
