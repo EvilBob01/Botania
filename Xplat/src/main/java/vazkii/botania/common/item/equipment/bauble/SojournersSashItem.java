@@ -39,7 +39,7 @@ public class SojournersSashItem extends BaubleItem {
 			ResourceLocation.fromNamespaceAndPath("botania", "travel_belt_step_boost"),
 			0.65, AttributeModifier.Operation.ADD_VALUE);
 
-	private static final ResourceLocation texture = new ResourceLocation(ResourcesLib.MODEL_TRAVEL_BELT);
+	private static final ResourceLocation texture = ResourceLocation.parse(ResourcesLib.MODEL_TRAVEL_BELT);
 
 	private static final int COST = 1;
 	private static final int COST_INTERVAL = 10;

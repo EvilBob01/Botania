@@ -53,8 +53,8 @@ public final class SkyblockWorldEvents {
 
 	private SkyblockWorldEvents() {}
 
-	private static final TagKey<Block> PEBBLE_SOURCES = TagKey.create(Registries.BLOCK, new ResourceLocation("gardenofglass:pebble_sources"));
-	private static final ResourceKey<LootTable> PEBBLES_TABLE = ResourceKey.create(Registries.LOOT_TABLE, new ResourceLocation(BotaniaAPI.GOG_MODID, "pebbles"));
+	private static final TagKey<Block> PEBBLE_SOURCES = TagKey.create(Registries.BLOCK, ResourceLocation.parse("gardenofglass:pebble_sources"));
+	private static final ResourceKey<LootTable> PEBBLES_TABLE = ResourceKey.create(Registries.LOOT_TABLE, ResourceLocation.fromNamespaceAndPath(BotaniaAPI.GOG_MODID, "pebbles"));
 
 	public static void syncGogStatus(ServerPlayer e) {
 		boolean isGog = SkyblockChunkGenerator.isWorldSkyblock(e.level());

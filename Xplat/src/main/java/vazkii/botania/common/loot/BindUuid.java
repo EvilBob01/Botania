@@ -8,8 +8,8 @@
  */
 package vazkii.botania.common.loot;
 
-import com.google.gson.JsonDeserializationContext;
-import com.google.gson.JsonObject;
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -23,10 +23,14 @@ import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.xplat.XplatAbstractions;
 
-public class BindUuid extends LootItemConditionalFunction {
+import java.util.List;
 
-	protected BindUuid(LootItemCondition[] conditionsIn) {
-		super(conditionsIn);
+public class BindUuid extends LootItemConditionalFunction {
+	public static final MapCodec<BindUuid> CODEC = RecordCodecBuilder.mapCodec(
+			instance -> commonFields(instance).apply(instance, BindUuid::new));
+
+	protected BindUuid(List<LootItemCondition> conditions) {
+		super(conditions);
 	}
 
 	@NotNull
@@ -43,16 +47,12 @@ public class BindUuid extends LootItemConditionalFunction {
 	}
 
 	@Override
-	public LootItemFunctionType getType() {
+	public LootItemFunctionType<BindUuid> getType() {
 		return BotaniaLootModifiers.BIND_UUID;
 	}
 
-	public static class Serializer extends LootItemConditionalFunction.Serializer<BindUuid> {
-		@NotNull
-		@Override
-		public BindUuid deserialize(@NotNull JsonObject object, @NotNull JsonDeserializationContext deserializationContext, @NotNull LootItemCondition[] conditionsIn) {
-			return new BindUuid(conditionsIn);
-		}
+	@Override
+	public MapCodec<BindUuid> codec() {
+		return CODEC;
 	}
-
 }

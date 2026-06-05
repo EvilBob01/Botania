@@ -8,11 +8,12 @@
  */
 package vazkii.botania.common.item.record;
 
+import net.minecraft.core.Holder;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.world.item.RecordItem;
+import net.minecraft.world.item.MusicDiscItem;
 
-public class BotaniaRecordItem extends RecordItem {
-	public BotaniaRecordItem(int comparator, SoundEvent sound, Properties builder, int lengthInSeconds) {
+public class BotaniaRecordItem extends MusicDiscItem {
+	public BotaniaRecordItem(int comparator, Holder<SoundEvent> sound, Properties builder, int lengthInSeconds) {
 		super(comparator, sound, builder, lengthInSeconds);
 	}
 }

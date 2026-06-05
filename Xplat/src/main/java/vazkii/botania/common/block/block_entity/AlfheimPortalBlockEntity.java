@@ -13,6 +13,7 @@ import com.google.common.base.Suppliers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
@@ -304,8 +305,8 @@ public class AlfheimPortalBlockEntity extends BotaniaBlockEntity implements Wand
 	}
 
 	@Override
-	public void saveAdditional(CompoundTag cmp) {
-		super.saveAdditional(cmp);
+	public void saveAdditional(CompoundTag cmp, HolderLookup.Provider registries) {
+		super.saveAdditional(cmp, registries);
 
 		cmp.putInt(TAG_STACK_COUNT, stacksIn.size());
 		int i = 0;
@@ -317,8 +318,8 @@ public class AlfheimPortalBlockEntity extends BotaniaBlockEntity implements Wand
 	}
 
 	@Override
-	public void load(@NotNull CompoundTag cmp) {
-		super.load(cmp);
+	public void loadAdditional(@NotNull CompoundTag cmp, HolderLookup.Provider registries) {
+		super.loadAdditional(cmp, registries);
 
 		int count = cmp.getInt(TAG_STACK_COUNT);
 		stacksIn.clear();

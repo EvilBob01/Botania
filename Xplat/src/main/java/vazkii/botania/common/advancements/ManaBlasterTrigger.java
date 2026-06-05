@@ -11,7 +11,7 @@ package vazkii.botania.common.advancements;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 
-import net.minecraft.advancements.critereon.CriterionTriggerInstance;
+import net.minecraft.advancements.critereon.ContextAwarePredicate;
 import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.advancements.critereon.SimpleCriterionTrigger;
 import net.minecraft.resources.ResourceLocation;
@@ -37,7 +37,7 @@ public class ManaBlasterTrigger extends SimpleCriterionTrigger<ManaBlasterTrigge
 		trigger(player, instance -> instance.test(stack));
 	}
 
-	public static class Instance implements CriterionTriggerInstance {
+	public static class Instance implements SimpleCriterionTrigger.SimpleInstance {
 		public static final Codec<Instance> CODEC = RecordCodecBuilder.create(instance -> instance.group(
 				ItemPredicate.CODEC.optionalFieldOf("item").forGetter(Instance::getItem)
 		).apply(instance, Instance::new));
@@ -54,6 +54,11 @@ public class ManaBlasterTrigger extends SimpleCriterionTrigger<ManaBlasterTrigge
 
 		public Optional<ItemPredicate> getItem() {
 			return this.item;
+		}
+
+		@Override
+		public Optional<ContextAwarePredicate> player() {
+			return Optional.empty();
 		}
 	}
 }

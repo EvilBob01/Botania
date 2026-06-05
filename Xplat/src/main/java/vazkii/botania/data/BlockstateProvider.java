@@ -369,7 +369,7 @@ public class BlockstateProvider implements DataProvider {
 		particleOnly(remainingBlocks, gaiaPylon, getBlockTexture(elementiumBlock));
 		particleOnly(remainingBlocks, hourglass, getBlockTexture(manaGlass));
 		particleOnly(remainingBlocks, lightRelayDefault, getBlockTexture(lightRelayDefault));
-		particleOnly(remainingBlocks, manaFlame, new ResourceLocation("block/fire_0"));
+		particleOnly(remainingBlocks, manaFlame, ResourceLocation.fromNamespaceAndPath("minecraft", "block/fire_0"));
 		particleOnly(remainingBlocks, manaPylon, getBlockTexture(manasteelBlock));
 		particleOnly(remainingBlocks, naturaPylon, getBlockTexture(terrasteelBlock));
 		particleOnly(remainingBlocks, teruTeruBozu, getBlockTexture(Blocks.WHITE_WOOL));
@@ -678,7 +678,7 @@ public class BlockstateProvider implements DataProvider {
 
 		takeAll(remainingBlocks, b -> b instanceof BuriedPetalBlock).forEach(b -> {
 			DyeColor color = ((BuriedPetalBlock) b).color;
-			ResourceLocation wool = new ResourceLocation("block/" + color.getSerializedName() + "_wool");
+			ResourceLocation wool = ResourceLocation.fromNamespaceAndPath("minecraft", "block/" + color.getSerializedName() + "_wool");
 			particleOnly(remainingBlocks, b, wool);
 		});
 

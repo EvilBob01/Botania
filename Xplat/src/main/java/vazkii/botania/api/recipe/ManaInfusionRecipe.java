@@ -8,7 +8,7 @@
  */
 package vazkii.botania.api.recipe;
 
-import net.minecraft.core.RegistryAccess;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
@@ -42,7 +42,7 @@ public interface ManaInfusionRecipe extends Recipe<Container> {
 	 */
 	@NotNull
 	@Override
-	ItemStack getResultItem(@NotNull RegistryAccess registries);
+	ItemStack getResultItem(@NotNull HolderLookup.Provider registries);
 
 	/**
 	 * Get the actual recipe output, not just for display. Defaults to a copy of {@link #getResultItem}.
@@ -51,7 +51,7 @@ public interface ManaInfusionRecipe extends Recipe<Container> {
 	 * @return The output stack of the recipe for the specific input.
 	 */
 	@NotNull
-	default ItemStack getRecipeOutput(@NotNull RegistryAccess registries, @NotNull ItemStack input) {
+	default ItemStack getRecipeOutput(@NotNull HolderLookup.Provider registries, @NotNull ItemStack input) {
 		return getResultItem(registries).copy();
 	}
 
@@ -78,7 +78,7 @@ public interface ManaInfusionRecipe extends Recipe<Container> {
 
 	@NotNull
 	@Override
-	default ItemStack assemble(@NotNull Container inv, @NotNull RegistryAccess registries) {
+	default ItemStack assemble(@NotNull Container inv, @NotNull HolderLookup.Provider registries) {
 		return ItemStack.EMPTY;
 	}
 

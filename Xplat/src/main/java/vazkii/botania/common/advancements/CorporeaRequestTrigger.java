@@ -11,7 +11,7 @@ package vazkii.botania.common.advancements;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 
-import net.minecraft.advancements.critereon.CriterionTriggerInstance;
+import net.minecraft.advancements.critereon.ContextAwarePredicate;
 import net.minecraft.advancements.critereon.LocationPredicate;
 import net.minecraft.advancements.critereon.MinMaxBounds;
 import net.minecraft.advancements.critereon.SimpleCriterionTrigger;
@@ -39,7 +39,7 @@ public class CorporeaRequestTrigger extends SimpleCriterionTrigger<CorporeaReque
 		this.trigger(player, instance -> instance.test(world, pos, count));
 	}
 
-	public static class Instance implements CriterionTriggerInstance {
+	public static class Instance implements SimpleCriterionTrigger.SimpleInstance {
 		public static final Codec<Instance> CODEC = RecordCodecBuilder.create(instance -> instance.group(
 				MinMaxBounds.Ints.CODEC.optionalFieldOf("extracted").forGetter(Instance::getCount),
 				LocationPredicate.CODEC.optionalFieldOf("location").forGetter(Instance::getIndexPos)
@@ -64,6 +64,11 @@ public class CorporeaRequestTrigger extends SimpleCriterionTrigger<CorporeaReque
 
 		public Optional<LocationPredicate> getIndexPos() {
 			return this.indexPos;
+		}
+
+		@Override
+		public Optional<ContextAwarePredicate> player() {
+			return Optional.empty();
 		}
 	}
 }

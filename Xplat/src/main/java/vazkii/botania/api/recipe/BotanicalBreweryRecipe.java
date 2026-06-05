@@ -8,7 +8,7 @@
  */
 package vazkii.botania.api.recipe;
 
-import net.minecraft.core.RegistryAccess;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
@@ -38,13 +38,13 @@ public interface BotanicalBreweryRecipe extends Recipe<Container> {
 
 	@NotNull
 	@Override
-	default ItemStack getResultItem(@NotNull RegistryAccess registries) {
+	default ItemStack getResultItem(@NotNull HolderLookup.Provider registries) {
 		return ItemStack.EMPTY;
 	}
 
 	@NotNull
 	@Override
-	default ItemStack assemble(@NotNull Container inv, @NotNull RegistryAccess registries) {
+	default ItemStack assemble(@NotNull Container inv, @NotNull HolderLookup.Provider registries) {
 		return ItemStack.EMPTY;
 	}
 

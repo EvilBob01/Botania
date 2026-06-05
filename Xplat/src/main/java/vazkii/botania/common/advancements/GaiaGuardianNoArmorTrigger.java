@@ -11,7 +11,7 @@ package vazkii.botania.common.advancements;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 
-import net.minecraft.advancements.critereon.CriterionTriggerInstance;
+import net.minecraft.advancements.critereon.ContextAwarePredicate;
 import net.minecraft.advancements.critereon.DamageSourcePredicate;
 import net.minecraft.advancements.critereon.EntityPredicate;
 import net.minecraft.advancements.critereon.SimpleCriterionTrigger;
@@ -40,7 +40,7 @@ public class GaiaGuardianNoArmorTrigger extends SimpleCriterionTrigger<GaiaGuard
 		trigger(player, instance -> instance.test(player, guardian, src));
 	}
 
-	public static class Instance implements CriterionTriggerInstance {
+	public static class Instance implements SimpleCriterionTrigger.SimpleInstance {
 		public static final Codec<Instance> CODEC = RecordCodecBuilder.create(instance -> instance.group(
 				EntityPredicate.CODEC.optionalFieldOf("guardian").forGetter(Instance::getGuardian),
 				DamageSourcePredicate.CODEC.optionalFieldOf("killing_blow").forGetter(Instance::getKillingBlow)
@@ -65,6 +65,11 @@ public class GaiaGuardianNoArmorTrigger extends SimpleCriterionTrigger<GaiaGuard
 
 		public Optional<DamageSourcePredicate> getKillingBlow() {
 			return this.killingBlow;
+		}
+
+		@Override
+		public Optional<ContextAwarePredicate> player() {
+			return Optional.empty();
 		}
 	}
 }

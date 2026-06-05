@@ -205,7 +205,7 @@ public class BlockLootProvider implements DataProvider {
 	}
 
 	protected static LootTable.Builder genSolidVine(Block b) {
-		LootPoolEntryContainer.Builder<?> entry = NestedLootTable.lootTableReference(ResourceKey.create(Registries.LOOT_TABLE, new ResourceLocation("blocks/vine")));
+		LootPoolEntryContainer.Builder<?> entry = NestedLootTable.lootTableReference(ResourceKey.create(Registries.LOOT_TABLE, ResourceLocation.fromNamespaceAndPath("minecraft", "blocks/vine")));
 		return LootTable.lootTable().withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1)).add(entry));
 	}
 

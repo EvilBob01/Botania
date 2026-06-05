@@ -29,6 +29,6 @@ public class ForgeEntityTagProvider extends IntrinsicHolderTagsProvider<EntityTy
 	}
 
 	private static TagKey<EntityType<?>> forge(String name) {
-		return TagKey.create(Registries.ENTITY_TYPE, new ResourceLocation("forge", name));
+		return TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath("forge", name));
 	}
 }

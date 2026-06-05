@@ -11,7 +11,7 @@ package vazkii.botania.common.advancements;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 
-import net.minecraft.advancements.critereon.CriterionTriggerInstance;
+import net.minecraft.advancements.critereon.ContextAwarePredicate;
 import net.minecraft.advancements.critereon.LocationPredicate;
 import net.minecraft.advancements.critereon.SimpleCriterionTrigger;
 import net.minecraft.core.BlockPos;
@@ -38,7 +38,7 @@ public class AlfheimPortalBreadTrigger extends SimpleCriterionTrigger<AlfheimPor
 		this.trigger(player, instance -> instance.test(player.serverLevel(), portal));
 	}
 
-	public static class Instance implements CriterionTriggerInstance {
+	public static class Instance implements SimpleCriterionTrigger.SimpleInstance {
 		public static final Codec<Instance> CODEC = RecordCodecBuilder.create(instance -> instance.group(
 				LocationPredicate.CODEC.optionalFieldOf("portal_location").forGetter(Instance::getPortal)
 		).apply(instance, Instance::new));
@@ -55,6 +55,11 @@ public class AlfheimPortalBreadTrigger extends SimpleCriterionTrigger<AlfheimPor
 
 		public Optional<LocationPredicate> getPortal() {
 			return this.portal;
+		}
+
+		@Override
+		public Optional<ContextAwarePredicate> player() {
+			return Optional.empty();
 		}
 	}
 }

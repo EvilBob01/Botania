@@ -2211,7 +2211,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 	}
 
 	protected void registerSimpleArmorSet(RecipeOutput output, Ingredient item, String variant,
-			CriterionTriggerInstance criterion) {
+			Criterion<?> criterion) {
 		Item helmet = getItemOrThrow(prefix(variant + "_helmet"));
 		Item chestplate = getItemOrThrow(prefix(variant + "_chestplate"));
 		Item leggings = getItemOrThrow(prefix(variant + "_leggings"));
@@ -2311,7 +2311,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.save(WrapperResult.ofType(ArmorUpgradeRecipe.SERIALIZER, output));
 	}
 
-	public static void registerRedStringBlock(RecipeOutput output, ItemLike result, Ingredient input, CriterionTriggerInstance criterion) {
+	public static void registerRedStringBlock(RecipeOutput output, ItemLike result, Ingredient input, Criterion<?> criterion) {
 		ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, result)
 				.define('R', BotaniaBlocks.livingrock)
 				.define('S', BotaniaItems.redString)
@@ -2326,7 +2326,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 
 	protected void createFloatingFlowerRecipe(RecipeOutput recipeOutput, ItemLike input) {
 		ResourceLocation inputName = BuiltInRegistries.ITEM.getKey(input.asItem());
-		Item result = getItemOrThrow(new ResourceLocation(inputName.getNamespace(), "floating_" + inputName.getPath()));
+		Item result = getItemOrThrow(ResourceLocation.fromNamespaceAndPath(inputName.getNamespace(), "floating_" + inputName.getPath()));
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.DECORATIONS, result)
 				.requires(BotaniaTags.Items.FLOATING_FLOWERS)
 				.requires(input)
@@ -2533,7 +2533,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 		Block cobbleStair = getBlockOrThrow(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_cobblestone" + LibBlockNames.STAIR_SUFFIX));
 		Block cobbleWall = getBlockOrThrow(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_cobblestone" + LibBlockNames.WALL_SUFFIX));
 
-		InventoryChangeTrigger.TriggerInstance marimorphosis = conditionsFromItem(BotaniaFlowerBlocks.marimorphosis);
+		var marimorphosis = conditionsFromItem(BotaniaFlowerBlocks.marimorphosis);
 		slabShape(slab, base).group("botania:metamorphic_stone_slab")
 				.unlockedBy("has_flower_item", marimorphosis).save(output);
 		stairs(stair, base).group("botania:metamorphic_stone_stairs")

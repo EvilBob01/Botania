@@ -29,7 +29,7 @@ public class NoOpRecipeSerializer<T extends Recipe<?>> implements RecipeSerializ
 
 	/** Legacy constructor accepting a Function<ResourceLocation, T>; ResourceLocation is ignored in 1.21. */
 	public NoOpRecipeSerializer(java.util.function.Function<ResourceLocation, T> constructor) {
-		this(() -> constructor.apply(new ResourceLocation("botania", "noop")));
+		this(() -> constructor.apply(ResourceLocation.fromNamespaceAndPath("botania", "noop")));
 	}
 
 	@Override

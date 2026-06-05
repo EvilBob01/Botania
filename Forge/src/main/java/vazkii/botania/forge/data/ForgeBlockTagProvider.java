@@ -59,7 +59,7 @@ public class ForgeBlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
 			storageBlocks.addTag(petalStorageBlockTag);
 		});
 
-		tag(TagKey.create(Registries.BLOCK, new ResourceLocation("buzzier_bees", "flower_blacklist")))
+		tag(TagKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath("buzzier_bees", "flower_blacklist")))
 				.addTag(BotaniaTags.Blocks.MYSTICAL_FLOWERS)
 				.addTag(BotaniaTags.Blocks.SPECIAL_FLOWERS);
 
@@ -83,6 +83,6 @@ public class ForgeBlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
 	}
 
 	private static TagKey<Block> forge(String name) {
-		return TagKey.create(Registries.BLOCK, new ResourceLocation("forge", name));
+		return TagKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath("forge", name));
 	}
 }

@@ -591,7 +591,7 @@ public class FabricXplatImpl implements XplatAbstractions {
 		return StepHeightEntityAttributeMain.STEP_HEIGHT;
 	}
 
-	private final TagKey<Block> oreTag = TagKey.create(Registries.BLOCK, new ResourceLocation("c", "ores"));
+	private final TagKey<Block> oreTag = TagKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath("c", "ores"));
 
 	@Override
 	public TagKey<Block> getOreTag() {
@@ -599,9 +599,9 @@ public class FabricXplatImpl implements XplatAbstractions {
 	}
 
 	// No standard so we have to check both :wacko:
-	private final TagKey<Block> cGlass = TagKey.create(Registries.BLOCK, new ResourceLocation("c", "glass"));
-	private final TagKey<Block> cGlassBlocks = TagKey.create(Registries.BLOCK, new ResourceLocation("c", "glass_blocks"));
-	private final TagKey<Block> cGlassPanes = TagKey.create(Registries.BLOCK, new ResourceLocation("c", "glass_panes"));
+	private final TagKey<Block> cGlass = TagKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath("c", "glass"));
+	private final TagKey<Block> cGlassBlocks = TagKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath("c", "glass_blocks"));
+	private final TagKey<Block> cGlassPanes = TagKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath("c", "glass_panes"));
 
 	@Override
 	public boolean isInGlassTag(BlockState state) {

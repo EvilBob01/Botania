@@ -9,6 +9,7 @@
 package vazkii.botania.api.block_entity;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
@@ -144,8 +145,8 @@ public abstract class SpecialFlowerBlockEntity extends BlockEntity implements Fl
 	}
 
 	@Override
-	public final void load(CompoundTag cmp) {
-		super.load(cmp);
+	public final void loadAdditional(CompoundTag cmp, HolderLookup.Provider registries) {
+		super.loadAdditional(cmp, registries);
 		if (cmp.contains(TAG_TICKS_EXISTED)) {
 			ticksExisted = cmp.getInt(TAG_TICKS_EXISTED);
 		}
@@ -161,15 +162,15 @@ public abstract class SpecialFlowerBlockEntity extends BlockEntity implements Fl
 	}
 
 	@Override
-	public final void saveAdditional(CompoundTag cmp) {
-		super.saveAdditional(cmp);
+	public final void saveAdditional(CompoundTag cmp, HolderLookup.Provider registries) {
+		super.saveAdditional(cmp, registries);
 		cmp.putInt(TAG_TICKS_EXISTED, ticksExisted);
 		writeToPacketNBT(cmp);
 	}
 
 	@NotNull
 	@Override
-	public CompoundTag getUpdateTag() {
+	public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
 		var tag = new CompoundTag();
 		writeToPacketNBT(tag);
 		return tag;

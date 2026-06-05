@@ -27,7 +27,7 @@ import java.util.function.Consumer;
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public final class LootHandler {
-	public static final ResourceKey<LootTable> GOG_SEEDS_TABLE = ResourceKey.create(Registries.LOOT_TABLE, new ResourceLocation(BotaniaAPI.GOG_MODID, "extra_seeds"));
+	public static final ResourceKey<LootTable> GOG_SEEDS_TABLE = ResourceKey.create(Registries.LOOT_TABLE, ResourceLocation.fromNamespaceAndPath(BotaniaAPI.GOG_MODID, "extra_seeds"));
 
 	public static void lootLoad(ResourceLocation id, Consumer<LootPool.Builder> addPool) {
 		String prefix = "minecraft:chests/";

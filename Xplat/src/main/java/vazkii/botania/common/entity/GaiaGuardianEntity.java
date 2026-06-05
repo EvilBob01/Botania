@@ -173,8 +173,8 @@ public class GaiaGuardianEntity extends Mob {
 	);
 
 	private static final List<ResourceLocation> CHEATY_BLOCKS = Arrays.asList(
-			new ResourceLocation("openblocks", "beartrap"),
-			new ResourceLocation("thaumictinkerer", "magnet")
+			ResourceLocation.fromNamespaceAndPath("openblocks", "beartrap"),
+			ResourceLocation.fromNamespaceAndPath("thaumictinkerer", "magnet")
 	);
 
 	private boolean spawnLandmines = false;

@@ -8,9 +8,7 @@
  */
 package vazkii.botania.common.loot;
 
-import com.google.gson.JsonDeserializationContext;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonSerializationContext;
+import com.mojang.serialization.MapCodec;
 
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.storage.loot.LootContext;
@@ -23,6 +21,7 @@ import org.jetbrains.annotations.NotNull;
 import vazkii.botania.common.entity.GaiaGuardianEntity;
 
 public class TrueGuardianKiller implements LootItemCondition {
+	public static final MapCodec<TrueGuardianKiller> CODEC = MapCodec.unit(new TrueGuardianKiller());
 
 	@Override
 	public boolean test(@NotNull LootContext context) {
@@ -35,15 +34,4 @@ public class TrueGuardianKiller implements LootItemCondition {
 	public LootItemConditionType getType() {
 		return BotaniaLootModifiers.TRUE_GUARDIAN_KILLER;
 	}
-
-	public static class Serializer implements net.minecraft.world.level.storage.loot.Serializer<TrueGuardianKiller> {
-		@Override
-		public void serialize(JsonObject json, TrueGuardianKiller condition, JsonSerializationContext ctx) {}
-
-		@Override
-		public TrueGuardianKiller deserialize(JsonObject json, JsonDeserializationContext ctx) {
-			return new TrueGuardianKiller();
-		}
-	}
-
 }

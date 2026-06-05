@@ -9,7 +9,7 @@
 package vazkii.botania.api.recipe;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.RegistryAccess;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
@@ -60,7 +60,7 @@ public interface PureDaisyRecipe extends Recipe<Container> {
 	}
 
 	@Override
-	default ItemStack assemble(Container container, @NotNull RegistryAccess registries) {
+	default ItemStack assemble(Container container, @NotNull HolderLookup.Provider registries) {
 		return ItemStack.EMPTY;
 	}
 
@@ -70,7 +70,7 @@ public interface PureDaisyRecipe extends Recipe<Container> {
 	}
 
 	@Override
-	default ItemStack getResultItem(@NotNull RegistryAccess registries) {
+	default ItemStack getResultItem(@NotNull HolderLookup.Provider registries) {
 		return ItemStack.EMPTY;
 	}
 

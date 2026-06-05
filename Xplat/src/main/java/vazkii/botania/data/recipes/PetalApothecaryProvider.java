@@ -155,6 +155,6 @@ public class PetalApothecaryProvider extends BotaniaRecipeProvider {
 	}
 
 	protected static ResourceLocation idFor(ResourceLocation name) {
-		return new ResourceLocation(name.getNamespace(), "petal_apothecary/" + name.getPath());
+		return ResourceLocation.fromNamespaceAndPath(name.getNamespace(), "petal_apothecary/" + name.getPath());
 	}
 }
