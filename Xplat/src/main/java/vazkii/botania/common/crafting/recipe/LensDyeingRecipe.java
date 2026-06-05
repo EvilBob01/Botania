@@ -10,10 +10,10 @@ package vazkii.botania.common.crafting.recipe;
 
 import com.google.common.base.Suppliers;
 
-import net.minecraft.core.RegistryAccess;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.CraftingInput;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.CraftingBookCategory;
 import net.minecraft.world.item.crafting.CustomRecipe;
@@ -57,11 +57,11 @@ public class LensDyeingRecipe extends CustomRecipe {
 	}
 
 	@Override
-	public boolean matches(@NotNull CraftingContainer inv, @NotNull Level world) {
+	public boolean matches(@NotNull CraftingInput inv, @NotNull Level world) {
 		boolean foundLens = false;
 		boolean foundDye = false;
 
-		for (int i = 0; i < inv.getContainerSize(); i++) {
+		for (int i = 0; i < inv.size(); i++) {
 			ItemStack stack = inv.getItem(i);
 			if (!stack.isEmpty()) {
 				if (stack.getItem() instanceof BasicLensItem && !foundLens) {
@@ -84,11 +84,11 @@ public class LensDyeingRecipe extends CustomRecipe {
 
 	@NotNull
 	@Override
-	public ItemStack assemble(@NotNull CraftingContainer inv, @NotNull RegistryAccess registries) {
+	public ItemStack assemble(@NotNull CraftingInput inv, @NotNull HolderLookup.Provider registries) {
 		ItemStack lens = ItemStack.EMPTY;
 		int color = -1;
 
-		for (int i = 0; i < inv.getContainerSize(); i++) {
+		for (int i = 0; i < inv.size(); i++) {
 			ItemStack stack = inv.getItem(i);
 			if (!stack.isEmpty()) {
 				if (stack.getItem() instanceof BasicLensItem && lens.isEmpty()) {

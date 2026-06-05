@@ -14,12 +14,11 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 
 import it.unimi.dsi.fastutil.ints.IntOpenHashSet;
 
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
-import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
@@ -27,6 +26,7 @@ import net.minecraft.world.level.Level;
 
 import org.jetbrains.annotations.NotNull;
 
+import vazkii.botania.api.recipe.BotaniaContainer;
 import vazkii.botania.api.recipe.TerrestrialAgglomerationRecipe;
 import vazkii.botania.common.crafting.recipe.RecipeUtils;
 
@@ -50,9 +50,9 @@ public class RecipeTerraPlate implements TerrestrialAgglomerationRecipe {
 	}
 
 	@Override
-	public boolean matches(Container inv, @NotNull Level world) {
+	public boolean matches(BotaniaContainer inv, @NotNull Level world) {
 		int nonEmptySlots = 0;
-		for (int i = 0; i < inv.getContainerSize(); i++) {
+		for (int i = 0; i < inv.size(); i++) {
 			if (!inv.getItem(i).isEmpty()) {
 				if (inv.getItem(i).getCount() > 1) {
 					return false;
@@ -61,19 +61,19 @@ public class RecipeTerraPlate implements TerrestrialAgglomerationRecipe {
 			}
 		}
 
-		IntOpenHashSet usedSlots = new IntOpenHashSet(inv.getContainerSize());
-		return RecipeUtils.matches(inputs, inv, usedSlots) && usedSlots.size() == nonEmptySlots;
+		IntOpenHashSet usedSlots = new IntOpenHashSet(inv.size());
+		return RecipeUtils.matches(inputs, inv.getContainer(), usedSlots) && usedSlots.size() == nonEmptySlots;
 	}
 
 	@NotNull
 	@Override
-	public ItemStack assemble(@NotNull Container inv, @NotNull RegistryAccess registries) {
+	public ItemStack assemble(@NotNull BotaniaContainer inv, @NotNull HolderLookup.Provider registries) {
 		return output.copy();
 	}
 
 	@NotNull
 	@Override
-	public ItemStack getResultItem(@NotNull RegistryAccess registries) {
+	public ItemStack getResultItem(@NotNull HolderLookup.Provider registries) {
 		return output;
 	}
 

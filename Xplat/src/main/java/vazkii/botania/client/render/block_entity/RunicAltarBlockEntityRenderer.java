@@ -8,6 +8,7 @@
  */
 package vazkii.botania.client.render.block_entity;
 
+import com.mojang.blaze3d.vertex.ARGB;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 
@@ -136,7 +137,7 @@ public class RunicAltarBlockEntityRenderer implements BlockEntityRenderer<RunicA
 				}
 
 				VertexConsumer buffer = buffers.getBuffer(curIter < iters ? RenderType.entityTranslucentCull(cubeTex) : RenderType.entitySolid(cubeTex));
-				spinningCube.render(ms, buffer, 0xF000F0, overlay, 1, 1, 1, alpha);
+				spinningCube.render(ms, buffer, 0xF000F0, overlay, ARGB.colorFromFloat(alpha, 1, 1, 1));
 
 				ms.popPose();
 			}

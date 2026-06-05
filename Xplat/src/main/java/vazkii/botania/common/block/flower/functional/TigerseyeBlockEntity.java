@@ -48,7 +48,7 @@ public class TigerseyeBlockEntity extends FunctionalFlowerBlockEntity {
 			return;
 		}
 
-		for (Creeper entity : getLevel().getEntitiesOfClass(Creeper.class, new AABB(getEffectivePos().offset(-RANGE, -RANGE_Y, -RANGE), getEffectivePos().offset(RANGE + 1, RANGE_Y + 1, RANGE + 1)))) {
+		for (Creeper entity : getLevel().getEntitiesOfClass(Creeper.class, new AABB(getEffectivePos().getX() - RANGE, getEffectivePos().getY() - RANGE_Y, getEffectivePos().getZ() - RANGE, getEffectivePos().getX() + RANGE + 2.0, getEffectivePos().getY() + RANGE_Y + 2.0, getEffectivePos().getZ() + RANGE + 2.0))) {
 			((CreeperAccessor) entity).setCurrentFuseTime(2);
 			entity.setTarget(null);
 

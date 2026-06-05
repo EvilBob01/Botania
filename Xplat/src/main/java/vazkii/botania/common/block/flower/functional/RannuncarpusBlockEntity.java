@@ -82,7 +82,7 @@ public class RannuncarpusBlockEntity extends FunctionalFlowerBlockEntity impleme
 		}
 
 		if (ticksExisted % PLACE_INTERVAL_TICKS == 0) {
-			List<ItemEntity> items = getLevel().getEntitiesOfClass(ItemEntity.class, new AABB(getBlockPos().offset(-PICKUP_RANGE, -PICKUP_RANGE_Y, -PICKUP_RANGE), getBlockPos().offset(PICKUP_RANGE + 1, PICKUP_RANGE_Y + 1, PICKUP_RANGE + 1)));
+			List<ItemEntity> items = getLevel().getEntitiesOfClass(ItemEntity.class, new AABB(getBlockPos().getX() - PICKUP_RANGE, getBlockPos().getY() - PICKUP_RANGE_Y, getBlockPos().getZ() - PICKUP_RANGE, getBlockPos().getX() + PICKUP_RANGE + 2.0, getBlockPos().getY() + PICKUP_RANGE_Y + 2.0, getBlockPos().getZ() + PICKUP_RANGE + 2.0));
 
 			List<ItemStack> filter = HopperhockBlockEntity.getFilterForInventory(getLevel(), getFilterPos(), false);
 

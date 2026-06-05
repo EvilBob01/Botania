@@ -39,7 +39,7 @@ public class EntropinnyumBlockEntity extends GeneratingFlowerBlockEntity {
 		super.tickFlower();
 
 		if (!getLevel().isClientSide && getMana() == 0) {
-			List<PrimedTnt> tnts = getLevel().getEntitiesOfClass(PrimedTnt.class, new AABB(getEffectivePos().offset(-RANGE, -RANGE, -RANGE), getEffectivePos().offset(RANGE + 1, RANGE + 1, RANGE + 1)));
+			List<PrimedTnt> tnts = getLevel().getEntitiesOfClass(PrimedTnt.class, new AABB(getEffectivePos().getX() - RANGE, getEffectivePos().getY() - RANGE, getEffectivePos().getZ() - RANGE, getEffectivePos().getX() + RANGE + 2.0, getEffectivePos().getY() + RANGE + 2.0, getEffectivePos().getZ() + RANGE + 2.0));
 			for (PrimedTnt tnt : tnts) {
 				FluidState fluid = getLevel().getFluidState(tnt.blockPosition());
 				if (tnt.getFuse() == 1 && tnt.isAlive() && fluid.isEmpty()) {

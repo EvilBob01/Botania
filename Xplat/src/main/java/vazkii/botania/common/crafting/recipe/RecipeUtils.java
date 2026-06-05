@@ -13,6 +13,7 @@ import it.unimi.dsi.fastutil.ints.IntSet;
 import net.minecraft.core.NonNullList;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.CraftingInput;
 import net.minecraft.world.item.crafting.Ingredient;
 
 import org.jetbrains.annotations.Nullable;
@@ -64,6 +65,25 @@ public class RecipeUtils {
 	 */
 	public static NonNullList<ItemStack> getRemainingItemsSub(Container inv, Function<ItemStack, ItemStack> specialHandler) {
 		NonNullList<ItemStack> ret = NonNullList.withSize(inv.getContainerSize(), ItemStack.EMPTY);
+
+		for (int i = 0; i < ret.size(); ++i) {
+			ItemStack item = inv.getItem(i);
+			ItemStack special = specialHandler.apply(item);
+			if (special != null) {
+				ret.set(i, special);
+			} else if (item.getItem().hasCraftingRemainingItem()) {
+				ret.set(i, new ItemStack(item.getItem().getCraftingRemainingItem()));
+			}
+		}
+
+		return ret;
+	}
+
+	/**
+	 * Overload of getRemainingItemsSub for CraftingInput (1.21.1+)
+	 */
+	public static NonNullList<ItemStack> getRemainingItemsSub(CraftingInput inv, Function<ItemStack, ItemStack> specialHandler) {
+		NonNullList<ItemStack> ret = NonNullList.withSize(inv.size(), ItemStack.EMPTY);
 
 		for (int i = 0; i < ret.size(); ++i) {
 			ItemStack item = inv.getItem(i);

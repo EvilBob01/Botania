@@ -12,7 +12,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.Container;
 
 import java.util.Optional;
 import net.minecraft.world.item.ItemStack;
@@ -26,7 +25,7 @@ import org.jetbrains.annotations.NotNull;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.block_entity.SpecialFlowerBlockEntity;
 
-public interface PureDaisyRecipe extends Recipe<Container> {
+public interface PureDaisyRecipe extends Recipe<BotaniaContainer> {
 	ResourceLocation TYPE_ID = ResourceLocation.fromNamespaceAndPath(BotaniaAPI.MODID, "pure_daisy");
 
 	/**
@@ -55,12 +54,12 @@ public interface PureDaisyRecipe extends Recipe<Container> {
 	}
 
 	@Override
-	default boolean matches(Container p_77569_1_, Level p_77569_2_) {
+	default boolean matches(BotaniaContainer p_77569_1_, Level p_77569_2_) {
 		return false;
 	}
 
 	@Override
-	default ItemStack assemble(Container container, @NotNull HolderLookup.Provider registries) {
+	default ItemStack assemble(BotaniaContainer container, @NotNull HolderLookup.Provider registries) {
 		return ItemStack.EMPTY;
 	}
 

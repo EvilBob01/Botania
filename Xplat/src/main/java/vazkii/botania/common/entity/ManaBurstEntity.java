@@ -292,13 +292,13 @@ public class ManaBurstEntity extends ThrowableProjectile implements ManaBurst {
 		tag.putInt(TAG_ORBIT_TIME, orbitTime);
 		tag.putBoolean(TAG_TRIPPED, tripped);
 		if (magnetizePos != null) {
-			tag.put(TAG_MAGNETIZE_POS, BlockPos.CODEC.encodeStart(NbtOps.INSTANCE, magnetizePos).get().orThrow());
+			tag.put(TAG_MAGNETIZE_POS, BlockPos.CODEC.encodeStart(NbtOps.INSTANCE, magnetizePos).getOrThrow());
 		}
 		tag.putBoolean(TAG_LEFT_SOURCE, hasLeftSource());
 
 		var alreadyCollidedAt = new ListTag();
 		for (BlockPos pos : this.alreadyCollidedAt) {
-			alreadyCollidedAt.add(BlockPos.CODEC.encodeStart(NbtOps.INSTANCE, pos).get().orThrow());
+			alreadyCollidedAt.add(BlockPos.CODEC.encodeStart(NbtOps.INSTANCE, pos).getOrThrow());
 		}
 		tag.put(TAG_ALREADY_COLLIDED_AT, alreadyCollidedAt);
 	}
@@ -356,7 +356,7 @@ public class ManaBurstEntity extends ThrowableProjectile implements ManaBurst {
 		orbitTime = cmp.getInt(TAG_ORBIT_TIME);
 		tripped = cmp.getBoolean(TAG_TRIPPED);
 		if (cmp.contains(TAG_MAGNETIZE_POS)) {
-			magnetizePos = BlockPos.CODEC.parse(NbtOps.INSTANCE, cmp.get(TAG_MAGNETIZE_POS)).get().orThrow();
+			magnetizePos = BlockPos.CODEC.parse(NbtOps.INSTANCE, cmp.get(TAG_MAGNETIZE_POS)).getOrThrow();
 		} else {
 			magnetizePos = null;
 		}

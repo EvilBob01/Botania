@@ -13,12 +13,11 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
-import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
@@ -26,6 +25,7 @@ import net.minecraft.world.level.Level;
 
 import org.jetbrains.annotations.NotNull;
 
+import vazkii.botania.api.recipe.BotaniaContainer;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.crafting.recipe.RecipeUtils;
 
@@ -49,19 +49,19 @@ public class RunicAltarRecipe implements vazkii.botania.api.recipe.RunicAltarRec
 	}
 
 	@Override
-	public boolean matches(Container inv, @NotNull Level world) {
-		return RecipeUtils.matches(inputs, inv, null);
+	public boolean matches(BotaniaContainer inv, @NotNull Level world) {
+		return RecipeUtils.matches(inputs, inv.getContainer(), null);
 	}
 
 	@NotNull
 	@Override
-	public final ItemStack getResultItem(@NotNull RegistryAccess registries) {
+	public final ItemStack getResultItem(@NotNull HolderLookup.Provider registries) {
 		return output;
 	}
 
 	@NotNull
 	@Override
-	public ItemStack assemble(@NotNull Container inv, @NotNull RegistryAccess registries) {
+	public ItemStack assemble(@NotNull BotaniaContainer inv, @NotNull HolderLookup.Provider registries) {
 		return getResultItem(registries).copy();
 	}
 

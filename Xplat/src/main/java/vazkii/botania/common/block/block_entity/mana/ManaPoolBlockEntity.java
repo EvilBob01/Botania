@@ -363,7 +363,7 @@ public class ManaPoolBlockEntity extends BotaniaBlockEntity implements ManaPool,
 			self.sendPacket = false;
 		}
 
-		List<ItemEntity> items = level.getEntitiesOfClass(ItemEntity.class, new AABB(worldPosition, worldPosition.offset(1, 1, 1)));
+		List<ItemEntity> items = level.getEntitiesOfClass(ItemEntity.class, new AABB(worldPosition.getX(), worldPosition.getY(), worldPosition.getZ(), worldPosition.getX() + 2.0, worldPosition.getY() + 2.0, worldPosition.getZ() + 2.0));
 		for (ItemEntity item : items) {
 			if (!item.isAlive()) {
 				continue;
@@ -606,7 +606,7 @@ public class ManaPoolBlockEntity extends BotaniaBlockEntity implements ManaPool,
 
 	@Override
 	public ManaSpark getAttachedSpark() {
-		List<Entity> sparks = level.getEntitiesOfClass(Entity.class, new AABB(worldPosition.above(), worldPosition.above().offset(1, 1, 1)), Predicates.instanceOf(ManaSpark.class));
+		List<Entity> sparks = level.getEntitiesOfClass(Entity.class, new AABB(worldPosition.getX(), worldPosition.getY() + 1, worldPosition.getZ(), worldPosition.getX() + 2.0, worldPosition.getY() + 3.0, worldPosition.getZ() + 2.0), Predicates.instanceOf(ManaSpark.class));
 		if (sparks.size() == 1) {
 			Entity e = sparks.get(0);
 			return (ManaSpark) e;

@@ -11,7 +11,6 @@ package vazkii.botania.api.recipe;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.Container;
 
 import java.util.Optional;
 import net.minecraft.world.item.ItemStack;
@@ -23,7 +22,7 @@ import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.api.BotaniaAPI;
 
-public interface OrechidRecipe extends Recipe<Container> {
+public interface OrechidRecipe extends Recipe<BotaniaContainer> {
 	ResourceLocation TYPE_ID = ResourceLocation.fromNamespaceAndPath(BotaniaAPI.MODID, "orechid");
 	ResourceLocation IGNEM_TYPE_ID = ResourceLocation.fromNamespaceAndPath(BotaniaAPI.MODID, "orechid_ignem");
 	ResourceLocation MARIMORPHOSIS_TYPE_ID = ResourceLocation.fromNamespaceAndPath(BotaniaAPI.MODID, "marimorphosis");
@@ -57,12 +56,12 @@ public interface OrechidRecipe extends Recipe<Container> {
 	Optional<ResourceLocation> getSuccessFunction();
 
 	@Override
-	default boolean matches(Container c, Level l) {
+	default boolean matches(BotaniaContainer c, Level l) {
 		return false;
 	}
 
 	@Override
-	default ItemStack assemble(Container c, @NotNull HolderLookup.Provider registries) {
+	default ItemStack assemble(BotaniaContainer c, @NotNull HolderLookup.Provider registries) {
 		return ItemStack.EMPTY;
 	}
 

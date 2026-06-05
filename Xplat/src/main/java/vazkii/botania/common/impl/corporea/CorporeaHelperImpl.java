@@ -112,7 +112,7 @@ public class CorporeaHelperImpl implements CorporeaHelper {
 
 	@Override
 	public CorporeaSpark getSparkForBlock(Level world, BlockPos pos) {
-		List<Entity> sparks = world.getEntitiesOfClass(Entity.class, new AABB(pos.above(), pos.offset(1, 2, 1)), Predicates.instanceOf(CorporeaSpark.class));
+		List<Entity> sparks = world.getEntitiesOfClass(Entity.class, new AABB(pos.getX(), pos.getY() + 1, pos.getZ(), pos.getX() + 2.0, pos.getY() + 3.0, pos.getZ() + 2.0), Predicates.instanceOf(CorporeaSpark.class));
 		return sparks.isEmpty() ? null : (CorporeaSpark) sparks.get(0);
 	}
 

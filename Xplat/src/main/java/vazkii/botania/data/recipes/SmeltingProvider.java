@@ -8,6 +8,7 @@
  */
 package vazkii.botania.data.recipes;
 
+import net.minecraft.advancements.Criterion;
 import net.minecraft.advancements.critereon.InventoryChangeTrigger;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.RecipeCategory;
@@ -23,7 +24,7 @@ public class SmeltingProvider extends BotaniaRecipeProvider {
 		super(packOutput);
 	}
 
-	private static InventoryChangeTrigger.TriggerInstance conditionsFromItem(ItemLike item) {
+	private static Criterion<InventoryChangeTrigger.TriggerInstance> conditionsFromItem(ItemLike item) {
 		return CraftingRecipeProvider.conditionsFromItem(item);
 	}
 

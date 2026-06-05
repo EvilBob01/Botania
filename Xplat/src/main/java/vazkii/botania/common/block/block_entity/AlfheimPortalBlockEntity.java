@@ -256,8 +256,8 @@ public class AlfheimPortalBlockEntity extends BotaniaBlockEntity implements Wand
 
 	private AABB getPortalAABB(AlfheimPortalState state) {
 		return state == AlfheimPortalState.ON_X
-				? new AABB(worldPosition.offset(0, 1, -1), worldPosition.offset(1, 4, 2))
-				: new AABB(worldPosition.offset(-1, 1, 0), worldPosition.offset(2, 4, 1));
+				? new AABB(worldPosition.getX(), worldPosition.getY() + 1, worldPosition.getZ() - 1, worldPosition.getX() + 2.0, worldPosition.getY() + 5.0, worldPosition.getZ() + 3.0)
+				: new AABB(worldPosition.getX() - 1, worldPosition.getY() + 1, worldPosition.getZ(), worldPosition.getX() + 3.0, worldPosition.getY() + 5.0, worldPosition.getZ() + 2.0);
 	}
 
 	private void addItem(ItemStack stack) {

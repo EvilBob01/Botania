@@ -154,7 +154,7 @@ public class FXSparkle extends TextureSheetParticle {
 		}
 	}
 
-	private static BufferBuilder beginRenderCommon(TextureManager textureManager) {
+	private static BufferBuilder beginRenderCommon(Tesselator tesselator, TextureManager textureManager) {
 		Minecraft.getInstance().gameRenderer.lightTexture().turnOnLightLayer();
 		RenderSystem.enableDepthTest();
 		RenderSystem.depthMask(false);
@@ -163,7 +163,7 @@ public class FXSparkle extends TextureSheetParticle {
 		RenderSystem.setShaderTexture(0, TextureAtlas.LOCATION_PARTICLES);
 		AbstractTexture tex = textureManager.getTexture(TextureAtlas.LOCATION_PARTICLES);
 		ClientXplatAbstractions.INSTANCE.setFilterSave(tex, true, false);
-		return Tesselator.getInstance().begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.PARTICLE);
+		return tesselator.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.PARTICLE);
 	}
 
 	private static void endRenderCommon(BufferBuilder bufferBuilder) {
@@ -176,8 +176,8 @@ public class FXSparkle extends TextureSheetParticle {
 
 	public static final ParticleRenderType NORMAL_RENDER = new ParticleRenderType() {
 		@Override
-		public BufferBuilder begin(TextureManager textureManager) {
-			return beginRenderCommon(textureManager);
+		public BufferBuilder begin(Tesselator tesselator, TextureManager textureManager) {
+			return beginRenderCommon(tesselator, textureManager);
 		}
 
 		@Override
@@ -193,9 +193,9 @@ public class FXSparkle extends TextureSheetParticle {
 
 	public static final ParticleRenderType CORRUPT_RENDER = new ParticleRenderType() {
 		@Override
-		public BufferBuilder begin(TextureManager textureManager) {
+		public BufferBuilder begin(Tesselator tesselator, TextureManager textureManager) {
 			RenderSystem.setShader(CoreShaders::filmGrainParticle);
-			return beginRenderCommon(textureManager);
+			return beginRenderCommon(tesselator, textureManager);
 		}
 
 		@Override

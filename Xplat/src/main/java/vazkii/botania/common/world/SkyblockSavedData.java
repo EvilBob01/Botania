@@ -12,10 +12,12 @@ import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 
 import net.minecraft.Util;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.datafix.DataFixTypes;
 import net.minecraft.world.level.saveddata.SavedData;
 
 import org.jetbrains.annotations.NotNull;
@@ -34,7 +36,12 @@ public class SkyblockSavedData extends SavedData {
 	public final BiMap<IslandPos, UUID> skyblocks;
 	private final Spiral spiral;
 
-	public SkyblockSavedData(CompoundTag nbt) {
+	private SkyblockSavedData() {
+		this.skyblocks = HashBiMap.create();
+		this.spiral = new Spiral();
+	}
+
+	private SkyblockSavedData(CompoundTag nbt, HolderLookup.Provider registries) {
 		HashBiMap<IslandPos, UUID> map = HashBiMap.create();
 		for (Tag inbt : nbt.getList("Islands", Tag.TAG_COMPOUND)) {
 			CompoundTag tag = (CompoundTag) inbt;
@@ -49,8 +56,9 @@ public class SkyblockSavedData extends SavedData {
 	}
 
 	public static SkyblockSavedData get(ServerLevel world) {
-		return world.getDataStorage().computeIfAbsent(SkyblockSavedData::new,
-				() -> new SkyblockSavedData(new CompoundTag()), NAME);
+		return world.getDataStorage().computeIfAbsent(
+				new SavedData.Factory<>(SkyblockSavedData::new, SkyblockSavedData::new, DataFixTypes.LEVEL),
+				NAME);
 	}
 
 	public IslandPos getSpawn() {
@@ -78,7 +86,7 @@ public class SkyblockSavedData extends SavedData {
 
 	@NotNull
 	@Override
-	public CompoundTag save(@NotNull CompoundTag nbt) {
+	public CompoundTag save(@NotNull CompoundTag nbt, @NotNull HolderLookup.Provider registries) {
 		ListTag list = new ListTag();
 		for (Map.Entry<IslandPos, UUID> entry : skyblocks.entrySet()) {
 			CompoundTag entryTag = entry.getKey().toTag();

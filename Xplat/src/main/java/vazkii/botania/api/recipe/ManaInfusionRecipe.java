@@ -11,7 +11,6 @@ package vazkii.botania.api.recipe;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeType;
@@ -22,7 +21,7 @@ import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.BotaniaAPI;
 
-public interface ManaInfusionRecipe extends Recipe<Container> {
+public interface ManaInfusionRecipe extends Recipe<BotaniaContainer> {
 	ResourceLocation TYPE_ID = ResourceLocation.fromNamespaceAndPath(BotaniaAPI.MODID, "mana_infusion");
 
 	/**
@@ -78,12 +77,12 @@ public interface ManaInfusionRecipe extends Recipe<Container> {
 
 	@NotNull
 	@Override
-	default ItemStack assemble(@NotNull Container inv, @NotNull HolderLookup.Provider registries) {
+	default ItemStack assemble(@NotNull BotaniaContainer inv, @NotNull HolderLookup.Provider registries) {
 		return ItemStack.EMPTY;
 	}
 
 	@Override
-	default boolean matches(@NotNull Container inv, @NotNull Level world) {
+	default boolean matches(@NotNull BotaniaContainer inv, @NotNull Level world) {
 		return false;
 	}
 

@@ -74,7 +74,7 @@ public class EyeOfTheFlugelItem extends RelicItem {
 				}
 			} else {
 				ItemStack stack = ctx.getItemInHand();
-				Tag nbt = BlockPos.CODEC.encodeStart(NbtOps.INSTANCE, pos).get().orThrow();
+				Tag nbt = BlockPos.CODEC.encodeStart(NbtOps.INSTANCE, pos).getOrThrow();
 				ItemNBTHelper.set(stack, TAG_TARGET_PREFIX + world.dimension().location(), nbt);
 				world.playSound(null, player.getX(), player.getY(), player.getZ(), BotaniaSounds.flugelEyeBind, SoundSource.PLAYERS, 1F, 1F);
 			}

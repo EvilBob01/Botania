@@ -157,10 +157,10 @@ public class BifrostRodItem extends SelfReturningItem {
 
 			AABB axis = null;
 			switch (world.getBlockState(tePos).getValue(BlockStateProperties.HORIZONTAL_FACING)) {
-				case NORTH -> axis = new AABB(tePos.offset(-w, -h, -l), tePos.offset(w + 1, h, 0));
-				case SOUTH -> axis = new AABB(tePos.offset(-w, -h, 1), tePos.offset(w + 1, h, l + 1));
-				case WEST -> axis = new AABB(tePos.offset(-l, -h, -w), tePos.offset(0, h, w + 1));
-				case EAST -> axis = new AABB(tePos.offset(1, -h, -w), tePos.offset(l + 1, h, w + 1));
+				case NORTH -> axis = new AABB(tePos.getX() - w, tePos.getY() - h, tePos.getZ() - l, tePos.getX() + w + 2.0, tePos.getY() + h + 1.0, tePos.getZ() + 1.0);
+				case SOUTH -> axis = new AABB(tePos.getX() - w, tePos.getY() - h, tePos.getZ() + 1, tePos.getX() + w + 2.0, tePos.getY() + h + 1.0, tePos.getZ() + l + 2.0);
+				case WEST -> axis = new AABB(tePos.getX() - l, tePos.getY() - h, tePos.getZ() - w, tePos.getX() + 1.0, tePos.getY() + h + 1.0, tePos.getZ() + w + 2.0);
+				case EAST -> axis = new AABB(tePos.getX() + 1, tePos.getY() - h, tePos.getZ() - w, tePos.getX() + l + 2.0, tePos.getY() + h + 1.0, tePos.getZ() + w + 2.0);
 				default -> {}
 			}
 

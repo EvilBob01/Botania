@@ -12,7 +12,6 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
@@ -26,7 +25,7 @@ import vazkii.botania.api.BotaniaAPI;
 import java.util.List;
 import java.util.Optional;
 
-public interface ElvenTradeRecipe extends Recipe<Container> {
+public interface ElvenTradeRecipe extends Recipe<BotaniaContainer> {
 	ResourceLocation TYPE_ID = ResourceLocation.fromNamespaceAndPath(BotaniaAPI.MODID, "elven_trade");
 
 	/**
@@ -69,13 +68,13 @@ public interface ElvenTradeRecipe extends Recipe<Container> {
 	// Ignored IRecipe boilerplate
 
 	@Override
-	default boolean matches(@NotNull Container inv, @NotNull Level world) {
+	default boolean matches(@NotNull BotaniaContainer inv, @NotNull Level world) {
 		return false;
 	}
 
 	@NotNull
 	@Override
-	default ItemStack assemble(@NotNull Container inv, @NotNull HolderLookup.Provider registries) {
+	default ItemStack assemble(@NotNull BotaniaContainer inv, @NotNull HolderLookup.Provider registries) {
 		return ItemStack.EMPTY;
 	}
 

@@ -60,7 +60,8 @@ public class CorporeaFunnelBlockEntity extends BaseCorporeaBlockEntity implement
 		List<FilterHelper.WeightedItemStack> filter = new ArrayList<>();
 
 		for (Direction dir : Direction.values()) {
-			List<ItemFrame> frames = level.getEntitiesOfClass(ItemFrame.class, new AABB(worldPosition.relative(dir), worldPosition.relative(dir).offset(1, 1, 1)));
+			BlockPos dirPos = worldPosition.relative(dir);
+			List<ItemFrame> frames = level.getEntitiesOfClass(ItemFrame.class, new AABB(dirPos.getX(), dirPos.getY(), dirPos.getZ(), dirPos.getX() + 2.0, dirPos.getY() + 2.0, dirPos.getZ() + 2.0));
 			for (ItemFrame frame : frames) {
 				Direction orientation = frame.getDirection();
 				if (orientation == dir) {

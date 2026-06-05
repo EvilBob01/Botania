@@ -48,7 +48,7 @@ public class RosaArcanaBlockEntity extends GeneratingFlowerBlockEntity {
 			return;
 		}
 
-		AABB effectBounds = new AABB(getEffectivePos().offset(-RANGE, -RANGE, -RANGE), getEffectivePos().offset(RANGE + 1, RANGE + 1, RANGE + 1));
+		AABB effectBounds = new AABB(getEffectivePos().getX() - RANGE, getEffectivePos().getY() - RANGE, getEffectivePos().getZ() - RANGE, getEffectivePos().getX() + RANGE + 2.0, getEffectivePos().getY() + RANGE + 2.0, getEffectivePos().getZ() + RANGE + 2.0);
 
 		/* TODO: Now that player and orb yields are identical, it might look better/funnier
 			to instead make xp orbs leak out of the player's head instead directly consuming.

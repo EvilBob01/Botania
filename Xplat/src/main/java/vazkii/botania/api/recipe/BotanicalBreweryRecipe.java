@@ -11,7 +11,6 @@ package vazkii.botania.api.recipe;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeType;
@@ -21,7 +20,7 @@ import org.jetbrains.annotations.NotNull;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.brew.Brew;
 
-public interface BotanicalBreweryRecipe extends Recipe<Container> {
+public interface BotanicalBreweryRecipe extends Recipe<BotaniaContainer> {
 	ResourceLocation TYPE_ID = ResourceLocation.fromNamespaceAndPath(BotaniaAPI.MODID, "brew");
 
 	Brew getBrew();
@@ -44,7 +43,7 @@ public interface BotanicalBreweryRecipe extends Recipe<Container> {
 
 	@NotNull
 	@Override
-	default ItemStack assemble(@NotNull Container inv, @NotNull HolderLookup.Provider registries) {
+	default ItemStack assemble(@NotNull BotaniaContainer inv, @NotNull HolderLookup.Provider registries) {
 		return ItemStack.EMPTY;
 	}
 
