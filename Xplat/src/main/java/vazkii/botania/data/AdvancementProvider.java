@@ -14,6 +14,7 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.advancements.AdvancementSubProvider;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -22,6 +23,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
 
@@ -238,7 +240,9 @@ public class AdvancementProvider {
 									Optional.empty())))
 					.save(consumer, mainId("spawner_mover_use"));
 			DisplayInfo tiaraWings = simple(BotaniaItems.flightTiara, "tiaraWings", AdvancementType.TASK);
-			tiaraWings.getIcon().getOrCreateTag().putInt("variant", 1);
+			CompoundTag tiaraIconTag = tiaraWings.getIcon().getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
+			tiaraIconTag.putInt("variant", 1);
+			tiaraWings.getIcon().set(DataComponents.CUSTOM_DATA, CustomData.of(tiaraIconTag));
 			Criterion<InventoryChangeTrigger.TriggerInstance>[] variants = IntStream.range(1, FlugelTiaraItem.WING_TYPES)
 					.mapToObj(i -> {
 						CompoundTag tag = new CompoundTag();

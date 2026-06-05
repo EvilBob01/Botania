@@ -56,7 +56,7 @@ public final class LootHandler {
 			// not great, as it's inserted into absolutely every single entity loot table (this evaluates twice for sheep, for example)
 			addPool.accept(LootPool.lootPool().add(NestedLootTable.lootTableReference(ResourceKey.create(Registries.LOOT_TABLE, ElementiumAxeItem.BEHEADING_LOOT_TABLE))));
 		} else if (XplatAbstractions.INSTANCE.gogLoaded()
-				&& (Blocks.GRASS.getLootTable().location().equals(id) || Blocks.TALL_GRASS.getLootTable().location().equals(id))) {
+				&& (Blocks.SHORT_GRASS.getLootTable().location().equals(id) || Blocks.TALL_GRASS.getLootTable().location().equals(id))) {
 			addPool.accept(LootPool.lootPool().add(NestedLootTable.lootTableReference(GOG_SEEDS_TABLE)));
 		}
 	}

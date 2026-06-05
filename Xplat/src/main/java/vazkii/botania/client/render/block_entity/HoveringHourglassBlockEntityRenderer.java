@@ -8,7 +8,8 @@
  */
 package vazkii.botania.client.render.block_entity;
 
-import com.mojang.blaze3d.vertex.ARGB;
+
+import net.minecraft.util.FastColor;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 
@@ -69,7 +70,7 @@ public class HoveringHourglassBlockEntityRenderer implements BlockEntityRenderer
 		float r = (rawColor >> 16 & 0xFF) / 255.0F;
 		float g = (rawColor >> 8 & 0xFF) / 255.0F;
 		float b = (rawColor & 0xFF) / 255.0F;
-		int color = ARGB.colorFromFloat(1, r, g, b);
+		int color = FastColor.ARGB32.color(255, (int)(r*255), (int)(g*255), (int)(b*255));
 		VertexConsumer buffer = buffers.getBuffer(model.renderType(texture));
 		model.render(ms, buffer, light, overlay, color, fract1, fract2, hasWorld && hourglass.flip);
 		ms.popPose();

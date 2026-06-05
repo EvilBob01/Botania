@@ -9,6 +9,7 @@
 package vazkii.botania.common.block.flower.generating;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -183,14 +184,14 @@ public class GourmaryllisBlockEntity extends GeneratingFlowerBlockEntity {
 	}
 
 	@Override
-	public void readFromPacketNBT(CompoundTag cmp) {
-		super.readFromPacketNBT(cmp);
+	public void loadAdditional(CompoundTag cmp, HolderLookup.Provider registries) {
+		super.loadAdditional(cmp, registries);
 		cooldown = cmp.getInt(TAG_COOLDOWN);
 		digestingMana = cmp.getInt(TAG_DIGESTING_MANA);
 		lastFoods.clear();
 		ListTag foodList = cmp.getList(TAG_LAST_FOODS, Tag.TAG_COMPOUND);
 		for (int i = 0; i < foodList.size(); i++) {
-			lastFoods.add(ItemStack.of(foodList.getCompound(i)));
+			lastFoods.add(ItemStack.parseOptional(registries, foodList.getCompound(i)));
 		}
 		lastFoodCount = cmp.getInt(TAG_LAST_FOOD_COUNT);
 		streakLength = cmp.getInt(TAG_STREAK_LENGTH);

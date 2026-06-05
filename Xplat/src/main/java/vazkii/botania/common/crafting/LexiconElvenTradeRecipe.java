@@ -49,7 +49,7 @@ public class LexiconElvenTradeRecipe implements ElvenTradeRecipe {
 	@Override
 	public List<ItemStack> getOutputs() {
 		ItemStack stack = new ItemStack(BotaniaItems.lexicon);
-		stack.getOrCreateTag().putBoolean(LexicaBotaniaItem.TAG_ELVEN_UNLOCK, true);
+		ItemNBTHelper.setBoolean(stack, LexicaBotaniaItem.TAG_ELVEN_UNLOCK, true);
 		return Collections.singletonList(stack);
 	}
 
@@ -66,7 +66,7 @@ public class LexiconElvenTradeRecipe implements ElvenTradeRecipe {
 	@Override
 	public List<ItemStack> getOutputs(List<ItemStack> inputs) {
 		ItemStack stack = inputs.get(0).copy();
-		stack.getOrCreateTag().putBoolean(LexicaBotaniaItem.TAG_ELVEN_UNLOCK, true);
+		ItemNBTHelper.setBoolean(stack, LexicaBotaniaItem.TAG_ELVEN_UNLOCK, true);
 		return Collections.singletonList(stack);
 	}
 

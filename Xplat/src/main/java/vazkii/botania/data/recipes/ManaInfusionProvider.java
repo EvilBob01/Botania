@@ -57,7 +57,7 @@ public class ManaInfusionProvider extends BotaniaRecipeProvider {
 
 		output.accept(id("piston_relay"), new ManaInfusionRecipe(new ItemStack(BotaniaBlocks.pistonRelay), ingr(Blocks.PISTON), 15000, null, null), null);
 		output.accept(id("mana_cookie"), new ManaInfusionRecipe(new ItemStack(BotaniaItems.manaCookie), ingr(Items.COOKIE), 20000, null, null), null);
-		output.accept(id("grass_seeds"), new ManaInfusionRecipe(new ItemStack(BotaniaItems.grassSeeds), ingr(Blocks.GRASS), 2500, null, null), null);
+		output.accept(id("grass_seeds"), new ManaInfusionRecipe(new ItemStack(BotaniaItems.grassSeeds), ingr(Blocks.SHORT_GRASS), 2500, null, null), null);
 		output.accept(id("podzol_seeds"), new ManaInfusionRecipe(new ItemStack(BotaniaItems.podzolSeeds), ingr(Blocks.DEAD_BUSH), 2500, null, null), null);
 
 		output.accept(id("mycel_seeds"), new ManaInfusionRecipe(new ItemStack(BotaniaItems.mycelSeeds), Ingredient.of(Blocks.RED_MUSHROOM, Blocks.BROWN_MUSHROOM), 6500, null, null), null);
@@ -127,7 +127,7 @@ public class ManaInfusionProvider extends BotaniaRecipeProvider {
 
 		cycle(output, 200, "botania:117_stone_cycle", Blocks.TUFF, Blocks.CALCITE, Blocks.DEEPSLATE);
 
-		cycle(output, 500, "botania:shrub_cycle", Blocks.FERN, Blocks.DEAD_BUSH, Blocks.GRASS);
+		cycle(output, 500, "botania:shrub_cycle", Blocks.FERN, Blocks.DEAD_BUSH, Blocks.SHORT_GRASS);
 
 		// NB: No wither rose is intentional
 		cycle(output, 400, "botania:flower_cycle", Blocks.DANDELION, Blocks.POPPY, Blocks.BLUE_ORCHID, Blocks.ALLIUM, Blocks.AZURE_BLUET, Blocks.RED_TULIP, Blocks.ORANGE_TULIP,
@@ -172,7 +172,7 @@ public class ManaInfusionProvider extends BotaniaRecipeProvider {
 		output.accept(id("mangrove_leaves_dupe"), new ManaInfusionRecipe(new ItemStack(Blocks.MANGROVE_LEAVES, 2), ingr(Blocks.MANGROVE_LEAVES), 2000, null, StateIngredientHelper.of(BotaniaBlocks.conjurationCatalyst)), null);
 		output.accept(id("cherry_leaves_dupe"), new ManaInfusionRecipe(new ItemStack(Blocks.CHERRY_LEAVES, 2), ingr(Blocks.CHERRY_LEAVES), 2000, null, StateIngredientHelper.of(BotaniaBlocks.conjurationCatalyst)), null);
 
-		output.accept(id("grass"), new ManaInfusionRecipe(new ItemStack(Blocks.GRASS, 2), ingr(Blocks.GRASS), 800, null, StateIngredientHelper.of(BotaniaBlocks.conjurationCatalyst)), null);
+		output.accept(id("grass"), new ManaInfusionRecipe(new ItemStack(Blocks.SHORT_GRASS, 2), ingr(Blocks.SHORT_GRASS), 800, null, StateIngredientHelper.of(BotaniaBlocks.conjurationCatalyst)), null);
 	}
 
 	protected void cycle(RecipeOutput output, int cost, String group, ItemLike... items) {

@@ -12,7 +12,9 @@ import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 
 import net.minecraft.ChatFormatting;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
@@ -66,7 +68,7 @@ public abstract class BaubleItem extends Item implements CosmeticAttachable, Pha
 		if (cmp == null) {
 			return ItemStack.EMPTY;
 		}
-		return ItemStack.of(cmp);
+		return ItemStack.parseOptional(BuiltInRegistries.ACCESS, cmp);
 	}
 
 	@Override

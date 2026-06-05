@@ -203,7 +203,7 @@ public final class BotaniaItems {
 	public static final Item manasteelAxe = make(prefix(LibItemNames.MANASTEEL_AXE), new ManasteelAxeItem(unstackableCustomDamage()));
 	public static final Item manasteelHoe = make(prefix(LibItemNames.MANASTEEL_HOE), new ManasteelHoeItem(unstackableCustomDamage()));
 	public static final Item manasteelSword = make(prefix(LibItemNames.MANASTEEL_SWORD), new ManasteelSwordItem(unstackableCustomDamage()));
-	public static final Item manasteelShears = make(prefix(LibItemNames.MANASTEEL_SHEARS), new ManasteelShearsItem(unstackableCustomDamage().defaultDurability(238)));
+	public static final Item manasteelShears = make(prefix(LibItemNames.MANASTEEL_SHEARS), new ManasteelShearsItem(unstackableCustomDamage().durability(238)));
 	public static final Item elementiumHelm = make(prefix(LibItemNames.ELEMENTIUM_HELM), new ElementiumHelmItem(unstackableCustomDamage()));
 	public static final Item elementiumChest = make(prefix(LibItemNames.ELEMENTIUM_CHEST), new ElementiumChestItem(unstackableCustomDamage()));
 	public static final Item elementiumLegs = make(prefix(LibItemNames.ELEMENTIUM_LEGS), new ElementiumLegsItem(unstackableCustomDamage()));
@@ -213,7 +213,7 @@ public final class BotaniaItems {
 	public static final Item elementiumAxe = make(prefix(LibItemNames.ELEMENTIUM_AXE), new ElementiumAxeItem(unstackableCustomDamage()));
 	public static final Item elementiumHoe = make(prefix(LibItemNames.ELEMENTIUM_HOE), new ElementiumHoeItem(unstackableCustomDamage()));
 	public static final Item elementiumSword = make(prefix(LibItemNames.ELEMENTIUM_SWORD), new ElementiumSwordItem(unstackableCustomDamage()));
-	public static final Item elementiumShears = make(prefix(LibItemNames.ELEMENTIUM_SHEARS), new ElementiumShearsItem(unstackableCustomDamage().defaultDurability(238)));
+	public static final Item elementiumShears = make(prefix(LibItemNames.ELEMENTIUM_SHEARS), new ElementiumShearsItem(unstackableCustomDamage().durability(238)));
 	public static final Item terrasteelHelm = make(prefix(LibItemNames.TERRASTEEL_HELM), new TerrasteelHelmItem(unstackableCustomDamage().fireResistant().rarity(Rarity.UNCOMMON)));
 	public static final Item terrasteelChest = make(prefix(LibItemNames.TERRASTEEL_CHEST), new TerrasteelArmorItem(ArmorItem.Type.CHESTPLATE, unstackableCustomDamage().fireResistant().rarity(Rarity.UNCOMMON)));
 	public static final Item terrasteelLegs = make(prefix(LibItemNames.TERRASTEEL_LEGS), new TerrasteelArmorItem(ArmorItem.Type.LEGGINGS, unstackableCustomDamage().fireResistant().rarity(Rarity.UNCOMMON)));
@@ -227,10 +227,10 @@ public final class BotaniaItems {
 	public static final Item manaweaveChest = make(prefix(LibItemNames.MANAWEAVE_CHEST), new ManaweaveArmorItem(ArmorItem.Type.CHESTPLATE, unstackableCustomDamage()));
 	public static final Item manaweaveLegs = make(prefix(LibItemNames.MANAWEAVE_LEGS), new ManaweaveArmorItem(ArmorItem.Type.LEGGINGS, unstackableCustomDamage()));
 	public static final Item manaweaveBoots = make(prefix(LibItemNames.MANAWEAVE_BOOTS), new ManaweaveArmorItem(ArmorItem.Type.BOOTS, unstackableCustomDamage()));
-	public static final Item enderDagger = make(prefix(LibItemNames.ENDER_DAGGER), new SoulscribeItem(unstackable().defaultDurability(69))); // What you looking at?
+	public static final Item enderDagger = make(prefix(LibItemNames.ENDER_DAGGER), new SoulscribeItem(unstackable().durability(69))); // What you looking at?
 	public static final Item glassPick = make(prefix(LibItemNames.GLASS_PICK), new VitreousPickaxeItem(unstackableCustomDamage()));
-	public static final Item livingwoodBow = make(prefix(LibItemNames.LIVINGWOOD_BOW), new LivingwoodBowItem(defaultBuilderCustomDamage().defaultDurability(500)));
-	public static final Item crystalBow = make(prefix(LibItemNames.CRYSTAL_BOW), new CrystalBowItem(defaultBuilderCustomDamage().defaultDurability(500)));
+	public static final Item livingwoodBow = make(prefix(LibItemNames.LIVINGWOOD_BOW), new LivingwoodBowItem(defaultBuilderCustomDamage().durability(500)));
+	public static final Item crystalBow = make(prefix(LibItemNames.CRYSTAL_BOW), new CrystalBowItem(defaultBuilderCustomDamage().durability(500)));
 	public static final Item thornChakram = make(prefix(LibItemNames.THORN_CHAKRAM), new ThornChakramItem(defaultBuilder().stacksTo(6)));
 	public static final Item flareChakram = make(prefix(LibItemNames.FLARE_CHAKRAM), new ThornChakramItem(defaultBuilder().stacksTo(6)));
 
@@ -249,7 +249,7 @@ public final class BotaniaItems {
 	public static final Item enderHand = make(prefix(LibItemNames.ENDER_HAND), new EnderHandItem(unstackable()));
 	public static final Item craftingHalo = make(prefix(LibItemNames.CRAFTING_HALO), new AssemblyHaloItem(unstackable()));
 	public static final Item autocraftingHalo = make(prefix(LibItemNames.AUTOCRAFTING_HALO), new ManufactoryHaloItem(unstackable()));
-	public static final Item spellCloth = make(prefix(LibItemNames.SPELL_CLOTH), new SpellbindingClothItem(XplatAbstractions.INSTANCE.noRepairOnForge(unstackable().defaultDurability(35))));
+	public static final Item spellCloth = make(prefix(LibItemNames.SPELL_CLOTH), new SpellbindingClothItem(XplatAbstractions.INSTANCE.noRepairOnForge(unstackable().durability(35))));
 	public static final Item flowerBag = make(prefix(LibItemNames.FLOWER_BAG), new FlowerPouchItem(unstackable()));
 	public static final Item blackHoleTalisman = make(prefix(LibItemNames.BLACK_HOLE_TALISMAN), new BlackHoleTalismanItem(unstackable()));
 	public static final Item temperanceStone = make(prefix(LibItemNames.TEMPERANCE_STONE), new StoneOfTemperanceItem(unstackable()));

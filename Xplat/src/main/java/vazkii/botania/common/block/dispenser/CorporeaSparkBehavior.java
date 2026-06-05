@@ -25,9 +25,9 @@ public class CorporeaSparkBehavior extends OptionalDispenseItemBehavior {
 	@NotNull
 	@Override
 	protected ItemStack execute(BlockSource source, @NotNull ItemStack stack) {
-		Level world = source.getLevel();
-		Direction facing = source.getBlockState().getValue(DispenserBlock.FACING);
-		BlockPos pos = source.getPos().relative(facing);
+		Level world = source.level();
+		Direction facing = source.state().getValue(DispenserBlock.FACING);
+		BlockPos pos = source.pos().relative(facing);
 
 		setSuccess(CorporeaSparkItem.attachSpark(world, pos, stack));
 

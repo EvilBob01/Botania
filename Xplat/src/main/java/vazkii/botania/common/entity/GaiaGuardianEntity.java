@@ -25,18 +25,17 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerEntity;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.storage.loot.LootTable;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.network.protocol.game.ClientboundRemoveMobEffectPacket;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerBossEvent;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
@@ -523,11 +522,11 @@ public class GaiaGuardianEntity extends Mob {
 	}
 
 	@Override
-	public ResourceLocation getDefaultLootTable() {
+	public ResourceKey<LootTable> getDefaultLootTable() {
 		if (mobSpawnTicks > 0) {
 			return BuiltInLootTables.EMPTY;
 		}
-		return prefix(hardMode ? "gaia_guardian_2" : "gaia_guardian");
+		return ResourceKey.create(Registries.LOOT_TABLE, prefix(hardMode ? "gaia_guardian_2" : "gaia_guardian"));
 	}
 
 	@Override
@@ -716,7 +715,7 @@ public class GaiaGuardianEntity extends Mob {
 								pixie.setProps(players.get(random.nextInt(players.size())), this, 1, 8);
 								pixie.setPos(getX() + getBbWidth() / 2, getY() + 2, getZ() + getBbWidth() / 2);
 								pixie.finalizeSpawn((ServerLevelAccessor) level(), level().getCurrentDifficultyAt(pixie.blockPosition()),
-										MobSpawnType.MOB_SUMMONED, null, null);
+										MobSpawnType.MOB_SUMMONED, null);
 								level().addFreshEntity(pixie);
 							}
 						}
@@ -733,7 +732,7 @@ public class GaiaGuardianEntity extends Mob {
 					entity.setPos(getX() + 0.5 + Math.random() * range - range / 2, getY() - 1,
 							getZ() + 0.5 + Math.random() * range - range / 2);
 					entity.finalizeSpawn((ServerLevelAccessor) level(), level().getCurrentDifficultyAt(entity.blockPosition()),
-							MobSpawnType.MOB_SUMMONED, null, null);
+							MobSpawnType.MOB_SUMMONED, null);
 					if (entity instanceof WitherSkeleton && hardMode) {
 						entity.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(BotaniaItems.elementiumSword));
 					}
@@ -777,7 +776,7 @@ public class GaiaGuardianEntity extends Mob {
 		} else {
 			for (Player player : players) {
 				for (EquipmentSlot e : EquipmentSlot.values()) {
-					if (e.getType() == EquipmentSlot.Type.ARMOR && !player.getItemBySlot(e).isEmpty()) {
+					if (e.getType() == EquipmentSlot.Type.HUMANOID_ARMOR && !player.getItemBySlot(e).isEmpty()) {
 						anyWithArmor = true;
 						break;
 					}
@@ -868,7 +867,7 @@ public class GaiaGuardianEntity extends Mob {
 								pixie.setProps(players.get(random.nextInt(players.size())), this, 1, 8);
 								pixie.setPos(getX() + getBbWidth() / 2, getY() + 2, getZ() + getBbWidth() / 2);
 								pixie.finalizeSpawn((ServerLevelAccessor) level(), level().getCurrentDifficultyAt(pixie.blockPosition()),
-										MobSpawnType.MOB_SUMMONED, null, null);
+										MobSpawnType.MOB_SUMMONED, null);
 								level().addFreshEntity(pixie);
 							}
 						}
@@ -893,7 +892,7 @@ public class GaiaGuardianEntity extends Mob {
 	}
 
 	@Override
-	public boolean canChangeDimensions() {
+	public boolean canChangeDimensions(ServerLevel from, ServerLevel to) {
 		return false;
 	}
 
@@ -1023,13 +1022,13 @@ public class GaiaGuardianEntity extends Mob {
 	}
 
 	@Override
-	public Packet<ClientGamePacketListener> getAddEntityPacket() {
+	public Packet<ClientGamePacketListener> getAddEntityPacket(ServerEntity serverEntity) {
 		return XplatAbstractions.INSTANCE.toVanillaClientboundPacket(
-				new SpawnGaiaGuardianPacket(new ClientboundAddEntityPacket(this), playerCount, hardMode, source, bossInfoUUID));
+				new SpawnGaiaGuardianPacket(new ClientboundAddEntityPacket(this, serverEntity), playerCount, hardMode, source, bossInfoUUID));
 	}
 
 	@Override
-	public boolean canBeLeashed(Player player) {
+	public boolean canBeLeashed() {
 		return false;
 	}
 

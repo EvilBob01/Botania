@@ -10,12 +10,16 @@ package vazkii.botania.common.crafting.recipe;
 
 import com.mojang.serialization.MapCodec;
 
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistryAccess;
+import net.minecraft.core.component.DataComponentPatch;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ArmorItem;
+import net.minecraft.world.item.crafting.CraftingInput;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.ShapedRecipe;
 
@@ -31,12 +35,14 @@ public class ArmorUpgradeRecipe extends ShapedRecipe {
 
 	@NotNull
 	@Override
-	public ItemStack assemble(@NotNull CraftingContainer inv, @NotNull RegistryAccess registries) {
+	public ItemStack assemble(@NotNull CraftingInput inv, @NotNull HolderLookup.Provider registries) {
 		ItemStack out = super.assemble(inv, registries);
-		for (int i = 0; i < inv.getContainerSize(); i++) {
+		for (int i = 0; i < inv.size(); i++) {
 			ItemStack stack = inv.getItem(i);
-			if (stack.hasTag() && stack.getItem() instanceof ArmorItem) {
-				out.setTag(stack.getTag());
+			if (stack.has(DataComponents.CUSTOM_DATA) && stack.getItem() instanceof ArmorItem) {
+				out.applyComponents(DataComponentPatch.builder()
+						.set(DataComponents.CUSTOM_DATA, stack.get(DataComponents.CUSTOM_DATA))
+						.build());
 				break;
 			}
 		}

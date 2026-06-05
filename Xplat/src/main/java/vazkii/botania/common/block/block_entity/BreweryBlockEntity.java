@@ -28,6 +28,7 @@ import org.jetbrains.annotations.Nullable;
 import vazkii.botania.api.block.WandHUD;
 import vazkii.botania.api.brew.BrewContainer;
 import vazkii.botania.api.brew.BrewItem;
+import vazkii.botania.api.recipe.BotaniaContainer;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.mana.ManaReceiver;
 import vazkii.botania.api.recipe.BotanicalBreweryRecipe;
@@ -89,7 +90,7 @@ public class BreweryBlockEntity extends SimpleInventoryBlockEntity implements Ma
 	}
 
 	private void findRecipe() {
-		Optional<BotanicalBreweryRecipe> maybeRecipe = level.getRecipeManager().getRecipeFor(BotaniaRecipeTypes.BREW_TYPE, getItemHandler(), level);
+		Optional<BotanicalBreweryRecipe> maybeRecipe = level.getRecipeManager().getRecipeFor(BotaniaRecipeTypes.BREW_TYPE, new BotaniaContainer(getItemHandler()), level);
 		maybeRecipe.ifPresent(recipeBrew -> {
 			this.recipe = recipeBrew;
 			level.setBlockAndUpdate(worldPosition, BotaniaBlocks.brewery.defaultBlockState().setValue(BlockStateProperties.POWERED, true));
@@ -121,7 +122,7 @@ public class BreweryBlockEntity extends SimpleInventoryBlockEntity implements Ma
 		}
 
 		if (self.recipe != null) {
-			if (!self.recipe.matches(self.getItemHandler(), level)) {
+			if (!self.recipe.matches(new BotaniaContainer(self.getItemHandler()), level)) {
 				self.recipe = null;
 				level.setBlockAndUpdate(worldPosition, BotaniaBlocks.brewery.defaultBlockState());
 			}

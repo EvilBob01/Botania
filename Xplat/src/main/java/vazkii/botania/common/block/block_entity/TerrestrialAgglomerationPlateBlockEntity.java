@@ -31,6 +31,7 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
+import vazkii.botania.api.recipe.BotaniaContainer;
 import vazkii.botania.api.mana.ManaPool;
 import vazkii.botania.api.mana.ManaReceiver;
 import vazkii.botania.api.mana.spark.ManaSpark;
@@ -111,7 +112,7 @@ public class TerrestrialAgglomerationPlateBlockEntity extends BotaniaBlockEntity
 
 				if (self.mana >= recipe.getMana()) {
 					Player player = getCraftingPlayer(itemEntities);
-					ItemStack result = recipe.assemble(inv, level.registryAccess());
+					ItemStack result = recipe.assemble(new BotaniaContainer(inv), level.registryAccess());
 					if (player != null) {
 						player.triggerRecipeCrafted(recipe, List.of(result));
 						result.onCraftedBy(level, player, result.getCount());
@@ -203,7 +204,7 @@ public class TerrestrialAgglomerationPlateBlockEntity extends BotaniaBlockEntity
 		if (items.isEmpty()) {
 			return null;
 		}
-		return level.getRecipeManager().getRecipeFor(BotaniaRecipeTypes.TERRA_PLATE_TYPE, items, level).orElse(null);
+		return level.getRecipeManager().getRecipeFor(BotaniaRecipeTypes.TERRA_PLATE_TYPE, new BotaniaContainer(items), level).orElse(null);
 	}
 
 	private boolean isActive() {

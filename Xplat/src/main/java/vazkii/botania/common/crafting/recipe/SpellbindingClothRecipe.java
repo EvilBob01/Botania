@@ -10,6 +10,7 @@ package vazkii.botania.common.crafting.recipe;
 
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.CraftingInput;
@@ -66,8 +67,8 @@ public class SpellbindingClothRecipe extends CustomRecipe {
 			return ItemStack.EMPTY;
 		}
 
-		stackToDisenchant.removeTagKey("Enchantments"); // Remove enchantments
-		stackToDisenchant.removeTagKey("RepairCost");
+		stackToDisenchant.remove(DataComponents.ENCHANTMENTS); // Remove enchantments
+		stackToDisenchant.remove(DataComponents.REPAIR_COST);
 		return stackToDisenchant;
 	}
 

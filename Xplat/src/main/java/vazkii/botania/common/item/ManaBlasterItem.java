@@ -10,6 +10,7 @@ package vazkii.botania.common.item;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -233,7 +234,7 @@ public class ManaBlasterItem extends Item {
 	public static ItemStack getLensAtPos(ItemStack stack, int pos) {
 		CompoundTag cmp = ItemNBTHelper.getCompound(stack, TAG_LENS + pos, true);
 		if (cmp != null) {
-			return ItemStack.of(cmp);
+			return ItemStack.parseOptional(BuiltInRegistries.ACCESS, cmp);
 		}
 		return ItemStack.EMPTY;
 	}
@@ -265,7 +266,7 @@ public class ManaBlasterItem extends Item {
 
 		CompoundTag cmp = ItemNBTHelper.getCompound(stack, TAG_LENS, true);
 		if (cmp != null) {
-			return ItemStack.of(cmp);
+			return ItemStack.parseOptional(BuiltInRegistries.ACCESS, cmp);
 		}
 		return ItemStack.EMPTY;
 	}
@@ -314,11 +315,10 @@ public class ManaBlasterItem extends Item {
 	}
 
 	private int getCooldown(ItemStack stack) {
-		return stack.getOrCreateTag().getInt(TAG_COOLDOWN);
+		return ItemNBTHelper.getInt(stack, TAG_COOLDOWN, 0);
 	}
 
 	private void setCooldown(ItemStack stack, int cooldown) {
-		CompoundTag tag = stack.getOrCreateTag();
-		tag.putInt(TAG_COOLDOWN, cooldown);
+		ItemNBTHelper.setInt(stack, TAG_COOLDOWN, cooldown);
 	}
 }

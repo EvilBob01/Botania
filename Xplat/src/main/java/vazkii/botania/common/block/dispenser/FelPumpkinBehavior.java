@@ -26,8 +26,8 @@ public class FelPumpkinBehavior extends OptionalDispenseItemBehavior {
 	@NotNull
 	@Override
 	protected ItemStack execute(BlockSource source, ItemStack stack) {
-		Level world = source.getLevel();
-		BlockPos blockpos = source.getPos().relative(source.getBlockState().getValue(DispenserBlock.FACING));
+		Level world = source.level();
+		BlockPos blockpos = source.pos().relative(source.state().getValue(DispenserBlock.FACING));
 		Block blockcarvedpumpkin = BotaniaBlocks.felPumpkin;
 		this.setSuccess(false);
 		if (world.isEmptyBlock(blockpos) && world.getBlockState(blockpos.below()).is(Blocks.IRON_BARS)

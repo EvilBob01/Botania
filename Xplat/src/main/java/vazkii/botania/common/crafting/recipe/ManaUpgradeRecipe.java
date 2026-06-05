@@ -10,11 +10,11 @@ package vazkii.botania.common.crafting.recipe;
 
 import com.mojang.serialization.MapCodec;
 
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.world.Container;
-import net.minecraft.world.inventory.CraftingContainer;
+import net.minecraft.world.item.crafting.CraftingInput;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.ShapedRecipe;
@@ -31,13 +31,13 @@ public class ManaUpgradeRecipe extends ShapedRecipe {
 				compose.getResultItem(RegistryAccess.EMPTY));
 	}
 
-	public static ItemStack output(ItemStack output, Container inv) {
+	public static ItemStack output(ItemStack output, CraftingInput inv) {
 		ItemStack out = output.copy();
 		var outItem = XplatAbstractions.INSTANCE.findManaItem(out);
 		if (outItem == null) {
 			return out;
 		}
-		for (int i = 0; i < inv.getContainerSize(); i++) {
+		for (int i = 0; i < inv.size(); i++) {
 			ItemStack stack = inv.getItem(i);
 			var item = XplatAbstractions.INSTANCE.findManaItem(stack);
 			if (!stack.isEmpty() && item != null) {
@@ -49,7 +49,7 @@ public class ManaUpgradeRecipe extends ShapedRecipe {
 
 	@NotNull
 	@Override
-	public ItemStack assemble(@NotNull CraftingContainer inv, @NotNull RegistryAccess registries) {
+	public ItemStack assemble(@NotNull CraftingInput inv, @NotNull HolderLookup.Provider registries) {
 		return output(super.assemble(inv, registries), inv);
 	}
 

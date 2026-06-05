@@ -7,28 +7,50 @@ Botania is licensed under the [Botania License](http://botaniamod.net/license.ph
 
 For information on contributing, please read `CONTRIBUTING.md`.
 
+## Platform Support
+
+| Minecraft Version | Fabric | NeoForge | Forge |
+|---|---|---|---|
+| 1.20.1 | ✅ Released | ✅ Released | ✅ Released |
+| 1.21.1 | 🚧 Planned | 🚧 In Progress | ❌ Not planned |
+
+> **Note:** The 1.21.1 NeoForge port is actively being developed on the `neoforge-1.21.1` branch.
+> It is not yet in a releasable state. Forge support is not planned for 1.21+.
+
 ## Maven info
 
 Maven artifacts are located [here](https://maven.blamejared.com/vazkii/botania/Botania/), each folder representing a version.
 
 Note: As of 1.16, intermediate (non-release) Maven builds are no longer persisted.
-That is, you must either depend on a *released* version of Botania, e.g. `1.16.2-407`, or specifically opt in to the bleeding-edge
-build of the next version. For example, `1.16.2-408-SNAPSHOT` would be the current bleeding edge version of future version `1.16.2-408`. 
+That is, you must either depend on a *released* version of Botania, e.g. `1.20.1-453`, or specifically opt in to the bleeding-edge
+build of the next version. For example, `1.20.1-454-SNAPSHOT` would be the current bleeding edge version of future version `1.20.1-454`. 
 
 Note that `-SNAPSHOT` versions can be broken from time to time, and you are strongly discouraged from using them unless you are helping dogfood, test, or contribute to Botania. They may also be pruned from time to time to save disk space on the server. Do *not* rely on `-SNAPSHOT` versions for anything important!
 
-In Forge, add the following to your `build.gradle`
+In NeoForge (1.21.1+), add the following to your `build.gradle`:
 ```gradle
 repositories {
     maven { url 'https://maven.blamejared.com' }
 }
 
 dependencies {
-    // 1.14+
+    compileOnly "vazkii.botania:Botania:[VERSION]:api"
+    runtimeOnly "vazkii.botania:Botania:[VERSION]"
+}
+```
+
+In Forge (1.20.1 and earlier), add the following to your `build.gradle`:
+```gradle
+repositories {
+    maven { url 'https://maven.blamejared.com' }
+}
+
+dependencies {
     compileOnly fg.deobf("vazkii.botania:Botania:[VERSION]:api")
     runtimeOnly fg.deobf("vazkii.botania:Botania:[VERSION]")
 }
 ```
+
 ## Mixin Troubleshooting
 
 Read this if you get crashes when depending on Botania and trying to launch in-dev.

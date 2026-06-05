@@ -28,10 +28,10 @@ public class CocoaBeansBehavior extends OptionalDispenseItemBehavior {
 	@Override
 	public ItemStack execute(BlockSource source, ItemStack stack) {
 		Block block = Blocks.COCOA;
-		Direction facing = source.getBlockState().getValue(DispenserBlock.FACING);
-		BlockPos pos = source.getPos().relative(facing);
-		Level world = source.getLevel();
-		BlockPlaceContext ctx = new DirectionalPlaceContext(source.getLevel(), source.getPos().relative(facing), facing, new ItemStack(block), facing.getOpposite());
+		Direction facing = source.state().getValue(DispenserBlock.FACING);
+		BlockPos pos = source.pos().relative(facing);
+		Level world = source.level();
+		BlockPlaceContext ctx = new DirectionalPlaceContext(source.level(), source.pos().relative(facing), facing, new ItemStack(block), facing.getOpposite());
 		BlockState cocoa = block.getStateForPlacement(ctx);
 		if (cocoa != null && world.isEmptyBlock(pos)) {
 			world.setBlockAndUpdate(pos, cocoa);

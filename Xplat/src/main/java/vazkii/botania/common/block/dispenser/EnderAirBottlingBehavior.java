@@ -56,8 +56,8 @@ public class EnderAirBottlingBehavior extends OptionalDispenseItemBehavior {
 	@NotNull
 	@Override
 	protected ItemStack execute(BlockSource source, @NotNull ItemStack stack) {
-		Level world = source.getLevel();
-		BlockPos blockpos = source.getPos().relative(source.getBlockState().getValue(DispenserBlock.FACING));
+		Level world = source.level();
+		BlockPos blockpos = source.pos().relative(source.state().getValue(DispenserBlock.FACING));
 		if (pickupInEnd(world, blockpos) || EnderAirItem.pickupFromEntity(world, new AABB(blockpos))) {
 			this.setSuccess(true);
 			return fillBottle(source, stack, new ItemStack(BotaniaItems.enderAirBottle));
@@ -71,7 +71,7 @@ public class EnderAirBottlingBehavior extends OptionalDispenseItemBehavior {
 		if (input.isEmpty()) {
 			return output.copy();
 		} else {
-			if (((DispenserBlockEntity) source.getEntity()).addItem(output.copy()) < 0) {
+			if (((DispenserBlockEntity) source.blockEntity()).addItem(output.copy()) < 0) {
 				this.defaultBehaviour.dispense(source, output.copy());
 			}
 			return input;

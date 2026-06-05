@@ -9,6 +9,7 @@
 package vazkii.botania.common.block.block_entity;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
@@ -16,6 +17,8 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
+
+import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.common.item.CacophoniumItem;
 
@@ -49,11 +52,10 @@ public class CacophoniumBlockEntity extends BotaniaBlockEntity {
 	}
 
 	@Override
-	public void readPacketNBT(CompoundTag cmp) {
-		super.readPacketNBT(cmp);
-
+	public void loadAdditional(@NotNull CompoundTag cmp, HolderLookup.Provider registries) {
+		super.loadAdditional(cmp, registries);
 		CompoundTag cmp1 = cmp.getCompound(TAG_STACK);
-		stack = ItemStack.of(cmp1);
+		stack = ItemStack.parseOptional(registries, cmp1);
 	}
 
 }

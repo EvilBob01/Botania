@@ -22,25 +22,25 @@ import com.mojang.authlib.yggdrasil.response.MinecraftTexturesPayload;
 import com.mojang.serialization.MapCodec;
 import com.mojang.util.UUIDTypeAdapter;
 
-import net.minecraft.core.RegistryAccess;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.NbtUtils;
-import net.minecraft.nbt.Tag;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.FormattedText;
 import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.WrittenBookItem;
+import net.minecraft.world.item.component.WrittenBookContent;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
 
 import org.jetbrains.annotations.NotNull;
 
+import vazkii.botania.api.recipe.BotaniaContainer;
 import vazkii.botania.common.crafting.BotaniaRecipeTypes;
 import vazkii.botania.common.crafting.RunicAltarRecipe;
 import vazkii.botania.common.helper.ItemNBTHelper;
@@ -79,12 +79,12 @@ public class HeadRecipe extends RunicAltarRecipe {
 	}
 
 	@Override
-	public boolean matches(Container inv, @NotNull Level world) {
+	public boolean matches(BotaniaContainer inv, @NotNull Level world) {
 		boolean matches = super.matches(inv, world);
 		boolean foundName = false;
 
 		if (matches) {
-			for (int i = 0; i < inv.getContainerSize(); i++) {
+			for (int i = 0; i < inv.size(); i++) {
 				ItemStack stack = inv.getItem(i);
 				if (stack.isEmpty()) {
 					break;
@@ -92,12 +92,12 @@ public class HeadRecipe extends RunicAltarRecipe {
 
 				// either exactly one name tag or exactly one written book among ingredients
 				if (stack.is(Items.NAME_TAG)) {
-					if (foundName || !stack.hasCustomHoverName() || stack.getHoverName().getString().isBlank()) {
+					if (foundName || !stack.has(DataComponents.CUSTOM_NAME) || stack.getHoverName().getString().isBlank()) {
 						return false;
 					}
 					foundName = true;
 				} else if (stack.is(Items.WRITTEN_BOOK)) {
-					if (foundName || !WrittenBookItem.makeSureTagIsValid(stack.getTag())
+					if (foundName || !stack.has(DataComponents.WRITTEN_BOOK_CONTENT)
 							|| parseProfileFromBook(stack, true) == null) {
 						return false;
 					}
@@ -111,9 +111,9 @@ public class HeadRecipe extends RunicAltarRecipe {
 
 	@NotNull
 	@Override
-	public ItemStack assemble(@NotNull Container inv, @NotNull RegistryAccess registries) {
+	public ItemStack assemble(@NotNull BotaniaContainer inv, @NotNull HolderLookup.Provider registries) {
 		ItemStack stack = getResultItem(registries).copy();
-		for (int i = 0; i < inv.getContainerSize(); i++) {
+		for (int i = 0; i < inv.size(); i++) {
 			ItemStack ingr = inv.getItem(i);
 			if (ingr.is(Items.NAME_TAG)) {
 				ItemNBTHelper.setString(stack, "SkullOwner", ingr.getHoverName().getString());
@@ -129,17 +129,20 @@ public class HeadRecipe extends RunicAltarRecipe {
 	}
 
 	private GameProfile parseProfileFromBook(ItemStack stack, boolean validateOnly) {
-		CompoundTag tag = stack.getTag();
-		String name = tag.getString(WrittenBookItem.TAG_TITLE);
+		WrittenBookContent bookContent = stack.get(DataComponents.WRITTEN_BOOK_CONTENT);
+		if (bookContent == null) {
+			return null;
+		}
+		String name = bookContent.title().raw();
 		if (name.isBlank()) {
 			return null;
 		}
 
-		ListTag pages = tag.getList(WrittenBookItem.TAG_PAGES, Tag.TAG_STRING);
+		var pages = bookContent.pages();
 
 		int maxPages = Math.min(2, pages.size());
 		for (int i = 0; i < maxPages; ++i) {
-			String pageJson = pages.getString(i);
+			String pageJson = Component.Serializer.toJson(pages.get(i).raw(), null);
 			String pageText = parsePage(pageJson);
 
 			Matcher matcher = PROFILE_PATTERN.matcher(pageText);

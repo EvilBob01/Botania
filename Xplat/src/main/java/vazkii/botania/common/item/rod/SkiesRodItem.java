@@ -155,11 +155,11 @@ public class SkiesRodItem extends Item {
 	}
 
 	private int getFlyCounter(ItemStack stack) {
-		return stack.getOrCreateTag().getInt(TAG_FLYCOUNTER);
+		return ItemNBTHelper.getInt(stack, TAG_FLYCOUNTER, 0);
 	}
 
 	private void setFlyCounter(ItemStack stack, int counter) {
-		stack.getOrCreateTag().putInt(TAG_FLYCOUNTER, counter);
+		ItemNBTHelper.setInt(stack, TAG_FLYCOUNTER, counter);
 	}
 
 	public static class AvatarBehavior implements AvatarWieldable {

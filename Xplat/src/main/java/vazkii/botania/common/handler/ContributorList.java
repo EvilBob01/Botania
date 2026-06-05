@@ -24,6 +24,7 @@ import net.minecraft.world.item.enchantment.Enchantments;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.block.BotaniaBlocks;
+import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.common.lib.LibBlockNames;
 
@@ -111,8 +112,8 @@ public class ContributorList {
 		BuiltInRegistries.ENCHANTMENT.getOptional(ResourceLocation.fromNamespaceAndPath("charm", "tinted")).ifPresent(e -> ench.put(e, 1));
 		EnchantmentHelper.setEnchantments(ench, stack);
 
-		stack.getTag().putBoolean(TAG_HEADFLOWER, true);
-		stack.getTag().putString("charm_glint", DyeColor.YELLOW.getSerializedName());
+		ItemNBTHelper.setBoolean(stack, TAG_HEADFLOWER, true);
+		ItemNBTHelper.setString(stack, "charm_glint", DyeColor.YELLOW.getSerializedName());
 		return stack;
 	}
 

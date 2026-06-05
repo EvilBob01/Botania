@@ -8,7 +8,8 @@
  */
 package vazkii.botania.client.model;
 
-import com.mojang.blaze3d.vertex.ARGB;
+
+import net.minecraft.util.FastColor;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 
@@ -70,7 +71,7 @@ public class HourglassModel extends Model {
 	}
 
 	public void render(PoseStack ms, VertexConsumer buffer, int light, int overlay, float r, float g, float b, float a, float fract1, float fract2, boolean flip) {
-		render(ms, buffer, light, overlay, ARGB.colorFromFloat(a, r, g, b), fract1, fract2, flip);
+		render(ms, buffer, light, overlay, FastColor.ARGB32.color((int)(a*255), (int)(r*255), (int)(g*255), (int)(b*255)), fract1, fract2, flip);
 	}
 
 	public void render(PoseStack ms, VertexConsumer buffer, int light, int overlay, int color, float fract1, float fract2, boolean flip) {
@@ -80,8 +81,7 @@ public class HourglassModel extends Model {
 			fract2 = tmp;
 		}
 
-		float a = ARGB.alphaFloat(color);
-		int white = ARGB.colorFromFloat(a, 1, 1, 1);
+		int white = FastColor.ARGB32.color(FastColor.ARGB32.alpha(color), 255, 255, 255);
 
 		float f = 1F / 16F;
 		ring.render(ms, buffer, light, overlay, white);

@@ -138,7 +138,9 @@ public class LifeAggregatorItem extends Item {
 		if (world.getBlockState(pos).is(Blocks.SPAWNER)) {
 			if (!world.isClientSide) {
 				BlockEntity te = world.getBlockEntity(pos);
-				stack.getOrCreateTag().put(TAG_SPAWNER, te.saveWithFullMetadata());
+				CompoundTag nbtData = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
+				nbtData.put(TAG_SPAWNER, te.saveWithFullMetadata());
+				stack.set(DataComponents.CUSTOM_DATA, CustomData.of(nbtData));
 				world.destroyBlock(pos, false);
 				if (player != null) {
 					player.getCooldowns().addCooldown(this, 20);

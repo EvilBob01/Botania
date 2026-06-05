@@ -1,5 +1,7 @@
 package vazkii.botania.common.helper;
 
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
@@ -10,6 +12,7 @@ import net.minecraft.world.entity.decoration.ItemFrame;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.component.CustomData;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -47,7 +50,7 @@ public class FilterHelper {
 			// Otherwise, items may represent an inventory themselves (e.g. Flower Pouch or Bauble Box)
 			CompoundTag tag = filterStack.getItem() instanceof BlockItem
 					? BlockItem.getBlockEntityData(filterStack)
-					: filterStack.getTag();
+					: (filterStack.has(DataComponents.CUSTOM_DATA) ? filterStack.get(DataComponents.CUSTOM_DATA).copyTag() : null);
 			if (tag != null && tag.contains(ITEMS_TAG, Tag.TAG_LIST)) {
 				// item might contain an inventory
 				List<ItemStack> items = getItemStacks(tag);
@@ -66,7 +69,7 @@ public class FilterHelper {
 			List<ItemStack> items = new ArrayList<>(contents.size());
 			for (int i = 0; i < contents.size(); i++) {
 				CompoundTag entry = contents.getCompound(i);
-				ItemStack stack = ItemStack.of(entry);
+				ItemStack stack = ItemStack.parseOptional(BuiltInRegistries.ACCESS, entry);
 				if (!stack.isEmpty()) {
 					items.add(stack);
 				}

@@ -143,7 +143,7 @@ public class ManasteelArmorItem extends ArmorItem implements CustomDamageItem, P
 	private int getSetPiecesEquipped(Player player) {
 		int pieces = 0;
 		for (EquipmentSlot slot : EquipmentSlot.values()) {
-			if (slot.getType() == EquipmentSlot.Type.ARMOR && hasArmorSetItem(player, slot)) {
+			if (slot.getType() == EquipmentSlot.Type.HUMANOID_ARMOR && hasArmorSetItem(player, slot)) {
 				pieces++;
 			}
 		}

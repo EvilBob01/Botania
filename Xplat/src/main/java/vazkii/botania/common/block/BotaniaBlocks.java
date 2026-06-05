@@ -9,7 +9,7 @@
 package vazkii.botania.common.block;
 
 import net.minecraft.core.*;
-import net.minecraft.core.dispenser.AbstractProjectileDispenseBehavior;
+import net.minecraft.core.dispenser.ProjectileDispenseBehavior;
 import net.minecraft.core.dispenser.DispenseItemBehavior;
 import net.minecraft.core.dispenser.OptionalDispenseItemBehavior;
 import net.minecraft.core.dispenser.ShearsDispenseItemBehavior;
@@ -17,7 +17,6 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.DyeColor;
@@ -1505,13 +1504,8 @@ public final class BotaniaBlocks {
 		DispenserBlock.registerBehavior(BotaniaItems.corporeaSpark, behavior);
 		DispenserBlock.registerBehavior(BotaniaItems.corporeaSparkMaster, behavior);
 		DispenserBlock.registerBehavior(BotaniaItems.corporeaSparkCreative, behavior);
-		DispenserBlock.registerBehavior(BotaniaItems.enderAirBottle, new AbstractProjectileDispenseBehavior() {
-			@NotNull
-			@Override
-			protected Projectile getProjectile(@NotNull Level world, @NotNull Position pos, @NotNull ItemStack stack) {
-				return new EnderAirBottleEntity(pos.x(), pos.y(), pos.z(), world);
-			}
-		});
+		DispenserBlock.registerBehavior(BotaniaItems.enderAirBottle, new ProjectileDispenseBehavior(
+				(world, pos, stack) -> new EnderAirBottleEntity(pos.x(), pos.y(), pos.z(), world)));
 
 		behavior = DispenserBlockAccessor.getDispenserRegistry().get(Items.GLASS_BOTTLE);
 		DispenserBlock.registerBehavior(Items.GLASS_BOTTLE, new EnderAirBottlingBehavior(behavior));
@@ -1534,13 +1528,8 @@ public final class BotaniaBlocks {
 
 		DispenserBlock.registerBehavior(BotaniaItems.manasteelShears, new ShearsDispenseItemBehavior());
 		DispenserBlock.registerBehavior(BotaniaItems.elementiumShears, new ShearsDispenseItemBehavior());
-		DispenserBlock.registerBehavior(BotaniaItems.vineBall, new AbstractProjectileDispenseBehavior() {
-			@NotNull
-			@Override
-			protected Projectile getProjectile(@NotNull Level world, @NotNull Position pos, @NotNull ItemStack stack) {
-				return new VineBallEntity(pos.x(), pos.y(), pos.z(), world);
-			}
-		});
+		DispenserBlock.registerBehavior(BotaniaItems.vineBall, new ProjectileDispenseBehavior(
+				(world, pos, stack) -> new VineBallEntity(pos.x(), pos.y(), pos.z(), world)));
 
 		SeedBehaviors.init();
 	}

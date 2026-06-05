@@ -21,6 +21,7 @@ import net.minecraft.world.level.Level;
 
 import org.jetbrains.annotations.NotNull;
 
+import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.LaputaShardItem;
 
@@ -73,7 +74,7 @@ public class LaputaShardUpgradeRecipe extends CustomRecipe {
 			ItemStack stack = inv.getItem(i);
 			if (stack.is(BotaniaItems.laputaShard)) {
 				ItemStack result = stack.copy();
-				result.getOrCreateTag().putInt(LaputaShardItem.TAG_LEVEL, LaputaShardItem.getShardLevel(stack) + 1);
+				ItemNBTHelper.setInt(result, LaputaShardItem.TAG_LEVEL, LaputaShardItem.getShardLevel(stack) + 1);
 				return result;
 			}
 		}

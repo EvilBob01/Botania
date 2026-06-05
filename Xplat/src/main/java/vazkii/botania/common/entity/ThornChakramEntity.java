@@ -224,7 +224,7 @@ public class ThornChakramEntity extends ThrowableProjectile implements ItemSuppl
 	public void readAdditionalSaveData(CompoundTag compound) {
 		super.readAdditionalSaveData(compound);
 		if (compound.contains("fly_stack")) {
-			stack = ItemStack.of(compound.getCompound("fly_stack"));
+			stack = ItemStack.parseOptional(level().registryAccess(), compound.getCompound("fly_stack"));
 		}
 		setFire(compound.getBoolean("flare"));
 	}

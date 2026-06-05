@@ -29,9 +29,9 @@ public class SeedsBehavior extends OptionalDispenseItemBehavior {
 	@NotNull
 	@Override
 	public ItemStack execute(BlockSource source, ItemStack stack) {
-		Direction facing = source.getBlockState().getValue(DispenserBlock.FACING);
-		BlockPos pos = source.getPos().relative(facing);
-		Level world = source.getLevel();
+		Direction facing = source.state().getValue(DispenserBlock.FACING);
+		BlockPos pos = source.pos().relative(facing);
+		Level world = source.level();
 
 		setSuccess(false);
 		if (world.isEmptyBlock(pos) && block.defaultBlockState().canSurvive(world, pos)) {

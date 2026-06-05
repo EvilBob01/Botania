@@ -38,6 +38,7 @@ import net.minecraft.world.level.Level;
 
 import vazkii.botania.client.render.AccessoryRenderRegistry;
 import vazkii.botania.common.handler.EquipmentHandler;
+import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.item.ResoluteIvyItem;
 import vazkii.botania.common.item.equipment.bauble.BaubleItem;
 import vazkii.botania.common.proxy.Proxy;
@@ -58,7 +59,7 @@ public class TrinketsIntegration extends EquipmentHandler {
 			ItemStack stack, SlotReference ref, LivingEntity livingEntity) {
 		//TODO make this less hacky
 		if (ResoluteIvyItem.hasIvy(stack)) {
-			stack.removeTagKey(ResoluteIvyItem.TAG_KEEP);
+			ItemNBTHelper.removeEntry(stack, ResoluteIvyItem.TAG_KEEP);
 			return TrinketEnums.DropRule.KEEP;
 		}
 		return oldRule;

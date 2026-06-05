@@ -9,6 +9,7 @@
 package vazkii.botania.common.block.flower.generating;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.ExperienceOrb;
@@ -129,8 +130,8 @@ public class RosaArcanaBlockEntity extends GeneratingFlowerBlockEntity {
 	// [VanillaCopy] GrindstoneMenu, no damage and count setting
 	private static ItemStack removeNonCurses(ItemStack stack) {
 		ItemStack itemstack = stack.copy();
-		itemstack.removeTagKey("Enchantments");
-		itemstack.removeTagKey("StoredEnchantments");
+		itemstack.remove(DataComponents.ENCHANTMENTS);
+		itemstack.remove(DataComponents.STORED_ENCHANTMENTS);
 
 		Map<Enchantment, Integer> map = EnchantmentHelper.getEnchantments(stack);
 		map.keySet().removeIf(e -> !e.isCurse());
@@ -138,7 +139,7 @@ public class RosaArcanaBlockEntity extends GeneratingFlowerBlockEntity {
 		itemstack.setRepairCost(0);
 		if (itemstack.is(Items.ENCHANTED_BOOK) && map.size() == 0) {
 			itemstack = new ItemStack(Items.BOOK);
-			if (stack.hasCustomHoverName()) {
+			if (stack.has(DataComponents.CUSTOM_NAME)) {
 				itemstack.setHoverName(stack.getHoverName());
 			}
 		}

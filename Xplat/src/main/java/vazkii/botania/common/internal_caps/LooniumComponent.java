@@ -8,6 +8,7 @@
  */
 package vazkii.botania.common.internal_caps;
 
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
 
@@ -62,7 +63,7 @@ public class LooniumComponent extends SerializableComponent {
 	@Override
 	public void readFromNbt(CompoundTag tag) {
 		if (tag.contains(TAG_TO_DROP)) {
-			setDrop(ItemStack.of(tag.getCompound(TAG_TO_DROP)));
+			setDrop(ItemStack.parseOptional(BuiltInRegistries.ACCESS, tag.getCompound(TAG_TO_DROP)));
 		} else {
 			setDrop(ItemStack.EMPTY);
 		}

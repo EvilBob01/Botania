@@ -16,10 +16,21 @@ and start a new "Upcoming" section.
 -->
 
 {% include changelog_header.html version="Upcoming" %}
-Note: Porting efforts to bring Botania to 1.21+ versions of Minecraft (supporting both Fabric and NeoForge) are ongoing.
-We cannot provide any ETA (even a rough one) due to the complexity of the work involved and the somewhat limited amount
-of time the maintainers are able to spend on this effort.
+Note: Porting efforts to bring Botania to 1.21.1 (NeoForge) are actively in progress.
+We cannot provide any ETA (even a rough one) due to the complexity of the work involved.
 In the meantime, Botania for Minecraft 1.20.1 may still receive updates for bug fixes.
+
+**NeoForge 1.21.1 port — work in progress (not yet released):**
+* Port: Migrated build system from ForgeGradle to NeoForge ModDev Gradle 2.0 plugin
+* Port: Updated all `net.minecraftforge.*` package references to `net.neoforged.*`
+* Port: Updated to Java 21 and NeoForge 1.21.1 (build 21.1.172)
+* Port: Adapted recipe system to new `RecipeInput` API (`CraftingContainer` → `CraftingInput`, custom `BotaniaContainer` wrapper)
+* Port: Updated model rendering API (`renderToBuffer` signature change, packed ARGB color int)
+* Port: Updated particle system to new `MapCodec`/`StreamCodec` API (removed legacy `Deserializer`, `writeToNetwork`, `writeToString`)
+* Port: Updated `SavedData` to use `SavedData.Factory` pattern
+* Port: Updated loot table, enchantment, and mob effect APIs
+* Port: Updated dispenser behavior, projectile, and entity APIs for NeoForge 1.21.1
+* Port: Updated shader/vertex format names (`POSITION_COLOR_TEX` → `POSITION_TEX_COLOR`)
 
 ---
 

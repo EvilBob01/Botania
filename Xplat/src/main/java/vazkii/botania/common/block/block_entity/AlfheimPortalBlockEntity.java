@@ -325,7 +325,7 @@ public class AlfheimPortalBlockEntity extends BotaniaBlockEntity implements Wand
 		stacksIn.clear();
 		for (int i = 0; i < count; i++) {
 			CompoundTag stackcmp = cmp.getCompound(TAG_STACK + i);
-			ItemStack stack = ItemStack.of(stackcmp);
+			ItemStack stack = ItemStack.parseOptional(registries, stackcmp);
 			stacksIn.add(stack);
 		}
 	}

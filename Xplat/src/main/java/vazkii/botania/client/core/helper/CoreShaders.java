@@ -68,7 +68,7 @@ public class CoreShaders {
 		);
 		registrations.accept(
 				prefix("halo"),
-				DefaultVertexFormat.POSITION_COLOR_TEX,
+				DefaultVertexFormat.POSITION_TEX_COLOR,
 				inst -> halo = inst
 		);
 		registrations.accept(
@@ -133,7 +133,7 @@ public class CoreShaders {
 		if (BotaniaConfig.client().useShaders()) {
 			return halo;
 		} else {
-			return GameRenderer.getPositionColorTexShader();
+			return GameRenderer.getPositionTexColorShader();
 		}
 	}
 

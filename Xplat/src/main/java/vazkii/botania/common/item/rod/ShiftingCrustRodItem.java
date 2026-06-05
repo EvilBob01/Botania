@@ -165,8 +165,8 @@ public class ShiftingCrustRodItem extends Item implements WireframeCoordinateLis
 			ItemNBTHelper.setInt(stack, TAG_EXTRA_RANGE, extraRangeNew);
 		}
 		boolean temperanceActive = StoneOfTemperanceItem.hasTemperanceActive(player);
-		if (temperanceActive != stack.getOrCreateTag().getBoolean(TAG_TEMPERANCE_STONE)) {
-			stack.getOrCreateTag().putBoolean(TAG_TEMPERANCE_STONE, temperanceActive);
+		if (temperanceActive != ItemNBTHelper.getBoolean(stack, TAG_TEMPERANCE_STONE, false)) {
+			ItemNBTHelper.setBoolean(stack, TAG_TEMPERANCE_STONE, temperanceActive);
 		}
 
 		Item replacement = getItemToPlace(stack);
@@ -413,34 +413,34 @@ public class ShiftingCrustRodItem extends Item implements WireframeCoordinateLis
 		list.add(DoubleTag.valueOf(Mth.frac(vec.x())));
 		list.add(DoubleTag.valueOf(Mth.frac(vec.y())));
 		list.add(DoubleTag.valueOf(Mth.frac(vec.z())));
-		stack.getOrCreateTag().put(TAG_SWAP_HIT_VEC, list);
+		ItemNBTHelper.set(stack, TAG_SWAP_HIT_VEC, list);
 	}
 
 	private Vec3 getHitPos(ItemStack stack, BlockPos pos) {
-		ListTag list = stack.getOrCreateTag().getList(TAG_SWAP_HIT_VEC, Tag.TAG_DOUBLE);
+		ListTag list = ItemNBTHelper.getList(stack, TAG_SWAP_HIT_VEC, Tag.TAG_DOUBLE, false);
 		return new Vec3(pos.getX() + list.getDouble(0),
 				pos.getY() + list.getDouble(1),
 				pos.getZ() + list.getDouble(2));
 	}
 
 	private void setSwapTemplateDirection(ItemStack stack, Direction direction) {
-		stack.getOrCreateTag().putInt(TAG_SWAP_DIRECTION, direction.get3DDataValue());
+		ItemNBTHelper.setInt(stack, TAG_SWAP_DIRECTION, direction.get3DDataValue());
 	}
 
 	private Direction getSwapTemplateDirection(ItemStack stack) {
-		return Direction.from3DDataValue(stack.getOrCreateTag().getInt(TAG_SWAP_DIRECTION));
+		return Direction.from3DDataValue(ItemNBTHelper.getInt(stack, TAG_SWAP_DIRECTION, 0));
 	}
 
 	private void setSwapClickDirection(ItemStack stack, Direction direction) {
-		stack.getOrCreateTag().putInt(TAG_SWAP_CLICKED_AXIS, direction.get3DDataValue());
+		ItemNBTHelper.setInt(stack, TAG_SWAP_CLICKED_AXIS, direction.get3DDataValue());
 	}
 
 	private Direction getSwapClickDirection(ItemStack stack) {
-		return Direction.from3DDataValue(stack.getOrCreateTag().getInt(TAG_SWAP_CLICKED_AXIS));
+		return Direction.from3DDataValue(ItemNBTHelper.getInt(stack, TAG_SWAP_CLICKED_AXIS, 0));
 	}
 
 	private int getRange(ItemStack stack, Direction.Axis clickAxis, Direction.Axis rangeAxis) {
-		if (stack.getOrCreateTag().getBoolean(TAG_TEMPERANCE_STONE) && rangeAxis == clickAxis) {
+		if (ItemNBTHelper.getBoolean(stack, TAG_TEMPERANCE_STONE, false) && rangeAxis == clickAxis) {
 			return 0;
 		}
 		return RANGE + ItemNBTHelper.getInt(stack, TAG_EXTRA_RANGE, 1) - 1;

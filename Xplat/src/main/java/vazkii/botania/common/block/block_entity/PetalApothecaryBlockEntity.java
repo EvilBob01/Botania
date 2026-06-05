@@ -37,6 +37,7 @@ import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.block.PetalApothecary;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
+import vazkii.botania.api.recipe.BotaniaContainer;
 import vazkii.botania.api.recipe.CustomApothecaryColor;
 import vazkii.botania.api.recipe.PetalApothecaryRecipe;
 import vazkii.botania.client.core.helper.RenderHelper;
@@ -102,12 +103,12 @@ public class PetalApothecaryBlockEntity extends SimpleInventoryBlockEntity imple
 			return true;
 		}
 
-		Optional<PetalApothecaryRecipe> maybeRecipe = level.getRecipeManager().getRecipeFor(BotaniaRecipeTypes.PETAL_TYPE, getItemHandler(), level);
+		Optional<PetalApothecaryRecipe> maybeRecipe = level.getRecipeManager().getRecipeFor(BotaniaRecipeTypes.PETAL_TYPE, new BotaniaContainer(getItemHandler()), level);
 		if (maybeRecipe.isPresent()) {
 			var recipe = maybeRecipe.get();
 			if (recipe.getReagent().test(item.getItem())) {
 				saveLastRecipe(recipe.getReagent());
-				ItemStack output = recipe.assemble(getItemHandler(), getLevel().registryAccess());
+				ItemStack output = recipe.assemble(new BotaniaContainer(getItemHandler()), getLevel().registryAccess());
 				Entity thrower = item.getOwner();
 
 				for (int i = 0; i < inventorySize(); i++) {
@@ -343,12 +344,12 @@ public class PetalApothecaryBlockEntity extends SimpleInventoryBlockEntity imple
 				float anglePer = 360F / amt;
 
 				Optional<PetalApothecaryRecipe> maybeRecipe = altar.level.getRecipeManager()
-						.getRecipeFor(BotaniaRecipeTypes.PETAL_TYPE, altar.getItemHandler(), altar.level);
+						.getRecipeFor(BotaniaRecipeTypes.PETAL_TYPE, new BotaniaContainer(altar.getItemHandler()), altar.level);
 				maybeRecipe.ifPresent(recipe -> {
 					RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
 					RenderHelper.drawTexturedModalRect(gui, HUDHandler.manaBar, xc + radius + 9, yc - 8, 0, 8, 22, 15);
 
-					ItemStack stack = recipe.assemble(altar.getItemHandler(), altar.getLevel().registryAccess());
+					ItemStack stack = recipe.assemble(new BotaniaContainer(altar.getItemHandler()), altar.getLevel().registryAccess());
 					gui.renderFakeItem(stack, xc + radius + 32, yc - 8);
 
 					var reagents = recipe.getReagent().getItems();

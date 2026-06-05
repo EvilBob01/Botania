@@ -27,9 +27,9 @@ public class WandBehavior extends OptionalDispenseItemBehavior {
 	@NotNull
 	@Override
 	protected ItemStack execute(BlockSource source, ItemStack stack) {
-		Level world = source.getLevel();
-		Direction facing = source.getBlockState().getValue(DispenserBlock.FACING);
-		BlockPos pos = source.getPos().relative(facing);
+		Level world = source.level();
+		Direction facing = source.state().getValue(DispenserBlock.FACING);
+		BlockPos pos = source.pos().relative(facing);
 		BlockState state = world.getBlockState(pos);
 		Wandable wandable = XplatAbstractions.INSTANCE.findWandable(world, pos, state, world.getBlockEntity(pos));
 		setSuccess(wandable != null && wandable.onUsedByWand(null, stack, facing.getOpposite()));

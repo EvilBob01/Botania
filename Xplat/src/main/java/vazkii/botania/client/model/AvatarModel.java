@@ -8,7 +8,8 @@
  */
 package vazkii.botania.client.model;
 
-import com.mojang.blaze3d.vertex.ARGB;
+
+import net.minecraft.util.FastColor;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 

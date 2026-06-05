@@ -10,11 +10,10 @@ package vazkii.botania.common.crafting.recipe;
 
 import com.mojang.serialization.MapCodec;
 
-import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.world.inventory.CraftingContainer;
+import net.minecraft.world.item.crafting.CraftingInput;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.PotionContents;
@@ -42,11 +41,11 @@ public class WaterBottleMatchingRecipe extends ShapedRecipe {
 	}
 
 	@Override
-	public boolean matches(@NotNull CraftingContainer craftingContainer, @NotNull Level level) {
+	public boolean matches(@NotNull CraftingInput craftingContainer, @NotNull Level level) {
 		if (!super.matches(craftingContainer, level)) {
 			return false;
 		}
-		for (int i = 0; i < craftingContainer.getContainerSize(); i++) {
+		for (int i = 0; i < craftingContainer.size(); i++) {
 			var item = craftingContainer.getItem(i);
 			if (item.is(Items.POTION)) {
 				var contents = item.get(net.minecraft.core.component.DataComponents.POTION_CONTENTS);

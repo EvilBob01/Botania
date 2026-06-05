@@ -9,6 +9,7 @@
 package vazkii.botania.common.item.lens;
 
 import net.minecraft.ChatFormatting;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextColor;
@@ -190,7 +191,7 @@ public class LensItem extends Item implements ControlLensItem, CompositableLensI
 		if (cmp == null) {
 			return ItemStack.EMPTY;
 		} else {
-			return ItemStack.of(cmp);
+			return ItemStack.parseOptional(BuiltInRegistries.ACCESS, cmp);
 		}
 	}
 

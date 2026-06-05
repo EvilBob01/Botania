@@ -8,7 +8,8 @@
  */
 package vazkii.botania.client.model;
 
-import com.mojang.blaze3d.vertex.ARGB;
+
+import net.minecraft.util.FastColor;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 
@@ -61,7 +62,7 @@ public class BellowsModel extends Model {
 	}
 
 	public void render(PoseStack ms, VertexConsumer buffer, int light, int overlay, float r, float g, float b, float alpha, float fract) {
-		render(ms, buffer, light, overlay, ARGB.colorFromFloat(alpha, r, g, b), fract);
+		render(ms, buffer, light, overlay, FastColor.ARGB32.color((int)(alpha*255), (int)(r*255), (int)(g*255), (int)(b*255)), fract);
 	}
 
 	public void render(PoseStack ms, VertexConsumer buffer, int light, int overlay, int color, float fract) {
