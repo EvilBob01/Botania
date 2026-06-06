@@ -11,7 +11,6 @@ package vazkii.botania.client.patchouli.component;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.network.chat.Component;
 
 import vazkii.botania.client.gui.HUDHandler;
@@ -57,8 +56,10 @@ public class ManaComponent implements ICustomComponent {
 	}
 
 	@Override
-	public void onVariablesAvailable(UnaryOperator<IVariable> lookup, HolderLookup.Provider provider) {
+	public void onVariablesAvailable(UnaryOperator<IVariable> lookup) {
 		IVariable manaVar = lookup.apply(mana);
-		manaValues = manaVar.unwrap().isJsonArray() ? manaVar.asStream(IVariable.class).map(IVariable::asNumber).mapToInt(Number::intValue).toArray() : new int[] { manaVar.asNumber(0).intValue() };
+		manaValues = manaVar.unwrap().isJsonArray()
+				? manaVar.asListOrSingleton().stream().map(IVariable::asNumber).mapToInt(Number::intValue).toArray()
+				: new int[] { manaVar.asNumber(0).intValue() };
 	}
 }

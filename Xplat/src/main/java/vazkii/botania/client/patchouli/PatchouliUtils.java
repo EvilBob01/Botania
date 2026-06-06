@@ -94,7 +94,7 @@ public class PatchouliUtils {
 	 */
 	public static IVariable interweaveIngredients(List<Ingredient> ingredients, int longestIngredientSize) {
 		if (ingredients.size() == 1) {
-			return IVariable.wrapList(Arrays.stream(ingredients.get(0).getItems()).map(IVariable::wrap).collect(Collectors.toList()));
+			return IVariable.wrapList(Arrays.stream(ingredients.get(0).getItems()).map(stack -> IVariable.wrap(stack)).collect(Collectors.toList()));
 		}
 
 		ItemStack[] empty = { ItemStack.EMPTY };
@@ -109,7 +109,7 @@ public class PatchouliUtils {
 		List<IVariable> list = new ArrayList<>(stacks.size() * longestIngredientSize);
 		for (int i = 0; i < longestIngredientSize; i++) {
 			for (ItemStack[] stack : stacks) {
-				list.add(IVariable.wrap(stack[i % stack.length]));
+				list.add(IVariable.wrap((ItemStack) stack[i % stack.length]));
 			}
 		}
 		return IVariable.wrapList(list);
