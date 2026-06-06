@@ -12,6 +12,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.item.crafting.RecipeInput;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
@@ -102,7 +103,7 @@ public class BotaniaRecipeTypes {
 	 * Gets all recipes of the given type from the world's recipe manager,
 	 * unwrapping RecipeHolder to return just the recipe instances keyed by ID.
 	 */
-	public static <T extends Recipe<?>> Map<ResourceLocation, T> getRecipes(Level world, RecipeType<T> type) {
+	public static <T extends Recipe<? extends RecipeInput>> Map<ResourceLocation, T> getRecipes(Level world, RecipeType<T> type) {
 		return world.getRecipeManager().getAllRecipesFor(type).stream()
 				.collect(Collectors.toMap(RecipeHolder::id, RecipeHolder::value));
 	}
@@ -110,7 +111,7 @@ public class BotaniaRecipeTypes {
 	/**
 	 * Gets all recipe holders of the given type.
 	 */
-	public static <T extends Recipe<?>> List<RecipeHolder<T>> getRecipeHolders(Level world, RecipeType<T> type) {
+	public static <T extends Recipe<? extends RecipeInput>> List<RecipeHolder<T>> getRecipeHolders(Level world, RecipeType<T> type) {
 		return world.getRecipeManager().getAllRecipesFor(type);
 	}
 }

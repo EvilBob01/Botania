@@ -148,16 +148,17 @@ public class ManaPoolBlockEntity extends BotaniaBlockEntity implements ManaPool,
 		return val;
 	}
 
-	public ManaInfusionRecipe getMatchingRecipe(@NotNull ItemStack stack, @NotNull BlockState state) {
-		List<ManaInfusionRecipe> matchingNonCatRecipes = new ArrayList<>();
-		List<ManaInfusionRecipe> matchingCatRecipes = new ArrayList<>();
+	public RecipeHolder<ManaInfusionRecipe> getMatchingRecipe(@NotNull ItemStack stack, @NotNull BlockState state) {
+		List<RecipeHolder<ManaInfusionRecipe>> matchingNonCatRecipes = new ArrayList<>();
+		List<RecipeHolder<ManaInfusionRecipe>> matchingCatRecipes = new ArrayList<>();
 
-		for (var recipe : BotaniaRecipeTypes.getRecipes(level, BotaniaRecipeTypes.MANA_INFUSION_TYPE).values()) {
+		for (var holder : BotaniaRecipeTypes.getRecipeHolders(level, BotaniaRecipeTypes.MANA_INFUSION_TYPE)) {
+			ManaInfusionRecipe recipe = holder.value();
 			if (recipe.matches(stack)) {
 				if (recipe.getRecipeCatalyst() == null) {
-					matchingNonCatRecipes.add(recipe);
+					matchingNonCatRecipes.add(holder);
 				} else if (recipe.getRecipeCatalyst().test(state)) {
-					matchingCatRecipes.add(recipe);
+					matchingCatRecipes.add(holder);
 				}
 			}
 		}
@@ -181,9 +182,10 @@ public class ManaPoolBlockEntity extends BotaniaBlockEntity implements ManaPool,
 			return false;
 		}
 
-		ManaInfusionRecipe recipe = getMatchingRecipe(stack, level.getBlockState(worldPosition.below()));
+		RecipeHolder<ManaInfusionRecipe> recipeHolder = getMatchingRecipe(stack, level.getBlockState(worldPosition.below()));
 
-		if (recipe != null) {
+		if (recipeHolder != null) {
+			ManaInfusionRecipe recipe = recipeHolder.value();
 			int mana = recipe.getManaToConsume();
 			if (getCurrentMana() >= mana) {
 				receiveMana(-mana);
@@ -195,7 +197,7 @@ public class ManaPoolBlockEntity extends BotaniaBlockEntity implements ManaPool,
 				ItemEntity outputItem = new ItemEntity(level, worldPosition.getX() + 0.5, worldPosition.getY() + 1.5, worldPosition.getZ() + 0.5, output);
 				XplatAbstractions.INSTANCE.itemFlagsComponent(outputItem).manaInfusionSpawned = true;
 				if (item.getOwner() instanceof Player player) {
-					player.triggerRecipeCrafted(recipe, List.of(output));
+					player.triggerRecipeCrafted(recipeHolder, List.of(output));
 					output.onCraftedBy(level, player, output.getCount());
 				}
 				level.addFreshEntity(outputItem);
