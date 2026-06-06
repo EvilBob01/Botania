@@ -93,7 +93,7 @@ public class LooniumEquipmentLootProvider implements DataProvider {
 				(trim, color, armorItems) -> createArmorSet(addTrimToTag(registryLookup, trim)
 						.andThen(addDyedColorToTag(color)), false, armorItems);
 
-		Map<ArmorMaterial, Item[]> armorItems = Map.of(
+		Map<Holder<ArmorMaterial>, Item[]> armorItems = Map.of(
 				ArmorMaterials.LEATHER, new Item[] {
 						Items.LEATHER_HELMET, Items.LEATHER_CHESTPLATE, Items.LEATHER_LEGGINGS, Items.LEATHER_BOOTS
 				},
@@ -138,7 +138,7 @@ public class LooniumEquipmentLootProvider implements DataProvider {
 			LootTable.Builder builder = e.getValue();
 			// TODO 1.21: use LootContextParamSets.EQUIPMENT instead
 			LootTable lootTable = builder.setParamSet(LootContextParamSets.SELECTOR).build();
-			output.add(DataProvider.saveStable(cache, LootTable.DIRECT_CODEC.encodeStart(JsonOps.INSTANCE, lootTable).getOrThrow(), path));
+			output.add(DataProvider.saveStable(cache, LootTable.DIRECT_CODEC.encodeStart(RegistryOps.create(JsonOps.INSTANCE, registryLookup), lootTable).getOrThrow(), path));
 		}
 		return CompletableFuture.allOf(output.toArray(CompletableFuture<?>[]::new));
 	}
@@ -250,7 +250,7 @@ public class LooniumEquipmentLootProvider implements DataProvider {
 	}
 
 	private void defineAncientCityEquipmentTables(Map<ResourceLocation, LootTable.Builder> tables,
-			Map<ArmorMaterial, Item[]> armorItems,
+			Map<Holder<ArmorMaterial>, Item[]> armorItems,
 			BiFunction<ResourceKey<TrimPattern>, ResourceKey<TrimMaterial>, ArmorTrim> trimFactory,
 			BiFunction<ArmorTrim, Item[], LootTable.Builder> randomizedSetFactory) {
 
@@ -299,7 +299,7 @@ public class LooniumEquipmentLootProvider implements DataProvider {
 	}
 
 	private void defineBastionRemnantEquipmentTables(Map<ResourceLocation, LootTable.Builder> tables,
-			Map<ArmorMaterial, Item[]> armorItems,
+			Map<Holder<ArmorMaterial>, Item[]> armorItems,
 			BiFunction<ResourceKey<TrimPattern>, ResourceKey<TrimMaterial>, ArmorTrim> trimFactory,
 			BiFunction<ArmorTrim, Item[], LootTable.Builder> randomizedSetFactory) {
 
@@ -324,7 +324,7 @@ public class LooniumEquipmentLootProvider implements DataProvider {
 	}
 
 	private void defineDesertPyramidEquipmentTables(Map<ResourceLocation, LootTable.Builder> tables,
-			Map<ArmorMaterial, Item[]> armorItems,
+			Map<Holder<ArmorMaterial>, Item[]> armorItems,
 			BiFunction<ResourceKey<TrimPattern>, ResourceKey<TrimMaterial>, ArmorTrim> trimFactory,
 			BiFunction<ArmorTrim, Item[], LootTable.Builder> randomizedSetFactory) {
 
@@ -356,7 +356,7 @@ public class LooniumEquipmentLootProvider implements DataProvider {
 	}
 
 	private void defineEndCityEquipmentTables(Map<ResourceLocation, LootTable.Builder> tables,
-			Map<ArmorMaterial, Item[]> armorItems,
+			Map<Holder<ArmorMaterial>, Item[]> armorItems,
 			BiFunction<ResourceKey<TrimPattern>, ResourceKey<TrimMaterial>, ArmorTrim> trimFactory,
 			BiFunction<ArmorTrim, Item[], LootTable.Builder> randomizedSetFactory,
 			HolderLookup.Provider registryLookup) {
@@ -411,7 +411,7 @@ public class LooniumEquipmentLootProvider implements DataProvider {
 	}
 
 	private void defineFortressEquipmentTables(Map<ResourceLocation, LootTable.Builder> tables,
-			Map<ArmorMaterial, Item[]> armorItems,
+			Map<Holder<ArmorMaterial>, Item[]> armorItems,
 			BiFunction<ResourceKey<TrimPattern>, ResourceKey<TrimMaterial>, ArmorTrim> trimFactory,
 			BiFunction<ArmorTrim, Item[], LootTable.Builder> randomizedSetFactory) {
 
@@ -443,7 +443,7 @@ public class LooniumEquipmentLootProvider implements DataProvider {
 	}
 
 	private void defineJungleTempleEquipmentTables(Map<ResourceLocation, LootTable.Builder> tables,
-			Map<ArmorMaterial, Item[]> armorItems,
+			Map<Holder<ArmorMaterial>, Item[]> armorItems,
 			BiFunction<ResourceKey<TrimPattern>, ResourceKey<TrimMaterial>, ArmorTrim> trimFactory,
 			BiFunction<ArmorTrim, Item[], LootTable.Builder> randomizedSetFactory) {
 
@@ -480,7 +480,7 @@ public class LooniumEquipmentLootProvider implements DataProvider {
 	}
 
 	private void defineOceanMonumentEquipmentTables(Map<ResourceLocation, LootTable.Builder> tables,
-			Map<ArmorMaterial, Item[]> armorItems,
+			Map<Holder<ArmorMaterial>, Item[]> armorItems,
 			BiFunction<ResourceKey<TrimPattern>, ResourceKey<TrimMaterial>, ArmorTrim> trimFactory,
 			BiFunction<ArmorTrim, Item[], LootTable.Builder> randomizedSetFactory,
 			TriFunction<ArmorTrim, Integer, Item[], LootTable.Builder> randomizedDyedSetFactory) {
@@ -517,7 +517,7 @@ public class LooniumEquipmentLootProvider implements DataProvider {
 	}
 
 	private void definePillagerOutpostEquipmentTables(Map<ResourceLocation, LootTable.Builder> tables,
-			Map<ArmorMaterial, Item[]> armorItems,
+			Map<Holder<ArmorMaterial>, Item[]> armorItems,
 			BiFunction<ResourceKey<TrimPattern>, ResourceKey<TrimMaterial>, ArmorTrim> trimFactory,
 			BiFunction<ArmorTrim, Item[], LootTable.Builder> randomizedSetFactory) {
 
@@ -593,7 +593,7 @@ public class LooniumEquipmentLootProvider implements DataProvider {
 	}
 
 	private void defineShipwreckEquipmentTables(Map<ResourceLocation, LootTable.Builder> tables,
-			Map<ArmorMaterial, Item[]> armorItems,
+			Map<Holder<ArmorMaterial>, Item[]> armorItems,
 			BiFunction<ResourceKey<TrimPattern>, ResourceKey<TrimMaterial>, ArmorTrim> trimFactory,
 			BiFunction<ArmorTrim, Item[], LootTable.Builder> randomizedSetFactory) {
 
@@ -630,7 +630,7 @@ public class LooniumEquipmentLootProvider implements DataProvider {
 	}
 
 	private void defineStrongholdEquipmentTables(Map<ResourceLocation, LootTable.Builder> tables,
-			Map<ArmorMaterial, Item[]> armorItems,
+			Map<Holder<ArmorMaterial>, Item[]> armorItems,
 			BiFunction<ResourceKey<TrimPattern>, ResourceKey<TrimMaterial>, ArmorTrim> trimFactory,
 			BiFunction<ArmorTrim, Item[], LootTable.Builder> randomizedSetFactory,
 			BiConsumer<ArmorTrim, CompoundTag> trimSetter) {
@@ -687,7 +687,7 @@ public class LooniumEquipmentLootProvider implements DataProvider {
 	}
 
 	private void defineTrailRuinsEquipmentTables(Map<ResourceLocation, LootTable.Builder> tables,
-			Map<ArmorMaterial, Item[]> armorItems,
+			Map<Holder<ArmorMaterial>, Item[]> armorItems,
 			BiFunction<ResourceKey<TrimPattern>, ResourceKey<TrimMaterial>, ArmorTrim> trimFactory,
 			BiFunction<ArmorTrim, Item[], LootTable.Builder> randomizedSetFactory) {
 

@@ -11,7 +11,7 @@ package vazkii.botania.common.item.equipment.armor.elementium;
 import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemAttributeModifiers;
+import net.minecraft.world.item.component.ItemAttributeModifiers;
 import net.minecraft.world.item.ItemStack;
 
 import org.jetbrains.annotations.NotNull;

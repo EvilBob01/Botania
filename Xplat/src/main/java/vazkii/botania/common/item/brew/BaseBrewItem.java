@@ -143,12 +143,10 @@ public class BaseBrewItem extends Item implements BrewItem, CustomCreativeTabCon
 			for (MobEffectInstance effectinstance : list) {
 				MutableComponent iformattabletextcomponent = Component.translatable(effectinstance.getDescriptionId());
 				MobEffect effect = effectinstance.getEffect().value();
-				Map<Holder<Attribute>, AttributeModifier> map = effect.getAttributeModifiers();
+				Map<Holder<Attribute>, MobEffect.AttributeTemplate> map = effect.getAttributeModifiers();
 				if (!map.isEmpty()) {
-					for (Map.Entry<Holder<Attribute>, AttributeModifier> entry : map.entrySet()) {
-						AttributeModifier attributemodifier = entry.getValue();
-						double scaledAmount = effect.getAttributeModifierValue(effectinstance.getAmplifier(), attributemodifier);
-						AttributeModifier attributemodifier1 = new AttributeModifier(attributemodifier.id(), scaledAmount, attributemodifier.operation());
+					for (Map.Entry<Holder<Attribute>, MobEffect.AttributeTemplate> entry : map.entrySet()) {
+						AttributeModifier attributemodifier1 = entry.getValue().create(effectinstance.getAmplifier());
 						list1.add(new Pair<>(entry.getKey(), attributemodifier1));
 					}
 				}
@@ -158,7 +156,7 @@ public class BaseBrewItem extends Item implements BrewItem, CustomCreativeTabCon
 				}
 
 				if (effectinstance.getDuration() > 20) {
-					iformattabletextcomponent = Component.translatable("potion.withDuration", iformattabletextcomponent, MobEffectUtil.formatDuration(effectinstance, durationFactor));
+					iformattabletextcomponent = Component.translatable("potion.withDuration", iformattabletextcomponent, MobEffectUtil.formatDuration(effectinstance, durationFactor, 20.0f));
 				}
 
 				lores.add(iformattabletextcomponent.withStyle(effect.getCategory().getTooltipFormatting()));
@@ -180,17 +178,17 @@ public class BaseBrewItem extends Item implements BrewItem, CustomCreativeTabCon
 				}
 
 				if (d0 > 0.0D) {
-					lores.add((Component.translatable("attribute.modifier.plus." + attributemodifier2.operation().toValue(), ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(d1), Component.translatable(pair.getFirst().value().getDescriptionId()))).withStyle(ChatFormatting.BLUE));
+					lores.add((Component.translatable("attribute.modifier.plus." + attributemodifier2.operation().id(), ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(d1), Component.translatable(pair.getFirst().value().getDescriptionId()))).withStyle(ChatFormatting.BLUE));
 				} else if (d0 < 0.0D) {
 					d1 = d1 * -1.0D;
-					lores.add((Component.translatable("attribute.modifier.take." + attributemodifier2.operation().toValue(), ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(d1), Component.translatable(pair.getFirst().value().getDescriptionId()))).withStyle(ChatFormatting.RED));
+					lores.add((Component.translatable("attribute.modifier.take." + attributemodifier2.operation().id(), ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(d1), Component.translatable(pair.getFirst().value().getDescriptionId()))).withStyle(ChatFormatting.RED));
 				}
 			}
 		}
 	}
 
 	@Override
-	public void appendHoverText(ItemStack stack, Level world, List<Component> list, TooltipFlag flags) {
+	public void appendHoverText(ItemStack stack, Item.TooltipContext tooltipContext, List<Component> list, TooltipFlag flags) {
 		addPotionTooltip(getBrew(stack).getPotionEffects(stack), list, 1);
 	}
 
