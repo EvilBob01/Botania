@@ -8,8 +8,10 @@
  */
 package vazkii.botania.common.block;
 
+import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -42,7 +44,7 @@ public class BotaniaFlowerBlocks {
 	private static final BlockBehaviour.Properties FLOWER_PROPS = BlockBehaviour.Properties.ofFullCopy(Blocks.POPPY);
 	private static final BlockBehaviour.Properties FLOATING_PROPS = BotaniaBlocks.FLOATING_PROPS;
 
-	public static final Block pureDaisy = createSpecialFlowerBlock(BotaniaMobEffects.clear, 1, FLOWER_PROPS, () -> BotaniaFlowerBlocks.PURE_DAISY);
+	public static final Block pureDaisy = createSpecialFlowerBlock(BotaniaMobEffects.clearHolder(), 1, FLOWER_PROPS, () -> BotaniaFlowerBlocks.PURE_DAISY);
 	public static final Block pureDaisyFloating = new FloatingSpecialFlowerBlock(FLOATING_PROPS, () -> BotaniaFlowerBlocks.PURE_DAISY);
 	public static final Block pureDaisyPotted = BotaniaBlocks.flowerPot(pureDaisy, 0);
 
@@ -82,7 +84,7 @@ public class BotaniaFlowerBlocks {
 	public static final Block gourmaryllisFloating = new FloatingSpecialFlowerBlock(FLOATING_PROPS, () -> BotaniaFlowerBlocks.GOURMARYLLIS);
 	public static final Block gourmaryllisPotted = BotaniaBlocks.flowerPot(gourmaryllis, 0);
 
-	public static final Block narslimmus = createSpecialFlowerBlock(BotaniaMobEffects.featherfeet, 240, FLOWER_PROPS, () -> BotaniaFlowerBlocks.NARSLIMMUS);
+	public static final Block narslimmus = createSpecialFlowerBlock(BotaniaMobEffects.featherfeetHolder(), 240, FLOWER_PROPS, () -> BotaniaFlowerBlocks.NARSLIMMUS);
 	public static final Block narslimmusFloating = new FloatingSpecialFlowerBlock(FLOATING_PROPS, () -> BotaniaFlowerBlocks.NARSLIMMUS);
 	public static final Block narslimmusPotted = BotaniaBlocks.flowerPot(narslimmus, 0);
 
@@ -117,7 +119,7 @@ public class BotaniaFlowerBlocks {
 	public static final Block dreadthornFloating = new FloatingSpecialFlowerBlock(FLOATING_PROPS, () -> BotaniaFlowerBlocks.DREADTHORN);
 	public static final Block dreadthornPotted = BotaniaBlocks.flowerPot(dreadthorn, 0);
 
-	public static final Block heiseiDream = createSpecialFlowerBlock(BotaniaMobEffects.soulCross, 300, FLOWER_PROPS, () -> BotaniaFlowerBlocks.HEISEI_DREAM);
+	public static final Block heiseiDream = createSpecialFlowerBlock(BotaniaMobEffects.soulCrossHolder(), 300, FLOWER_PROPS, () -> BotaniaFlowerBlocks.HEISEI_DREAM);
 	public static final Block heiseiDreamFloating = new FloatingSpecialFlowerBlock(FLOATING_PROPS, () -> BotaniaFlowerBlocks.HEISEI_DREAM);
 	public static final Block heiseiDreamPotted = BotaniaBlocks.flowerPot(heiseiDream, 0);
 
@@ -155,15 +157,15 @@ public class BotaniaFlowerBlocks {
 	public static final Block hopperhockPotted = BotaniaBlocks.flowerPot(hopperhock, 0);
 	public static final Block hopperhockChibiPotted = BotaniaBlocks.flowerPot(hopperhockChibi, 0);
 
-	public static final Block tangleberrie = createSpecialFlowerBlock(BotaniaMobEffects.bloodthrst, 120, FLOWER_PROPS, () -> BotaniaFlowerBlocks.TANGLEBERRIE);
-	public static final Block tangleberrieChibi = createSpecialFlowerBlock(BotaniaMobEffects.bloodthrst, 120, FLOWER_PROPS, () -> BotaniaFlowerBlocks.TANGLEBERRIE_CHIBI);
+	public static final Block tangleberrie = createSpecialFlowerBlock(BotaniaMobEffects.bloodthrstHolder(), 120, FLOWER_PROPS, () -> BotaniaFlowerBlocks.TANGLEBERRIE);
+	public static final Block tangleberrieChibi = createSpecialFlowerBlock(BotaniaMobEffects.bloodthrstHolder(), 120, FLOWER_PROPS, () -> BotaniaFlowerBlocks.TANGLEBERRIE_CHIBI);
 	public static final Block tangleberrieFloating = new FloatingSpecialFlowerBlock(FLOATING_PROPS, () -> BotaniaFlowerBlocks.TANGLEBERRIE);
 	public static final Block tangleberrieChibiFloating = new FloatingSpecialFlowerBlock(FLOATING_PROPS, () -> BotaniaFlowerBlocks.TANGLEBERRIE_CHIBI);
 	public static final Block tangleberriePotted = BotaniaBlocks.flowerPot(tangleberrie, 0);
 	public static final Block tangleberrieChibiPotted = BotaniaBlocks.flowerPot(tangleberrieChibi, 0);
 
-	public static final Block jiyuulia = createSpecialFlowerBlock(BotaniaMobEffects.emptiness, 120, FLOWER_PROPS, () -> BotaniaFlowerBlocks.JIYUULIA);
-	public static final Block jiyuuliaChibi = createSpecialFlowerBlock(BotaniaMobEffects.emptiness, 120, FLOWER_PROPS, () -> BotaniaFlowerBlocks.JIYUULIA_CHIBI);
+	public static final Block jiyuulia = createSpecialFlowerBlock(BotaniaMobEffects.emptinessHolder(), 120, FLOWER_PROPS, () -> BotaniaFlowerBlocks.JIYUULIA);
+	public static final Block jiyuuliaChibi = createSpecialFlowerBlock(BotaniaMobEffects.emptinessHolder(), 120, FLOWER_PROPS, () -> BotaniaFlowerBlocks.JIYUULIA_CHIBI);
 	public static final Block jiyuuliaFloating = new FloatingSpecialFlowerBlock(FLOATING_PROPS, () -> BotaniaFlowerBlocks.JIYUULIA);
 	public static final Block jiyuuliaChibiFloating = new FloatingSpecialFlowerBlock(FLOATING_PROPS, () -> BotaniaFlowerBlocks.JIYUULIA_CHIBI);
 	public static final Block jiyuuliaPotted = BotaniaBlocks.flowerPot(jiyuulia, 0);
@@ -191,7 +193,7 @@ public class BotaniaFlowerBlocks {
 	public static final Block clayconiaPotted = BotaniaBlocks.flowerPot(clayconia, 0);
 	public static final Block clayconiaChibiPotted = BotaniaBlocks.flowerPot(clayconiaChibi, 0);
 
-	public static final Block loonium = createSpecialFlowerBlock(BotaniaMobEffects.allure, 900, FLOWER_PROPS, () -> BotaniaFlowerBlocks.LOONIUM);
+	public static final Block loonium = createSpecialFlowerBlock(BotaniaMobEffects.allureHolder(), 900, FLOWER_PROPS, () -> BotaniaFlowerBlocks.LOONIUM);
 	public static final Block looniumFloating = new FloatingSpecialFlowerBlock(FLOATING_PROPS, () -> BotaniaFlowerBlocks.LOONIUM);
 	public static final Block looniumPotted = BotaniaBlocks.flowerPot(loonium, 0);
 
@@ -310,7 +312,7 @@ public class BotaniaFlowerBlocks {
 	}
 
 	private static FlowerBlock createSpecialFlowerBlock(
-			MobEffect effect, int effectDuration,
+			Holder<MobEffect> effect, int effectDuration,
 			BlockBehaviour.Properties props,
 			Supplier<BlockEntityType<? extends SpecialFlowerBlockEntity>> beType) {
 		return XplatAbstractions.INSTANCE.createSpecialFlowerBlock(
@@ -318,7 +320,7 @@ public class BotaniaFlowerBlocks {
 	}
 
 	private static FlowerBlock createSpecialFlowerBlock(
-			MobEffect effect, int effectDuration,
+			Holder<MobEffect> effect, int effectDuration,
 			BlockBehaviour.Properties props,
 			Supplier<BlockEntityType<? extends SpecialFlowerBlockEntity>> beType,
 			boolean hasComparatorOutput) {

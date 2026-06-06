@@ -177,45 +177,46 @@ public class BotaniaEmiPlugin implements EmiPlugin {
 		registry.addRecipe(new EmiCraftingRecipe(List.of(EmiStack.of(BotaniaItems.terraPick),
 				EmiStack.of(BotaniaItems.elementiumPick)), EmiStack.of(tipped), null));
 
-		for (PetalApothecaryRecipe recipe : registry.getRecipeManager().getAllRecipesFor(BotaniaRecipeTypes.PETAL_TYPE)) {
-			registry.addRecipe(new PetalApothecaryEmiRecipe(recipe));
+		for (var holder : registry.getRecipeManager().getAllRecipesFor(BotaniaRecipeTypes.PETAL_TYPE)) {
+			registry.addRecipe(new PetalApothecaryEmiRecipe(holder.value()));
 		}
-		for (ManaInfusionRecipe recipe : registry.getRecipeManager().getAllRecipesFor(BotaniaRecipeTypes.MANA_INFUSION_TYPE)) {
-			registry.addRecipe(new ManaInfusionEmiRecipe(recipe));
+		for (var holder : registry.getRecipeManager().getAllRecipesFor(BotaniaRecipeTypes.MANA_INFUSION_TYPE)) {
+			registry.addRecipe(new ManaInfusionEmiRecipe(holder.value()));
 		}
-		for (RunicAltarRecipe recipe : registry.getRecipeManager().getAllRecipesFor(BotaniaRecipeTypes.RUNE_TYPE)) {
-			registry.addRecipe(new RunicAltarEmiRecipe(recipe));
+		for (var holder : registry.getRecipeManager().getAllRecipesFor(BotaniaRecipeTypes.RUNE_TYPE)) {
+			registry.addRecipe(new RunicAltarEmiRecipe(holder.value()));
 		}
-		for (TerrestrialAgglomerationRecipe recipe : registry.getRecipeManager().getAllRecipesFor(BotaniaRecipeTypes.TERRA_PLATE_TYPE)) {
-			registry.addRecipe(new TerrestrialAgglomerationEmiRecipe(recipe));
+		for (var holder : registry.getRecipeManager().getAllRecipesFor(BotaniaRecipeTypes.TERRA_PLATE_TYPE)) {
+			registry.addRecipe(new TerrestrialAgglomerationEmiRecipe(holder.value()));
 		}
-		for (ElvenTradeRecipe recipe : registry.getRecipeManager().getAllRecipesFor(BotaniaRecipeTypes.ELVEN_TRADE_TYPE)) {
-			registry.addRecipe(new ElvenTradeEmiRecipe(recipe));
+		for (var holder : registry.getRecipeManager().getAllRecipesFor(BotaniaRecipeTypes.ELVEN_TRADE_TYPE)) {
+			registry.addRecipe(new ElvenTradeEmiRecipe(holder.value()));
 		}
 		List<ItemStack> containers = List.of(BotaniaItems.vial, BotaniaItems.flask, BotaniaItems.incenseStick, BotaniaItems.bloodPendant)
 				.stream().map(ItemStack::new).toList();
-		for (BotanicalBreweryRecipe recipe : registry.getRecipeManager().getAllRecipesFor(BotaniaRecipeTypes.BREW_TYPE)) {
+		for (var holder : registry.getRecipeManager().getAllRecipesFor(BotaniaRecipeTypes.BREW_TYPE)) {
+			BotanicalBreweryRecipe recipe = holder.value();
 			for (ItemStack container : containers) {
 				if (!recipe.getOutput(container.copy()).isEmpty()) {
 					registry.addRecipe(new BotanicalBreweryEmiRecipe(recipe, container));
 				}
 			}
 		}
-		for (PureDaisyRecipe recipe : registry.getRecipeManager().getAllRecipesFor(BotaniaRecipeTypes.PURE_DAISY_TYPE)) {
-			registry.addRecipe(new PureDaisyEmiRecipe(recipe));
+		for (var holder : registry.getRecipeManager().getAllRecipesFor(BotaniaRecipeTypes.PURE_DAISY_TYPE)) {
+			registry.addRecipe(new PureDaisyEmiRecipe(holder.value()));
 		}
 
 		EmiIngredient flower = EmiStack.of(BotaniaFlowerBlocks.orechid);
-		for (OrechidRecipe recipe : registry.getRecipeManager().getAllRecipesFor(BotaniaRecipeTypes.ORECHID_TYPE)) {
-			registry.addRecipe(new OrechidEmiRecipe(ORECHID, recipe, flower));
+		for (var holder : registry.getRecipeManager().getAllRecipesFor(BotaniaRecipeTypes.ORECHID_TYPE)) {
+			registry.addRecipe(new OrechidEmiRecipe(ORECHID, holder.value(), flower));
 		}
 		flower = EmiStack.of(BotaniaFlowerBlocks.orechidIgnem);
-		for (OrechidRecipe recipe : registry.getRecipeManager().getAllRecipesFor(BotaniaRecipeTypes.ORECHID_IGNEM_TYPE)) {
-			registry.addRecipe(new OrechidEmiRecipe(ORECHID_IGNEM, recipe, flower));
+		for (var holder : registry.getRecipeManager().getAllRecipesFor(BotaniaRecipeTypes.ORECHID_IGNEM_TYPE)) {
+			registry.addRecipe(new OrechidEmiRecipe(ORECHID_IGNEM, holder.value(), flower));
 		}
 		flower = EmiStack.of(BotaniaFlowerBlocks.marimorphosis);
-		for (MarimorphosisRecipe recipe : registry.getRecipeManager().getAllRecipesFor(BotaniaRecipeTypes.MARIMORPHOSIS_TYPE)) {
-			registry.addRecipe(new MarimorphosisEmiRecipe(recipe, flower));
+		for (var holder : registry.getRecipeManager().getAllRecipesFor(BotaniaRecipeTypes.MARIMORPHOSIS_TYPE)) {
+			registry.addRecipe(new MarimorphosisEmiRecipe(holder.value(), flower));
 		}
 	}
 

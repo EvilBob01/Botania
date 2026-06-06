@@ -34,16 +34,16 @@ public class ManaInfusionProcessor implements IComponentProcessor {
 
 	@Override
 	public void setup(Level level, IVariableProvider variables) {
-		if (variables.has("recipes") && variables.has("group")) {
+		if (variables.has(IVariable.wrap("recipes")) && variables.has(IVariable.wrap("group"))) {
 			BotaniaAPI.LOGGER.warn("Mana infusion template has both 'recipes' and 'group', ignoring 'recipes'");
 		}
 
 		ImmutableList.Builder<ManaInfusionRecipe> builder = ImmutableList.builder();
-		if (variables.has("group")) {
-			String group = variables.get("group").asString();
+		if (variables.has(IVariable.wrap("group"))) {
+			String group = variables.get(IVariable.wrap("group")).asString();
 			builder.addAll(PatchouliUtils.getRecipeGroup(BotaniaRecipeTypes.MANA_INFUSION_TYPE, group));
 		} else {
-			for (IVariable s : variables.get("recipes").asListOrSingleton()) {
+			for (IVariable s : variables.get(IVariable.wrap("recipes")).asListOrSingleton()) {
 				ManaInfusionRecipe recipe = PatchouliUtils.getRecipe(level, BotaniaRecipeTypes.MANA_INFUSION_TYPE, ResourceLocation.parse(s.asString()));
 				if (recipe != null) {
 					builder.add(recipe);
@@ -52,7 +52,7 @@ public class ManaInfusionProcessor implements IComponentProcessor {
 		}
 
 		this.recipes = builder.build();
-		this.hasCustomHeading = variables.has("heading");
+		this.hasCustomHeading = variables.has(IVariable.wrap("heading"));
 	}
 
 	@Override
@@ -63,13 +63,13 @@ public class ManaInfusionProcessor implements IComponentProcessor {
 		switch (key) {
 			case "heading":
 				if (!hasCustomHeading) {
-					return IVariable.from(recipes.get(0).getResultItem(level.registryAccess()).getHoverName());
+					return IVariable.wrap(recipes.get(0).getResultItem(level.registryAccess()).getHoverName());
 				}
 				return null;
 			case "input":
 				return PatchouliUtils.interweaveIngredients(recipes.stream().map(r -> r.getIngredients().get(0)).collect(Collectors.toList()));
 			case "output":
-				return IVariable.wrapList(recipes.stream().map(r -> r.getResultItem(level.registryAccess())).map(IVariable::from).collect(Collectors.toList()));
+				return IVariable.wrapList(recipes.stream().map(r -> r.getResultItem(level.registryAccess())).map(IVariable::wrap).collect(Collectors.toList()));
 			case "catalyst":
 				return IVariable.wrapList(recipes.stream().map(ManaInfusionRecipe::getRecipeCatalyst)
 						.flatMap(ingr -> {
@@ -78,19 +78,19 @@ public class ManaInfusionProcessor implements IComponentProcessor {
 							}
 							return ingr.getDisplayedStacks().stream();
 						})
-						.map(IVariable::from)
+						.map(IVariable::wrap)
 						.collect(Collectors.toList()));
 			case "mana":
 				return IVariable.wrapList(recipes.stream().mapToInt(ManaInfusionRecipe::getManaToConsume).mapToObj(IVariable::wrap).collect(Collectors.toList()));
 			case "drop":
 				Component q = Component.literal("(?)").withStyle(ChatFormatting.BOLD);
-				return IVariable.from(Component.translatable("botaniamisc.drop").append(" ").append(q));
+				return IVariable.wrap(Component.translatable("botaniamisc.drop").append(" ").append(q));
 			case "dropTip2":
 			case "dropTip1":
 				Component drop = Component.keybind("key.drop").withStyle(ChatFormatting.GREEN);
-				return IVariable.from(Component.translatable("botaniamisc." + key, drop));
+				return IVariable.wrap(Component.translatable("botaniamisc." + key, drop));
 			case "dropTip3":
-				return IVariable.from(Component.translatable("botaniamisc." + key));
+				return IVariable.wrap(Component.translatable("botaniamisc." + key));
 		}
 		return null;
 	}

@@ -11,6 +11,7 @@ package vazkii.botania.common.item.equipment.tool.elementium;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Shearable;
 import net.minecraft.world.entity.player.Player;
@@ -64,7 +65,7 @@ public class ElementiumShearsItem extends ManasteelShearsItem {
 				for (Entity entity : shearables) {
 					if (entity instanceof Shearable shearable && shearable.readyForShearing()) {
 						shearable.shear(living.getSoundSource());
-						stack.hurtAndBreak(1, living, l -> l.broadcastBreakEvent(l.getUsedItemHand()));
+						stack.hurtAndBreak(1, living, EquipmentSlot.MAINHAND);
 						break;
 					}
 				}

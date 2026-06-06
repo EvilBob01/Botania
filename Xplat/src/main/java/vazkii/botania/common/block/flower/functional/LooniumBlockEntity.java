@@ -279,7 +279,7 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 				equipmentTable.getRandomItems(lootParams, equipmentStack -> {
 					EquipmentSlot slot = equipmentStack.is(BotaniaTags.Items.LOONIUM_OFFHAND_EQUIPMENT)
 							? EquipmentSlot.OFFHAND
-							: LivingEntity.getEquipmentSlotForItem(equipmentStack);
+							: mob.getEquipmentSlotForItem(equipmentStack);
 					if (equippedSlots.contains(slot)) {
 						slot = equippedSlots.contains(EquipmentSlot.MAINHAND)
 								&& !(equipmentStack.getItem() instanceof TieredItem)
@@ -351,7 +351,7 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 			AttributeInstance attribute = mob.getAttribute(attributeModifier.attribute);
 			if (attribute != null) {
 				attribute.addPermanentModifier(attributeModifier.createAttributeModifier());
-				if (attribute.getAttribute() == Attributes.MAX_HEALTH) {
+				if (attribute.getAttribute().equals(Attributes.MAX_HEALTH)) {
 					mob.setHealth(mob.getMaxHealth());
 				}
 			}

@@ -9,19 +9,19 @@
 package vazkii.botania.common.item.equipment.armor.terrasteel;
 
 import com.google.common.base.Suppliers;
-import com.google.common.collect.HashMultimap;
-import com.google.common.collect.Multimap;
 
 import net.minecraft.ChatFormatting;
+import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemAttributeModifiers;
 import net.minecraft.world.item.ItemStack;
 
 import org.jetbrains.annotations.NotNull;
@@ -48,17 +48,25 @@ public class TerrasteelArmorItem extends ManasteelArmorItem {
 
 	@NotNull
 	@Override
-	public Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(@NotNull EquipmentSlot slot) {
-		Multimap<Attribute, AttributeModifier> ret = super.getDefaultAttributeModifiers(slot);
-		if (slot == getType().getSlot()) {
-			ret = HashMultimap.create(ret);
-			int reduction = getMaterial().getDefenseForType(getType());
-			String slotName = slot.getName();
-			ResourceLocation id = ResourceLocation.fromNamespaceAndPath("botania", "terrasteel_knockback_resistance_" + slotName);
-			ret.put(Attributes.KNOCKBACK_RESISTANCE,
-					new AttributeModifier(id, (double) reduction / 20, AttributeModifier.Operation.ADD_VALUE));
-		}
-		return ret;
+	public ItemAttributeModifiers getDefaultAttributeModifiers(@NotNull ItemStack stack) {
+		ItemAttributeModifiers parent = super.getDefaultAttributeModifiers(stack);
+		var builder = ItemAttributeModifiers.builder();
+		parent.modifiers().forEach(e -> builder.add(e.attribute(), e.modifier(), e.slot()));
+		EquipmentSlot slot = getType().getSlot();
+		int reduction = getType().getDefense();
+		String slotName = slot.getName();
+		ResourceLocation id = ResourceLocation.fromNamespaceAndPath("botania", "terrasteel_knockback_resistance_" + slotName);
+		EquipmentSlotGroup slotGroup = switch (slot) {
+			case HEAD -> EquipmentSlotGroup.HEAD;
+			case CHEST -> EquipmentSlotGroup.CHEST;
+			case LEGS -> EquipmentSlotGroup.LEGS;
+			case FEET -> EquipmentSlotGroup.FEET;
+			default -> EquipmentSlotGroup.ANY;
+		};
+		builder.add(Attributes.KNOCKBACK_RESISTANCE,
+				new AttributeModifier(id, (double) reduction / 20, AttributeModifier.Operation.ADD_VALUE),
+				slotGroup);
+		return builder.build();
 	}
 
 	private static final Supplier<ItemStack[]> armorSet = Suppliers.memoize(() -> new ItemStack[] {

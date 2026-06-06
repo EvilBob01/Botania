@@ -10,6 +10,7 @@ package vazkii.botania.common.impl;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
@@ -47,37 +48,37 @@ import java.util.function.Supplier;
 
 public class BotaniaAPIImpl implements BotaniaAPI {
 
-	private static final net.minecraft.world.item.ArmorMaterial MANASTEEL = new net.minecraft.world.item.ArmorMaterial(
+	private static final Holder<net.minecraft.world.item.ArmorMaterial> MANASTEEL = Holder.direct(new net.minecraft.world.item.ArmorMaterial(
 			Map.of(ArmorItem.Type.BOOTS, 2, ArmorItem.Type.LEGGINGS, 5, ArmorItem.Type.CHESTPLATE, 6, ArmorItem.Type.HELMET, 2),
 			18, SoundEvents.ARMOR_EQUIP_IRON,
 			() -> Ingredient.of(BotaniaItems.manaSteel),
 			List.of(new net.minecraft.world.item.ArmorMaterial.Layer(ResourceLocation.fromNamespaceAndPath("botania", "manasteel"))),
 			0f, 0f
-	);
+	));
 
-	private static final net.minecraft.world.item.ArmorMaterial MANAWEAVE = new net.minecraft.world.item.ArmorMaterial(
+	private static final Holder<net.minecraft.world.item.ArmorMaterial> MANAWEAVE = Holder.direct(new net.minecraft.world.item.ArmorMaterial(
 			Map.of(ArmorItem.Type.BOOTS, 1, ArmorItem.Type.LEGGINGS, 2, ArmorItem.Type.CHESTPLATE, 3, ArmorItem.Type.HELMET, 1),
 			18, SoundEvents.ARMOR_EQUIP_IRON,
 			() -> Ingredient.of(BotaniaItems.manaweaveCloth),
 			List.of(new net.minecraft.world.item.ArmorMaterial.Layer(ResourceLocation.fromNamespaceAndPath("botania", "manaweave"))),
 			0f, 0f
-	);
+	));
 
-	private static final net.minecraft.world.item.ArmorMaterial ELEMENTIUM = new net.minecraft.world.item.ArmorMaterial(
+	private static final Holder<net.minecraft.world.item.ArmorMaterial> ELEMENTIUM = Holder.direct(new net.minecraft.world.item.ArmorMaterial(
 			Map.of(ArmorItem.Type.BOOTS, 2, ArmorItem.Type.LEGGINGS, 5, ArmorItem.Type.CHESTPLATE, 6, ArmorItem.Type.HELMET, 2),
 			18, SoundEvents.ARMOR_EQUIP_IRON,
 			() -> Ingredient.of(BotaniaItems.elementium),
 			List.of(new net.minecraft.world.item.ArmorMaterial.Layer(ResourceLocation.fromNamespaceAndPath("botania", "elementium"))),
 			0f, 0f
-	);
+	));
 
-	private static final net.minecraft.world.item.ArmorMaterial TERRASTEEL = new net.minecraft.world.item.ArmorMaterial(
+	private static final Holder<net.minecraft.world.item.ArmorMaterial> TERRASTEEL = Holder.direct(new net.minecraft.world.item.ArmorMaterial(
 			Map.of(ArmorItem.Type.BOOTS, 3, ArmorItem.Type.LEGGINGS, 6, ArmorItem.Type.CHESTPLATE, 8, ArmorItem.Type.HELMET, 3),
 			26, SoundEvents.ARMOR_EQUIP_IRON,
 			() -> Ingredient.of(BotaniaItems.terrasteel),
 			List.of(new net.minecraft.world.item.ArmorMaterial.Layer(ResourceLocation.fromNamespaceAndPath("botania", "terrasteel"))),
 			3f, 0f
-	);
+	));
 
 	private enum ItemTier implements Tier {
 		MANASTEEL(300, 6.2F, 2, 20, () -> BotaniaItems.manaSteel),
@@ -145,22 +146,22 @@ public class BotaniaAPIImpl implements BotaniaAPI {
 	}
 
 	@Override
-	public net.minecraft.world.item.ArmorMaterial getManasteelArmorMaterial() {
+	public Holder<net.minecraft.world.item.ArmorMaterial> getManasteelArmorMaterial() {
 		return MANASTEEL;
 	}
 
 	@Override
-	public net.minecraft.world.item.ArmorMaterial getElementiumArmorMaterial() {
+	public Holder<net.minecraft.world.item.ArmorMaterial> getElementiumArmorMaterial() {
 		return ELEMENTIUM;
 	}
 
 	@Override
-	public net.minecraft.world.item.ArmorMaterial getManaweaveArmorMaterial() {
+	public Holder<net.minecraft.world.item.ArmorMaterial> getManaweaveArmorMaterial() {
 		return MANAWEAVE;
 	}
 
 	@Override
-	public net.minecraft.world.item.ArmorMaterial getTerrasteelArmorMaterial() {
+	public Holder<net.minecraft.world.item.ArmorMaterial> getTerrasteelArmorMaterial() {
 		return TERRASTEEL;
 	}
 

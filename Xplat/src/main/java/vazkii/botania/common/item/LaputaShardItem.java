@@ -87,7 +87,7 @@ public class LaputaShardItem extends Item implements LensEffectItem, TinyPlanetE
 	}
 
 	@Override
-	public void appendHoverText(ItemStack stack, Level world, List<Component> list, TooltipFlag flags) {
+	public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> list, TooltipFlag flags) {
 		int level = getShardLevel(stack);
 		Component levelLoc = Component.translatable("botania.roman" + (level + 1));
 		list.add(Component.translatable("botaniamisc.shardLevel", levelLoc).withStyle(ChatFormatting.GRAY));
@@ -183,7 +183,7 @@ public class LaputaShardItem extends Item implements LensEffectItem, TinyPlanetE
 
 					CompoundTag cmp = new CompoundTag();
 					if (tile != null) {
-						cmp = tile.saveWithFullMetadata();
+						cmp = tile.saveWithFullMetadata(world.registryAccess());
 						// Reset the block entity so e.g. chests don't spawn their drops
 						BlockEntity newTile = ((EntityBlock) block).newBlockEntity(pos_, state);
 						world.setBlockEntity(newTile);
@@ -306,7 +306,7 @@ public class LaputaShardItem extends Item implements LensEffectItem, TinyPlanetE
 					BlockEntity tile = null;
 					CompoundTag tilecmp = ItemNBTHelper.getCompound(lens, TAG_TILE, false);
 					if (tilecmp.contains("id")) {
-						tile = BlockEntity.loadStatic(pos, placeState, tilecmp);
+						tile = BlockEntity.loadStatic(pos, placeState, tilecmp, entity.level().registryAccess());
 					}
 
 					if (placeState.hasProperty(BlockStateProperties.DOUBLE_BLOCK_HALF)

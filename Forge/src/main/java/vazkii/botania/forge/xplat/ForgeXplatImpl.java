@@ -548,13 +548,13 @@ public class ForgeXplatImpl implements XplatAbstractions {
 	}
 
 	@Override
-	public Attribute getReachDistanceAttribute() {
-		return NeoForgeMod.BLOCK_REACH.get();
+	public Holder<Attribute> getReachDistanceAttribute() {
+		return NeoForgeMod.BLOCK_REACH;
 	}
 
 	@Override
-	public Attribute getStepHeightAttribute() {
-		return NeoForgeMod.STEP_HEIGHT_ADDITION.get();
+	public Holder<Attribute> getStepHeightAttribute() {
+		return NeoForgeMod.STEP_HEIGHT_ADDITION;
 	}
 
 	@Override

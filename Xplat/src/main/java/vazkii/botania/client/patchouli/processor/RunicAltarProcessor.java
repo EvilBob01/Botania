@@ -20,8 +20,9 @@ import vazkii.patchouli.api.IVariableProvider;
 public class RunicAltarProcessor extends ReagentRecipeProcessor {
 	@Override
 	public void setup(Level level, IVariableProvider variables) {
-		ResourceLocation id = ResourceLocation.parse(variables.get("recipe").asString());
+		ResourceLocation id = ResourceLocation.parse(variables.get(IVariable.wrap("recipe")).asString());
 		this.recipe = PatchouliUtils.getRecipe(level, BotaniaRecipeTypes.RUNE_TYPE, id);
+		this.recipeId = id;
 	}
 
 	@Override

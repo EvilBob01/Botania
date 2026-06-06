@@ -30,7 +30,7 @@ public class TinyPotatoModel extends DelegatedModel {
 		return new ItemOverrides() {
 			@Override
 			public BakedModel resolve(@NotNull BakedModel model, @NotNull ItemStack stack, @Nullable ClientLevel world, @Nullable LivingEntity livingEntity, int seed) {
-				if (stack.hasCustomHoverName() || ClientProxy.dootDoot) {
+				if (stack.has(net.minecraft.core.component.DataComponents.CUSTOM_NAME) || ClientProxy.dootDoot) {
 					return TinyPotatoBlockEntityRenderer.getModelFromDisplayName(stack.getHoverName());
 				}
 				return originalModel;

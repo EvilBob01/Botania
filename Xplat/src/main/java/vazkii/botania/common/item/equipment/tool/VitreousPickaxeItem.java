@@ -9,8 +9,11 @@
 package vazkii.botania.common.item.equipment.tool;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -20,15 +23,17 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.item.enchantment.ItemEnchantments;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+
+import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.common.annotations.SoftImplement;
 import vazkii.botania.common.item.equipment.tool.manasteel.ManasteelPickaxeItem;
 import vazkii.botania.xplat.XplatAbstractions;
-
-import java.util.Map;
 
 public class VitreousPickaxeItem extends ManasteelPickaxeItem {
 	private static final String TAG_SILK_HACK = "botania:silk_hack";
@@ -49,9 +54,10 @@ public class VitreousPickaxeItem extends ManasteelPickaxeItem {
 			return 0;
 		}
 
+		@Nullable
 		@Override
-		public int getLevel() {
-			return 0;
+		public TagKey<Block> getIncorrectBlocksForDrops() {
+			return null;
 		}
 
 		@Override
@@ -78,12 +84,14 @@ public class VitreousPickaxeItem extends ManasteelPickaxeItem {
 	@SoftImplement("IForgeItem")
 	public boolean onBlockStartBreak(ItemStack itemstack, BlockPos pos, Player player) {
 		BlockState state = player.level().getBlockState(pos);
-		boolean hasSilk = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.SILK_TOUCH, itemstack) > 0;
+		Holder<Enchantment> silkTouch = player.level().registryAccess()
+				.lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(Enchantments.SILK_TOUCH);
+		boolean hasSilk = EnchantmentHelper.getItemEnchantmentLevel(silkTouch, itemstack) > 0;
 		if (hasSilk || !isGlass(state)) {
 			return false;
 		}
 
-		itemstack.enchant(Enchantments.SILK_TOUCH, 1);
+		itemstack.enchant(silkTouch, 1);
 		// Set silk hack flag in custom data
 		CompoundTag silkHackTag = itemstack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
 		silkHackTag.putBoolean(TAG_SILK_HACK, true);
@@ -103,9 +111,11 @@ public class VitreousPickaxeItem extends ManasteelPickaxeItem {
 			} else {
 				stack.set(DataComponents.CUSTOM_DATA, CustomData.of(customTag));
 			}
-			Map<Enchantment, Integer> ench = EnchantmentHelper.deserializeEnchantments(stack.getEnchantmentTags());
-			ench.remove(Enchantments.SILK_TOUCH);
-			EnchantmentHelper.setEnchantments(ench, stack);
+			Holder<Enchantment> silkTouch = world.registryAccess()
+					.lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(Enchantments.SILK_TOUCH);
+			ItemEnchantments.Mutable mutableEnch = new ItemEnchantments.Mutable(EnchantmentHelper.getEnchantments(stack));
+			mutableEnch.set(silkTouch, 0);
+			EnchantmentHelper.setEnchantments(stack, mutableEnch.toImmutable());
 		}
 	}
 

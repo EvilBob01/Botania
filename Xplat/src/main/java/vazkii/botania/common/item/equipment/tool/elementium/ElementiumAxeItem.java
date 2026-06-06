@@ -8,6 +8,7 @@
  */
 package vazkii.botania.common.item.equipment.tool.elementium;
 
+import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
@@ -31,12 +32,12 @@ public class ElementiumAxeItem extends ManasteelAxeItem {
 	}
 
 	@SoftImplement("IForgeItem")
-	public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment) {
-		if (enchantment == Enchantments.MOB_LOOTING) {
+	public boolean canApplyAtEnchantingTable(ItemStack stack, Holder<Enchantment> enchantment) {
+		if (enchantment.is(Enchantments.LOOTING)) {
 			return true;
 		} else {
 			// Copy the default impl
-			return enchantment.category.canEnchant(this);
+			return enchantment.value().canEnchant(stack);
 		}
 
 	}
@@ -45,7 +46,7 @@ public class ElementiumAxeItem extends ManasteelAxeItem {
 	@Override
 	public boolean hurtEnemy(ItemStack stack, @NotNull LivingEntity target, @NotNull LivingEntity attacker) {
 		// only do 1 durability damage, since this is primarily a weapon
-		stack.hurtAndBreak(1, attacker, living -> living.broadcastBreakEvent(EquipmentSlot.MAINHAND));
+		stack.hurtAndBreak(1, attacker, EquipmentSlot.MAINHAND);
 		return true;
 	}
 

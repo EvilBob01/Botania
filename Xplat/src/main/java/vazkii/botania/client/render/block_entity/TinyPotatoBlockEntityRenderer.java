@@ -266,7 +266,7 @@ public class TinyPotatoBlockEntityRenderer implements BlockEntityRenderer<TinyPo
 				case WEST -> {
 					if (mySon) {
 						ms.translate(0.95F, -0.29F, 0.9F);
-						if (stack.hasCustomHoverName()) {
+						if (stack.has(net.minecraft.core.component.DataComponents.CUSTOM_NAME)) {
 							var childNameBuilder = new StringBuilder();
 							TinyPotatoBlockItem.isEnchantedName(stack.getHoverName(), childNameBuilder);
 							if (childNameBuilder.toString().equals("kingdaddydmac")) {
@@ -336,8 +336,9 @@ public class TinyPotatoBlockEntityRenderer implements BlockEntityRenderer<TinyPo
 					ms.mulPose(VecHelper.rotateZ(180F));
 					ms.translate(-0.3F, -2.7F, -1.2F);
 					ms.mulPose(VecHelper.rotateZ(15F));
-					renderItem(ms, buffers, potato.getLevel(),
-							light, overlay, new ItemStack(BotaniaItems.infiniteFruit).setHoverName(Component.literal("das boot")));
+					ItemStack dasBootStack = new ItemStack(BotaniaItems.infiniteFruit);
+					dasBootStack.set(net.minecraft.core.component.DataComponents.CUSTOM_NAME, Component.literal("das boot"));
+					renderItem(ms, buffers, potato.getLevel(), light, overlay, dasBootStack);
 				}
 				case "jibril" -> {
 					ms.scale(1.5F, 1.5F, 1.5F);

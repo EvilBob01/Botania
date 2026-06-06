@@ -8,13 +8,10 @@
  */
 package vazkii.botania.common.item.equipment.armor.elementium;
 
-import com.google.common.collect.HashMultimap;
-import com.google.common.collect.Multimap;
-
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemAttributeModifiers;
 import net.minecraft.world.item.ItemStack;
 
 import org.jetbrains.annotations.NotNull;
@@ -30,13 +27,14 @@ public class ElementiumHelmItem extends ElementiumArmorItem implements ManaDisco
 
 	@NotNull
 	@Override
-	public Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(@NotNull EquipmentSlot slot) {
-		Multimap<Attribute, AttributeModifier> ret = super.getDefaultAttributeModifiers(slot);
-		if (slot == getEquipmentSlot()) {
-			ret = HashMultimap.create(ret);
-			ret.put(PixieHandler.PIXIE_SPAWN_CHANCE, PixieHandler.makeModifier(slot, "Armor modifier", 0.11));
-		}
-		return ret;
+	public ItemAttributeModifiers getDefaultAttributeModifiers(@NotNull ItemStack stack) {
+		ItemAttributeModifiers parent = super.getDefaultAttributeModifiers(stack);
+		var builder = ItemAttributeModifiers.builder();
+		parent.modifiers().forEach(e -> builder.add(e.attribute(), e.modifier(), e.slot()));
+		builder.add(PixieHandler.PIXIE_SPAWN_CHANCE_HOLDER,
+				PixieHandler.makeModifier(getType().getSlot(), "Armor modifier", 0.11),
+				EquipmentSlotGroup.HEAD);
+		return builder.build();
 	}
 
 	@Override

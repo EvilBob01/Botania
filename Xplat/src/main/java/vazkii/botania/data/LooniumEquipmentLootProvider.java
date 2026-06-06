@@ -1,6 +1,6 @@
 package vazkii.botania.data;
 
-import com.google.gson.JsonElement;
+import com.mojang.serialization.JsonOps;
 
 import net.minecraft.advancements.critereon.*;
 import net.minecraft.core.Holder;
@@ -24,7 +24,6 @@ import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.item.armortrim.*;
-import net.minecraft.world.level.storage.loot.Deserializers;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
@@ -32,6 +31,7 @@ import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.entries.NestedLootTable;
 import net.minecraft.world.level.storage.loot.functions.EnchantRandomlyFunction;
 import net.minecraft.world.level.storage.loot.functions.SetComponentsFunction;
+import net.minecraft.world.level.storage.loot.functions.SetCustomDataFunction;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.predicates.AnyOfCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemEntityPropertyCondition;
@@ -116,11 +116,11 @@ public class LooniumEquipmentLootProvider implements DataProvider {
 
 		Map<ResourceLocation, LootTable.Builder> tables = new HashMap<>();
 
-		defineWeaponEquipmentTables(tables);
+		defineWeaponEquipmentTables(tables, registryLookup);
 		defineAncientCityEquipmentTables(tables, armorItems, trimFactory, randomizedSetFactory);
 		defineBastionRemnantEquipmentTables(tables, armorItems, trimFactory, randomizedSetFactory);
 		defineDesertPyramidEquipmentTables(tables, armorItems, trimFactory, randomizedSetFactory);
-		defineEndCityEquipmentTables(tables, armorItems, trimFactory, randomizedSetFactory);
+		defineEndCityEquipmentTables(tables, armorItems, trimFactory, randomizedSetFactory, registryLookup);
 		defineJungleTempleEquipmentTables(tables, armorItems, trimFactory, randomizedSetFactory);
 		defineFortressEquipmentTables(tables, armorItems, trimFactory, randomizedSetFactory);
 		defineOceanMonumentEquipmentTables(tables, armorItems, trimFactory, randomizedSetFactory, randomizedDyedSetFactory);
@@ -129,7 +129,7 @@ public class LooniumEquipmentLootProvider implements DataProvider {
 		defineShipwreckEquipmentTables(tables, armorItems, trimFactory, randomizedSetFactory);
 		defineStrongholdEquipmentTables(tables, armorItems, trimFactory, randomizedSetFactory, trimSetter);
 		defineTrailRuinsEquipmentTables(tables, armorItems, trimFactory, randomizedSetFactory);
-		defineWoodlandMansionEquipmentTables(tables, trimFactory, fixedDyedSetFactory, trimSetter);
+		defineWoodlandMansionEquipmentTables(tables, trimFactory, fixedDyedSetFactory, trimSetter, registryLookup);
 
 		// TODO: we should be using LootTableSubProvider implementations instead of three individual loot providers
 		var output = new ArrayList<CompletableFuture<?>>(tables.size());
@@ -138,16 +138,15 @@ public class LooniumEquipmentLootProvider implements DataProvider {
 			LootTable.Builder builder = e.getValue();
 			// TODO 1.21: use LootContextParamSets.EQUIPMENT instead
 			LootTable lootTable = builder.setParamSet(LootContextParamSets.SELECTOR).build();
-			JsonElement jsonTree = Deserializers.createLootTableSerializer().create().toJsonTree(lootTable);
-			output.add(DataProvider.saveStable(cache, jsonTree, path));
+			output.add(DataProvider.saveStable(cache, LootTable.DIRECT_CODEC.encodeStart(JsonOps.INSTANCE, lootTable).getOrThrow(), path));
 		}
 		return CompletableFuture.allOf(output.toArray(CompletableFuture<?>[]::new));
 	}
 
-	private void defineWeaponEquipmentTables(Map<ResourceLocation, LootTable.Builder> tables) {
+	private void defineWeaponEquipmentTables(Map<ResourceLocation, LootTable.Builder> tables, HolderLookup.Provider registryLookup) {
 		tables.put(BotaniaLootTables.LOONIUM_WEAPON_AXE,
 				LootTable.lootTable().withPool(LootPool.lootPool()
-						.apply(EnchantRandomlyFunction.randomApplicableEnchantment()
+						.apply(EnchantRandomlyFunction.randomApplicableEnchantment(registryLookup)
 								.when(LootItemRandomChanceCondition.randomChance(0.3f)))
 						.add(LootItem.lootTableItem(Items.IRON_AXE))
 				// no need to add diamond axe, it's the same base damage, but actually less enchantable
@@ -155,27 +154,27 @@ public class LooniumEquipmentLootProvider implements DataProvider {
 		);
 		tables.put(BotaniaLootTables.LOONIUM_WEAPON_AXE_GOLD,
 				LootTable.lootTable().withPool(LootPool.lootPool()
-						.apply(EnchantRandomlyFunction.randomApplicableEnchantment()
+						.apply(EnchantRandomlyFunction.randomApplicableEnchantment(registryLookup)
 								.when(LootItemRandomChanceCondition.randomChance(0.3f)))
 						.add(LootItem.lootTableItem(Items.GOLDEN_AXE))
 				)
 		);
 		tables.put(BotaniaLootTables.LOONIUM_WEAPON_BOW,
 				LootTable.lootTable().withPool(LootPool.lootPool()
-						.apply(EnchantRandomlyFunction.randomApplicableEnchantment()
+						.apply(EnchantRandomlyFunction.randomApplicableEnchantment(registryLookup)
 								.when(LootItemRandomChanceCondition.randomChance(0.3f)))
 						.add(LootItem.lootTableItem(Items.BOW))
 				)
 		);
 		tables.put(BotaniaLootTables.LOONIUM_WEAPON_CROSSBOW,
 				LootTable.lootTable().withPool(LootPool.lootPool()
-						.apply(EnchantRandomlyFunction.randomApplicableEnchantment())
+						.apply(EnchantRandomlyFunction.randomApplicableEnchantment(registryLookup))
 						.add(LootItem.lootTableItem(Items.CROSSBOW))
 				)
 		);
 		tables.put(BotaniaLootTables.LOONIUM_WEAPON_SWORD,
 				LootTable.lootTable().withPool(LootPool.lootPool()
-						.apply(EnchantRandomlyFunction.randomApplicableEnchantment()
+						.apply(EnchantRandomlyFunction.randomApplicableEnchantment(registryLookup)
 								.when(LootItemRandomChanceCondition.randomChance(0.3f)))
 						.add(LootItem.lootTableItem(Items.IRON_SWORD).setWeight(4))
 						.add(LootItem.lootTableItem(Items.DIAMOND_SWORD))
@@ -183,7 +182,7 @@ public class LooniumEquipmentLootProvider implements DataProvider {
 		);
 		tables.put(BotaniaLootTables.LOONIUM_WEAPON_SWORD_GOLD,
 				LootTable.lootTable().withPool(LootPool.lootPool()
-						.apply(EnchantRandomlyFunction.randomApplicableEnchantment()
+						.apply(EnchantRandomlyFunction.randomApplicableEnchantment(registryLookup)
 								.when(LootItemRandomChanceCondition.randomChance(0.3f)))
 						.add(LootItem.lootTableItem(Items.GOLDEN_SWORD))
 				)
@@ -197,7 +196,7 @@ public class LooniumEquipmentLootProvider implements DataProvider {
 		tables.put(BotaniaLootTables.LOONIUM_WEAPON_BY_PROFESSION,
 				LootTable.lootTable().withPool(LootPool.lootPool()
 						.add(NestedLootTable.lootTableReference(ResourceKey.create(Registries.LOOT_TABLE,BotaniaLootTables.LOONIUM_WEAPON_AXE))
-								.apply(EnchantRandomlyFunction.randomApplicableEnchantment()
+								.apply(EnchantRandomlyFunction.randomApplicableEnchantment(registryLookup)
 										.when(LootItemRandomChanceCondition.randomChance(0.3f)))
 								.when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS,
 										EntityPredicate.Builder.entity().nbt(
@@ -216,7 +215,7 @@ public class LooniumEquipmentLootProvider implements DataProvider {
 										EntityPredicate.Builder.entity().nbt(
 												new NbtPredicate(getProfessionNbt(VillagerProfession.TOOLSMITH))))))
 						.add(NestedLootTable.lootTableReference(ResourceKey.create(Registries.LOOT_TABLE,BotaniaLootTables.LOONIUM_WEAPON_SWORD))
-								.apply(EnchantRandomlyFunction.randomApplicableEnchantment()
+								.apply(EnchantRandomlyFunction.randomApplicableEnchantment(registryLookup)
 										.when(LootItemRandomChanceCondition.randomChance(0.3f)))
 								.when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS,
 										EntityPredicate.Builder.entity().nbt(
@@ -226,7 +225,7 @@ public class LooniumEquipmentLootProvider implements DataProvider {
 		);
 		tables.put(BotaniaLootTables.LOONIUM_WEAPON_FOR_PIGLIN,
 				LootTable.lootTable().withPool(LootPool.lootPool()
-						.apply(EnchantRandomlyFunction.randomApplicableEnchantment()
+						.apply(EnchantRandomlyFunction.randomApplicableEnchantment(registryLookup)
 								.when(LootItemRandomChanceCondition.randomChance(0.3f)))
 						.add(NestedLootTable.lootTableReference(ResourceKey.create(Registries.LOOT_TABLE,BotaniaLootTables.LOONIUM_WEAPON_SWORD_GOLD)))
 						.add(NestedLootTable.lootTableReference(ResourceKey.create(Registries.LOOT_TABLE,BotaniaLootTables.LOONIUM_WEAPON_CROSSBOW)))
@@ -234,7 +233,7 @@ public class LooniumEquipmentLootProvider implements DataProvider {
 		);
 		tables.put(BotaniaLootTables.LOONIUM_WEAPON_FOR_WITHER_SKELETON,
 				LootTable.lootTable().withPool(LootPool.lootPool().setRolls(UniformGenerator.between(-1, 1))
-						.apply(EnchantRandomlyFunction.randomApplicableEnchantment())
+						.apply(EnchantRandomlyFunction.randomApplicableEnchantment(registryLookup))
 						.add(LootItem.lootTableItem(Items.STONE_SWORD))
 						.add(LootItem.lootTableItem(Items.BOW))
 				)
@@ -277,9 +276,9 @@ public class LooniumEquipmentLootProvider implements DataProvider {
 						// Note: Slowness from Strays stacks with tipped arrow effects, so just checking for bow here
 						.when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS,
 								EntityPredicate.Builder.entity().equipment(EntityEquipmentPredicate.Builder.equipment()
-										.mainhand(ItemPredicate.Builder.item().of(Items.BOW).build()).build())))
+										.mainhand(ItemPredicate.Builder.item().of(Items.BOW)).build())))
 						.when(LootItemRandomChanceCondition.randomChance(0.9f))
-						.add(LootItem.lootTableItem(Items.TIPPED_ARROW).apply(SetNbtFunction.setTag(darknessEffectTag)))
+						.add(LootItem.lootTableItem(Items.TIPPED_ARROW).apply(SetCustomDataFunction.setTag(darknessEffectTag)))
 				)
 		);
 		tables.put(BotaniaLootTables.LOONIUM_DROWNED_ANCIENT_CITY,
@@ -359,7 +358,8 @@ public class LooniumEquipmentLootProvider implements DataProvider {
 	private void defineEndCityEquipmentTables(Map<ResourceLocation, LootTable.Builder> tables,
 			Map<ArmorMaterial, Item[]> armorItems,
 			BiFunction<ResourceKey<TrimPattern>, ResourceKey<TrimMaterial>, ArmorTrim> trimFactory,
-			BiFunction<ArmorTrim, Item[], LootTable.Builder> randomizedSetFactory) {
+			BiFunction<ArmorTrim, Item[], LootTable.Builder> randomizedSetFactory,
+			HolderLookup.Provider registryLookup) {
 
 		ArmorTrim trimSpireAmethyst = trimFactory.apply(TrimPatterns.SPIRE, TrimMaterials.AMETHYST);
 		tables.put(BotaniaLootTables.LOONIUM_ARMORSET_SPIRE_IRON,
@@ -372,7 +372,7 @@ public class LooniumEquipmentLootProvider implements DataProvider {
 		CompoundTag levitationEffectTag = getPotionEffectTag(MobEffects.LEVITATION, 200);
 		tables.put(BotaniaLootTables.LOONIUM_ARMOR_END_CITY,
 				LootTable.lootTable().withPool(LootPool.lootPool()
-						.apply(EnchantRandomlyFunction.randomApplicableEnchantment()
+						.apply(EnchantRandomlyFunction.randomApplicableEnchantment(registryLookup)
 								.when(LootItemRandomChanceCondition.randomChance(0.3f)))
 						.add(NestedLootTable.lootTableReference(ResourceKey.create(Registries.LOOT_TABLE,BotaniaLootTables.LOONIUM_ARMORSET_SPIRE_IRON)).setWeight(3))
 						.add(NestedLootTable.lootTableReference(ResourceKey.create(Registries.LOOT_TABLE,BotaniaLootTables.LOONIUM_ARMORSET_SPIRE_GOLD)).setWeight(2))
@@ -383,7 +383,7 @@ public class LooniumEquipmentLootProvider implements DataProvider {
 										.entityType(EntityTypePredicate.of(EntityType.SKELETON))))
 						.when(LootItemRandomChanceCondition.randomChance(0.9f))
 						.add(LootItem.lootTableItem(Items.TIPPED_ARROW)
-								.apply(SetNbtFunction.setTag(levitationEffectTag)))
+								.apply(SetCustomDataFunction.setTag(levitationEffectTag)))
 				)
 		);
 		tables.put(BotaniaLootTables.LOONIUM_SKELETON_END_CITY,
@@ -398,14 +398,14 @@ public class LooniumEquipmentLootProvider implements DataProvider {
 		);
 	}
 
-	private static CompoundTag getPotionEffectTag(MobEffect mobEffect, int duration) {
+	private static CompoundTag getPotionEffectTag(Holder<MobEffect> mobEffect, int duration) {
 		// [VanillaCopy] based on PotionUtils::setCustomEffects
 		ListTag effects = new ListTag();
-		effects.add(new MobEffectInstance(mobEffect, duration).save(new CompoundTag()));
+		effects.add(new MobEffectInstance(mobEffect, duration).save());
 
 		CompoundTag effectTag = new CompoundTag();
-		effectTag.put(PotionUtils.TAG_CUSTOM_POTION_EFFECTS, effects);
-		effectTag.putInt(PotionUtils.TAG_CUSTOM_POTION_COLOR, mobEffect.getColor());
+		effectTag.put("CustomPotionEffects", effects);
+		effectTag.putInt("CustomPotionColor", mobEffect.value().getColor());
 
 		return effectTag;
 	}
@@ -652,13 +652,13 @@ public class LooniumEquipmentLootProvider implements DataProvider {
 		addDyedColorToTag(COLOR_ENDERMAN_BODY).accept(endermanBodyTag);
 		tables.put(BotaniaLootTables.LOONIUM_ARMORSET_COSTUME_ENDERMAN, LootTable.lootTable()
 				.withPool(LootPool.lootPool().add(LootItem.lootTableItem(Items.LEATHER_HELMET)
-						.apply(SetNbtFunction.setTag(endermanHeadTag))))
+						.apply(SetCustomDataFunction.setTag(endermanHeadTag))))
 				.withPool(LootPool.lootPool().add(LootItem.lootTableItem(Items.LEATHER_CHESTPLATE)
-						.apply(SetNbtFunction.setTag(endermanBodyTag))))
+						.apply(SetCustomDataFunction.setTag(endermanBodyTag))))
 				.withPool(LootPool.lootPool().add(LootItem.lootTableItem(Items.LEATHER_LEGGINGS)
-						.apply(SetNbtFunction.setTag(endermanBodyTag))))
+						.apply(SetCustomDataFunction.setTag(endermanBodyTag))))
 				.withPool(LootPool.lootPool().add(LootItem.lootTableItem(Items.LEATHER_BOOTS)
-						.apply(SetNbtFunction.setTag(endermanBodyTag))))
+						.apply(SetCustomDataFunction.setTag(endermanBodyTag))))
 		);
 
 		tables.put(BotaniaLootTables.LOONIUM_ARMOR_STRONGHOLD,
@@ -747,7 +747,8 @@ public class LooniumEquipmentLootProvider implements DataProvider {
 	private void defineWoodlandMansionEquipmentTables(Map<ResourceLocation, LootTable.Builder> tables,
 			BiFunction<ResourceKey<TrimPattern>, ResourceKey<TrimMaterial>, ArmorTrim> trimFactory,
 			TriFunction<ArmorTrim, Integer, Item[], LootTable.Builder> fixedDyedSetFactory,
-			BiConsumer<ArmorTrim, CompoundTag> trimSetter) {
+			BiConsumer<ArmorTrim, CompoundTag> trimSetter,
+			HolderLookup.Provider registryLookup) {
 
 		// Evoker cosplay, with higher likelihood of holding a totem
 		tables.put(BotaniaLootTables.LOONIUM_ARMORSET_COSTUME_EVOKER, fixedDyedSetFactory.apply(
@@ -769,15 +770,15 @@ public class LooniumEquipmentLootProvider implements DataProvider {
 		addDyedColorToTag(COLOR_VINDICATOR_BOOTS).accept(vindicatorBootsTag);
 		tables.put(BotaniaLootTables.LOONIUM_ARMORSET_COSTUME_VINDICATOR, LootTable.lootTable()
 				.withPool(LootPool.lootPool().add(LootItem.lootTableItem(Items.LEATHER_CHESTPLATE)
-						.apply(SetNbtFunction.setTag(vindicatorChestTag))))
+						.apply(SetCustomDataFunction.setTag(vindicatorChestTag))))
 				.withPool(LootPool.lootPool().add(LootItem.lootTableItem(Items.LEATHER_LEGGINGS)
-						.apply(SetNbtFunction.setTag(vindicatorLegsTag))))
+						.apply(SetCustomDataFunction.setTag(vindicatorLegsTag))))
 				.withPool(LootPool.lootPool().add(LootItem.lootTableItem(Items.LEATHER_BOOTS)
-						.apply(SetNbtFunction.setTag(vindicatorBootsTag))))
+						.apply(SetCustomDataFunction.setTag(vindicatorBootsTag))))
 				.withPool(LootPool.lootPool()
 						.when(LootItemRandomChanceCondition.randomChance(0.9f))
 						.add(LootItem.lootTableItem(Items.IRON_AXE)
-								.apply(EnchantRandomlyFunction.randomApplicableEnchantment()
+								.apply(EnchantRandomlyFunction.randomApplicableEnchantment(registryLookup)
 										.when(LootItemRandomChanceCondition.randomChance(0.3f)))))
 		);
 
@@ -789,7 +790,7 @@ public class LooniumEquipmentLootProvider implements DataProvider {
 				.withPool(LootPool.lootPool()
 						.when(LootItemRandomChanceCondition.randomChance(0.9f))
 						.add(LootItem.lootTableItem(Items.BOW)
-								.apply(EnchantRandomlyFunction.randomApplicableEnchantment()
+								.apply(EnchantRandomlyFunction.randomApplicableEnchantment(registryLookup)
 										.when(LootItemRandomChanceCondition.randomChance(0.3f)))))
 				.withPool(LootPool.lootPool()
 						.when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS,
@@ -797,7 +798,7 @@ public class LooniumEquipmentLootProvider implements DataProvider {
 										.entityType(EntityTypePredicate.of(EntityType.SKELETON))))
 						.when(LootItemRandomChanceCondition.randomChance(0.9f))
 						.add(LootItem.lootTableItem(Items.TIPPED_ARROW)
-								.apply(SetNbtFunction.setTag(blindnessEffectTag))))
+								.apply(SetCustomDataFunction.setTag(blindnessEffectTag))))
 		);
 
 		// Vex cosplay, including sword (even for ranged mobs)
@@ -805,13 +806,13 @@ public class LooniumEquipmentLootProvider implements DataProvider {
 		trimSetter.accept(trimFactory.apply(TrimPatterns.VEX, TrimMaterials.AMETHYST), vexHeadTag);
 		tables.put(BotaniaLootTables.LOONIUM_ARMORSET_COSTUME_VEX, LootTable.lootTable()
 				.withPool(LootPool.lootPool().add(LootItem.lootTableItem(Items.DIAMOND_HELMET)
-						.apply(SetNbtFunction.setTag(vexHeadTag))))
+						.apply(SetCustomDataFunction.setTag(vexHeadTag))))
 				.withPool(LootPool.lootPool().add(LootItem.lootTableItem(Items.DIAMOND_CHESTPLATE)))
 				.withPool(LootPool.lootPool().add(LootItem.lootTableItem(Items.DIAMOND_LEGGINGS)))
 				.withPool(LootPool.lootPool()
 						.when(LootItemRandomChanceCondition.randomChance(0.9f))
 						.add(LootItem.lootTableItem(Items.IRON_SWORD)
-								.apply(EnchantRandomlyFunction.randomApplicableEnchantment()
+								.apply(EnchantRandomlyFunction.randomApplicableEnchantment(registryLookup)
 										.when(LootItemRandomChanceCondition.randomChance(0.3f)))))
 		);
 
@@ -827,7 +828,7 @@ public class LooniumEquipmentLootProvider implements DataProvider {
 										LootItemRandomChanceCondition.randomChance(0.005f),
 										LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS,
 												EntityPredicate.Builder.entity()
-														.flags(EntityFlagsPredicate.Builder.flags().setIsBaby(true).build()))
+														.flags(EntityFlagsPredicate.Builder.flags().setIsBaby(true)))
 								)))
 				).withPool(LootPool.lootPool()
 						.when(LootItemRandomChanceCondition.randomChance(0.05f))
@@ -846,7 +847,7 @@ public class LooniumEquipmentLootProvider implements DataProvider {
 
 	private static Consumer<CompoundTag> addTrimToTag(HolderLookup.Provider registryLookup, ArmorTrim trim) {
 		// [VanillaCopy] from ArmorTrim::setTrim, because no access to item tags here
-		return tag -> tag.put(ArmorTrim.TAG_TRIM_ID,
+		return tag -> tag.put("Trim",
 				ArmorTrim.CODEC.encodeStart(RegistryOps.create(NbtOps.INSTANCE, registryLookup), trim)
 						.result().orElseThrow());
 	}
@@ -865,7 +866,7 @@ public class LooniumEquipmentLootProvider implements DataProvider {
 		for (Item armorItem : armorItems) {
 			lootTable.withPool(LootPool.lootPool()
 					.setRolls(randomized ? UniformGenerator.between(0, 1) : ConstantValue.exactly(1))
-					.add(LootItem.lootTableItem(armorItem).apply(SetNbtFunction.setTag(tag))));
+					.add(LootItem.lootTableItem(armorItem).apply(SetCustomDataFunction.setTag(tag))));
 		}
 		return lootTable;
 	}

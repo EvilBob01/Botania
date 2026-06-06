@@ -53,11 +53,11 @@ public class LensItem extends Item implements ControlLensItem, CompositableLensI
 	}
 
 	@Override
-	public void appendHoverText(ItemStack stack, Level world, List<Component> stacks, TooltipFlag flags) {
+	public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> stacks, TooltipFlag flags) {
 		int storedColor = getStoredColor(stack);
 		if (storedColor != -1) {
 			var colorName = Component.translatable(storedColor == 16 ? "botania.color.rainbow" : "color.minecraft." + DyeColor.byId(storedColor));
-			TextColor realColor = TextColor.fromRgb(getLensColor(stack, world));
+			TextColor realColor = TextColor.fromRgb(getLensColor(stack, context.level()));
 			stacks.add(Component.translatable("botaniamisc.color", colorName).withStyle(s -> s.withColor(realColor)));
 		}
 
@@ -191,7 +191,7 @@ public class LensItem extends Item implements ControlLensItem, CompositableLensI
 		if (cmp == null) {
 			return ItemStack.EMPTY;
 		} else {
-			return ItemStack.parseOptional(BuiltInRegistries.ACCESS, cmp);
+			return ItemStack.parseOptional(net.minecraft.core.RegistryAccess.fromRegistryOfRegistries(BuiltInRegistries.REGISTRY), cmp);
 		}
 	}
 
@@ -200,7 +200,7 @@ public class LensItem extends Item implements ControlLensItem, CompositableLensI
 		if (compositeLens.isEmpty()) {
 			ItemNBTHelper.removeEntry(sourceLens, TAG_COMPOSITE_LENS);
 		} else {
-			CompoundTag cmp = compositeLens.save(new CompoundTag());
+			CompoundTag cmp = (CompoundTag) compositeLens.save(net.minecraft.core.RegistryAccess.fromRegistryOfRegistries(BuiltInRegistries.REGISTRY));
 			ItemNBTHelper.setCompound(sourceLens, TAG_COMPOSITE_LENS, cmp);
 		}
 		return sourceLens;

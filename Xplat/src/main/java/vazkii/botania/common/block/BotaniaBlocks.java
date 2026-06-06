@@ -9,6 +9,7 @@
 package vazkii.botania.common.block;
 
 import net.minecraft.core.*;
+import net.minecraft.core.dispenser.BlockSource;
 import net.minecraft.core.dispenser.ProjectileDispenseBehavior;
 import net.minecraft.core.dispenser.DispenseItemBehavior;
 import net.minecraft.core.dispenser.OptionalDispenseItemBehavior;
@@ -444,7 +445,7 @@ public final class BotaniaBlocks {
 	public static final Block livingwoodSlab = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(livingwood));
 	public static final Block livingwoodWall = new WallBlock(BlockBehaviour.Properties.ofFullCopy(livingwood));
 	public static final Block livingwoodFence = new FenceBlock(BlockBehaviour.Properties.ofFullCopy(livingwood));
-	public static final Block livingwoodFenceGate = new FenceGateBlock(BlockBehaviour.Properties.ofFullCopy(livingwood), BotaniaBlockSetTypes.LIVINGWOOD);
+	public static final Block livingwoodFenceGate = new FenceGateBlock(BotaniaBlockSetTypes.LIVINGWOOD, BlockBehaviour.Properties.ofFullCopy(livingwood));
 	public static final Block livingwoodStrippedStairs = new BotaniaStairBlock(livingwoodStripped.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(livingwood));
 	public static final Block livingwoodStrippedSlab = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(livingwood));
 	public static final Block livingwoodStrippedWall = new WallBlock(BlockBehaviour.Properties.ofFullCopy(livingwood));
@@ -468,7 +469,7 @@ public final class BotaniaBlocks {
 	public static final Block dreamwoodSlab = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(dreamwood));
 	public static final Block dreamwoodWall = new WallBlock(BlockBehaviour.Properties.ofFullCopy(dreamwood));
 	public static final Block dreamwoodFence = new FenceBlock(BlockBehaviour.Properties.ofFullCopy(dreamwood));
-	public static final Block dreamwoodFenceGate = new FenceGateBlock(BlockBehaviour.Properties.ofFullCopy(dreamwood), BotaniaBlockSetTypes.DREAMWOOD);
+	public static final Block dreamwoodFenceGate = new FenceGateBlock(BotaniaBlockSetTypes.DREAMWOOD, BlockBehaviour.Properties.ofFullCopy(dreamwood));
 	public static final Block dreamwoodStrippedStairs = new BotaniaStairBlock(dreamwoodStripped.defaultBlockState(), BlockBehaviour.Properties.ofFullCopy(dreamwood));
 	public static final Block dreamwoodStrippedSlab = new SlabBlock(BlockBehaviour.Properties.ofFullCopy(dreamwood));
 	public static final Block dreamwoodStrippedWall = new WallBlock(BlockBehaviour.Properties.ofFullCopy(dreamwood));
@@ -1504,8 +1505,12 @@ public final class BotaniaBlocks {
 		DispenserBlock.registerBehavior(BotaniaItems.corporeaSpark, behavior);
 		DispenserBlock.registerBehavior(BotaniaItems.corporeaSparkMaster, behavior);
 		DispenserBlock.registerBehavior(BotaniaItems.corporeaSparkCreative, behavior);
-		DispenserBlock.registerBehavior(BotaniaItems.enderAirBottle, new ProjectileDispenseBehavior(
-				(world, pos, stack) -> new EnderAirBottleEntity(pos.x(), pos.y(), pos.z(), world)));
+		DispenserBlock.registerBehavior(BotaniaItems.enderAirBottle, new ProjectileDispenseBehavior() {
+			@Override
+			protected net.minecraft.world.entity.projectile.Projectile getProjectile(net.minecraft.world.level.Level world, net.minecraft.core.Position pos, ItemStack stack) {
+				return new EnderAirBottleEntity(pos.x(), pos.y(), pos.z(), world);
+			}
+		});
 
 		behavior = DispenserBlockAccessor.getDispenserRegistry().get(Items.GLASS_BOTTLE);
 		DispenserBlock.registerBehavior(Items.GLASS_BOTTLE, new EnderAirBottlingBehavior(behavior));
@@ -1528,8 +1533,12 @@ public final class BotaniaBlocks {
 
 		DispenserBlock.registerBehavior(BotaniaItems.manasteelShears, new ShearsDispenseItemBehavior());
 		DispenserBlock.registerBehavior(BotaniaItems.elementiumShears, new ShearsDispenseItemBehavior());
-		DispenserBlock.registerBehavior(BotaniaItems.vineBall, new ProjectileDispenseBehavior(
-				(world, pos, stack) -> new VineBallEntity(pos.x(), pos.y(), pos.z(), world)));
+		DispenserBlock.registerBehavior(BotaniaItems.vineBall, new ProjectileDispenseBehavior() {
+			@Override
+			protected net.minecraft.world.entity.projectile.Projectile getProjectile(net.minecraft.world.level.Level world, net.minecraft.core.Position pos, ItemStack stack) {
+				return new VineBallEntity(pos.x(), pos.y(), pos.z(), world);
+			}
+		});
 
 		SeedBehaviors.init();
 	}

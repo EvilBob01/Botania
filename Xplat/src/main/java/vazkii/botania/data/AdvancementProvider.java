@@ -24,6 +24,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.component.CustomData;
+import net.minecraft.core.component.DataComponentPredicate;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
 
@@ -58,7 +59,9 @@ public class AdvancementProvider {
 			var elvenLexiconUnlock = new CompoundTag();
 			elvenLexiconUnlock.putBoolean(LexicaBotaniaItem.TAG_ELVEN_UNLOCK, true);
 			Criterion<InventoryChangeTrigger.TriggerInstance> elvenLexicon = InventoryChangeTrigger.TriggerInstance.hasItems(
-					ItemPredicate.Builder.item().of(BotaniaItems.lexicon).hasNbt(elvenLexiconUnlock).build()
+					ItemPredicate.Builder.item().of(BotaniaItems.lexicon)
+							.hasComponents(DataComponentPredicate.builder().expect(DataComponents.CUSTOM_DATA, CustomData.of(elvenLexiconUnlock)).build())
+							.build()
 			);
 
 			// Main progression line
@@ -243,13 +246,16 @@ public class AdvancementProvider {
 			CompoundTag tiaraIconTag = tiaraWings.getIcon().getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
 			tiaraIconTag.putInt("variant", 1);
 			tiaraWings.getIcon().set(DataComponents.CUSTOM_DATA, CustomData.of(tiaraIconTag));
+			@SuppressWarnings("unchecked")
 			Criterion<InventoryChangeTrigger.TriggerInstance>[] variants = IntStream.range(1, FlugelTiaraItem.WING_TYPES)
 					.mapToObj(i -> {
 						CompoundTag tag = new CompoundTag();
 						tag.putInt("variant", i);
 						return tag;
 					})
-					.map(nbt -> ItemPredicate.Builder.item().of(BotaniaItems.flightTiara).hasNbt(nbt).build())
+					.map(nbt -> ItemPredicate.Builder.item().of(BotaniaItems.flightTiara)
+							.hasComponents(DataComponentPredicate.builder().expect(DataComponents.CUSTOM_DATA, CustomData.of(nbt)).build())
+							.build())
 					.map(InventoryChangeTrigger.TriggerInstance::hasItems)
 					.toArray(Criterion[]::new);
 			var builder = Advancement.Builder.advancement()
@@ -440,7 +446,9 @@ public class AdvancementProvider {
 					.parent(root)
 					.rewards(AdvancementRewards.Builder.experience(65))
 					.addCriterion("use_l20_shard", InventoryChangeTrigger.TriggerInstance.hasItems(
-							ItemPredicate.Builder.item().of(BotaniaItems.laputaShard).hasNbt(level20Shard).build()))
+							ItemPredicate.Builder.item().of(BotaniaItems.laputaShard)
+									.hasComponents(DataComponentPredicate.builder().expect(DataComponents.CUSTOM_DATA, CustomData.of(level20Shard)).build())
+									.build()))
 					.save(consumer, challengeId("l20_shard_use"));
 			Advancement.Builder.advancement()
 					.display(hidden(Items.BREAD, "alfPortalBread", AdvancementType.CHALLENGE))

@@ -2245,7 +2245,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 	}
 
 	protected void registerToolSetRecipes(RecipeOutput output, Ingredient item, Ingredient stick,
-			CriterionTriggerInstance criterion, ItemLike sword, ItemLike pickaxe,
+			Criterion<?> criterion, ItemLike sword, ItemLike pickaxe,
 			ItemLike axe, ItemLike hoe, ItemLike shovel, ItemLike shears) {
 		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, pickaxe)
 				.define('S', item)

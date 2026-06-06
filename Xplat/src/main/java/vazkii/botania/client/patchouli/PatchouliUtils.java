@@ -10,10 +10,10 @@ package vazkii.botania.client.patchouli;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeInput;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 
@@ -38,7 +38,7 @@ public class PatchouliUtils {
 	 *
 	 * If the recipe has no replacement, it will be logged.
 	 */
-	public static <T extends Recipe<C>, C extends Container> T getRecipe(Level level, RecipeType<T> type, ResourceLocation id) {
+	public static <T extends Recipe<C>, C extends RecipeInput> T getRecipe(Level level, RecipeType<T> type, ResourceLocation id) {
 		Map<ResourceLocation, T> map = BotaniaRecipeTypes.getRecipes(level, type);
 		T r = map.get(id);
 		if (r != null) {
@@ -69,7 +69,7 @@ public class PatchouliUtils {
 	/**
 	 * Get all recipes of the specified type that belong to the specified recipe group.
 	 */
-	public static <T extends Recipe<C>, C extends Container> List<T> getRecipeGroup(RecipeType<T> type, String group) {
+	public static <T extends Recipe<C>, C extends RecipeInput> List<T> getRecipeGroup(RecipeType<T> type, String group) {
 		Map<ResourceLocation, T> map = BotaniaRecipeTypes.getRecipes(Minecraft.getInstance().level, type);
 		List<T> list = new ArrayList<>();
 		for (T value : map.values()) {
@@ -94,7 +94,7 @@ public class PatchouliUtils {
 	 */
 	public static IVariable interweaveIngredients(List<Ingredient> ingredients, int longestIngredientSize) {
 		if (ingredients.size() == 1) {
-			return IVariable.wrapList(Arrays.stream(ingredients.get(0).getItems()).map(IVariable::from).collect(Collectors.toList()));
+			return IVariable.wrapList(Arrays.stream(ingredients.get(0).getItems()).map(IVariable::wrap).collect(Collectors.toList()));
 		}
 
 		ItemStack[] empty = { ItemStack.EMPTY };
@@ -109,7 +109,7 @@ public class PatchouliUtils {
 		List<IVariable> list = new ArrayList<>(stacks.size() * longestIngredientSize);
 		for (int i = 0; i < longestIngredientSize; i++) {
 			for (ItemStack[] stack : stacks) {
-				list.add(IVariable.from(stack[i % stack.length]));
+				list.add(IVariable.wrap(stack[i % stack.length]));
 			}
 		}
 		return IVariable.wrapList(list);

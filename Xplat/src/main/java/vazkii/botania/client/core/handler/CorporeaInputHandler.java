@@ -82,7 +82,10 @@ public class CorporeaInputHandler {
 				RecipeBookPage page = ((RecipeBookComponentAccessor) recipeBook).getRecipesArea();
 				RecipeButton widget = ((RecipeBookPageAccessor) page).getHoveredButton();
 				if (widget != null) {
-					return widget.getRecipe().getResultItem(Minecraft.getInstance().level.registryAccess());
+					var recipe = widget.getRecipe();
+					if (recipe != null) {
+						return recipe.value().getResultItem(Minecraft.getInstance().level.registryAccess());
+					}
 				}
 				ItemStack stack = ((RecipeBookAccess) recipeBook).getHoveredGhostRecipeStack();
 				if (stack != null) {

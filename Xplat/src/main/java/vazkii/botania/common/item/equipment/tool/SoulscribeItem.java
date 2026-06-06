@@ -10,6 +10,7 @@ package vazkii.botania.common.item.equipment.tool;
 
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.monster.EnderMan;
 import net.minecraft.world.entity.player.Player;
@@ -37,7 +38,7 @@ public class SoulscribeItem extends ManasteelSwordItem {
 			target.hurt(player.damageSources().playerAttack(player), 20);
 		}
 
-		stack.hurtAndBreak(1, attacker, e -> e.broadcastBreakEvent(InteractionHand.MAIN_HAND));
+		stack.hurtAndBreak(1, attacker, EquipmentSlot.MAINHAND);
 		return true;
 	}
 

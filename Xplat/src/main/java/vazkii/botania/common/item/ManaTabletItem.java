@@ -53,13 +53,12 @@ public class ManaTabletItem extends Item implements CustomCreativeTabContents {
 	}
 
 	@NotNull
-	@Override
 	public Rarity getRarity(@NotNull ItemStack stack) {
-		return isStackCreative(stack) ? Rarity.EPIC : super.getRarity(stack);
+		return isStackCreative(stack) ? Rarity.EPIC : Rarity.COMMON;
 	}
 
 	@Override
-	public void appendHoverText(ItemStack stack, Level world, List<Component> stacks, TooltipFlag flags) {
+	public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> stacks, TooltipFlag flags) {
 		if (isStackCreative(stack)) {
 			stacks.add(Component.translatable("botaniamisc.creative").withStyle(ChatFormatting.GRAY));
 		}

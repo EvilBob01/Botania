@@ -27,6 +27,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.MobBucketItem;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
@@ -103,7 +104,7 @@ public class PetalApothecaryBlockEntity extends SimpleInventoryBlockEntity imple
 			return true;
 		}
 
-		Optional<PetalApothecaryRecipe> maybeRecipe = level.getRecipeManager().getRecipeFor(BotaniaRecipeTypes.PETAL_TYPE, new BotaniaContainer(getItemHandler()), level);
+		Optional<PetalApothecaryRecipe> maybeRecipe = level.getRecipeManager().getRecipeFor(BotaniaRecipeTypes.PETAL_TYPE, new BotaniaContainer(getItemHandler()), level).map(RecipeHolder::value);
 		if (maybeRecipe.isPresent()) {
 			var recipe = maybeRecipe.get();
 			if (recipe.getReagent().test(item.getItem())) {
@@ -344,7 +345,8 @@ public class PetalApothecaryBlockEntity extends SimpleInventoryBlockEntity imple
 				float anglePer = 360F / amt;
 
 				Optional<PetalApothecaryRecipe> maybeRecipe = altar.level.getRecipeManager()
-						.getRecipeFor(BotaniaRecipeTypes.PETAL_TYPE, new BotaniaContainer(altar.getItemHandler()), altar.level);
+						.getRecipeFor(BotaniaRecipeTypes.PETAL_TYPE, new BotaniaContainer(altar.getItemHandler()), altar.level)
+						.map(RecipeHolder::value);
 				maybeRecipe.ifPresent(recipe -> {
 					RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
 					RenderHelper.drawTexturedModalRect(gui, HUDHandler.manaBar, xc + radius + 9, yc - 8, 0, 8, 22, 15);
@@ -367,13 +369,11 @@ public class PetalApothecaryBlockEntity extends SimpleInventoryBlockEntity imple
 				for (int i = 0; i < amt; i++) {
 					double xPos = xc + Math.cos(angle * Math.PI / 180D) * radius - 8;
 					double yPos = yc + Math.sin(angle * Math.PI / 180D) * radius - 8;
-					PoseStack pose = RenderSystem.getModelViewStack();
+					PoseStack pose = gui.pose();
 					pose.pushPose();
 					pose.translate(xPos, yPos, 0);
-					RenderSystem.applyModelViewMatrix();
 					gui.renderFakeItem(altar.getItemHandler().getItem(i), 0, 0);
 					pose.popPose();
-					RenderSystem.applyModelViewMatrix();
 
 					angle += anglePer;
 				}

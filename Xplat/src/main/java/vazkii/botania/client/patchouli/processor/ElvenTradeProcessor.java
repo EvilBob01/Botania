@@ -32,7 +32,7 @@ public class ElvenTradeProcessor implements IComponentProcessor {
 	@Override
 	public void setup(Level level, IVariableProvider variables) {
 		ImmutableList.Builder<ElvenTradeRecipe> builder = ImmutableList.builder();
-		for (IVariable s : variables.get("recipes").asListOrSingleton()) {
+		for (IVariable s : variables.get(IVariable.wrap("recipes")).asListOrSingleton()) {
 			ElvenTradeRecipe recipe = PatchouliUtils.getRecipe(level, BotaniaRecipeTypes.ELVEN_TRADE_TYPE, ResourceLocation.parse(s.asString()));
 			if (recipe != null) {
 				builder.add(recipe);
@@ -62,7 +62,7 @@ public class ElvenTradeProcessor implements IComponentProcessor {
 			return null;
 		}
 		if (key.equals("heading")) {
-			return IVariable.from(recipes.get(0).getOutputs().get(0).getHoverName());
+			return IVariable.wrap(recipes.get(0).getOutputs().get(0).getHoverName());
 		} else if (key.startsWith("input")) {
 			int index = Integer.parseInt(key.substring(5)) - 1;
 			if (index < mostInputs) {
@@ -76,7 +76,7 @@ public class ElvenTradeProcessor implements IComponentProcessor {
 			if (index < mostOutputs) {
 				return IVariable.wrapList(recipes.stream().map(ElvenTradeRecipe::getOutputs)
 						.map(l -> index < l.size() ? l.get(index) : ItemStack.EMPTY)
-						.map(IVariable::from)
+						.map(IVariable::wrap)
 						.collect(Collectors.toList()));
 			}
 		}

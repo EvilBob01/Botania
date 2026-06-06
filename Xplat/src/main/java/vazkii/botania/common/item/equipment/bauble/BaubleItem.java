@@ -51,7 +51,7 @@ public abstract class BaubleItem extends Item implements CosmeticAttachable, Pha
 	}
 
 	@Override
-	public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flags) {
+	public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tooltip, TooltipFlag flags) {
 		ItemStack cosmetic = getCosmeticItem(stack);
 		if (!cosmetic.isEmpty()) {
 			tooltip.add(Component.translatable("botaniamisc.hasCosmetic", cosmetic.getHoverName()).withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC));
@@ -68,14 +68,14 @@ public abstract class BaubleItem extends Item implements CosmeticAttachable, Pha
 		if (cmp == null) {
 			return ItemStack.EMPTY;
 		}
-		return ItemStack.parseOptional(BuiltInRegistries.ACCESS, cmp);
+		return ItemStack.parseOptional(net.minecraft.core.RegistryAccess.fromRegistryOfRegistries(BuiltInRegistries.REGISTRY), cmp);
 	}
 
 	@Override
 	public void setCosmeticItem(ItemStack stack, ItemStack cosmetic) {
 		CompoundTag cmp = new CompoundTag();
 		if (!cosmetic.isEmpty()) {
-			cmp = cosmetic.save(cmp);
+			cmp = (CompoundTag) cosmetic.save(net.minecraft.core.RegistryAccess.fromRegistryOfRegistries(BuiltInRegistries.REGISTRY));
 		}
 		ItemNBTHelper.setCompound(stack, TAG_COSMETIC_ITEM, cmp);
 	}

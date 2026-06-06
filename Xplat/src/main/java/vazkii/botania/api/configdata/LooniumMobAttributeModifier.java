@@ -4,6 +4,7 @@ import com.google.gson.JsonSyntaxException;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 
+import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.ai.attributes.Attribute;
@@ -13,7 +14,7 @@ public class LooniumMobAttributeModifier {
 	public static final Codec<LooniumMobAttributeModifier> CODEC = RecordCodecBuilder.create(
 			instance -> instance.group(
 					Codec.STRING.fieldOf("name").forGetter(mam -> mam.name),
-					BuiltInRegistries.ATTRIBUTE.byNameCodec().fieldOf("attribute").forGetter(mam -> mam.attribute),
+					BuiltInRegistries.ATTRIBUTE.holderByNameCodec().fieldOf("attribute").forGetter(mam -> mam.attribute),
 					Codec.DOUBLE.fieldOf("amount").forGetter(mam -> mam.amount),
 					Codec.STRING.xmap(LooniumMobAttributeModifier::operationFromString,
 							LooniumMobAttributeModifier::operationToString)
@@ -22,11 +23,11 @@ public class LooniumMobAttributeModifier {
 	);
 
 	private final String name;
-	public final Attribute attribute;
+	public final Holder<Attribute> attribute;
 	private final double amount;
 	private final AttributeModifier.Operation operation;
 
-	public LooniumMobAttributeModifier(String name, Attribute attribute, double amount,
+	public LooniumMobAttributeModifier(String name, Holder<Attribute> attribute, double amount,
 			AttributeModifier.Operation operation) {
 		this.name = name;
 		this.attribute = attribute;
@@ -60,7 +61,7 @@ public class LooniumMobAttributeModifier {
 	public String toString() {
 		return "MobAttributeModifier{" +
 				"name='" + name + '\'' +
-				", attribute=" + attribute +
+				", attribute=" + BuiltInRegistries.ATTRIBUTE.getKey(attribute.value()) +
 				", amount=" + amount +
 				", operation=" + operation +
 				'}';

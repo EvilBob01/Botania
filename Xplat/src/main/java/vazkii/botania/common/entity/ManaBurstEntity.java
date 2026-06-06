@@ -239,8 +239,7 @@ public class ManaBurstEntity extends ThrowableProjectile implements ManaBurst {
 		return collidedTile;
 	}
 
-	@Override
-	public boolean canChangeDimensions() {
+	public boolean canChangeDimensions(net.minecraft.server.level.ServerLevel from, net.minecraft.server.level.ServerLevel to) {
 		return !fake;
 	}
 
@@ -263,7 +262,7 @@ public class ManaBurstEntity extends ThrowableProjectile implements ManaBurst {
 		ItemStack stack = getSourceLens();
 		CompoundTag lensCmp = new CompoundTag();
 		if (!stack.isEmpty()) {
-			lensCmp = stack.save(lensCmp);
+			lensCmp = (CompoundTag) stack.save(level().registryAccess());
 		}
 		tag.put(TAG_LENS_STACK, lensCmp);
 
@@ -638,7 +637,6 @@ public class ManaBurstEntity extends ThrowableProjectile implements ManaBurst {
 		return receiver instanceof ManaSpreader spreader ? spreader : null;
 	}
 
-	@Override
 	public float getGravity() {
 		return getBurstGravity();
 	}
@@ -877,7 +875,7 @@ public class ManaBurstEntity extends ThrowableProjectile implements ManaBurst {
 
 	public record PositionProperties(BlockPos coords, BlockState state) {
 		public static PositionProperties fromEntity(Entity entity) {
-			return new PositionProperties(entity.blockPosition(), entity.getFeetBlockState());
+			return new PositionProperties(entity.blockPosition(), entity.level().getBlockState(entity.blockPosition()));
 		}
 
 		public boolean coordsEqual(PositionProperties props) {

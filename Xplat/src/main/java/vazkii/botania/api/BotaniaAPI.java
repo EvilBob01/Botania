@@ -10,6 +10,7 @@ package vazkii.botania.api;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
@@ -90,7 +91,7 @@ public interface BotaniaAPI {
 
 	}
 
-	ArmorMaterial DUMMY_ARMOR_MATERIAL = new ArmorMaterial(
+	Holder<ArmorMaterial> DUMMY_ARMOR_MATERIAL = Holder.direct(new ArmorMaterial(
 			Map.of(),
 			0,
 			SoundEvents.ARMOR_EQUIP_LEATHER,
@@ -98,7 +99,7 @@ public interface BotaniaAPI {
 			List.of(new ArmorMaterial.Layer(ResourceLocation.fromNamespaceAndPath(MODID, "dummy"))),
 			0f,
 			0f
-	);
+	));
 
 	Tier DUMMY_ITEM_TIER = new Tier() {
 		@Override
@@ -134,19 +135,19 @@ public interface BotaniaAPI {
 		}
 	};
 
-	default ArmorMaterial getManasteelArmorMaterial() {
+	default Holder<ArmorMaterial> getManasteelArmorMaterial() {
 		return DUMMY_ARMOR_MATERIAL;
 	}
 
-	default ArmorMaterial getElementiumArmorMaterial() {
+	default Holder<ArmorMaterial> getElementiumArmorMaterial() {
 		return DUMMY_ARMOR_MATERIAL;
 	}
 
-	default ArmorMaterial getManaweaveArmorMaterial() {
+	default Holder<ArmorMaterial> getManaweaveArmorMaterial() {
 		return DUMMY_ARMOR_MATERIAL;
 	}
 
-	default ArmorMaterial getTerrasteelArmorMaterial() {
+	default Holder<ArmorMaterial> getTerrasteelArmorMaterial() {
 		return DUMMY_ARMOR_MATERIAL;
 	}
 

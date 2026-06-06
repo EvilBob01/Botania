@@ -64,7 +64,7 @@ public class ThornChakramEntity extends ThrowableProjectile implements ItemSuppl
 	}
 
 	@Override
-	public boolean ignoreExplosion() {
+	public boolean ignoreExplosion(net.minecraft.world.level.Explosion explosion) {
 		return true;
 	}
 
@@ -178,7 +178,6 @@ public class ThornChakramEntity extends ThrowableProjectile implements ItemSuppl
 		}
 	}
 
-	@Override
 	protected float getGravity() {
 		return 0F;
 	}
@@ -215,7 +214,7 @@ public class ThornChakramEntity extends ThrowableProjectile implements ItemSuppl
 	public void addAdditionalSaveData(CompoundTag compound) {
 		super.addAdditionalSaveData(compound);
 		if (!stack.isEmpty()) {
-			compound.put("fly_stack", stack.save(new CompoundTag()));
+			compound.put("fly_stack", (CompoundTag) stack.save(level().registryAccess()));
 		}
 		compound.putBoolean("flare", isFire());
 	}

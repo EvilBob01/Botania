@@ -22,6 +22,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -215,7 +216,7 @@ public class RunicAltarBlockEntity extends SimpleInventoryBlockEntity implements
 			this.manaToGet = currentRecipe.getManaUsage();
 		} else {
 			this.manaToGet = level.getRecipeManager().getRecipeFor(BotaniaRecipeTypes.RUNE_TYPE, new BotaniaContainer(getItemHandler()), level)
-					.map(RunicAltarRecipe::getManaUsage)
+					.map(h -> h.value().getManaUsage())
 					.orElse(0);
 		}
 
@@ -260,16 +261,16 @@ public class RunicAltarBlockEntity extends SimpleInventoryBlockEntity implements
 			return true;
 		}
 
-		RunicAltarRecipe recipe = null;
+		RecipeHolder<RunicAltarRecipe> recipeHolder = null;
 
 		if (currentRecipe != null) {
-			recipe = currentRecipe;
+			// Look up the holder from the recipe manager for currentRecipe
+			recipeHolder = level.getRecipeManager().getRecipeFor(BotaniaRecipeTypes.RUNE_TYPE, new BotaniaContainer(getItemHandler()), level).orElse(null);
 		} else {
-			Optional<RunicAltarRecipe> maybeRecipe = level.getRecipeManager().getRecipeFor(BotaniaRecipeTypes.RUNE_TYPE, new BotaniaContainer(getItemHandler()), level);
-			if (maybeRecipe.isPresent()) {
-				recipe = maybeRecipe.get();
-			}
+			recipeHolder = level.getRecipeManager().getRecipeFor(BotaniaRecipeTypes.RUNE_TYPE, new BotaniaContainer(getItemHandler()), level).orElse(null);
 		}
+
+		RunicAltarRecipe recipe = recipeHolder != null ? recipeHolder.value() : null;
 
 		if (recipe != null && manaToGet > 0 && mana >= manaToGet) {
 			List<ItemEntity> items = level.getEntitiesOfClass(ItemEntity.class, new AABB(worldPosition.getX(), worldPosition.getY(), worldPosition.getZ(), worldPosition.getX() + 2.0, worldPosition.getY() + 2.0, worldPosition.getZ() + 2.0));
@@ -288,7 +289,7 @@ public class RunicAltarBlockEntity extends SimpleInventoryBlockEntity implements
 				ItemEntity outputItem = new ItemEntity(level, worldPosition.getX() + 0.5, worldPosition.getY() + 1.5, worldPosition.getZ() + 0.5, output);
 				XplatAbstractions.INSTANCE.itemFlagsComponent(outputItem).runicAltarSpawned = true;
 				if (player != null) {
-					player.triggerRecipeCrafted(recipe, List.of(output));
+					player.triggerRecipeCrafted(recipeHolder, List.of(output));
 					output.onCraftedBy(level, player, output.getCount());
 				}
 				level.addFreshEntity(outputItem);
@@ -406,7 +407,8 @@ public class RunicAltarBlockEntity extends SimpleInventoryBlockEntity implements
 
 			if (amt > 0 && altar.manaToGet > 0) {
 				float anglePer = 360F / amt;
-				altar.level.getRecipeManager().getRecipeFor(BotaniaRecipeTypes.RUNE_TYPE, new BotaniaContainer(altar.getItemHandler()), altar.level).ifPresent(recipe -> {
+				altar.level.getRecipeManager().getRecipeFor(BotaniaRecipeTypes.RUNE_TYPE, new BotaniaContainer(altar.getItemHandler()), altar.level).ifPresent(recipeHolder -> {
+					RunicAltarRecipe recipe = recipeHolder.value();
 					RenderSystem.enableBlend();
 					RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 

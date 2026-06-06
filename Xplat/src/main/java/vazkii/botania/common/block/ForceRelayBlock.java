@@ -11,10 +11,12 @@ package vazkii.botania.common.block;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.GlobalPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.nbt.Tag;
+import net.minecraft.util.datafix.DataFixTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.player.Player;
@@ -125,7 +127,7 @@ public class ForceRelayBlock extends BotaniaBlock {
 		private static final String ID = "PistonRelayPairs";
 		public final Map<BlockPos, BlockPos> mapping = new HashMap<>();
 
-		public WorldData(@NotNull CompoundTag cmp) {
+		public WorldData(@NotNull CompoundTag cmp, HolderLookup.Provider registries) {
 			ListTag list = cmp.getList("list", Tag.TAG_INT_ARRAY);
 			for (int i = 0; i < list.size(); i += 2) {
 				Tag from = list.get(i);
@@ -139,7 +141,7 @@ public class ForceRelayBlock extends BotaniaBlock {
 
 		@NotNull
 		@Override
-		public CompoundTag save(@NotNull CompoundTag cmp) {
+		public CompoundTag save(@NotNull CompoundTag cmp, HolderLookup.@NotNull Provider registries) {
 			ListTag list = new ListTag();
 			for (Map.Entry<BlockPos, BlockPos> e : mapping.entrySet()) {
 				Tag from = BlockPos.CODEC.encodeStart(NbtOps.INSTANCE, e.getKey()).result().get();
@@ -151,10 +153,16 @@ public class ForceRelayBlock extends BotaniaBlock {
 			return cmp;
 		}
 
+		private static final SavedData.Factory<WorldData> FACTORY = new SavedData.Factory<>(
+				() -> new WorldData(new CompoundTag(), null),
+				WorldData::new,
+				DataFixTypes.SAVED_DATA_MAP_DATA
+		);
+
 		public static WorldData get(Level world) {
-			WorldData data = ((ServerLevel) world).getDataStorage().get(WorldData::new, ID);
+			WorldData data = ((ServerLevel) world).getDataStorage().get(FACTORY, ID);
 			if (data == null) {
-				data = new WorldData(new CompoundTag());
+				data = new WorldData(new CompoundTag(), null);
 				data.setDirty();
 				((ServerLevel) world).getDataStorage().set(ID, data);
 			}

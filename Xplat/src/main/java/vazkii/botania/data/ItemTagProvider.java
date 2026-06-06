@@ -133,7 +133,7 @@ public class ItemTagProvider extends ItemTagsProvider {
 				runeSloth, runeWrath, runeEnvy, runePride
 		);
 
-		TagAppender<Item> allPetals = this.tag(BotaniaTags.Items.PETALS);
+		TagsProvider.TagAppender<Item> allPetals = this.tag(BotaniaTags.Items.PETALS);
 		ColorHelper.supportedColors().forEach(color -> {
 			var petalTag = BotaniaTags.Items.getPetalTag(color);
 			this.tag(petalTag).add(getPetal(color), BotaniaBlocks.getMushroom(color).asItem());

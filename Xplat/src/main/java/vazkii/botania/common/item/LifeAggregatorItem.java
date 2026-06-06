@@ -74,7 +74,7 @@ public class LifeAggregatorItem extends Item {
 	}
 
 	@Override
-	public void appendHoverText(ItemStack stack, Level world, List<Component> infoList, TooltipFlag flags) {
+	public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> infoList, TooltipFlag flags) {
 		ResourceLocation id = getEntityId(stack);
 		if (id != null) {
 			BuiltInRegistries.ENTITY_TYPE.getOptional(id).ifPresent(type -> infoList.add(type.getDescription()));
@@ -116,7 +116,7 @@ public class LifeAggregatorItem extends Item {
 					spawnerTag.putInt("x", pos.getX());
 					spawnerTag.putInt("y", pos.getY());
 					spawnerTag.putInt("z", pos.getZ());
-					te.load(spawnerTag);
+					te.load(spawnerTag, world.registryAccess());
 				}
 			} else {
 				for (int i = 0; i < 100; i++) {
@@ -139,7 +139,7 @@ public class LifeAggregatorItem extends Item {
 			if (!world.isClientSide) {
 				BlockEntity te = world.getBlockEntity(pos);
 				CompoundTag nbtData = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
-				nbtData.put(TAG_SPAWNER, te.saveWithFullMetadata());
+				nbtData.put(TAG_SPAWNER, te.saveWithFullMetadata(world.registryAccess()));
 				stack.set(DataComponents.CUSTOM_DATA, CustomData.of(nbtData));
 				world.destroyBlock(pos, false);
 				if (player != null) {

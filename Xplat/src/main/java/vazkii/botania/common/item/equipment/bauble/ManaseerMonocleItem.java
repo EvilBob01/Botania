@@ -56,9 +56,9 @@ public class ManaseerMonocleItem extends BaubleItem implements CosmeticBauble {
 	}
 
 	@Override
-	public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flags) {
+	public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tooltip, TooltipFlag flags) {
 		tooltip.add(Component.translatable("botaniamisc.cosmeticBauble").withStyle(ChatFormatting.ITALIC, ChatFormatting.GRAY));
-		super.appendHoverText(stack, world, tooltip, flags);
+		super.appendHoverText(stack, context, tooltip, flags);
 	}
 
 	public static class Renderer implements AccessoryRenderer {
@@ -102,7 +102,7 @@ public class ManaseerMonocleItem extends BaubleItem implements CosmeticBauble {
 				int maxWidth = mc.getWindow().getGuiScaledWidth() - x - 30;
 
 				MutableComponent itemName = Component.empty().append(frameItem.getHoverName())
-						.withStyle(frameItem.getRarity().color);
+						.withStyle(frameItem.getRarity().color());
 				if (frameItem.hasCustomHoverName()) {
 					itemName.withStyle(ChatFormatting.ITALIC);
 				}

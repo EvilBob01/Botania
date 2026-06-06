@@ -11,6 +11,7 @@ package vazkii.botania.common.item.equipment.armor.manasteel;
 import com.google.common.base.Suppliers;
 
 import net.minecraft.ChatFormatting;
+import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.entity.Entity;
@@ -19,6 +20,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterial;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
@@ -51,7 +53,7 @@ public class ManasteelArmorItem extends ArmorItem implements CustomDamageItem, P
 		this(type, BotaniaAPI.instance().getManasteelArmorMaterial(), props);
 	}
 
-	public ManasteelArmorItem(Type type, ArmorMaterial mat, Properties props) {
+	public ManasteelArmorItem(Type type, Holder<ArmorMaterial> mat, Properties props) {
 		super(mat, type, props);
 		this.type = type;
 	}
@@ -85,11 +87,11 @@ public class ManasteelArmorItem extends ArmorItem implements CustomDamageItem, P
 	}
 
 	@Override
-	public void appendHoverText(ItemStack stack, Level world, List<Component> list, TooltipFlag flags) {
-		TooltipHandler.addOnShift(list, () -> addInformationAfterShift(stack, world, list, flags));
+	public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> list, TooltipFlag flags) {
+		TooltipHandler.addOnShift(list, () -> addInformationAfterShift(stack, context, list, flags));
 	}
 
-	public void addInformationAfterShift(ItemStack stack, Level world, List<Component> list, TooltipFlag flags) {
+	public void addInformationAfterShift(ItemStack stack, Item.TooltipContext context, List<Component> list, TooltipFlag flags) {
 		Player player = Proxy.INSTANCE.getClientPlayer();
 		list.add(getArmorSetTitle(player));
 		addArmorSetDescription(stack, list);

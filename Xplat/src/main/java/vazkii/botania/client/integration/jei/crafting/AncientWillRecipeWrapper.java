@@ -15,11 +15,9 @@ import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.category.extensions.vanilla.crafting.ICraftingCategoryExtension;
 
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.item.AncientWillContainer;
 import vazkii.botania.common.crafting.recipe.AncientWillRecipe;
@@ -30,17 +28,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class AncientWillRecipeWrapper implements ICraftingCategoryExtension {
-	private final ResourceLocation name;
-
+public class AncientWillRecipeWrapper implements ICraftingCategoryExtension<AncientWillRecipe> {
 	public AncientWillRecipeWrapper(AncientWillRecipe recipe) {
-		this.name = recipe.getId();
-	}
-
-	@Nullable
-	@Override
-	public ResourceLocation getRegistryName() {
-		return name;
+		// recipe not needed; retained for use as Function<AncientWillRecipe, ICraftingCategoryExtension<AncientWillRecipe>>
 	}
 
 	@Override

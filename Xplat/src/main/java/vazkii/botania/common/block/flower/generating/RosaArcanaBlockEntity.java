@@ -9,6 +9,7 @@
 package vazkii.botania.common.block.flower.generating;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -20,6 +21,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.item.enchantment.ItemEnchantments;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 
@@ -31,7 +33,6 @@ import vazkii.botania.common.helper.EntityHelper;
 import vazkii.botania.mixin.ExperienceOrbAccessor;
 
 import java.util.List;
-import java.util.Map;
 
 public class RosaArcanaBlockEntity extends GeneratingFlowerBlockEntity {
 	private static final int MANA_PER_XP = 50;
@@ -114,13 +115,13 @@ public class RosaArcanaBlockEntity extends GeneratingFlowerBlockEntity {
 	// [VanillaCopy] GrindstoneMenu
 	private static int getEnchantmentXpValue(ItemStack stack) {
 		int ret = 0;
-		Map<Enchantment, Integer> map = EnchantmentHelper.getEnchantments(stack);
+		ItemEnchantments enchantments = EnchantmentHelper.getEnchantments(stack);
 
-		for (Map.Entry<Enchantment, Integer> entry : map.entrySet()) {
-			Enchantment enchantment = entry.getKey();
-			Integer integer = entry.getValue();
+		for (var entry : enchantments.entrySet()) {
+			Enchantment enchantment = entry.getKey().value();
+			int level = entry.getIntValue();
 			if (!enchantment.isCurse()) {
-				ret += enchantment.getMinCost(integer);
+				ret += enchantment.getMinCost(level);
 			}
 		}
 
@@ -133,18 +134,25 @@ public class RosaArcanaBlockEntity extends GeneratingFlowerBlockEntity {
 		itemstack.remove(DataComponents.ENCHANTMENTS);
 		itemstack.remove(DataComponents.STORED_ENCHANTMENTS);
 
-		Map<Enchantment, Integer> map = EnchantmentHelper.getEnchantments(stack);
-		map.keySet().removeIf(e -> !e.isCurse());
-		EnchantmentHelper.setEnchantments(map, itemstack);
+		ItemEnchantments sourceEnchants = EnchantmentHelper.getEnchantments(stack);
+		ItemEnchantments.Mutable curseEnchants = new ItemEnchantments.Mutable(ItemEnchantments.EMPTY);
+		for (var entry : sourceEnchants.entrySet()) {
+			Holder<Enchantment> ench = entry.getKey();
+			if (ench.value().isCurse()) {
+				curseEnchants.set(ench, entry.getIntValue());
+			}
+		}
+		ItemEnchantments curseResult = curseEnchants.toImmutable();
+		EnchantmentHelper.setEnchantments(itemstack, curseResult);
 		itemstack.setRepairCost(0);
-		if (itemstack.is(Items.ENCHANTED_BOOK) && map.size() == 0) {
+		if (itemstack.is(Items.ENCHANTED_BOOK) && curseResult.isEmpty()) {
 			itemstack = new ItemStack(Items.BOOK);
 			if (stack.has(DataComponents.CUSTOM_NAME)) {
 				itemstack.setHoverName(stack.getHoverName());
 			}
 		}
 
-		for (int i = 0; i < map.size(); ++i) {
+		for (int i = 0; i < curseResult.size(); ++i) {
 			itemstack.setRepairCost(AnvilMenu.calculateIncreasedRepairCost(itemstack.getBaseRepairCost()));
 		}
 

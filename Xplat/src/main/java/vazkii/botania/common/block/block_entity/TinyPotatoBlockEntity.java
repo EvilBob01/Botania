@@ -12,8 +12,9 @@ import it.unimi.dsi.fastutil.objects.ObjectArrays;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
@@ -27,9 +28,10 @@ import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.FireworkRocketEntity;
 import net.minecraft.world.item.DyeColor;
-import net.minecraft.world.item.FireworkRocketItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.component.FireworkExplosion;
+import net.minecraft.world.item.component.Fireworks;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
@@ -146,7 +148,7 @@ public class TinyPotatoBlockEntity extends ExposedSimpleInventoryBlockEntity imp
 			}
 			if (!tater.isEmpty()) {
 				String taterGender = manyTater ? "children" : "son";
-				if (!manyTater && tater.hasCustomHoverName()) {
+				if (!manyTater && tater.has(net.minecraft.core.component.DataComponents.CUSTOM_NAME)) {
 					StringBuilder childNameBuilder = new StringBuilder();
 					TinyPotatoBlockItem.isEnchantedName(tater.getHoverName(), childNameBuilder);
 					taterGender = GENDER.getOrDefault(childNameBuilder.toString(), taterGender);
@@ -226,22 +228,20 @@ public class TinyPotatoBlockEntity extends ExposedSimpleInventoryBlockEntity imp
 				}
 
 				if (messageIndex == messageTimes.size() - 1) {
-					CompoundTag explosion = new CompoundTag();
-					explosion.putByte("Type", (byte) FireworkRocketItem.Shape.LARGE_BALL.getId());
-					explosion.putBoolean("Flicker", true);
-					explosion.putBoolean("Trail", true);
-					explosion.putIntArray("Colors", List.of(
-							cakeColor.getFireworkColor(),
-							0xD260A5, 0xE4AFCD, 0xFEFEFE, 0x57CEF8
-					));
-
-					ListTag explosions = new ListTag();
-					explosions.add(explosion);
+					it.unimi.dsi.fastutil.ints.IntList colors = new it.unimi.dsi.fastutil.ints.IntArrayList(new int[]{
+							cakeColor.getFireworkColor(), 0xD260A5, 0xE4AFCD, 0xFEFEFE, 0x57CEF8
+					});
+					FireworkExplosion fireworkExplosion = new FireworkExplosion(
+							FireworkExplosion.Shape.LARGE_BALL,
+							colors,
+							it.unimi.dsi.fastutil.ints.IntLists.EMPTY_LIST,
+							true,
+							true
+					);
+					Fireworks fireworksComponent = new Fireworks(0, List.of(fireworkExplosion));
 
 					ItemStack rocket = new ItemStack(Items.FIREWORK_ROCKET);
-					CompoundTag rocketFireworks = rocket.getOrCreateTagElement("Fireworks");
-					rocketFireworks.putByte("Flight", (byte) 0);
-					rocketFireworks.put("Explosions", explosions);
+					rocket.set(DataComponents.FIREWORKS, fireworksComponent);
 
 					level.addFreshEntity(new FireworkRocketEntity(level, facingPos.getX() + 0.5, facingPos.getY() + 0.5, facingPos.getZ() + 0.5, rocket));
 					level.removeBlock(facingPos, false);
@@ -268,13 +268,16 @@ public class TinyPotatoBlockEntity extends ExposedSimpleInventoryBlockEntity imp
 	@Override
 	public void writePacketNBT(CompoundTag cmp) {
 		super.writePacketNBT(cmp);
-		cmp.putString(TAG_NAME, Component.Serializer.toJson(name));
+		HolderLookup.Provider registryAccess = level != null ? level.registryAccess() : net.minecraft.core.RegistryAccess.EMPTY;
+		cmp.putString(TAG_NAME, Component.Serializer.toJson(name, registryAccess));
 	}
 
 	@Override
 	public void readPacketNBT(CompoundTag cmp) {
 		super.readPacketNBT(cmp);
-		name = Component.Serializer.fromJson(cmp.getString(TAG_NAME));
+		HolderLookup.Provider registryAccess2 = level != null ? level.registryAccess() : net.minecraft.core.RegistryAccess.EMPTY;
+		Component parsedName = Component.Serializer.fromJson(cmp.getString(TAG_NAME), registryAccess2);
+		name = parsedName != null ? parsedName : Component.literal("");
 	}
 
 	@Override

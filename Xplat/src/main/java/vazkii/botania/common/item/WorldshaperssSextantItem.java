@@ -83,7 +83,7 @@ public class WorldshaperssSextantItem extends Item {
 
 	@Override
 	public void onUseTick(Level world, LivingEntity living, ItemStack stack, int count) {
-		if (getUseDuration(stack) - count < 10
+		if (getUseDuration(stack, living) - count < 10
 				|| !(living instanceof Player)
 				|| !world.isClientSide) {
 			return;
@@ -303,7 +303,7 @@ public class WorldshaperssSextantItem extends Item {
 			ItemStack onUse = player.getUseItem();
 			int time = player.getUseItemRemainingTicks();
 
-			if (onUse == stack && stack.getItem().getUseDuration(stack) - time >= 10) {
+			if (onUse == stack && stack.getItem().getUseDuration(stack, player) - time >= 10) {
 				double radius = calculateRadius(stack, player);
 				Font font = Minecraft.getInstance().font;
 				int x = Minecraft.getInstance().getWindow().getGuiScaledWidth() / 2 + 30;
@@ -320,15 +320,15 @@ public class WorldshaperssSextantItem extends Item {
 				if (inRange) {
 					radius += 4;
 					RenderSystem.lineWidth(3F);
-					Tesselator.getInstance().getBuilder().begin(VertexFormat.Mode.LINE_STRIP, DefaultVertexFormat.POSITION);
 					RenderSystem.setShaderColor(0F, 1F, 1F, 1F);
+					com.mojang.blaze3d.vertex.BufferBuilder buf = Tesselator.getInstance().begin(VertexFormat.Mode.LINE_STRIP, DefaultVertexFormat.POSITION);
 					for (int i = 0; i < 361; i++) {
 						float radian = (float) (i * Math.PI / 180);
 						float xp = x + net.minecraft.util.Mth.cos(radian) * (float) radius;
 						float yp = y + net.minecraft.util.Mth.sin(radian) * (float) radius;
-						Tesselator.getInstance().getBuilder().vertex(ms.last().pose(), xp, yp, 0).endVertex();
+						buf.addVertex(ms.last().pose(), xp, yp, 0);
 					}
-					Tesselator.getInstance().end();
+					com.mojang.blaze3d.vertex.BufferUploader.drawWithShader(buf.buildOrThrow());
 				}
 			}
 		}

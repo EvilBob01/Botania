@@ -8,15 +8,19 @@
  */
 package vazkii.botania.data;
 
-import net.minecraft.advancements.critereon.EnchantmentPredicate;
+import com.mojang.serialization.JsonOps;
+
+import net.minecraft.advancements.critereon.ItemEnchantmentsPredicate;
 import net.minecraft.advancements.critereon.ItemPredicate;
+import net.minecraft.advancements.critereon.ItemSubPredicates;
 import net.minecraft.advancements.critereon.MinMaxBounds;
 import net.minecraft.advancements.critereon.StatePropertiesPredicate;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.enchantment.Enchantments;
@@ -24,9 +28,7 @@ import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.block.state.properties.SlabType;
-import net.minecraft.world.level.storage.loot.Deserializers;
 import net.minecraft.world.level.storage.loot.LootPool;
-import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.AlternativesEntry;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
@@ -34,7 +36,7 @@ import net.minecraft.world.level.storage.loot.entries.LootPoolEntryContainer;
 import net.minecraft.world.level.storage.loot.entries.NestedLootTable;
 import net.minecraft.world.level.storage.loot.functions.ApplyExplosionDecay;
 import net.minecraft.world.level.storage.loot.functions.CopyNameFunction;
-import net.minecraft.world.level.storage.loot.functions.CopyNbtFunction;
+import net.minecraft.world.level.storage.loot.functions.CopyCustomDataFunction;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.predicates.ExplosionCondition;
@@ -61,23 +63,34 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Function;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class BlockLootProvider implements DataProvider {
-	private static final LootItemCondition.Builder SILK_TOUCH = MatchTool.toolMatches(ItemPredicate.Builder.item()
-			.hasEnchantment(new EnchantmentPredicate(Enchantments.SILK_TOUCH, MinMaxBounds.Ints.atLeast(1))));
+	// Sentinel functions — stored as constants so identity comparison (==) works in run()
 	private static final Function<Block, LootTable.Builder> SKIP = b -> {
 		throw new RuntimeException("shouldn't be executed");
 	};
+	private static final Function<Block, LootTable.Builder> ALT_GRASS_SENTINEL = b -> {
+		throw new UnsupportedOperationException("Use registry-aware run()");
+	};
+	private static final Function<Block, LootTable.Builder> CELL_BLOCK_SENTINEL = b -> {
+		throw new UnsupportedOperationException("Use registry-aware run()");
+	};
+	private static final Function<Block, LootTable.Builder> METAMORPHIC_STONE_SENTINEL = b -> {
+		throw new UnsupportedOperationException("Use registry-aware run()");
+	};
 
 	private final PackOutput.PathProvider pathProvider;
+	private final CompletableFuture<HolderLookup.Provider> registryLookupFuture;
 	private final Map<Block, Function<Block, LootTable.Builder>> functionTable = new HashMap<>();
 
-	public BlockLootProvider(PackOutput packOutput) {
+	public BlockLootProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> registryLookupFuture) {
 		this.pathProvider = packOutput.createPathProvider(PackOutput.Target.DATA_PACK, "loot_tables/blocks");
+		this.registryLookupFuture = registryLookupFuture;
 
 		for (Block b : BuiltInRegistries.BLOCK) {
 			ResourceLocation id = BuiltInRegistries.BLOCK.getKey(b);
@@ -89,11 +102,11 @@ public class BlockLootProvider implements DataProvider {
 			} else if (b instanceof BotaniaDoubleFlowerBlock) {
 				functionTable.put(b, BlockLootProvider::genDoubleFlower);
 			} else if (b instanceof BotaniaGrassBlock) {
-				functionTable.put(b, BlockLootProvider::genAltGrass);
+				functionTable.put(b, ALT_GRASS_SENTINEL);
 			} else if (b instanceof FlowerPotBlock flowerPot) {
 				functionTable.put(b, block -> createPotAndPlantItemTable(flowerPot.getContent()));
 			} else if (id.getPath().matches(LibBlockNames.METAMORPHIC_PREFIX + "\\w+" + "_stone")) {
-				functionTable.put(b, BlockLootProvider::genMetamorphicStone);
+				functionTable.put(b, METAMORPHIC_STONE_SENTINEL);
 			}
 		}
 
@@ -109,7 +122,7 @@ public class BlockLootProvider implements DataProvider {
 		functionTable.put(BotaniaBlocks.enchanter, b -> genRegular(Blocks.LAPIS_BLOCK));
 
 		// Special
-		functionTable.put(BotaniaBlocks.cellBlock, BlockLootProvider::genCellBlock);
+		functionTable.put(BotaniaBlocks.cellBlock, CELL_BLOCK_SENTINEL);
 		functionTable.put(BotaniaBlocks.root, BlockLootProvider::genRoot);
 		functionTable.put(BotaniaBlocks.solidVines, BlockLootProvider::genSolidVine);
 		functionTable.put(BotaniaBlocks.tinyPotato, BlockLootProvider::genTinyPotato);
@@ -131,6 +144,17 @@ public class BlockLootProvider implements DataProvider {
 
 	@Override
 	public CompletableFuture<?> run(CachedOutput cache) {
+		return registryLookupFuture.thenCompose(registryLookup -> run(cache, registryLookup));
+	}
+
+	private CompletableFuture<?> run(CachedOutput cache, HolderLookup.Provider registryLookup) {
+		LootItemCondition.Builder silkTouch = MatchTool.toolMatches(ItemPredicate.Builder.item()
+				.withSubPredicate(ItemSubPredicates.ENCHANTMENTS,
+						ItemEnchantmentsPredicate.enchantments(
+								List.of(new net.minecraft.advancements.critereon.EnchantmentPredicate(
+										Optional.of(registryLookup.lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(Enchantments.SILK_TOUCH)),
+										MinMaxBounds.Ints.atLeast(1))))));
+
 		Map<ResourceLocation, LootTable.Builder> tables = new HashMap<>();
 
 		for (Block b : BuiltInRegistries.BLOCK) {
@@ -140,14 +164,22 @@ public class BlockLootProvider implements DataProvider {
 			}
 			Function<Block, LootTable.Builder> func = functionTable.getOrDefault(b, BlockLootProvider::genRegular);
 			if (func != SKIP) {
-				tables.put(id, func.apply(b));
+				if (func == CELL_BLOCK_SENTINEL) {
+					tables.put(id, genCellBlock(b, silkTouch));
+				} else if (func == ALT_GRASS_SENTINEL) {
+					tables.put(id, genAltGrass(b, silkTouch));
+				} else if (func == METAMORPHIC_STONE_SENTINEL) {
+					tables.put(id, genMetamorphicStone(b, silkTouch));
+				} else {
+					tables.put(id, func.apply(b));
+				}
 			}
 		}
 
 		List<CompletableFuture<?>> output = new ArrayList<>();
 		for (Map.Entry<ResourceLocation, LootTable.Builder> e : tables.entrySet()) {
 			Path path = pathProvider.json(e.getKey());
-			output.add(DataProvider.saveStable(cache, Deserializers.createLootTableSerializer().create().toJsonTree(e.getValue().setParamSet(LootContextParamSets.BLOCK).build()), path));
+			output.add(DataProvider.saveStable(cache, LootTable.DIRECT_CODEC.encodeStart(JsonOps.INSTANCE, e.getValue().setParamSet(LootContextParamSets.BLOCK).build()).getOrThrow(), path));
 		}
 		return CompletableFuture.allOf(output.toArray(CompletableFuture[]::new));
 	}
@@ -163,7 +195,7 @@ public class BlockLootProvider implements DataProvider {
 
 	protected static LootTable.Builder genCopyNbt(Block b, String... tags) {
 		LootPoolEntryContainer.Builder<?> entry = LootItem.lootTableItem(b);
-		CopyNbtFunction.Builder func = CopyNbtFunction.copyData(ContextNbtProvider.BLOCK_ENTITY);
+		CopyCustomDataFunction.Builder func = CopyCustomDataFunction.copyData(ContextNbtProvider.BLOCK_ENTITY);
 		for (String tag : tags) {
 			func = func.copy(tag, "BlockEntityTag." + tag);
 		}
@@ -174,10 +206,13 @@ public class BlockLootProvider implements DataProvider {
 	}
 
 	protected static LootTable.Builder genCellBlock(Block b) {
-		ItemPredicate.Builder silkPred = ItemPredicate.Builder.item()
-				.hasEnchantment(new EnchantmentPredicate(Enchantments.SILK_TOUCH, MinMaxBounds.Ints.atLeast(1)));
+		// This overload exists for compatibility; use genCellBlock(Block, LootItemCondition.Builder) with a registry-resolved silk touch condition
+		throw new UnsupportedOperationException("Use genCellBlock(Block, LootItemCondition.Builder) with registry lookup");
+	}
+
+	protected static LootTable.Builder genCellBlock(Block b, LootItemCondition.Builder silkTouch) {
 		LootPoolEntryContainer.Builder<?> silk = LootItem.lootTableItem(b)
-				.when(MatchTool.toolMatches(silkPred));
+				.when(silkTouch);
 		return LootTable.lootTable().withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1)).add(silk));
 	}
 
@@ -190,14 +225,19 @@ public class BlockLootProvider implements DataProvider {
 	}
 
 	protected static LootTable.Builder genMetamorphicStone(Block b) {
-		String cobbleName = BuiltInRegistries.BLOCK.getKey(b).getPath().replaceAll("_stone", "_cobblestone");
-		Block cobble = BuiltInRegistries.BLOCK.getOptional(prefix(cobbleName)).get();
-		return genSilkDrop(b, cobble);
+		// This overload exists for compatibility; use genMetamorphicStone(Block, LootItemCondition.Builder)
+		throw new UnsupportedOperationException("Use genMetamorphicStone(Block, LootItemCondition.Builder) with registry lookup");
 	}
 
-	protected static LootTable.Builder genSilkDrop(ItemLike silkDrop, ItemLike normalDrop) {
+	protected static LootTable.Builder genMetamorphicStone(Block b, LootItemCondition.Builder silkTouch) {
+		String cobbleName = BuiltInRegistries.BLOCK.getKey(b).getPath().replaceAll("_stone", "_cobblestone");
+		Block cobble = BuiltInRegistries.BLOCK.getOptional(prefix(cobbleName)).get();
+		return genSilkDrop(b, cobble, silkTouch);
+	}
+
+	protected static LootTable.Builder genSilkDrop(ItemLike silkDrop, ItemLike normalDrop, LootItemCondition.Builder silkTouch) {
 		LootPoolEntryContainer.Builder<?> cobbleDrop = LootItem.lootTableItem(normalDrop).when(ExplosionCondition.survivesExplosion());
-		LootPoolEntryContainer.Builder<?> stoneDrop = LootItem.lootTableItem(silkDrop).when(SILK_TOUCH);
+		LootPoolEntryContainer.Builder<?> stoneDrop = LootItem.lootTableItem(silkDrop).when(silkTouch);
 
 		return LootTable.lootTable().withPool(
 				LootPool.lootPool().setRolls(ConstantValue.exactly(1))
@@ -233,8 +273,13 @@ public class BlockLootProvider implements DataProvider {
 	}
 
 	protected static LootTable.Builder genAltGrass(Block b) {
+		// This overload exists for compatibility; use genAltGrass(Block, LootItemCondition.Builder)
+		throw new UnsupportedOperationException("Use genAltGrass(Block, LootItemCondition.Builder) with registry lookup");
+	}
+
+	protected static LootTable.Builder genAltGrass(Block b, LootItemCondition.Builder silkTouch) {
 		LootPoolEntryContainer.Builder<?> silk = LootItem.lootTableItem(b)
-				.when(SILK_TOUCH);
+				.when(silkTouch);
 		LootPoolEntryContainer.Builder<?> dirt = LootItem.lootTableItem(Blocks.DIRT)
 				.when(ExplosionCondition.survivesExplosion());
 		LootPoolEntryContainer.Builder<?> entry = AlternativesEntry.alternatives(silk, dirt);

@@ -63,7 +63,7 @@ public class GaiaGuardianRenderer extends HumanoidMobRenderer<GaiaGuardianEntity
 		}
 
 		var view = Minecraft.getInstance().getCameraEntity();
-		if (view instanceof AbstractClientPlayer && DefaultPlayerSkin.getSkinModelName(view.getUUID()).equals("slim")) {
+		if (view instanceof AbstractClientPlayer clientView && clientView.getSkin().model() == net.minecraft.client.resources.PlayerSkin.Model.SLIM) {
 			this.model = slimModel;
 		} else {
 			this.model = normalModel;
@@ -78,10 +78,10 @@ public class GaiaGuardianRenderer extends HumanoidMobRenderer<GaiaGuardianEntity
 		Minecraft mc = Minecraft.getInstance();
 
 		if (!(mc.getCameraEntity() instanceof AbstractClientPlayer clientPlayer)) {
-			return DefaultPlayerSkin.getDefaultSkin(entity.getUUID());
+			return DefaultPlayerSkin.getDefaultSkin();
 		}
 
-		return clientPlayer.getSkinTextureLocation();
+		return clientPlayer.getSkin().texture();
 	}
 
 	@Override

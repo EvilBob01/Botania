@@ -136,7 +136,7 @@ public class ManaBlasterItem extends Item {
 	}
 
 	@Override
-	public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flags) {
+	public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tooltip, TooltipFlag flags) {
 		boolean clip = hasClip(stack);
 		if (clip) {
 			TooltipHandler.addOnShift(tooltip, () -> appendHoverTextImpl(stack, tooltip));
@@ -154,7 +154,7 @@ public class ManaBlasterItem extends Item {
 
 		ItemStack lens = getLens(stack);
 		if (!lens.isEmpty()) {
-			List<Component> lensTip = lens.getTooltipLines(Proxy.INSTANCE.getClientPlayer(), TooltipFlag.Default.NORMAL);
+			List<Component> lensTip = lens.getTooltipLines(Item.TooltipContext.EMPTY, TooltipFlag.Default.NORMAL);
 			if (lensTip.size() > 1) {
 				tooltip.addAll(lensTip.subList(1, lensTip.size()));
 			}
@@ -234,7 +234,7 @@ public class ManaBlasterItem extends Item {
 	public static ItemStack getLensAtPos(ItemStack stack, int pos) {
 		CompoundTag cmp = ItemNBTHelper.getCompound(stack, TAG_LENS + pos, true);
 		if (cmp != null) {
-			return ItemStack.parseOptional(BuiltInRegistries.ACCESS, cmp);
+			return ItemStack.parseOptional(net.minecraft.core.RegistryAccess.fromRegistryOfRegistries(BuiltInRegistries.REGISTRY), cmp);
 		}
 		return ItemStack.EMPTY;
 	}
@@ -242,7 +242,7 @@ public class ManaBlasterItem extends Item {
 	public static void setLensAtPos(ItemStack stack, ItemStack lens, int pos) {
 		CompoundTag cmp = new CompoundTag();
 		if (lens != null) {
-			cmp = lens.save(cmp);
+			cmp = (CompoundTag) lens.save(net.minecraft.core.RegistryAccess.fromRegistryOfRegistries(BuiltInRegistries.REGISTRY));
 		}
 		ItemNBTHelper.setCompound(stack, TAG_LENS + pos, cmp);
 	}
@@ -254,7 +254,7 @@ public class ManaBlasterItem extends Item {
 
 		CompoundTag cmp = new CompoundTag();
 		if (!lens.isEmpty()) {
-			cmp = lens.save(cmp);
+			cmp = (CompoundTag) lens.save(net.minecraft.core.RegistryAccess.fromRegistryOfRegistries(BuiltInRegistries.REGISTRY));
 		}
 		ItemNBTHelper.setCompound(stack, TAG_LENS, cmp);
 	}
@@ -266,7 +266,7 @@ public class ManaBlasterItem extends Item {
 
 		CompoundTag cmp = ItemNBTHelper.getCompound(stack, TAG_LENS, true);
 		if (cmp != null) {
-			return ItemStack.parseOptional(BuiltInRegistries.ACCESS, cmp);
+			return ItemStack.parseOptional(net.minecraft.core.RegistryAccess.fromRegistryOfRegistries(BuiltInRegistries.REGISTRY), cmp);
 		}
 		return ItemStack.EMPTY;
 	}

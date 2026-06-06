@@ -26,11 +26,11 @@ import mezz.jei.api.runtime.IRecipesGui;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.Container;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeInput;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.block.Block;
@@ -67,10 +67,11 @@ import vazkii.botania.xplat.XplatAbstractions;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
@@ -148,7 +149,9 @@ public class JEIBotaniaPlugin implements IModPlugin {
 		registry.addRecipes(MarimorphosisRecipeCategory.TYPE, sortRecipes(BotaniaRecipeTypes.MARIMORPHOSIS_TYPE, comp));
 	}
 
-	private static final Comparator<Recipe<?>> BY_ID = Comparator.comparing(Recipe::getId);
+	// In 1.21.1, Recipe no longer carries an ID (ID is in RecipeHolder). BY_ID is used only as a
+	// tiebreaker; actual ID-based ordering is handled by sortRecipes sorting the map by key first.
+	private static final Comparator<Recipe<?>> BY_ID = (a, b) -> 0;
 	private static final Comparator<Recipe<?>> BY_GROUP = Comparator.comparing(Recipe::getGroup);
 	private static final Comparator<OrechidRecipe> BY_WEIGHT = Comparator.<OrechidRecipe, Integer>comparing(OrechidRecipe::getWeight).reversed();
 	private static final Comparator<ManaInfusionRecipe> BY_CATALYST = (l, r) -> {
@@ -163,11 +166,15 @@ public class JEIBotaniaPlugin implements IModPlugin {
 		}
 	};
 
-	private static <T extends Recipe<C>, C extends Container> List<T> sortRecipes(RecipeType<T> type, Comparator<? super T> comparator) {
-		Collection<T> recipes = BotaniaRecipeTypes.getRecipes(Minecraft.getInstance().level, type).values();
-		List<T> list = new ArrayList<>(recipes);
-		list.sort(comparator);
-		return list;
+	private static <T extends Recipe<C>, C extends RecipeInput> List<T> sortRecipes(RecipeType<T> type, Comparator<? super T> comparator) {
+		Map<ResourceLocation, T> recipeMap = BotaniaRecipeTypes.getRecipes(Minecraft.getInstance().level, type);
+		// Sort by recipe ID (map key) first for stable ordering, then apply additional comparator
+		List<Map.Entry<ResourceLocation, T>> entries = new ArrayList<>(recipeMap.entrySet());
+		entries.sort((a, b) -> {
+			int cmp = comparator.compare(a.getValue(), b.getValue());
+			return cmp != 0 ? cmp : a.getKey().compareTo(b.getKey());
+		});
+		return entries.stream().map(Map.Entry::getValue).collect(Collectors.toList());
 	}
 
 	@Override
@@ -222,14 +229,14 @@ public class JEIBotaniaPlugin implements IModPlugin {
 
 		RecipeManager recipeManager = Minecraft.getInstance().level.getRecipeManager();
 		recipeManager.byKey(prefix("petal_apothecary/daybloom_motif"))
-				.ifPresent(r -> {
-					if (r instanceof PetalApothecaryRecipe pr) {
+				.ifPresent(holder -> {
+					if (holder.value() instanceof PetalApothecaryRecipe pr) {
 						recipeRegistry.hideRecipes(PetalApothecaryRecipeCategory.TYPE, List.of(pr));
 					}
 				});
 		recipeManager.byKey(prefix("petal_apothecary/nightshade_motif"))
-				.ifPresent(r -> {
-					if (r instanceof PetalApothecaryRecipe pr) {
+				.ifPresent(holder -> {
+					if (holder.value() instanceof PetalApothecaryRecipe pr) {
 						recipeRegistry.hideRecipes(PetalApothecaryRecipeCategory.TYPE, List.of(pr));
 					}
 				});

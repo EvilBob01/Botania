@@ -159,7 +159,7 @@ public class SojournersSashItem extends BaubleItem {
 
 			ResourceLocation texture = ((SojournersSashItem) stack.getItem()).getRenderTexture();
 			VertexConsumer buffer = buffers.getBuffer(model.renderType(texture));
-			model.body.render(ms, buffer, light, OverlayTexture.NO_OVERLAY, 1, 1, 1, 1);
+			model.body.render(ms, buffer, light, OverlayTexture.NO_OVERLAY, 0xFFFFFFFF);
 		}
 	}
 

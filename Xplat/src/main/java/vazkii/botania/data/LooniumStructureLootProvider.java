@@ -1,6 +1,6 @@
 package vazkii.botania.data;
 
-import com.google.gson.JsonElement;
+import com.mojang.serialization.JsonOps;
 
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
@@ -13,7 +13,6 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.levelgen.structure.BuiltinStructures;
 import net.minecraft.world.level.levelgen.structure.Structure;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
-import net.minecraft.world.level.storage.loot.Deserializers;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
@@ -66,8 +65,7 @@ public class LooniumStructureLootProvider implements DataProvider {
 			Path path = pathProvider.json(e.getKey());
 			LootTable.Builder builder = e.getValue();
 			LootTable lootTable = builder.setParamSet(LootContextParamSets.ALL_PARAMS).build();
-			JsonElement jsonTree = Deserializers.createLootTableSerializer().create().toJsonTree(lootTable);
-			output.add(DataProvider.saveStable(cache, jsonTree, path));
+			output.add(DataProvider.saveStable(cache, LootTable.DIRECT_CODEC.encodeStart(JsonOps.INSTANCE, lootTable).getOrThrow(), path));
 		}
 		return CompletableFuture.allOf(output.toArray(CompletableFuture<?>[]::new));
 	}

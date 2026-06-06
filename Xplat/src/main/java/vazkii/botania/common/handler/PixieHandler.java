@@ -9,6 +9,7 @@
 package vazkii.botania.common.handler;
 
 import net.minecraft.Util;
+import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -41,6 +42,7 @@ public final class PixieHandler {
 	private PixieHandler() {}
 
 	public static final Attribute PIXIE_SPAWN_CHANCE = new RangedAttribute("attribute.name.botania.pixieSpawnChance", 0, 0, 1);
+	public static final Holder<Attribute> PIXIE_SPAWN_CHANCE_HOLDER = Holder.direct(PIXIE_SPAWN_CHANCE);
 	private static final Map<EquipmentSlot, ResourceLocation> DEFAULT_MODIFIER_IDS = Util.make(new EnumMap<>(EquipmentSlot.class), m -> {
 		m.put(EquipmentSlot.HEAD, prefix("pixie_spawn_chance_head"));
 		m.put(EquipmentSlot.CHEST, prefix("pixie_spawn_chance_chest"));
@@ -69,8 +71,8 @@ public final class PixieHandler {
 		if (!player.level().isClientSide && source.getEntity() instanceof LivingEntity livingSource) {
 			// Sometimes the player doesn't have the attribute, not sure why.
 			// Could be badly-written mixins on Fabric.
-			double chance = player.getAttributes().hasAttribute(PIXIE_SPAWN_CHANCE)
-					? player.getAttributeValue(PIXIE_SPAWN_CHANCE) : 0;
+			double chance = player.getAttributes().hasAttribute(PIXIE_SPAWN_CHANCE_HOLDER)
+					? player.getAttributeValue(PIXIE_SPAWN_CHANCE_HOLDER) : 0;
 			ItemStack sword = PlayerHelper.getFirstHeldItem(player, s -> s.is(BotaniaItems.elementiumSword));
 
 			if (Math.random() < chance) {
@@ -88,7 +90,7 @@ public final class PixieHandler {
 
 				pixie.setProps(livingSource, player, 0, dmg);
 				pixie.finalizeSpawn((ServerLevelAccessor) player.level(), player.level().getCurrentDifficultyAt(pixie.blockPosition()),
-						MobSpawnType.EVENT, null, null);
+						MobSpawnType.EVENT, null);
 				player.level().addFreshEntity(pixie);
 			}
 		}

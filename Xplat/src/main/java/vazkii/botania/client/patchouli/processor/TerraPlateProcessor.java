@@ -19,14 +19,16 @@ import vazkii.patchouli.api.IComponentProcessor;
 import vazkii.patchouli.api.IVariable;
 import vazkii.patchouli.api.IVariableProvider;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class TerraPlateProcessor implements IComponentProcessor {
 	private TerrestrialAgglomerationRecipe recipe;
 
 	@Override
 	public void setup(Level level, IVariableProvider variables) {
-		ResourceLocation id = ResourceLocation.parse(variables.get("recipe").asString());
+		ResourceLocation id = ResourceLocation.parse(variables.get(IVariable.wrap("recipe")).asString());
 		this.recipe = PatchouliUtils.getRecipe(level, BotaniaRecipeTypes.TERRA_PLATE_TYPE, id);
 	}
 
@@ -36,13 +38,13 @@ public class TerraPlateProcessor implements IComponentProcessor {
 			return null;
 		}
 		if (key.equals("output")) {
-			return IVariable.from(recipe.getResultItem(level.registryAccess()));
+			return IVariable.wrap(recipe.getResultItem(level.registryAccess()));
 		}
 		if (key.startsWith("input")) {
 			int index = Integer.parseInt(key.substring(5)) - 1;
 			List<Ingredient> list = recipe.getIngredients();
 			if (index >= 0 && index < list.size()) {
-				return IVariable.from(list.get(index).getItems());
+				return IVariable.wrapList(Arrays.stream(list.get(index).getItems()).map(IVariable::wrap).collect(Collectors.toList()));
 			}
 		}
 		return null;

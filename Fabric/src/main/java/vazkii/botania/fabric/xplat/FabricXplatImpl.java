@@ -30,6 +30,7 @@ import net.fabricmc.fabric.mixin.transfer.BucketItemAccessor;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Holder;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.FriendlyByteBuf;
@@ -582,13 +583,13 @@ public class FabricXplatImpl implements XplatAbstractions {
 	}
 
 	@Override
-	public Attribute getReachDistanceAttribute() {
-		return ReachEntityAttributes.REACH;
+	public Holder<Attribute> getReachDistanceAttribute() {
+		return Holder.direct(ReachEntityAttributes.REACH);
 	}
 
 	@Override
-	public Attribute getStepHeightAttribute() {
-		return StepHeightEntityAttributeMain.STEP_HEIGHT;
+	public Holder<Attribute> getStepHeightAttribute() {
+		return Holder.direct(StepHeightEntityAttributeMain.STEP_HEIGHT);
 	}
 
 	private final TagKey<Block> oreTag = TagKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath("c", "ores"));

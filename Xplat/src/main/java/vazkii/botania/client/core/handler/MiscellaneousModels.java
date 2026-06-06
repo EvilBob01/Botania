@@ -152,10 +152,10 @@ public class MiscellaneousModels {
 
 	private MiscellaneousModels() {
 		afterBakeModifiers = new HashMap<>();
-		afterBakeModifiers.put(modelResourceLocation(LibBlockNames.PLATFORM_ABSTRUSE, ""), ClientXplatAbstractions.INSTANCE::wrapPlatformModel);
-		afterBakeModifiers.put(modelResourceLocation(LibBlockNames.PLATFORM_SPECTRAL, ""), ClientXplatAbstractions.INSTANCE::wrapPlatformModel);
-		afterBakeModifiers.put(modelResourceLocation(LibBlockNames.PLATFORM_INFRANGIBLE, ""), ClientXplatAbstractions.INSTANCE::wrapPlatformModel);
-		afterBakeModifiers.put(modelResourceLocation(LibBlockNames.TINY_POTATO, "inventory"), TinyPotatoModel::new);
+		afterBakeModifiers.put(modelResourceLocation(LibBlockNames.PLATFORM_ABSTRUSE, "").id(), ClientXplatAbstractions.INSTANCE::wrapPlatformModel);
+		afterBakeModifiers.put(modelResourceLocation(LibBlockNames.PLATFORM_SPECTRAL, "").id(), ClientXplatAbstractions.INSTANCE::wrapPlatformModel);
+		afterBakeModifiers.put(modelResourceLocation(LibBlockNames.PLATFORM_INFRANGIBLE, "").id(), ClientXplatAbstractions.INSTANCE::wrapPlatformModel);
+		afterBakeModifiers.put(modelResourceLocation(LibBlockNames.TINY_POTATO, "inventory").id(), TinyPotatoModel::new);
 
 		modelConsumers = new HashMap<>();
 		modelConsumers.put(elvenSpreaderCoreId, bakedModel -> this.elvenSpreaderCore = bakedModel);

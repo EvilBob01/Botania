@@ -8,7 +8,10 @@
  */
 package vazkii.botania.common.item.equipment.tool.bow;
 
+import net.minecraft.core.Holder;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
@@ -19,6 +22,7 @@ import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.item.ArrowItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
@@ -60,7 +64,7 @@ public class CrystalBowItem extends LivingwoodBowItem {
 			boolean canMaterializeArrow = canFire(stack, player); // Botania - custom check
 			ItemStack arrowStack = player.getProjectile(stack);
 
-			int i = (int) ((getUseDuration(stack) - timeLeft) * chargeVelocityMultiplier()); // Botania - velocity multiplier
+			int i = (int) ((getUseDuration(stack, entityLiving) - timeLeft) * chargeVelocityMultiplier()); // Botania - velocity multiplier
 			if (i < 0) {
 				return;
 			}
@@ -75,29 +79,32 @@ public class CrystalBowItem extends LivingwoodBowItem {
 					boolean markUnpickable = player.getAbilities().instabuild || arrowStack.is(Items.ARROW); // Botania
 					if (!level.isClientSide) {
 						ArrowItem arrowItem = (ArrowItem) (arrowStack.getItem() instanceof ArrowItem ? arrowStack.getItem() : Items.ARROW);
-						AbstractArrow arrow = arrowItem.createArrow(level, arrowStack, player);
+						AbstractArrow arrow = arrowItem.createArrow(level, arrowStack, player, stack);
 						arrow.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, power * 3.0F, 1.0F);
 						if (power == 1.0F) {
 							arrow.setCritArrow(true);
 						}
 
-						int powerEnch = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.POWER_ARROWS, stack);
+						var enchRegistry = level.registryAccess().lookupOrThrow(Registries.ENCHANTMENT);
+						Holder<Enchantment> powerHolder = enchRegistry.getOrThrow(Enchantments.POWER);
+						Holder<Enchantment> punchHolder = enchRegistry.getOrThrow(Enchantments.PUNCH);
+						Holder<Enchantment> flameHolder = enchRegistry.getOrThrow(Enchantments.FLAME);
+
+						int powerEnch = EnchantmentHelper.getItemEnchantmentLevel(powerHolder, stack);
 						if (powerEnch > 0) {
 							arrow.setBaseDamage(arrow.getBaseDamage() + (double) powerEnch * 0.5D + 0.5D);
 						}
 
-						int knockback = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.PUNCH_ARROWS, stack);
+						int knockback = EnchantmentHelper.getItemEnchantmentLevel(punchHolder, stack);
 						if (knockback > 0) {
 							arrow.setKnockback(knockback);
 						}
 
-						if (EnchantmentHelper.getItemEnchantmentLevel(Enchantments.FLAMING_ARROWS, stack) > 0) {
+						if (EnchantmentHelper.getItemEnchantmentLevel(flameHolder, stack) > 0) {
 							arrow.igniteForSeconds(100);
 						}
 
-						stack.hurtAndBreak(1, player, (p) -> {
-							p.broadcastBreakEvent(player.getUsedItemHand());
-						});
+						stack.hurtAndBreak(1, player, EquipmentSlot.MAINHAND);
 						if (markUnpickable || player.getAbilities().instabuild && (arrowStack.is(Items.SPECTRAL_ARROW) || arrowStack.is(Items.TIPPED_ARROW))) {
 							arrow.pickup = AbstractArrow.Pickup.CREATIVE_ONLY;
 						}
@@ -127,13 +134,15 @@ public class CrystalBowItem extends LivingwoodBowItem {
 	}
 
 	private boolean canFire(ItemStack stack, Player player) {
-		boolean infinity = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.INFINITY_ARROWS, stack) > 0;
+		Holder<Enchantment> infinityHolder = player.level().registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(Enchantments.INFINITY);
+		boolean infinity = EnchantmentHelper.getItemEnchantmentLevel(infinityHolder, stack) > 0;
 		return player.getAbilities().instabuild || ManaItemHandler.instance().requestManaExactForTool(stack, player, ARROW_COST / (infinity ? 2 : 1), false);
 	}
 
 	@Override
 	public <T extends LivingEntity> int damageItem(ItemStack stack, int amount, T entity, Consumer<T> onBroken) {
-		boolean infinity = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.INFINITY_ARROWS, stack) > 0;
+		Holder<Enchantment> infinityHolder = entity.level().registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(Enchantments.INFINITY);
+		boolean infinity = EnchantmentHelper.getItemEnchantmentLevel(infinityHolder, stack) > 0;
 		return ToolCommons.damageItemIfPossible(stack, amount, entity, ARROW_COST / (infinity ? 2 : 1));
 	}
 }
