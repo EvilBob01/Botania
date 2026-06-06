@@ -5,6 +5,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.gametest.framework.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
+import net.minecraft.server.level.GameType;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
@@ -32,7 +33,7 @@ public class DrumBlockTest {
 	private static final Vec3 VECTOR_MOB = POSITION_MOB.getCenter();
 
 	private static <T extends Mob> T setup(GameTestHelper helper, EntityType<T> entityType, @Nullable Item item) {
-		var player = helper.makeMockPlayer();
+		var player = helper.makeMockPlayer(GameType.SURVIVAL);
 		var spreader = TestingUtil.assertBlockEntity(helper, POSITION_SPREADER, BotaniaBlockEntities.SPREADER);
 		TestingUtil.assertThat(spreader.bindTo(player, new ItemStack(BotaniaItems.twigWand),
 				helper.absolutePos(POSITION_DRUM), Direction.UP),
@@ -76,7 +77,7 @@ public class DrumBlockTest {
 		var cow = setup(helper, EntityType.MOOSHROOM, Items.BOWL);
 		cow.setVariant(MushroomCow.MushroomType.BROWN);
 		var cowAccessor = (MushroomCowAccessor) cow;
-		cowAccessor.setEffect(MobEffects.BLINDNESS);
+		cowAccessor.setEffect(MobEffects.BLINDNESS.value());
 		cowAccessor.setEffectDuration(15);
 		helper.startSequence()
 				.thenExecuteAfter(1, () -> helper.pressButton(POSITION_BUTTON))

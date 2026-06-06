@@ -11,6 +11,7 @@ package vazkii.botania.test.block;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.gametest.framework.*;
+import net.minecraft.server.level.GameType;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
@@ -112,7 +113,7 @@ public class BindingTest {
 		BlockPos absoluteBindTarget = TestingUtil.assertAnyBlockEntity(helper, middle).getBlockPos();
 
 		//Use a Floral Obedience Stick on the pool
-		Player player = helper.makeMockPlayer();
+		Player player = helper.makeMockPlayer(GameType.SURVIVAL);
 		player.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(BotaniaItems.obedienceStick));
 		TestingUtil.useItemOn(helper, player, InteractionHand.MAIN_HAND, middle);
 

@@ -15,24 +15,19 @@ import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
 import com.mojang.authlib.GameProfile;
-import com.mojang.authlib.minecraft.MinecraftProfileTexture;
 import com.mojang.authlib.properties.Property;
-import com.mojang.authlib.yggdrasil.response.MinecraftTexturesPayload;
 import com.mojang.serialization.MapCodec;
 import com.mojang.util.UUIDTypeAdapter;
 
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponents;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.NbtUtils;
 import net.minecraft.network.RegistryFriendlyByteBuf;
-import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.FormattedText;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.WrittenBookItem;
+import net.minecraft.world.item.component.ResolvableProfile;
 import net.minecraft.world.item.component.WrittenBookContent;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
@@ -121,7 +116,7 @@ public class HeadRecipe extends RunicAltarRecipe {
 			}
 			if (ingr.is(Items.WRITTEN_BOOK)) {
 				GameProfile profile = parseProfileFromBook(ingr, false);
-				ItemNBTHelper.setCompound(stack, "SkullOwner", NbtUtils.writeGameProfile(new CompoundTag(), profile));
+				stack.set(DataComponents.PROFILE, new ResolvableProfile(profile));
 				break;
 			}
 		}
@@ -142,8 +137,7 @@ public class HeadRecipe extends RunicAltarRecipe {
 
 		int maxPages = Math.min(2, pages.size());
 		for (int i = 0; i < maxPages; ++i) {
-			String pageJson = Component.Serializer.toJson(pages.get(i).raw(), null);
-			String pageText = parsePage(pageJson);
+			String pageText = pages.get(i).raw().getString();
 
 			Matcher matcher = PROFILE_PATTERN.matcher(pageText);
 			if (matcher.matches()) {
@@ -161,9 +155,16 @@ public class HeadRecipe extends RunicAltarRecipe {
 				} else if ((base64 = matcher.group("base64")) != null) {
 					try {
 						final String json = new String(Base64.getDecoder().decode(base64), StandardCharsets.UTF_8);
-						MinecraftTexturesPayload result = gson.get().fromJson(json, MinecraftTexturesPayload.class);
-						MinecraftProfileTexture skinTexture = result.getTextures().get(MinecraftProfileTexture.Type.SKIN);
-						String skinTextureUrl = skinTexture.getUrl();
+						JsonObject root = gson.get().fromJson(json, JsonObject.class);
+						JsonObject textures = root.getAsJsonObject("textures");
+						JsonObject skin = textures != null ? textures.getAsJsonObject("SKIN") : null;
+						if (skin == null) {
+							return null;
+						}
+						String skinTextureUrl = skin.get("url") != null ? skin.get("url").getAsString() : null;
+						if (skinTextureUrl == null) {
+							return null;
+						}
 						if (!PROFILE_PATTERN.matcher(skinTextureUrl).matches()) {
 							return null;
 						}
@@ -186,15 +187,6 @@ public class HeadRecipe extends RunicAltarRecipe {
 			}
 		}
 		return null;
-	}
-
-	private static String parsePage(String pageJson) {
-		try {
-			FormattedText formattedtext = Component.Serializer.fromJson(pageJson);
-			return formattedtext != null ? formattedtext.getString() : pageJson;
-		} catch (Exception exception) {
-			return pageJson;
-		}
 	}
 
 	@Override

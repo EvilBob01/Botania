@@ -14,6 +14,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.gametest.framework.GameTestAssertException;
 import net.minecraft.gametest.framework.GameTestAssertPosException;
 import net.minecraft.gametest.framework.GameTestHelper;
+import net.minecraft.server.level.GameType;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -115,7 +116,7 @@ public class TestingUtil {
 
 	public static void bindWithWandOfTheForest(GameTestHelper helper, BlockPos first, BlockPos second) {
 		//Conjure a player with Wand of the Forest
-		Player player = helper.makeMockPlayer();
+		Player player = helper.makeMockPlayer(GameType.SURVIVAL);
 		player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(BotaniaItems.twigWand));
 		player.setShiftKeyDown(true);
 

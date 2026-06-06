@@ -8,7 +8,7 @@
  */
 package vazkii.botania.network.serverbound;
 
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryRegistryFriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
@@ -24,7 +24,7 @@ public record IndexKeybindRequestPacket(ItemStack stack) implements BotaniaPacke
 	public static final ResourceLocation ID = prefix("idx");
 
 	@Override
-	public void encode(FriendlyByteBuf buf) {
+	public void encode(RegistryFriendlyByteBuf buf) {
 		buf.writeItem(stack());
 	}
 
@@ -33,7 +33,7 @@ public record IndexKeybindRequestPacket(ItemStack stack) implements BotaniaPacke
 		return ID;
 	}
 
-	public static IndexKeybindRequestPacket decode(FriendlyByteBuf buf) {
+	public static IndexKeybindRequestPacket decode(RegistryFriendlyByteBuf buf) {
 		return new IndexKeybindRequestPacket(buf.readItem());
 	}
 

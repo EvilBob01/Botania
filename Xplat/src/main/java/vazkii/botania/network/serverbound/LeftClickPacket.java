@@ -8,7 +8,7 @@
  */
 package vazkii.botania.network.serverbound;
 
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryRegistryFriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
@@ -23,7 +23,7 @@ public class LeftClickPacket implements BotaniaPacket {
 	public static final ResourceLocation ID = prefix("lc");
 
 	@Override
-	public void encode(FriendlyByteBuf buf) {
+	public void encode(RegistryFriendlyByteBuf buf) {
 
 	}
 
@@ -32,7 +32,7 @@ public class LeftClickPacket implements BotaniaPacket {
 		return ID;
 	}
 
-	public static LeftClickPacket decode(FriendlyByteBuf buf) {
+	public static LeftClickPacket decode(RegistryFriendlyByteBuf buf) {
 		return INSTANCE;
 	}
 

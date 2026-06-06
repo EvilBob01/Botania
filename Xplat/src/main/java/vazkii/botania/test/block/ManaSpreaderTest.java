@@ -4,6 +4,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.gametest.framework.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
+import net.minecraft.server.level.GameType;
 import net.minecraft.world.item.ItemStack;
 
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
@@ -20,7 +21,7 @@ public class ManaSpreaderTest {
 
 	@GameTest(template = "botania:block/spreader_pool_default_aim")
 	public void testSpreaderDefaultAimHittingPool(GameTestHelper helper) {
-		var player = helper.makeMockPlayer();
+		var player = helper.makeMockPlayer(GameType.SURVIVAL);
 
 		// point the spreaders at their corresponding sink block to aim them exactly horizontally
 		for (int i = 0; i < NUM_SPREADERS; i++) {

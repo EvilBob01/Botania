@@ -12,7 +12,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryRegistryFriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
@@ -43,7 +43,7 @@ public record BotaniaEffectPacket(EffectType type, double x, double y, double z,
 	private static final int MAX_VARIABLE_ARGS = 128;
 
 	@Override
-	public void encode(FriendlyByteBuf buf) {
+	public void encode(RegistryFriendlyByteBuf buf) {
 		buf.writeByte(type().ordinal());
 		buf.writeDouble(x());
 		buf.writeDouble(y());
@@ -69,7 +69,7 @@ public record BotaniaEffectPacket(EffectType type, double x, double y, double z,
 		return ID;
 	}
 
-	public static BotaniaEffectPacket decode(FriendlyByteBuf buf) {
+	public static BotaniaEffectPacket decode(RegistryFriendlyByteBuf buf) {
 		EffectType type = EffectType.values()[buf.readByte()];
 		double x = buf.readDouble();
 		double y = buf.readDouble();

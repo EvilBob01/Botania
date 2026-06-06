@@ -9,7 +9,6 @@
 package vazkii.botania.common.crafting.recipe;
 
 import net.minecraft.core.HolderLookup;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.CraftingInput;
 import net.minecraft.world.item.crafting.CraftingBookCategory;
@@ -36,11 +35,11 @@ public class TerraShattererTippingRecipe extends CustomRecipe {
 	}
 
 	@Override
-	public boolean matches(@NotNull CraftingContainer inv, @NotNull Level world) {
+	public boolean matches(@NotNull CraftingInput inv, @NotNull Level world) {
 		boolean foundTerraPick = false;
 		boolean foundElementiumPick = false;
 
-		for (int i = 0; i < inv.getContainerSize(); i++) {
+		for (int i = 0; i < inv.size(); i++) {
 			ItemStack stack = inv.getItem(i);
 			if (!stack.isEmpty()) {
 				if (stack.getItem() instanceof TerraShattererItem
@@ -59,10 +58,10 @@ public class TerraShattererTippingRecipe extends CustomRecipe {
 
 	@NotNull
 	@Override
-	public ItemStack assemble(@NotNull CraftingContainer inv, @NotNull RegistryAccess registries) {
+	public ItemStack assemble(@NotNull CraftingInput inv, @NotNull HolderLookup.Provider registries) {
 		ItemStack terraPick = ItemStack.EMPTY;
 
-		for (int i = 0; i < inv.getContainerSize(); i++) {
+		for (int i = 0; i < inv.size(); i++) {
 			ItemStack stack = inv.getItem(i);
 			if (!stack.isEmpty() && stack.getItem() instanceof TerraShattererItem) {
 				terraPick = stack;

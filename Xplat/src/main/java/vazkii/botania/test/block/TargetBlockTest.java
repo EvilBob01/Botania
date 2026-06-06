@@ -3,6 +3,7 @@ package vazkii.botania.test.block;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.gametest.framework.*;
+import net.minecraft.server.level.GameType;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.RedstoneLampBlock;
 
@@ -18,7 +19,7 @@ public class TargetBlockTest {
 		var spreaderPos = new BlockPos(5, 2, 5);
 		var lampPos = new BlockPos(3, 3, 5);
 		var bindPos = new BlockPos(3, 2, 5);
-		var player = helper.makeMockPlayer();
+		var player = helper.makeMockPlayer(GameType.SURVIVAL);
 
 		// Because Mojang removed the block entity rotation methods, we need to ensure
 		// that the spreader is pointed at the mana void properly, in case the test

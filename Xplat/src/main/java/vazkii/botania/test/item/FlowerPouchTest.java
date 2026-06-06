@@ -2,6 +2,7 @@ package vazkii.botania.test.item;
 
 import net.minecraft.gametest.framework.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
+import net.minecraft.server.level.GameType;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
@@ -14,7 +15,7 @@ import vazkii.botania.test.TestingUtil;
 public class FlowerPouchTest {
 	@GameTest(template = TestingUtil.EMPTY_STRUCTURE)
 	public void testNoShinyFlowers(GameTestHelper helper) {
-		var player = helper.makeMockPlayer();
+		var player = helper.makeMockPlayer(GameType.SURVIVAL);
 		var bag = new ItemStack(BotaniaItems.flowerBag);
 		player.getInventory().setItem(1, bag);
 
@@ -33,7 +34,7 @@ public class FlowerPouchTest {
 
 	@GameTest(template = TestingUtil.EMPTY_STRUCTURE)
 	public void testPickupBasic(GameTestHelper helper) {
-		var player = helper.makeMockPlayer();
+		var player = helper.makeMockPlayer(GameType.SURVIVAL);
 		var bag = new ItemStack(BotaniaItems.flowerBag);
 		player.getInventory().setItem(1, bag);
 

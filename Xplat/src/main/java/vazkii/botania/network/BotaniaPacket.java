@@ -1,19 +1,13 @@
 package vazkii.botania.network;
 
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 
 
 import io.netty.buffer.Unpooled;
 
 public interface BotaniaPacket {
-	default FriendlyByteBuf toBuf() {
-		var ret = new FriendlyByteBuf(Unpooled.buffer());
-		encode(ret);
-		return ret;
-	}
-
-	void encode(FriendlyByteBuf buf);
+	void encode(RegistryFriendlyByteBuf buf);
 
 	/**
 	 * Forge auto-assigns incrementing integers, Fabric requires us to declare an ID

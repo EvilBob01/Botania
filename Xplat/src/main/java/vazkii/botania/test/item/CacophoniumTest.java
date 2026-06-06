@@ -11,6 +11,7 @@ package vazkii.botania.test.item;
 import net.minecraft.core.BlockPos;
 import net.minecraft.gametest.framework.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
+import net.minecraft.server.level.GameType;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.EntityType;
@@ -36,7 +37,7 @@ public class CacophoniumTest {
 		BlockPos noteBlockPos = new BlockPos(1, 2, 3);
 		helper.assertBlockPresent(Blocks.NOTE_BLOCK, noteBlockPos);
 
-		Player player = helper.makeMockPlayer();
+		Player player = helper.makeMockPlayer(GameType.SURVIVAL);
 		Cow cow = helper.spawnWithNoFreeWill(EntityType.COW, cowPos);
 
 		//Give a cacophonium to the player.

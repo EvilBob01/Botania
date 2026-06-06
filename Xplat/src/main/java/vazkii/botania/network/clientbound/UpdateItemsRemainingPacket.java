@@ -9,7 +9,7 @@
 package vazkii.botania.network.clientbound;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryRegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
@@ -26,7 +26,7 @@ public record UpdateItemsRemainingPacket(ItemStack stack, int count, @Nullable C
 	public static final ResourceLocation ID = prefix("rem");
 
 	@Override
-	public void encode(FriendlyByteBuf buf) {
+	public void encode(RegistryFriendlyByteBuf buf) {
 		buf.writeItem(stack);
 		buf.writeVarInt(count);
 		buf.writeBoolean(tooltip != null);
@@ -40,7 +40,7 @@ public record UpdateItemsRemainingPacket(ItemStack stack, int count, @Nullable C
 		return ID;
 	}
 
-	public static UpdateItemsRemainingPacket decode(FriendlyByteBuf buf) {
+	public static UpdateItemsRemainingPacket decode(RegistryFriendlyByteBuf buf) {
 		return new UpdateItemsRemainingPacket(
 				buf.readItem(),
 				buf.readVarInt(),

@@ -5,6 +5,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.gametest.framework.GameTest;
 import net.minecraft.gametest.framework.GameTestAssertException;
 import net.minecraft.gametest.framework.GameTestHelper;
+import net.minecraft.server.level.GameType;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Blocks;
@@ -54,7 +55,7 @@ public class EntropinnyumUnethicalTntDetectionTest {
 	public void testForceLensDuper(GameTestHelper helper) {
 		helper.startSequence()
 				.thenExecute(() -> {
-					var player = helper.makeMockPlayer();
+					var player = helper.makeMockPlayer(GameType.SURVIVAL);
 					var spreader = TestingUtil.assertBlockEntity(helper, POSITION_FORCE_LENS_MANA_SPREADER, BotaniaBlockEntities.SPREADER);
 					TestingUtil.assertThat(spreader.bindTo(player, new ItemStack(BotaniaItems.twigWand),
 							helper.absolutePos(POSITION_FORCE_LENS_PUSHED_SLIME_BLOCK), Direction.UP),

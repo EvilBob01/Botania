@@ -4,6 +4,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.gametest.framework.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
+import net.minecraft.server.level.GameType;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -24,7 +25,7 @@ public class LifeAggregatorTest {
 	@GameTest(template = TestingUtil.EMPTY_STRUCTURE)
 	public void testSpawnerMover(GameTestHelper helper) {
 		var spawnerPos = BlockPos.ZERO;
-		var player = helper.makeMockPlayer();
+		var player = helper.makeMockPlayer(GameType.SURVIVAL);
 		var stack = new ItemStack(BotaniaItems.spawnerMover);
 
 		helper.setBlock(spawnerPos, Blocks.SPAWNER);

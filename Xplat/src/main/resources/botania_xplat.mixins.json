@@ -52,7 +52,6 @@
     "PlayerMixin",
     "PollinateGoalMixin",
     "ProjectileAccessor",
-    "ProtectionEnchantmentMixin",
     "RandomizableContainerBlockEntityAccessor",
     "RecipeManagerAccessor",
     "RecipeProviderAccessor",

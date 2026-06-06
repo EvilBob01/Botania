@@ -4,6 +4,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.gametest.framework.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
+import net.minecraft.server.level.GameType;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.RedstoneLampBlock;
 
@@ -21,7 +22,7 @@ public class EntropicWarpLensTest {
 		var buttonPos = new BlockPos(4, 3, 3);
 		var relayPos = new BlockPos(3, 2, 3);
 		var bindPos = new BlockPos(3, 10, 3);
-		var player = helper.makeMockPlayer();
+		var player = helper.makeMockPlayer(GameType.SURVIVAL);
 
 		var data = ForceRelayBlock.WorldData.get(helper.getLevel());
 		data.mapping.put(helper.absolutePos(relayPos), helper.absolutePos(bindPos));

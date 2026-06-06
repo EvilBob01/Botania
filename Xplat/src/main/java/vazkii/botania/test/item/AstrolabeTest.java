@@ -5,6 +5,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.gametest.framework.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
+import net.minecraft.server.level.GameType;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -379,7 +380,7 @@ public class AstrolabeTest {
 
 	@NotNull
 	private Player mockPlayerWithAstrolabe(final GameTestHelper helper, Vec3 posPlayer, final Vec3 lookTarget, int mana) {
-		final Player player = helper.makeMockPlayer();
+		final Player player = helper.makeMockPlayer(GameType.SURVIVAL);
 		player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(BotaniaItems.astrolabe));
 		final ItemStack tablet = new ItemStack(BotaniaItems.manaTablet);
 		Objects.requireNonNull(XplatAbstractions.INSTANCE.findManaItem(tablet)).addMana(mana);
