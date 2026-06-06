@@ -134,7 +134,7 @@ public class GourmaryllisBlockEntity extends GeneratingFlowerBlockEntity {
 		for (ItemEntity item : items) {
 			ItemStack stack = item.getItem();
 
-			if (DelayHelper.canInteractWithImmediate(this, item) && stack.getItem().isEdible()) {
+			if (DelayHelper.canInteractWithImmediate(this, item) && XplatAbstractions.INSTANCE.getFoodProperties(stack) != null) {
 				if (cooldown <= 0) {
 					streakLength = Math.min(streakLength + 1, processFood(stack));
 
@@ -165,7 +165,7 @@ public class GourmaryllisBlockEntity extends GeneratingFlowerBlockEntity {
 	private static int getFoodValue(ItemStack stack) {
 		// support for Forge's NBT-based food properties
 		FoodProperties foodProperties = XplatAbstractions.INSTANCE.getFoodProperties(stack);
-		int nutrition = foodProperties != null ? foodProperties.getNutrition() : 0;
+		int nutrition = foodProperties != null ? foodProperties.nutrition() : 0;
 		return Math.min(MAX_FOOD_VALUE, nutrition);
 	}
 
@@ -176,7 +176,7 @@ public class GourmaryllisBlockEntity extends GeneratingFlowerBlockEntity {
 		cmp.putInt(TAG_DIGESTING_MANA, digestingMana);
 		ListTag foodList = new ListTag();
 		for (ItemStack food : lastFoods) {
-			foodList.add(food.save(new CompoundTag()));
+			foodList.add(food.save(getLevel().registryAccess()));
 		}
 		cmp.put(TAG_LAST_FOODS, foodList);
 		cmp.putInt(TAG_LAST_FOOD_COUNT, lastFoodCount);

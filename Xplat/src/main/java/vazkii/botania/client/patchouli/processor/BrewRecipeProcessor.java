@@ -29,7 +29,7 @@ public class BrewRecipeProcessor implements IComponentProcessor {
 
 	@Override
 	public void setup(Level level, IVariableProvider variables) {
-		ResourceLocation id = ResourceLocation.parse(variables.get(IVariable.wrap("recipe")).asString());
+		ResourceLocation id = ResourceLocation.parse(variables.get("recipe").asString());
 		this.recipe = PatchouliUtils.getRecipe(level, BotaniaRecipeTypes.BREW_TYPE, id);
 	}
 
@@ -41,7 +41,7 @@ public class BrewRecipeProcessor implements IComponentProcessor {
 			}
 			return null;
 		} else if (key.equals("heading")) {
-			return IVariable.wrap(Component.translatable("botaniamisc.brewOf", Component.translatable(recipe.getBrew().getTranslationKey())));
+			return IVariable.wrap(Component.translatable("botaniamisc.brewOf", Component.translatable(recipe.getBrew().getTranslationKey())).getString());
 		} else if (key.equals("vial")) {
 			return IVariable.wrap(recipe.getOutput(new ItemStack(BotaniaItems.vial)));
 		} else if (key.equals("flask")) {
@@ -52,7 +52,7 @@ public class BrewRecipeProcessor implements IComponentProcessor {
 			int index = requestedIndex - indexOffset;
 
 			if (index < recipe.getIngredients().size() && index >= 0) {
-				return IVariable.wrapList(Arrays.stream(recipe.getIngredients().get(index).getItems()).map(IVariable::wrap).collect(Collectors.toList()));
+				return IVariable.wrapList(Arrays.stream(recipe.getIngredients().get(index).getItems()).map(stack -> IVariable.wrap(stack)).collect(Collectors.toList()));
 			} else {
 				return null;
 			}

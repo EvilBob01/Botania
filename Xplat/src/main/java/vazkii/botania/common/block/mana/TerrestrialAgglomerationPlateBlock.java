@@ -10,7 +10,7 @@ package vazkii.botania.common.block.mana;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -36,7 +36,6 @@ import vazkii.botania.common.block.BotaniaWaterloggedBlock;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.block.block_entity.TerrestrialAgglomerationPlateBlockEntity;
 import vazkii.botania.common.crafting.BotaniaRecipeTypes;
-import vazkii.botania.mixin.RecipeManagerAccessor;
 
 public class TerrestrialAgglomerationPlateBlock extends BotaniaWaterloggedBlock implements EntityBlock {
 
@@ -53,8 +52,7 @@ public class TerrestrialAgglomerationPlateBlock extends BotaniaWaterloggedBlock 
 	}
 
 	@Override
-	public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-		ItemStack stack = player.getItemInHand(hand);
+	public ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
 		if (!stack.isEmpty() && usesItem(stack, world)) {
 			if (!world.isClientSide) {
 				ItemStack target = stack.split(1);
@@ -64,14 +62,14 @@ public class TerrestrialAgglomerationPlateBlock extends BotaniaWaterloggedBlock 
 				world.addFreshEntity(item);
 			}
 
-			return InteractionResult.sidedSuccess(world.isClientSide());
+			return ItemInteractionResult.sidedSuccess(world.isClientSide());
 		}
 
-		return InteractionResult.PASS;
+		return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
 	}
 
 	private static boolean usesItem(ItemStack stack, Level world) {
-		for (Recipe<?> value : ((RecipeManagerAccessor) world.getRecipeManager()).botania_getAll(BotaniaRecipeTypes.TERRA_PLATE_TYPE).values()) {
+		for (Recipe<?> value : BotaniaRecipeTypes.getRecipes(world, BotaniaRecipeTypes.TERRA_PLATE_TYPE).values()) {
 			for (Ingredient i : value.getIngredients()) {
 				if (i.test(stack)) {
 					return true;
@@ -82,7 +80,7 @@ public class TerrestrialAgglomerationPlateBlock extends BotaniaWaterloggedBlock 
 	}
 
 	@Override
-	public boolean isPathfindable(@NotNull BlockState state, @NotNull BlockGetter world, @NotNull BlockPos pos, PathComputationType type) {
+	public boolean isPathfindable(@NotNull BlockState state, PathComputationType type) {
 		return false;
 	}
 

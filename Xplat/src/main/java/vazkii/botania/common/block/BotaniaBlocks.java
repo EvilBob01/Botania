@@ -1505,7 +1505,7 @@ public final class BotaniaBlocks {
 		DispenserBlock.registerBehavior(BotaniaItems.corporeaSpark, behavior);
 		DispenserBlock.registerBehavior(BotaniaItems.corporeaSparkMaster, behavior);
 		DispenserBlock.registerBehavior(BotaniaItems.corporeaSparkCreative, behavior);
-		DispenserBlock.registerBehavior(BotaniaItems.enderAirBottle, new ProjectileDispenseBehavior() {
+		DispenserBlock.registerBehavior(BotaniaItems.enderAirBottle, new ProjectileDispenseBehavior(BotaniaItems.enderAirBottle) {
 			@Override
 			protected net.minecraft.world.entity.projectile.Projectile getProjectile(net.minecraft.world.level.Level world, net.minecraft.core.Position pos, ItemStack stack) {
 				return new EnderAirBottleEntity(pos.x(), pos.y(), pos.z(), world);
@@ -1533,7 +1533,7 @@ public final class BotaniaBlocks {
 
 		DispenserBlock.registerBehavior(BotaniaItems.manasteelShears, new ShearsDispenseItemBehavior());
 		DispenserBlock.registerBehavior(BotaniaItems.elementiumShears, new ShearsDispenseItemBehavior());
-		DispenserBlock.registerBehavior(BotaniaItems.vineBall, new ProjectileDispenseBehavior() {
+		DispenserBlock.registerBehavior(BotaniaItems.vineBall, new ProjectileDispenseBehavior(BotaniaItems.vineBall) {
 			@Override
 			protected net.minecraft.world.entity.projectile.Projectile getProjectile(net.minecraft.world.level.Level world, net.minecraft.core.Position pos, ItemStack stack) {
 				return new VineBallEntity(pos.x(), pos.y(), pos.z(), world);

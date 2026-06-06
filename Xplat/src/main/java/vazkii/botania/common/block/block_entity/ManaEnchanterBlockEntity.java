@@ -23,6 +23,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.EnchantmentTags;
 import net.minecraft.world.Clearable;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -222,12 +223,12 @@ public class ManaEnchanterBlockEntity extends BotaniaBlockEntity implements Mana
 		if (manaRequired == -1) {
 			manaRequired = 0;
 			for (EnchantmentInstance data : enchants) {
-				manaRequired += (int) (5000F * ((15 - Math.min(15, data.enchantment.value().getRarity().getWeight()))
+				manaRequired += (int) (5000F * ((15 - Math.min(15, data.enchantment.value().getAnvilCost()))
 						* 1.05F)
 						* ((3F + data.level * data.level)
 								* 0.25F)
 						* (0.9F + enchants.size() * 0.05F)
-						* (data.enchantment.value().isTreasureOnly() ? 1.25F : 1F));
+						* (data.enchantment.is(EnchantmentTags.TREASURE) ? 1.25F : 1F));
 			}
 		} else if (mana >= manaRequired) {
 			manaRequired = 0;
@@ -399,9 +400,8 @@ public class ManaEnchanterBlockEntity extends BotaniaBlockEntity implements Mana
 		cmp.putInt(TAG_STAGE_TICKS, stageTicks);
 		cmp.putInt(TAG_STAGE_3_END_TICKS, stage3EndTicks);
 
-		CompoundTag itemCmp = new CompoundTag();
 		if (!itemToEnchant.isEmpty()) {
-			cmp.put(TAG_ITEM, itemToEnchant.save(itemCmp));
+			cmp.put(TAG_ITEM, itemToEnchant.save(level.registryAccess()));
 		}
 
 		String enchStr = enchants.stream()
@@ -454,7 +454,8 @@ public class ManaEnchanterBlockEntity extends BotaniaBlockEntity implements Mana
 		}
 
 		for (EnchantmentInstance data : enchants) {
-			if (!ench.value().isCompatibleWith(data.enchantment.value())) {
+			if (!ench.value().exclusiveSet().isEmpty() && ench.value().exclusiveSet().stream().anyMatch(tag -> data.enchantment.is(tag))
+					|| !data.enchantment.value().exclusiveSet().isEmpty() && data.enchantment.value().exclusiveSet().stream().anyMatch(tag -> ench.is(tag))) {
 				return false;
 			}
 		}

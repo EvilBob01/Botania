@@ -34,7 +34,7 @@ public class MultiCraftingProcessor implements IComponentProcessor {
 
 	@Override
 	public void setup(Level level, IVariableProvider variables) {
-		List<String> names = variables.get(IVariable.wrap("recipes")).asStream().map(IVariable::asString).collect(Collectors.toList());
+		List<String> names = variables.get("recipes").asStream().map(IVariable::asString).collect(Collectors.toList());
 		this.recipes = new ArrayList<>();
 		for (String name : names) {
 			CraftingRecipe recipe = PatchouliUtils.getRecipe(level, RecipeType.CRAFTING, ResourceLocation.parse(name));
@@ -53,7 +53,7 @@ public class MultiCraftingProcessor implements IComponentProcessor {
 				BotaniaAPI.LOGGER.warn("Missing crafting recipe " + name);
 			}
 		}
-		this.hasCustomHeading = variables.has(IVariable.wrap("heading"));
+		this.hasCustomHeading = variables.has("heading");
 	}
 
 	@Override
@@ -63,7 +63,7 @@ public class MultiCraftingProcessor implements IComponentProcessor {
 		}
 		if (key.equals("heading")) {
 			if (!hasCustomHeading) {
-				return IVariable.wrap(recipes.get(0).getResultItem(level.registryAccess()).getHoverName());
+				return IVariable.wrap(recipes.get(0).getResultItem(level.registryAccess()).getHoverName().getString());
 			}
 			return null;
 		}
