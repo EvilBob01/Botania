@@ -70,10 +70,10 @@ public class AvatarBlock extends BotaniaWaterloggedBlock implements EntityBlock 
 	}
 
 	@Override
-	public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+	protected InteractionResult useWithoutItem(BlockState state, Level world, BlockPos pos, Player player, BlockHitResult hit) {
 		AvatarBlockEntity avatar = (AvatarBlockEntity) world.getBlockEntity(pos);
 		ItemStack stackOnAvatar = avatar.getItemHandler().getItem(0);
-		ItemStack stackOnPlayer = player.getItemInHand(hand);
+		ItemStack stackOnPlayer = player.getMainHandItem();
 		if (!stackOnAvatar.isEmpty()) {
 			avatar.getItemHandler().setItem(0, ItemStack.EMPTY);
 			player.getInventory().placeItemBackInInventory(stackOnAvatar);

@@ -582,7 +582,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.save(output);
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BotaniaItems.redstoneRoot)
 				.requires(Items.REDSTONE)
-				.requires(Ingredient.of(Items.FERN, Items.GRASS))
+				.requires(Ingredient.of(Items.FERN, Items.SHORT_GRASS))
 				.unlockedBy("has_item", conditionsFromItem(Items.REDSTONE))
 				.save(output);
 		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, BotaniaItems.dreamwoodTwig)

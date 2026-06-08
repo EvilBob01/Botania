@@ -14,6 +14,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
@@ -116,19 +117,29 @@ public class PetalApothecaryBlock extends BotaniaBlock implements EntityBlock {
 	}
 
 	@Override
-	public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+	protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+		if (!(world.getBlockEntity(pos) instanceof PetalApothecaryBlockEntity apothecary)) {
+			return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+		}
+
+		if (tryWithdrawFluid(player, hand, apothecary, pos) || tryDepositFluid(player, hand, apothecary, pos)) {
+			return ItemInteractionResult.sidedSuccess(world.isClientSide());
+		}
+
+		return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+	}
+
+	@Override
+	protected InteractionResult useWithoutItem(BlockState state, Level world, BlockPos pos, Player player, BlockHitResult hit) {
 		if (!(world.getBlockEntity(pos) instanceof PetalApothecaryBlockEntity apothecary)) {
 			return InteractionResult.PASS;
 		}
-		boolean mainHandEmpty = player.getMainHandItem().isEmpty();
 
-		if (apothecary.canAddLastRecipe() && mainHandEmpty) {
+		if (apothecary.canAddLastRecipe()) {
 			return apothecary.trySetLastRecipe(player);
-		} else if (!apothecary.isEmpty() && mainHandEmpty) {
+		} else if (!apothecary.isEmpty()) {
 			InventoryHelper.withdrawFromInventory(apothecary, player);
 			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(apothecary);
-			return InteractionResult.sidedSuccess(world.isClientSide());
-		} else if (tryWithdrawFluid(player, hand, apothecary, pos) || tryDepositFluid(player, hand, apothecary, pos)) {
 			return InteractionResult.sidedSuccess(world.isClientSide());
 		}
 

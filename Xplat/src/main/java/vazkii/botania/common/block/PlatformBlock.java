@@ -13,6 +13,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -131,12 +132,11 @@ public class PlatformBlock extends BotaniaBlock implements ManaCollisionGhost, E
 
 	@NotNull
 	@Override
-	public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+	protected ItemInteractionResult useItemOn(ItemStack currentStack, BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
 		BlockEntity tile = world.getBlockEntity(pos);
-		ItemStack currentStack = player.getItemInHand(hand);
 
 		if (variant.indestructible && !player.isCreative()) {
-			return InteractionResult.PASS;
+			return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
 		}
 		if (!currentStack.isEmpty()
 				&& Block.byItem(currentStack.getItem()) != Blocks.AIR
@@ -152,11 +152,11 @@ public class PlatformBlock extends BotaniaBlock implements ManaCollisionGhost, E
 					camo.setCamoState(changeState);
 				}
 
-				return InteractionResult.sidedSuccess(world.isClientSide());
+				return ItemInteractionResult.sidedSuccess(world.isClientSide());
 			}
 		}
 
-		return InteractionResult.PASS;
+		return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
 	}
 
 }

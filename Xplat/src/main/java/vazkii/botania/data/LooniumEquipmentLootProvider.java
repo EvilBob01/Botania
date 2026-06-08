@@ -278,7 +278,7 @@ public class LooniumEquipmentLootProvider implements DataProvider {
 								EntityPredicate.Builder.entity().equipment(EntityEquipmentPredicate.Builder.equipment()
 										.mainhand(ItemPredicate.Builder.item().of(Items.BOW)).build())))
 						.when(LootItemRandomChanceCondition.randomChance(0.9f))
-						.add(LootItem.lootTableItem(Items.TIPPED_ARROW).apply(SetCustomDataFunction.setTag(darknessEffectTag)))
+						.add(LootItem.lootTableItem(Items.TIPPED_ARROW).apply(SetCustomDataFunction.setCustomData(darknessEffectTag)))
 				)
 		);
 		tables.put(BotaniaLootTables.LOONIUM_DROWNED_ANCIENT_CITY,

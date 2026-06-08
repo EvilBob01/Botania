@@ -16,6 +16,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.ItemStack;
@@ -63,10 +64,10 @@ public class IncensePlateBlock extends BotaniaWaterloggedBlock implements Entity
 	}
 
 	@Override
-	public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+	protected InteractionResult useWithoutItem(BlockState state, Level world, BlockPos pos, Player player, BlockHitResult hit) {
 		IncensePlateBlockEntity plate = (IncensePlateBlockEntity) world.getBlockEntity(pos);
 		ItemStack plateStack = plate.getItemHandler().getItem(0);
-		ItemStack stack = player.getItemInHand(hand);
+		ItemStack stack = player.getMainHandItem();
 		boolean did = false;
 
 		if (plateStack.isEmpty() && plate.acceptsItem(stack)) {
@@ -78,7 +79,7 @@ public class IncensePlateBlock extends BotaniaWaterloggedBlock implements Entity
 			if (XplatAbstractions.INSTANCE.canToolLightFire(stack)) {
 				plate.ignite();
 				world.playSound(player, pos, SoundEvents.FLINTANDSTEEL_USE, SoundSource.BLOCKS, 1.0F, world.getRandom().nextFloat() * 0.4F + 0.8F);
-				stack.hurtAndBreak(1, player, hand == net.minecraft.world.InteractionHand.MAIN_HAND ? net.minecraft.world.entity.EquipmentSlot.MAINHAND : net.minecraft.world.entity.EquipmentSlot.OFFHAND);
+				stack.hurtAndBreak(1, player, net.minecraft.world.entity.EquipmentSlot.MAINHAND);
 			} else if (stack.is(Items.FIRE_CHARGE)) {
 				plate.ignite();
 				RandomSource randomsource = world.getRandom();
