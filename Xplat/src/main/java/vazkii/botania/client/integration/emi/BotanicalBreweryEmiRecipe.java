@@ -27,10 +27,8 @@ public class BotanicalBreweryEmiRecipe extends BotaniaEmiRecipe {
 		this.ingredients = recipe.getIngredients().stream().map(EmiIngredient::of).toList();
 		this.input = Stream.concat(Stream.of(EmiStack.of(container)), ingredients.stream()).toList();
 		this.output = List.of(EmiStack.of(recipe.getOutput(container.copy())));
-		ResourceLocation id = recipe.getId();
 		ResourceLocation itemId = BuiltInRegistries.ITEM.getKey(container.getItem());
 		this.id = ResourceLocation.fromNamespaceAndPath("emi", "botania/botanical_brewery/"
-				+ id.getNamespace() + "/" + id.getPath() + "/"
 				+ itemId.getNamespace() + "/" + itemId.getPath());
 	}
 

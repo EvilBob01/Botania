@@ -22,7 +22,13 @@ public abstract class BotaniaEmiRecipe implements EmiRecipe {
 
 	public BotaniaEmiRecipe(EmiRecipeCategory category, Recipe<?> recipe) {
 		this.category = category;
-		this.id = recipe.getId();
+		this.id = null;
+		this.group = recipe.getGroup();
+	}
+
+	public BotaniaEmiRecipe(EmiRecipeCategory category, Recipe<?> recipe, ResourceLocation id) {
+		this.category = category;
+		this.id = id;
 		this.group = recipe.getGroup();
 	}
 

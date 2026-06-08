@@ -57,7 +57,7 @@ public class TeruTeruBozuBlockEntityRenderer implements BlockEntityRenderer<Teru
 		}
 
 		VertexConsumer buffer = buffers.getBuffer(model.renderType(ClientProxy.dootDoot ? textureHalloween : texture));
-		model.renderToBuffer(ms, buffer, light, overlay, 1, 1, 1, 1);
+		model.renderToBuffer(ms, buffer, light, overlay, -1);
 		ms.popPose();
 	}
 

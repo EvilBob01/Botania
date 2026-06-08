@@ -31,7 +31,7 @@ public class BaubleBoxGui extends AbstractContainerScreen<BaubleBoxContainer> {
 
 	@Override
 	public void render(GuiGraphics gui, int mouseX, int mouseY, float partialTicks) {
-		this.renderBackground(gui);
+		this.renderBackground(gui, mouseX, mouseY, partialTicks);
 		super.render(gui, mouseX, mouseY, partialTicks);
 		this.mouseX = mouseX;
 		this.mouseY = mouseY;

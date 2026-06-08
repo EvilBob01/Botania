@@ -19,6 +19,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AnvilMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.tags.EnchantmentTags;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.ItemEnchantments;
@@ -115,12 +116,12 @@ public class RosaArcanaBlockEntity extends GeneratingFlowerBlockEntity {
 	// [VanillaCopy] GrindstoneMenu
 	private static int getEnchantmentXpValue(ItemStack stack) {
 		int ret = 0;
-		ItemEnchantments enchantments = EnchantmentHelper.getEnchantments(stack);
+		ItemEnchantments enchantments = EnchantmentHelper.getEnchantmentsForCrafting(stack);
 
 		for (var entry : enchantments.entrySet()) {
 			Enchantment enchantment = entry.getKey().value();
 			int level = entry.getIntValue();
-			if (!enchantment.isCurse()) {
+			if (!entry.getKey().is(EnchantmentTags.CURSE)) {
 				ret += enchantment.getMinCost(level);
 			}
 		}
@@ -134,11 +135,11 @@ public class RosaArcanaBlockEntity extends GeneratingFlowerBlockEntity {
 		itemstack.remove(DataComponents.ENCHANTMENTS);
 		itemstack.remove(DataComponents.STORED_ENCHANTMENTS);
 
-		ItemEnchantments sourceEnchants = EnchantmentHelper.getEnchantments(stack);
+		ItemEnchantments sourceEnchants = EnchantmentHelper.getEnchantmentsForCrafting(stack);
 		ItemEnchantments.Mutable curseEnchants = new ItemEnchantments.Mutable(ItemEnchantments.EMPTY);
 		for (var entry : sourceEnchants.entrySet()) {
 			Holder<Enchantment> ench = entry.getKey();
-			if (ench.value().isCurse()) {
+			if (ench.is(EnchantmentTags.CURSE)) {
 				curseEnchants.set(ench, entry.getIntValue());
 			}
 		}

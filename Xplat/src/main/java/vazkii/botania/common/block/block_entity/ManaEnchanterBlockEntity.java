@@ -172,7 +172,7 @@ public class ManaEnchanterBlockEntity extends BotaniaBlockEntity implements Mana
 			for (ItemEntity entity : items) {
 				ItemStack item = entity.getItem();
 				if (item.is(Items.ENCHANTED_BOOK)) {
-					ItemEnchantments enchants = EnchantmentHelper.getEnchantments(item);
+					ItemEnchantments enchants = EnchantmentHelper.getEnchantmentsForCrafting(item);
 					if (!enchants.isEmpty()) {
 						Holder<Enchantment> enchant = enchants.keySet().iterator().next();
 						if (isEnchantmentValid(enchant)) {
@@ -194,7 +194,7 @@ public class ManaEnchanterBlockEntity extends BotaniaBlockEntity implements Mana
 			for (ItemEntity entity : items) {
 				ItemStack item = entity.getItem();
 				if (item.is(Items.ENCHANTED_BOOK)) {
-					ItemEnchantments enchants = EnchantmentHelper.getEnchantments(item);
+					ItemEnchantments enchants = EnchantmentHelper.getEnchantmentsForCrafting(item);
 					if (!enchants.isEmpty()) {
 						var e = enchants.entrySet().iterator().next();
 						Holder<Enchantment> ench = e.getKey();
