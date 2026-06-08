@@ -8,7 +8,7 @@
  */
 package vazkii.botania.network.serverbound;
 
-import net.minecraft.network.RegistryRegistryFriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;

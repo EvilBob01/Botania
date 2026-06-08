@@ -9,7 +9,7 @@
 package vazkii.botania.network.clientbound;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.network.RegistryRegistryFriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.ItemEntity;
