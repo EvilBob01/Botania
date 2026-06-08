@@ -268,7 +268,8 @@ public final class HUDHandler {
 		ProfilerFiller profiler = mc.getProfiler();
 
 		profiler.push("poolRecipe");
-		ManaInfusionRecipe recipe = tile.getMatchingRecipe(stack, tile.getLevel().getBlockState(tile.getBlockPos().below()));
+		var recipeHolder = tile.getMatchingRecipe(stack, tile.getLevel().getBlockState(tile.getBlockPos().below()));
+		ManaInfusionRecipe recipe = recipeHolder != null ? recipeHolder.value() : null;
 		if (recipe != null) {
 			int x = mc.getWindow().getGuiScaledWidth() / 2 - 11;
 			int y = mc.getWindow().getGuiScaledHeight() / 2 + (alternateRecipeHudPosition ? -25 : 10);

@@ -529,8 +529,8 @@ public class AssemblyHaloItem extends Item {
 		}
 	}
 
-	public static class RecipePlacer extends ServerPlaceRecipe<RecipeBookMenu<CraftingInput>, CraftingInput> {
-		public RecipePlacer(RecipeBookMenu<CraftingInput> container) {
+	public static class RecipePlacer extends ServerPlaceRecipe<CraftingInput, CraftingRecipe> {
+		public RecipePlacer(RecipeBookMenu<CraftingInput, CraftingRecipe> container) {
 			super(container);
 		}
 
@@ -544,7 +544,7 @@ public class AssemblyHaloItem extends Item {
 
 				boolean ret;
 				if (this.stackedContents.canCraft(recipe, null)) {
-					this.handleRecipeClicked(recipe, false);
+					this.handleRecipeClicked(new RecipeHolder<>(ResourceLocation.parse("botania:assembly_halo_craft"), recipe), false);
 					ret = true;
 				} else {
 					this.clearGrid();
