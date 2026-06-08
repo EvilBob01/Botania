@@ -25,9 +25,9 @@ public abstract class ReagentRecipeProcessor implements IComponentProcessor {
 		}
 		return switch (key) {
 			case "recipe" -> recipeId != null ? IVariable.wrap(recipeId.toString()) : null;
-			case "reagent" -> PatchouliUtils.interweaveIngredients(List.of(recipe.getReagent()));
-			case "output" -> IVariable.wrap(recipe.getResultItem(level.registryAccess()));
-			case "heading" -> IVariable.wrap(recipe.getResultItem(level.registryAccess()).getHoverName());
+			case "reagent" -> PatchouliUtils.interweaveIngredients(List.of(recipe.getReagent()), level.registryAccess());
+			case "output" -> IVariable.from(recipe.getResultItem(level.registryAccess()), level.registryAccess());
+			case "heading" -> IVariable.wrap(recipe.getResultItem(level.registryAccess()).getHoverName().getString());
 			default -> null;
 		};
 	}

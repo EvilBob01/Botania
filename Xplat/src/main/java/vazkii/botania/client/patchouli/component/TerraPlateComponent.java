@@ -19,6 +19,8 @@ import vazkii.patchouli.api.IVariable;
 
 import java.util.function.UnaryOperator;
 
+import net.minecraft.core.HolderLookup;
+
 /**
  * Patchouli custom component that draws provided stacks arranged like the Terrestial Agglomeration Plate multiblock.
  * Size is 43 x 31.
@@ -68,7 +70,7 @@ public class TerraPlateComponent implements ICustomComponent {
 	}
 
 	@Override
-	public void onVariablesAvailable(UnaryOperator<IVariable> lookup) {
+	public void onVariablesAvailable(UnaryOperator<IVariable> lookup, HolderLookup.Provider provider) {
 		cornerBlock = lookup.apply(corner).as(ItemStack.class);
 		centerBlock = lookup.apply(center).as(ItemStack.class);
 		middleBlock = lookup.apply(edge).as(ItemStack.class);

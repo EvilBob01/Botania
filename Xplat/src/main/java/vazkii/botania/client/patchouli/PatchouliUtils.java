@@ -9,6 +9,7 @@
 package vazkii.botania.client.patchouli;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -92,9 +93,9 @@ public class PatchouliUtils {
 	 * @param longestIngredientSize Longest ingredient in the entire recipe
 	 * @return Serialized Patchouli ingredient string
 	 */
-	public static IVariable interweaveIngredients(List<Ingredient> ingredients, int longestIngredientSize) {
+	public static IVariable interweaveIngredients(List<Ingredient> ingredients, int longestIngredientSize, HolderLookup.Provider provider) {
 		if (ingredients.size() == 1) {
-			return IVariable.wrapList(Arrays.stream(ingredients.get(0).getItems()).map(stack -> IVariable.wrap(stack)).collect(Collectors.toList()));
+			return IVariable.wrapList(Arrays.stream(ingredients.get(0).getItems()).map(stack -> IVariable.from(stack, provider)).collect(Collectors.toList()), provider);
 		}
 
 		ItemStack[] empty = { ItemStack.EMPTY };
@@ -109,17 +110,17 @@ public class PatchouliUtils {
 		List<IVariable> list = new ArrayList<>(stacks.size() * longestIngredientSize);
 		for (int i = 0; i < longestIngredientSize; i++) {
 			for (ItemStack[] stack : stacks) {
-				list.add(IVariable.wrap((ItemStack) stack[i % stack.length]));
+				list.add(IVariable.from(stack[i % stack.length], provider));
 			}
 		}
-		return IVariable.wrapList(list);
+		return IVariable.wrapList(list, provider);
 	}
 
 	/**
 	 * Overload of the method above that uses the provided list's longest ingredient size.
 	 */
-	public static IVariable interweaveIngredients(List<Ingredient> ingredients) {
-		return interweaveIngredients(ingredients, ingredients.stream().mapToInt(ingr -> ingr.getItems().length).max().orElse(1));
+	public static IVariable interweaveIngredients(List<Ingredient> ingredients, HolderLookup.Provider provider) {
+		return interweaveIngredients(ingredients, ingredients.stream().mapToInt(ingr -> ingr.getItems().length).max().orElse(1), provider);
 	}
 
 	/**

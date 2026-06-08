@@ -40,10 +40,10 @@ public class ManaInfusionProcessor implements IComponentProcessor {
 
 		ImmutableList.Builder<ManaInfusionRecipe> builder = ImmutableList.builder();
 		if (variables.has("group")) {
-			String group = variables.get("group").asString();
+			String group = variables.get("group", level.registryAccess()).asString();
 			builder.addAll(PatchouliUtils.getRecipeGroup(BotaniaRecipeTypes.MANA_INFUSION_TYPE, group));
 		} else {
-			for (IVariable s : variables.get("recipes").asListOrSingleton()) {
+			for (IVariable s : variables.get("recipes", level.registryAccess()).asListOrSingleton(level.registryAccess())) {
 				ManaInfusionRecipe recipe = PatchouliUtils.getRecipe(level, BotaniaRecipeTypes.MANA_INFUSION_TYPE, ResourceLocation.parse(s.asString()));
 				if (recipe != null) {
 					builder.add(recipe);
@@ -67,9 +67,9 @@ public class ManaInfusionProcessor implements IComponentProcessor {
 				}
 				return null;
 			case "input":
-				return PatchouliUtils.interweaveIngredients(recipes.stream().map(r -> r.getIngredients().get(0)).collect(Collectors.toList()));
+				return PatchouliUtils.interweaveIngredients(recipes.stream().map(r -> r.getIngredients().get(0)).collect(Collectors.toList()), level.registryAccess());
 			case "output":
-				return IVariable.wrapList(recipes.stream().map(r -> r.getResultItem(level.registryAccess())).map(stack -> IVariable.wrap(stack)).collect(Collectors.toList()));
+				return IVariable.wrapList(recipes.stream().map(r -> r.getResultItem(level.registryAccess())).map(stack -> IVariable.from(stack, level.registryAccess())).collect(Collectors.toList()), level.registryAccess());
 			case "catalyst":
 				return IVariable.wrapList(recipes.stream().map(ManaInfusionRecipe::getRecipeCatalyst)
 						.flatMap(ingr -> {
@@ -78,10 +78,10 @@ public class ManaInfusionProcessor implements IComponentProcessor {
 							}
 							return ingr.getDisplayedStacks().stream();
 						})
-						.map(stack -> IVariable.wrap(stack))
-						.collect(Collectors.toList()));
+						.map(stack -> IVariable.from(stack, level.registryAccess()))
+						.collect(Collectors.toList()), level.registryAccess());
 			case "mana":
-				return IVariable.wrapList(recipes.stream().mapToInt(ManaInfusionRecipe::getManaToConsume).mapToObj(i -> IVariable.wrap(String.valueOf(i))).collect(Collectors.toList()));
+				return IVariable.wrapList(recipes.stream().mapToInt(ManaInfusionRecipe::getManaToConsume).mapToObj(i -> IVariable.wrap(String.valueOf(i))).collect(Collectors.toList()), level.registryAccess());
 			case "drop":
 				Component q = Component.literal("(?)").withStyle(ChatFormatting.BOLD);
 				return IVariable.wrap(Component.translatable("botaniamisc.drop").append(" ").append(q).getString());

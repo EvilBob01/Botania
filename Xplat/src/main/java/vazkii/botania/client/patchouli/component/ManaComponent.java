@@ -21,6 +21,8 @@ import vazkii.patchouli.api.IVariable;
 
 import java.util.function.UnaryOperator;
 
+import net.minecraft.core.HolderLookup;
+
 /**
  * A custom component that renders a mana bar.
  * It only has one custom parameter, {@code mana}, which is a semicolon-separated list of mana values.
@@ -56,10 +58,10 @@ public class ManaComponent implements ICustomComponent {
 	}
 
 	@Override
-	public void onVariablesAvailable(UnaryOperator<IVariable> lookup) {
+	public void onVariablesAvailable(UnaryOperator<IVariable> lookup, HolderLookup.Provider provider) {
 		IVariable manaVar = lookup.apply(mana);
 		manaValues = manaVar.unwrap().isJsonArray()
-				? manaVar.asListOrSingleton().stream().map(IVariable::asNumber).mapToInt(Number::intValue).toArray()
+				? manaVar.asListOrSingleton(provider).stream().map(IVariable::asNumber).mapToInt(Number::intValue).toArray()
 				: new int[] { manaVar.asNumber(0).intValue() };
 	}
 }
