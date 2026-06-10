@@ -152,7 +152,7 @@ public class PixieEntity extends FlyingMob {
 	}
 
 	@Override
-	public boolean canBeLeashed(Player player) {
+	public boolean canBeLeashed() {
 		return false;
 	}
 }

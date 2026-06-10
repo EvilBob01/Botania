@@ -11,6 +11,8 @@ package vazkii.botania.client.render.block_entity;
 import com.mojang.authlib.GameProfile;
 import com.mojang.blaze3d.systems.RenderSystem;
 
+import net.minecraft.world.item.component.ResolvableProfile;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.SkullModelBase;
 import net.minecraft.client.renderer.RenderType;
@@ -70,7 +72,7 @@ public class GaiaHeadBlockEntityRenderer extends SkullBlockRenderer {
 			profile = player.getGameProfile();
 		}
 
-		RenderType layer = SkullBlockRenderer.getRenderType(type, profile);
+		RenderType layer = SkullBlockRenderer.getRenderType(type, profile != null ? new ResolvableProfile(profile) : null);
 		cir.setReturnValue(new WrapperLayer(layer));
 	}
 

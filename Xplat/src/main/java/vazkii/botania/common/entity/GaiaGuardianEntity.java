@@ -892,7 +892,7 @@ public class GaiaGuardianEntity extends Mob {
 	}
 
 	@Override
-	public boolean canChangeDimensions(ServerLevel from, ServerLevel to) {
+	public boolean canChangeDimensions() {
 		return false;
 	}
 

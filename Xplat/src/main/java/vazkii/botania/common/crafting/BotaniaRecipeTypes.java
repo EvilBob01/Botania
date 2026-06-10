@@ -92,7 +92,7 @@ public class BotaniaRecipeTypes {
 		r.accept(MARIMORPHOSIS_SERIALIZER, vazkii.botania.api.recipe.OrechidRecipe.MARIMORPHOSIS_TYPE_ID);
 	}
 
-	private static class ModRecipeType<T extends Recipe<?>> implements RecipeType<T> {
+	private static class ModRecipeType<T extends Recipe<? extends RecipeInput>> implements RecipeType<T> {
 		@Override
 		public String toString() {
 			return BuiltInRegistries.RECIPE_TYPE.getKey(this).toString();

@@ -17,6 +17,7 @@ import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerEntity;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
@@ -437,8 +438,8 @@ public class LuminizerBlockEntity extends BotaniaBlockEntity implements WandBind
 		}
 
 		@Override
-		public Packet<ClientGamePacketListener> getAddEntityPacket() {
-			return new ClientboundAddEntityPacket(this);
+		public Packet<ClientGamePacketListener> getAddEntityPacket(ServerEntity serverEntity) {
+			return new ClientboundAddEntityPacket(this, serverEntity);
 		}
 
 		public BlockPos getExitPos() {

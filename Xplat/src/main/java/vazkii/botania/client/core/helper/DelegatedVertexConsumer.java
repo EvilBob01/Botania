@@ -46,6 +46,11 @@ class DelegatedVertexConsumer implements VertexConsumer {
 	}
 
 	@Override
+	public VertexConsumer setUv1(int u, int v) {
+		return delegate.setUv1(u, v);
+	}
+
+	@Override
 	public VertexConsumer setUv2(int u, int v) {
 		return delegate.setUv2(u, v);
 	}

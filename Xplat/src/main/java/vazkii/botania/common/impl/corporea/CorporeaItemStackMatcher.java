@@ -39,8 +39,7 @@ public class CorporeaItemStackMatcher implements CorporeaRequestMatcher {
 
 	@Override
 	public void writeToNBT(CompoundTag tag) {
-		CompoundTag cmp = match.save(new CompoundTag());
-		tag.put(TAG_REQUEST_STACK, cmp);
+		tag.put(TAG_REQUEST_STACK, match.save(BuiltInRegistries.ACCESS));
 		tag.putBoolean(TAG_REQUEST_CHECK_NBT, checkNBT);
 	}
 

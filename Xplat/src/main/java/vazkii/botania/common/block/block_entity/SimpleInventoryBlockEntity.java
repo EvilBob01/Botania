@@ -12,6 +12,7 @@ import com.google.common.base.Preconditions;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.Clearable;
 import net.minecraft.world.Container;
@@ -48,13 +49,13 @@ public abstract class SimpleInventoryBlockEntity extends BotaniaBlockEntity impl
 	@Override
 	public void readPacketNBT(CompoundTag tag) {
 		NonNullList<ItemStack> tmp = NonNullList.withSize(inventorySize(), ItemStack.EMPTY);
-		ContainerHelper.loadAllItems(tag, tmp);
+		ContainerHelper.loadAllItems(tag, tmp, BuiltInRegistries.ACCESS);
 		copyToInv(tmp, itemHandler);
 	}
 
 	@Override
 	public void writePacketNBT(CompoundTag tag) {
-		ContainerHelper.saveAllItems(tag, copyFromInv(itemHandler));
+		ContainerHelper.saveAllItems(tag, copyFromInv(itemHandler), BuiltInRegistries.ACCESS);
 	}
 
 	// NB: Cannot be named the same as the corresponding method in vanilla's interface -- causes obf issues with MCP

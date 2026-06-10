@@ -134,7 +134,6 @@ public class VineBallEntity extends ThrowableProjectile implements ItemSupplier 
 		}
 	}
 
-	@Override
 	protected float getGravity() {
 		return entityData.get(GRAVITY);
 	}

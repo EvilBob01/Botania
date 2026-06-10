@@ -46,7 +46,7 @@ public class ItemBackedInventory extends SimpleContainer {
 		super.setChanged();
 		ListTag list = new ListTag();
 		for (int i = 0; i < getContainerSize(); i++) {
-			list.add(getItem(i).save(new CompoundTag()));
+			list.add(getItem(i).save(BuiltInRegistries.ACCESS));
 		}
 		ItemNBTHelper.setList(stack, TAG_ITEMS, list);
 	}

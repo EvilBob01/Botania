@@ -46,7 +46,8 @@ public class CacophoniumBlockEntity extends BotaniaBlockEntity {
 
 		CompoundTag cmp1 = new CompoundTag();
 		if (!stack.isEmpty()) {
-			cmp1 = stack.save(cmp1);
+			HolderLookup.Provider registries = level != null ? level.registryAccess() : net.minecraft.core.registries.BuiltInRegistries.ACCESS;
+			cmp1 = (CompoundTag) stack.save(registries);
 		}
 		cmp.put(TAG_STACK, cmp1);
 	}

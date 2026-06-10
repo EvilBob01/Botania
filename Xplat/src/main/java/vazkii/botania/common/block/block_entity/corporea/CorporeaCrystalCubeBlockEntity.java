@@ -127,7 +127,8 @@ public class CorporeaCrystalCubeBlockEntity extends BaseCorporeaBlockEntity impl
 		super.writePacketNBT(tag);
 		CompoundTag cmp = new CompoundTag();
 		if (!requestTarget.isEmpty()) {
-			cmp = requestTarget.save(cmp);
+			HolderLookup.Provider registries = level != null ? level.registryAccess() : net.minecraft.core.registries.BuiltInRegistries.ACCESS;
+			cmp = (CompoundTag) requestTarget.save(registries);
 		}
 		tag.put(TAG_REQUEST_TARGET, cmp);
 		tag.putInt(TAG_ITEM_COUNT, itemCount);

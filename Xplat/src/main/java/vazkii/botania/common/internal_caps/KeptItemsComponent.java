@@ -42,7 +42,7 @@ public class KeptItemsComponent extends SerializableComponent {
 	public void writeToNbt(CompoundTag tag) {
 		ListTag list = new ListTag();
 		for (ItemStack stack : stacks) {
-			list.add(stack.save(new CompoundTag()));
+			list.add(stack.save(BuiltInRegistries.ACCESS));
 		}
 		tag.put("stacks", list);
 	}

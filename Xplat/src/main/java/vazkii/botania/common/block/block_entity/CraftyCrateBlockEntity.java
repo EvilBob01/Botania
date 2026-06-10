@@ -153,8 +153,9 @@ public class CraftyCrateBlockEntity extends OpenCrateBlockEntity implements Wand
 		}
 
 		CraftingInput craftInput = craft.asCraftInput();
-		Optional<CraftingRecipe> matchingRecipe = getMatchingRecipe(craftInput);
-		matchingRecipe.ifPresent(recipe -> {
+		Optional<RecipeHolder<CraftingRecipe>> matchingRecipe = getMatchingRecipe(craftInput);
+		matchingRecipe.ifPresent(recipeHolder -> {
+			CraftingRecipe recipe = recipeHolder.value();
 			ItemStack result = recipe.assemble(craftInput, this.getLevel().registryAccess());
 
 			// Given some mods can return air by a bad implementation of their recipe handler,
@@ -166,7 +167,7 @@ public class CraftyCrateBlockEntity extends OpenCrateBlockEntity implements Wand
 			}
 
 			if (player != null) {
-				player.triggerRecipeCrafted(recipe, List.of(result));
+				player.triggerRecipeCrafted(recipeHolder, List.of(result));
 				result.onCraftedBy(level, player, result.getCount());
 			}
 
@@ -194,7 +195,7 @@ public class CraftyCrateBlockEntity extends OpenCrateBlockEntity implements Wand
 		return matchingRecipe.isPresent() && !craftResult.isEmpty();
 	}
 
-	private Optional<CraftingRecipe> getMatchingRecipe(CraftingInput craft) {
+	private Optional<RecipeHolder<CraftingRecipe>> getMatchingRecipe(CraftingInput craft) {
 		for (ResourceLocation currentRecipeId : lastRecipes) {
 			Optional<RecipeHolder<CraftingRecipe>> cached = level.getRecipeManager()
 					.getAllRecipesFor(RecipeType.CRAFTING)
@@ -204,7 +205,7 @@ public class CraftyCrateBlockEntity extends OpenCrateBlockEntity implements Wand
 			if (cached.isPresent()) {
 				CraftingRecipe recipe = cached.get().value();
 				if (recipe.matches(craft, level)) {
-					return Optional.of(recipe);
+					return cached;
 				}
 			}
 		}
@@ -214,7 +215,7 @@ public class CraftyCrateBlockEntity extends OpenCrateBlockEntity implements Wand
 				lastRecipes.remove();
 			}
 			lastRecipes.add(recipeHolder.get().id());
-			return Optional.of(recipeHolder.get().value());
+			return recipeHolder;
 		}
 		return Optional.empty();
 	}

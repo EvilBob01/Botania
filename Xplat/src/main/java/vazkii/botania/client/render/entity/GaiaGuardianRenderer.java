@@ -78,7 +78,7 @@ public class GaiaGuardianRenderer extends HumanoidMobRenderer<GaiaGuardianEntity
 		Minecraft mc = Minecraft.getInstance();
 
 		if (!(mc.getCameraEntity() instanceof AbstractClientPlayer clientPlayer)) {
-			return DefaultPlayerSkin.getDefaultSkin();
+			return DefaultPlayerSkin.getDefaultTexture();
 		}
 
 		return clientPlayer.getSkin().texture();

@@ -104,9 +104,10 @@ public class PetalApothecaryBlockEntity extends SimpleInventoryBlockEntity imple
 			return true;
 		}
 
-		Optional<PetalApothecaryRecipe> maybeRecipe = level.getRecipeManager().getRecipeFor(BotaniaRecipeTypes.PETAL_TYPE, new BotaniaContainer(getItemHandler()), level).map(RecipeHolder::value);
+		Optional<RecipeHolder<PetalApothecaryRecipe>> maybeRecipe = level.getRecipeManager().getRecipeFor(BotaniaRecipeTypes.PETAL_TYPE, new BotaniaContainer(getItemHandler()), level);
 		if (maybeRecipe.isPresent()) {
-			var recipe = maybeRecipe.get();
+			var recipeHolder = maybeRecipe.get();
+			var recipe = recipeHolder.value();
 			if (recipe.getReagent().test(item.getItem())) {
 				saveLastRecipe(recipe.getReagent());
 				ItemStack output = recipe.assemble(new BotaniaContainer(getItemHandler()), getLevel().registryAccess());
@@ -121,7 +122,7 @@ public class PetalApothecaryBlockEntity extends SimpleInventoryBlockEntity imple
 				ItemEntity outputItem = new ItemEntity(level, worldPosition.getX() + 0.5, worldPosition.getY() + 1.5, worldPosition.getZ() + 0.5, output);
 				XplatAbstractions.INSTANCE.itemFlagsComponent(outputItem).apothecarySpawned = true;
 				if (thrower instanceof Player player) {
-					player.triggerRecipeCrafted(recipe, List.of(output));
+					player.triggerRecipeCrafted(recipeHolder, List.of(output));
 					output.onCraftedBy(level, player, output.getCount());
 				}
 				level.addFreshEntity(outputItem);

@@ -567,13 +567,11 @@ public final class RenderHelper extends RenderType {
 		RenderSystem.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
 		RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
 
-		PoseStack modelViewStack = RenderSystem.getModelViewStack();
-		modelViewStack.pushPose();
+		PoseStack modelViewStack = new PoseStack();
 		modelViewStack.translate(x, y, 100.0F);
 		modelViewStack.translate(8.0D, 8.0D, 0.0D);
 		modelViewStack.scale(1.0F, -1.0F, 1.0F);
 		modelViewStack.scale(16.0F, 16.0F, 16.0F);
-		RenderSystem.applyModelViewMatrix();
 
 		boolean flatLight = !model.usesBlockLight();
 		if (flatLight) {
@@ -585,7 +583,7 @@ public final class RenderHelper extends RenderType {
 				stack,
 				ItemDisplayContext.GUI,
 				false,
-				new PoseStack(),
+				modelViewStack,
 				// This part differs from vanilla. We wrap the buffer to allow drawing translucently
 				wrapBuffer(buffer, alpha, alpha < 255),
 				LightTexture.FULL_BRIGHT,
@@ -599,9 +597,6 @@ public final class RenderHelper extends RenderType {
 		if (flatLight) {
 			Lighting.setupFor3DItems();
 		}
-
-		modelViewStack.popPose();
-		RenderSystem.applyModelViewMatrix();
 	}
 
 	private static MultiBufferSource wrapBuffer(MultiBufferSource buffer, int alpha, boolean forceTranslucent) {
@@ -656,6 +651,16 @@ public final class RenderHelper extends RenderType {
 		@Override
 		public VertexConsumer setUv(float u, float v) {
 			return wrapped.setUv(u, v);
+		}
+
+		@Override
+		public VertexConsumer setUv1(int u, int v) {
+			return wrapped.setUv1(u, v);
+		}
+
+		@Override
+		public VertexConsumer setUv2(int u, int v) {
+			return wrapped.setUv2(u, v);
 		}
 
 		@Override
