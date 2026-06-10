@@ -84,7 +84,7 @@ public class HopperhockBlockEntity extends FunctionalFlowerBlockEntity implement
 			}
 			return DelayHelper.canInteractWith(this, item);
 		};
-		List<ItemEntity> items = getLevel().getEntitiesOfClass(ItemEntity.class, new AABB(inPos.offset(-range, -range, -range), inPos.offset(range + 1, range + 1, range + 1)), shouldPickup);
+		List<ItemEntity> items = getLevel().getEntitiesOfClass(ItemEntity.class, new AABB(inPos.getX() - range, inPos.getY() - range, inPos.getZ() - range, inPos.getX() + range + 1, inPos.getY() + range + 1, inPos.getZ() + range + 1), shouldPickup);
 
 		for (ItemEntity item : items) {
 			ItemStack stack = item.getItem();

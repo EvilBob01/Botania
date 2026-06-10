@@ -75,7 +75,7 @@ public class DrumBlock extends BotaniaWaterloggedBlock {
 	}
 
 	public static void gatherProduce(Level world, BlockPos pos) {
-		List<Mob> mobs = world.getEntitiesOfClass(Mob.class, new AABB(pos.offset(-GATHER_RANGE, -GATHER_RANGE, -GATHER_RANGE), pos.offset(GATHER_RANGE + 1, GATHER_RANGE + 1, GATHER_RANGE + 1)),
+		List<Mob> mobs = world.getEntitiesOfClass(Mob.class, new AABB(pos.getX() - GATHER_RANGE, pos.getY() - GATHER_RANGE, pos.getZ() - GATHER_RANGE, pos.getX() + GATHER_RANGE + 1, pos.getY() + GATHER_RANGE + 1, pos.getZ() + GATHER_RANGE + 1),
 				mob -> mob.isAlive() && !BergamuteBlockEntity.isBergamuteNearby(world, mob.getX(), mob.getY(), mob.getZ()));
 		List<Shearable> shearables = new ArrayList<>();
 

@@ -79,7 +79,8 @@ public class CorporeaInterceptorBlockEntity extends BaseCorporeaBlockEntity impl
 		List<ItemStack> filter = new ArrayList<>();
 
 		for (Direction dir : Direction.values()) {
-			List<ItemFrame> frames = level.getEntitiesOfClass(ItemFrame.class, new AABB(worldPosition.relative(dir), worldPosition.relative(dir).offset(1, 1, 1)));
+			BlockPos fp = worldPosition.relative(dir);
+			List<ItemFrame> frames = level.getEntitiesOfClass(ItemFrame.class, new AABB(fp.getX(), fp.getY(), fp.getZ(), fp.getX() + 1, fp.getY() + 1, fp.getZ() + 1));
 			for (ItemFrame frame : frames) {
 				Direction orientation = frame.getDirection();
 				if (orientation == dir) {

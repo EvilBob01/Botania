@@ -45,7 +45,8 @@ public class HeiseiDreamBlockEntity extends FunctionalFlowerBlockEntity {
 			return;
 		}
 
-		List<Mob> mobs = getLevel().getEntitiesOfClass(Mob.class, new AABB(getEffectivePos().offset(-RANGE, -RANGE, -RANGE), getEffectivePos().offset(RANGE + 1, RANGE + 1, RANGE + 1)), Predicates.instanceOf(Enemy.class));
+		BlockPos ep = getEffectivePos();
+		List<Mob> mobs = getLevel().getEntitiesOfClass(Mob.class, new AABB(ep.getX() - RANGE, ep.getY() - RANGE, ep.getZ() - RANGE, ep.getX() + RANGE + 1, ep.getY() + RANGE + 1, ep.getZ() + RANGE + 1), Predicates.instanceOf(Enemy.class));
 
 		if (mobs.size() > 1 && getMana() >= COST) {
 			for (Mob mob : mobs) {
