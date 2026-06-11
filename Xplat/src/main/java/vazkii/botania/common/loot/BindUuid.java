@@ -51,7 +51,6 @@ public class BindUuid extends LootItemConditionalFunction {
 		return BotaniaLootModifiers.BIND_UUID;
 	}
 
-	@Override
 	public MapCodec<BindUuid> codec() {
 		return CODEC;
 	}

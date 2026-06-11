@@ -57,7 +57,7 @@ public class PinkWitherEntity extends WitherBoss {
 	}
 
 	@Override
-	protected void dropCustomDeathLoot(DamageSource source, int lootingMultiplier, boolean allowDrops) {}
+	protected void dropCustomDeathLoot(net.minecraft.server.level.ServerLevel level, DamageSource source, boolean recentlyHit) {}
 
 	@Override
 	public void customServerAiStep() {

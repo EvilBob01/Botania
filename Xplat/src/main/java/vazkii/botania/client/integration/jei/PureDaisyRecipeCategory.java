@@ -98,7 +98,7 @@ public class PureDaisyRecipeCategory implements IRecipeCategory<PureDaisyRecipe>
 		for (var state : input.getDisplayed()) {
 			if (!state.getFluidState().isEmpty()) {
 				inputSlotBuilder.addIngredient(this.fluidHelper.getFluidIngredientType(),
-						this.fluidHelper.create(state.getFluidState().getType(), 1000));
+						this.fluidHelper.create(state.getFluidState().getType().builtInRegistryHolder(), 1000));
 			}
 		}
 		inputSlotBuilder.addItemStacks(input.getDisplayedStacks())
@@ -113,7 +113,7 @@ public class PureDaisyRecipeCategory implements IRecipeCategory<PureDaisyRecipe>
 			builder.addSlot(RecipeIngredientRole.OUTPUT, 68, 12)
 					.setFluidRenderer(1000, false, 16, 16)
 					.addIngredient(this.fluidHelper.getFluidIngredientType(),
-							this.fluidHelper.create(outFluid.getType(), 1000));
+							this.fluidHelper.create(outFluid.getType().builtInRegistryHolder(), 1000));
 		} else {
 			if (outBlock.asItem() != Items.AIR) {
 				builder.addSlot(RecipeIngredientRole.OUTPUT, 68, 12)
