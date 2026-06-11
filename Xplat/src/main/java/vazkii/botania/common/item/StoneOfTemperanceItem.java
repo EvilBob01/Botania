@@ -45,7 +45,7 @@ public class StoneOfTemperanceItem extends Item {
 	}
 
 	@Override
-	public void appendHoverText(ItemStack stack, Level world, List<Component> stacks, TooltipFlag flags) {
+	public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> stacks, TooltipFlag flags) {
 		if (ItemNBTHelper.getBoolean(stack, TAG_ACTIVE, false)) {
 			stacks.add(Component.translatable("botaniamisc.active"));
 		} else {
