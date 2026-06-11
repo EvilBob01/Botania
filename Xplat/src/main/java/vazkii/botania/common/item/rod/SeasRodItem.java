@@ -79,7 +79,7 @@ public class SeasRodItem extends Item {
 						if (result.consumesAction()) {
 							spawnParticles(player, blockPos);
 						}
-						return new InteractionResultHolder<>(result, itemStack);
+						return new InteractionResultHolder<>(result.result(), itemStack);
 					}
 				}
 

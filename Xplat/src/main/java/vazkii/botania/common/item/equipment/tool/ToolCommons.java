@@ -20,8 +20,13 @@ import net.minecraft.world.item.DiggerItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Tier;
+import net.minecraft.core.Holder;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.item.enchantment.ItemEnchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.LevelEvent;
@@ -47,7 +52,9 @@ public final class ToolCommons {
 			return amount;
 		}
 
-		final int unbreaking = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.UNBREAKING, stack);
+		Holder<Enchantment> unbreakingHolder = entity.level().registryAccess()
+				.lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(Enchantments.UNBREAKING);
+		final int unbreaking = EnchantmentHelper.getItemEnchantmentLevel(unbreakingHolder, stack);
 
 		while (amount > 0) {
 			if (ManaItemHandler.instance().requestManaExactForTool(stack, player, manaPerDamage, false)) {
@@ -136,7 +143,11 @@ public final class ToolCommons {
 			modifier = TerraShattererItem.getLevel(stack);
 		}
 
-		int efficiency = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.BLOCK_EFFICIENCY, stack);
+		int efficiency = stack.getOrDefault(DataComponents.ENCHANTMENTS, ItemEnchantments.EMPTY)
+				.entrySet().stream()
+				.filter(e -> e.getKey().is(Enchantments.BLOCK_EFFICIENCY))
+				.mapToInt(e -> e.getIntValue())
+				.findFirst().orElse(0);
 		return materialLevel * 100 + modifier * 10 + efficiency;
 	}
 

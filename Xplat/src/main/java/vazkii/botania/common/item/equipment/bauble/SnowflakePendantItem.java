@@ -24,7 +24,8 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.enchantment.FrostWalkerEnchantment;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 
@@ -47,7 +48,7 @@ public class SnowflakePendantItem extends BaubleItem {
 		if (!entity.level().isClientSide && !entity.isShiftKeyDown()) {
 			boolean lastOnGround = entity.onGround();
 			entity.setOnGround(true);
-			FrostWalkerEnchantment.onEntityMoved(entity, entity.level(), entity.blockPosition(), 8);
+			EnchantmentHelper.runLocationChangedEffects((ServerLevel) entity.level(), entity);
 			entity.setOnGround(lastOnGround);
 
 			int x;

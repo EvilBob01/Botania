@@ -10,6 +10,7 @@ package vazkii.botania.common.entity;
 
 import net.minecraft.core.particles.ColorParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.util.FastColor;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
@@ -44,7 +45,7 @@ public class EnderAirEntity extends Entity {
 				double x = this.getX() + random.nextDouble();
 				double y = this.getY() + random.nextDouble();
 				double z = this.getZ() + random.nextDouble();
-				level().addAlwaysVisibleParticle(new ColorParticleOption(ParticleTypes.ENTITY_EFFECT, r, g, b), x, y, z, 0, 0, 0);
+				level().addAlwaysVisibleParticle(ColorParticleOption.create(ParticleTypes.ENTITY_EFFECT, FastColor.ARGB32.color(255, (int)(r * 255), (int)(g * 255), (int)(b * 255))), x, y, z, 0, 0, 0);
 			}
 		}
 	}

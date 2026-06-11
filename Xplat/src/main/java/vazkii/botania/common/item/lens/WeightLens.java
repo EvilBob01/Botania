@@ -17,6 +17,9 @@ import net.minecraft.world.entity.item.FallingBlockEntity;
 import net.minecraft.world.entity.projectile.ThrowableProjectile;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.core.Holder;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.FallingBlock;
@@ -62,7 +65,9 @@ public class WeightLens extends Lens {
 		if (harvestToolStack.isEmpty()) {
 			return false;
 		}
-		harvestToolStack.enchant(Enchantments.SILK_TOUCH, 1);
+		Holder<Enchantment> silkTouchHolder = level.registryAccess()
+				.lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(Enchantments.SILK_TOUCH);
+		harvestToolStack.enchant(silkTouchHolder, 1);
 
 		Item blockItem = state.getBlock().asItem();
 		for (var drop : Block.getDrops(state, level, pos, null, owner, harvestToolStack)) {

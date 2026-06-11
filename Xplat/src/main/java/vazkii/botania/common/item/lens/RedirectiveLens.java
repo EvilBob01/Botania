@@ -55,7 +55,7 @@ public class RedirectiveLens extends Lens {
 			AABB axis;
 			VoxelShape collideShape = level.getBlockState(sourcePos).getCollisionShape(level, sourcePos);
 			if (collideShape.isEmpty()) {
-				axis = new AABB(sourcePos, sourcePos.offset(1, 1, 1));
+				axis = new AABB(sourcePos);
 			} else {
 				axis = collideShape.bounds().move(sourcePos);
 			}
