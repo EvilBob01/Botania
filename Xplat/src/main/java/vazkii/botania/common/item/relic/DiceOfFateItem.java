@@ -21,6 +21,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
@@ -30,7 +31,6 @@ import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.item.Relic;
 import vazkii.botania.client.gui.TooltipHandler;
@@ -110,8 +110,8 @@ public class DiceOfFateItem extends RelicItem {
 	}
 
 	@Override
-	public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> tooltip, TooltipFlag flags) {
-		super.appendHoverText(stack, world, tooltip, flags);
+	public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tooltip, TooltipFlag flags) {
+		super.appendHoverText(stack, context, tooltip, flags);
 		tooltip.add(Component.literal(""));
 		TooltipHandler.addOnShift(tooltip, () -> {
 			String name = stack.getDescriptionId() + ".poem";

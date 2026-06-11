@@ -154,7 +154,7 @@ public class ManaBlasterItem extends Item {
 
 		ItemStack lens = getLens(stack);
 		if (!lens.isEmpty()) {
-			List<Component> lensTip = lens.getTooltipLines(Item.TooltipContext.EMPTY, TooltipFlag.Default.NORMAL);
+			List<Component> lensTip = lens.getTooltipLines(Item.TooltipContext.EMPTY, null, TooltipFlag.Default.NORMAL);
 			if (lensTip.size() > 1) {
 				tooltip.addAll(lensTip.subList(1, lensTip.size()));
 			}
