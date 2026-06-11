@@ -454,8 +454,7 @@ public class ManaEnchanterBlockEntity extends BotaniaBlockEntity implements Mana
 		}
 
 		for (EnchantmentInstance data : enchants) {
-			if (!ench.value().exclusiveSet().isEmpty() && ench.value().exclusiveSet().stream().anyMatch(tag -> data.enchantment.is(tag))
-					|| !data.enchantment.value().exclusiveSet().isEmpty() && data.enchantment.value().exclusiveSet().stream().anyMatch(tag -> ench.is(tag))) {
+			if (!Enchantment.areCompatible(ench, data.enchantment)) {
 				return false;
 			}
 		}

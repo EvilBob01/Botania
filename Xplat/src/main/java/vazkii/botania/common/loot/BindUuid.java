@@ -36,7 +36,7 @@ public class BindUuid extends LootItemConditionalFunction {
 	@NotNull
 	@Override
 	public ItemStack run(@NotNull ItemStack stack, @NotNull LootContext context) {
-		if (context.getParamOrNull(LootContextParams.KILLER_ENTITY) instanceof Player player) {
+		if (context.getParamOrNull(LootContextParams.ATTACKING_ENTITY) instanceof Player player) {
 			var relic = XplatAbstractions.INSTANCE.findRelic(stack);
 			if (relic != null) {
 				relic.bindToUUID(player.getUUID());

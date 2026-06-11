@@ -47,7 +47,7 @@ public class BaubleBoxGui extends AbstractContainerScreen<BaubleBoxContainer> {
 	protected void renderBg(GuiGraphics gui, float partialTicks, int mouseX, int mouseY) {
 		RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
 		gui.blit(texture, leftPos, topPos, 0, 0, imageWidth, imageHeight);
-		InventoryScreen.renderEntityInInventoryFollowsMouse(gui, leftPos + 31, topPos + 75, 30, leftPos + 31 - this.mouseX, topPos + 75 - 50 - this.mouseY, minecraft.player);
+		InventoryScreen.renderEntityInInventoryFollowsMouse(gui, leftPos + 16, topPos + 45, leftPos + 46, topPos + 105, 30, 0.0F, this.mouseX, this.mouseY, minecraft.player);
 	}
 
 }

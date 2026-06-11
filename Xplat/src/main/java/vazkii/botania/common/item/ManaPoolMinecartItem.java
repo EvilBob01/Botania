@@ -49,7 +49,7 @@ public class ManaPoolMinecartItem extends Item {
 				}
 
 				AbstractMinecart abstractMinecartEntity = new ManaPoolMinecartEntity(world, (double) blockPos.getX() + 0.5D, (double) blockPos.getY() + 0.0625D + d, (double) blockPos.getZ() + 0.5D);
-				if (itemStack.hasCustomHoverName()) {
+				if (itemStack.has(net.minecraft.core.component.DataComponents.CUSTOM_NAME)) {
 					abstractMinecartEntity.setCustomName(itemStack.getHoverName());
 				}
 

@@ -18,6 +18,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.state.BlockState;
@@ -70,7 +71,7 @@ public class LabelliaBlockEntity extends FunctionalFlowerBlockEntity {
 				}
 
 				ItemStack nameTag = nameTagEnt.getItem();
-				if (nameTag.is(Items.NAME_TAG) && nameTag.hasCustomHoverName()) {
+				if (nameTag.is(Items.NAME_TAG) && nameTag.has(DataComponents.CUSTOM_NAME)) {
 					AABB renameArea = new AABB(x - RENAME_RANGE, y, z - RENAME_RANGE, x + RENAME_RANGE + 1, y + 1, z + RENAME_RANGE + 1);
 					Component name = nameTag.getHoverName();
 					List<LivingEntity> nameableEntities = level.getEntitiesOfClass(LivingEntity.class, renameArea,
@@ -90,7 +91,7 @@ public class LabelliaBlockEntity extends FunctionalFlowerBlockEntity {
 							}
 						}
 						for (ItemEntity i : nameableItems) {
-							i.getItem().setHoverName(name);
+							i.getItem().set(DataComponents.CUSTOM_NAME, name);
 							EntityHelper.syncItem(i);
 							((ServerLevel) level).sendParticles(ParticleTypes.INSTANT_EFFECT,
 									i.getX(), i.getY(), i.getZ(),

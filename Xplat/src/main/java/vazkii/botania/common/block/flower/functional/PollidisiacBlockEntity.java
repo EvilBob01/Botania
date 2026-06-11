@@ -24,6 +24,7 @@ import net.minecraft.world.entity.animal.MushroomCow;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.SuspiciousStewEffects;
 import net.minecraft.world.level.block.SuspiciousEffectHolder;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
@@ -136,8 +137,12 @@ public class PollidisiacBlockEntity extends FunctionalFlowerBlockEntity implemen
 					did = true;
 
 					MushroomCowAccessor cowAccessor = (MushroomCowAccessor) animal;
-					cowAccessor.setEffect(effect.getSuspiciousEffect());
-					cowAccessor.setEffectDuration(effect.getEffectDuration());
+					SuspiciousStewEffects stewEffects = effect.getSuspiciousEffects();
+					if (!stewEffects.effects().isEmpty()) {
+						SuspiciousStewEffects.Entry entry = stewEffects.effects().get(0);
+						cowAccessor.setEffect(entry.effect().value());
+						cowAccessor.setEffectDuration(entry.duration());
+					}
 					animal.playSound(SoundEvents.MOOSHROOM_EAT, 2.0F, 1.0F);
 					break;
 				}

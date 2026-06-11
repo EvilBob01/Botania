@@ -104,7 +104,7 @@ public class BlockLootProvider implements DataProvider {
 			} else if (b instanceof BotaniaGrassBlock) {
 				functionTable.put(b, ALT_GRASS_SENTINEL);
 			} else if (b instanceof FlowerPotBlock flowerPot) {
-				functionTable.put(b, block -> createPotAndPlantItemTable(flowerPot.getFlower()));
+				functionTable.put(b, block -> createPotAndPlantItemTable(flowerPot.getPotted()));
 			} else if (id.getPath().matches(LibBlockNames.METAMORPHIC_PREFIX + "\\w+" + "_stone")) {
 				functionTable.put(b, METAMORPHIC_STONE_SENTINEL);
 			}

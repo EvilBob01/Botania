@@ -139,7 +139,7 @@ public class ManaMirrorItem extends Item {
 
 	@Nullable
 	private static GlobalPos getBoundPos(ItemStack stack) {
-		if (!stack.getOrCreateTag().contains(TAG_POS)) {
+		if (ItemNBTHelper.get(stack, TAG_POS) == null) {
 			return null;
 		}
 
