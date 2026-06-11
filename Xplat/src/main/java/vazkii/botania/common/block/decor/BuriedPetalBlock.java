@@ -8,6 +8,9 @@
  */
 package vazkii.botania.common.block.decor;
 
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
@@ -31,6 +34,16 @@ import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.item.material.MysticalPetalItem;
 
 public class BuriedPetalBlock extends BushBlock implements BonemealableBlock {
+
+	public static final MapCodec<BuriedPetalBlock> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
+			DyeColor.CODEC.fieldOf("color").forGetter(b -> b.color),
+			propertiesCodec()
+	).apply(instance, BuriedPetalBlock::new));
+
+	@Override
+	public MapCodec<BuriedPetalBlock> codec() {
+		return CODEC;
+	}
 
 	private static final VoxelShape SHAPE = box(0, 0, 0, 16, 1.6, 16);
 

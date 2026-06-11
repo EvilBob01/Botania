@@ -9,6 +9,7 @@
 package vazkii.botania.common.block;
 
 import com.google.common.base.Preconditions;
+import com.mojang.serialization.MapCodec;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.tags.BlockTags;
@@ -31,6 +32,13 @@ import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.xplat.XplatAbstractions;
 
 public class SpectralRailBlock extends BaseRailBlock {
+
+	private static final MapCodec<SpectralRailBlock> CODEC = simpleCodec(SpectralRailBlock::new);
+
+	@Override
+	public MapCodec<SpectralRailBlock> codec() {
+		return CODEC;
+	}
 
 	public static final String TAG_FLOAT_TICKS = "botania:float_ticks";
 

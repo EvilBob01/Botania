@@ -8,6 +8,8 @@
  */
 package vazkii.botania.common.block.decor;
 
+import com.mojang.serialization.MapCodec;
+
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.block.Block;
@@ -18,6 +20,14 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 
 public class BotaniaDirectionalBlock extends DirectionalBlock {
+
+	private static final MapCodec<BotaniaDirectionalBlock> CODEC = simpleCodec(BotaniaDirectionalBlock::new);
+
+	@Override
+	public MapCodec<BotaniaDirectionalBlock> codec() {
+		return CODEC;
+	}
+
 	public BotaniaDirectionalBlock(Properties properties) {
 		super(properties);
 		registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.UP));

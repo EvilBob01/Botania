@@ -9,7 +9,7 @@
 package vazkii.botania.common.block.decor;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.data.worldgen.features.TreeFeatures;
+import net.minecraft.core.Holder;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
@@ -20,6 +20,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.MushroomBlock;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
@@ -36,7 +37,7 @@ public class BotaniaMushroomBlock extends MushroomBlock implements CustomApothec
 	public final DyeColor color;
 
 	public BotaniaMushroomBlock(DyeColor color, Properties builder) {
-		super(builder, TreeFeatures.HUGE_BROWN_MUSHROOM /* Doesn't matter, we override the grow method */);
+		super(builder, (Holder<ConfiguredFeature<?, ?>>) null /* Doesn't matter, we override the grow method */);
 		this.color = color;
 	}
 
