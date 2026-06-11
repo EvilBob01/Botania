@@ -1505,12 +1505,8 @@ public final class BotaniaBlocks {
 		DispenserBlock.registerBehavior(BotaniaItems.corporeaSpark, behavior);
 		DispenserBlock.registerBehavior(BotaniaItems.corporeaSparkMaster, behavior);
 		DispenserBlock.registerBehavior(BotaniaItems.corporeaSparkCreative, behavior);
-		DispenserBlock.registerBehavior(BotaniaItems.enderAirBottle, new ProjectileDispenseBehavior(BotaniaItems.enderAirBottle) {
-			@Override
-			protected net.minecraft.world.entity.projectile.Projectile getProjectile(net.minecraft.world.level.Level world, net.minecraft.core.Position pos, ItemStack stack) {
-				return new EnderAirBottleEntity(pos.x(), pos.y(), pos.z(), world);
-			}
-		});
+		DispenserBlock.registerBehavior(BotaniaItems.enderAirBottle, new ProjectileDispenseBehavior(
+				(world, pos, stack) -> new EnderAirBottleEntity(pos.x(), pos.y(), pos.z(), world)));
 
 		behavior = DispenserBlockAccessor.getDispenserRegistry().get(Items.GLASS_BOTTLE);
 		DispenserBlock.registerBehavior(Items.GLASS_BOTTLE, new EnderAirBottlingBehavior(behavior));

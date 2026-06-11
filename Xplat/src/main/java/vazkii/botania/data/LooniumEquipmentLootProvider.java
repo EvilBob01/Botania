@@ -383,7 +383,7 @@ public class LooniumEquipmentLootProvider implements DataProvider {
 										.entityType(EntityTypePredicate.of(EntityType.SKELETON))))
 						.when(LootItemRandomChanceCondition.randomChance(0.9f))
 						.add(LootItem.lootTableItem(Items.TIPPED_ARROW)
-								.apply(SetCustomDataFunction.setTag(levitationEffectTag)))
+								.apply(SetCustomDataFunction.setCustomData(levitationEffectTag)))
 				)
 		);
 		tables.put(BotaniaLootTables.LOONIUM_SKELETON_END_CITY,
