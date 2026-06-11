@@ -11,6 +11,7 @@ package vazkii.botania.data.recipes;
 import net.minecraft.advancements.Criterion;
 import net.minecraft.advancements.critereon.InventoryChangeTrigger;
 import net.minecraft.advancements.critereon.ItemPredicate;
+import net.minecraft.advancements.critereon.RecipeUnlockedTrigger;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
@@ -807,7 +808,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.requires(mushrooms, 2)
 				.requires(Items.BOWL)
 				.unlockedBy("has_item", conditionsFromItem(Items.BOWL))
-				.unlockedBy("has_orig_recipe", RecipeUnlockedTrigger.unlocked(ResourceKey.create(net.minecraft.core.registries.Registries.RECIPE, ResourceLocation.parse("mushroom_stew"))))
+				.unlockedBy("has_orig_recipe", RecipeUnlockedTrigger.unlocked(ResourceLocation.parse("mushroom_stew")))
 				.save(output,"botania:mushroom_stew");
 
 		ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, Items.COBWEB)
@@ -908,7 +909,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern("S  ")
 				.group("botania:twig_wand")
 				.unlockedBy("has_item", conditionsFromTag(BotaniaTags.Items.PETALS))
-				.save(WrapperResult.ofType(WandOfTheForestRecipe.SERIALIZER, output));
+				.save(WrapperResult.ofType(WandOfTheForestRecipe::new, output));
 		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, BotaniaItems.dreamwoodWand)
 				.define('P', BotaniaTags.Items.PETALS)
 				.define('S', BotaniaItems.dreamwoodTwig)
@@ -917,7 +918,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern("S  ")
 				.group("botania:twig_wand")
 				.unlockedBy("has_item", conditionsFromTag(BotaniaTags.Items.PETALS))
-				.save(WrapperResult.ofType(WandOfTheForestRecipe.SERIALIZER, output));
+				.save(WrapperResult.ofType(WandOfTheForestRecipe::new, output));
 		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, BotaniaItems.manaTablet)
 				.define('P', BotaniaItems.manaPearl)
 				.define('S', BotaniaBlocks.livingrock)
@@ -1031,7 +1032,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern("ILI")
 				.pattern(" L ")
 				.unlockedBy("has_item", conditionsFromTag(BotaniaTags.Items.INGOTS_TERRASTEEL))
-				.save(WrapperResult.ofType(ManaUpgradeRecipe.SERIALIZER, output));
+				.save(WrapperResult.ofType(ManaUpgradeRecipe::new, output));
 		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, BotaniaItems.terraAxe)
 				.define('S', BotaniaItems.livingwoodTwig)
 				.define('T', BotaniaTags.Items.INGOTS_TERRASTEEL)
@@ -1164,14 +1165,14 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.save(output);
 
 		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, BotaniaItems.waterRod)
-				.define('B', Ingredient.of(PotionUtils.setPotion(new ItemStack(Items.POTION), Potions.WATER)))
+				.define('B', Ingredient.of(PotionContents.createItemStack(Items.POTION, Potions.WATER)))
 				.define('R', BotaniaItems.runeWater)
 				.define('T', BotaniaItems.livingwoodTwig)
 				.pattern("  B")
 				.pattern(" T ")
 				.pattern("R  ")
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.runeWater))
-				.save(WrapperResult.ofType(WaterBottleMatchingRecipe.SERIALIZER, output));
+				.save(WrapperResult.ofType(WaterBottleMatchingRecipe::new, output));
 
 		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, BotaniaItems.rainbowRod)
 				.define('P', BotaniaItems.pixieDust)
@@ -1399,7 +1400,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern("I I")
 				.pattern(" I ")
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.manaTablet))
-				.save(WrapperResult.ofType(ManaUpgradeRecipe.SERIALIZER, output));
+				.save(WrapperResult.ofType(ManaUpgradeRecipe::new, output));
 		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, BotaniaItems.auraRing)
 				.define('R', BotaniaItems.runeMana)
 				.define('I', BotaniaTags.Items.INGOTS_MANASTEEL)
@@ -1412,7 +1413,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.requires(BotaniaTags.Items.INGOTS_TERRASTEEL)
 				.requires(BotaniaItems.manaRing)
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.terrasteel))
-				.save(WrapperResult.ofType(ShapelessManaUpgradeRecipe.SERIALIZER, output));
+				.save(WrapperResult.ofShapelessType(ShapelessManaUpgradeRecipe::new, output));
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.TOOLS, BotaniaItems.auraRingGreater)
 				.requires(BotaniaTags.Items.INGOTS_TERRASTEEL)
 				.requires(BotaniaItems.auraRing)
@@ -2308,7 +2309,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 				.pattern(" S ")
 				.unlockedBy("has_item", conditionsFromTag(BotaniaTags.Items.INGOTS_TERRASTEEL))
 				.unlockedBy("has_prev_tier", conditionsFromItem(upgradedInput))
-				.save(WrapperResult.ofType(ArmorUpgradeRecipe.SERIALIZER, output));
+				.save(WrapperResult.ofType(ArmorUpgradeRecipe::new, output));
 	}
 
 	public static void registerRedStringBlock(RecipeOutput output, ItemLike result, Ingredient input, Criterion<?> criterion) {
@@ -2669,7 +2670,7 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 
 	protected void specialRecipe(RecipeOutput output, NoOpRecipeSerializer<? extends CraftingRecipe> serializer) {
 		ResourceLocation name = BuiltInRegistries.RECIPE_SERIALIZER.getKey(serializer);
-		SpecialRecipeBuilder.special(serializer).save(output, prefix("dynamic/" + name.getPath()).toString());
+		SpecialRecipeBuilder.special(serializer.asRecipeFactory()).save(output, prefix("dynamic/" + name.getPath()).toString());
 	}
 
 	protected Block getBlockOrThrow(ResourceLocation location) {
@@ -2680,8 +2681,4 @@ public class CraftingRecipeProvider extends BotaniaRecipeProvider {
 		return BuiltInRegistries.ITEM.getOrThrow(ResourceKey.create(Registries.ITEM, location));
 	}
 
-	@Override
-	public String getName() {
-		return "Botania crafting recipes";
-	}
 }

@@ -652,13 +652,13 @@ public class LooniumEquipmentLootProvider implements DataProvider {
 		addDyedColorToTag(COLOR_ENDERMAN_BODY).accept(endermanBodyTag);
 		tables.put(BotaniaLootTables.LOONIUM_ARMORSET_COSTUME_ENDERMAN, LootTable.lootTable()
 				.withPool(LootPool.lootPool().add(LootItem.lootTableItem(Items.LEATHER_HELMET)
-						.apply(SetCustomDataFunction.setTag(endermanHeadTag))))
+						.apply(SetCustomDataFunction.setCustomData(endermanHeadTag))))
 				.withPool(LootPool.lootPool().add(LootItem.lootTableItem(Items.LEATHER_CHESTPLATE)
-						.apply(SetCustomDataFunction.setTag(endermanBodyTag))))
+						.apply(SetCustomDataFunction.setCustomData(endermanBodyTag))))
 				.withPool(LootPool.lootPool().add(LootItem.lootTableItem(Items.LEATHER_LEGGINGS)
-						.apply(SetCustomDataFunction.setTag(endermanBodyTag))))
+						.apply(SetCustomDataFunction.setCustomData(endermanBodyTag))))
 				.withPool(LootPool.lootPool().add(LootItem.lootTableItem(Items.LEATHER_BOOTS)
-						.apply(SetCustomDataFunction.setTag(endermanBodyTag))))
+						.apply(SetCustomDataFunction.setCustomData(endermanBodyTag))))
 		);
 
 		tables.put(BotaniaLootTables.LOONIUM_ARMOR_STRONGHOLD,
@@ -770,11 +770,11 @@ public class LooniumEquipmentLootProvider implements DataProvider {
 		addDyedColorToTag(COLOR_VINDICATOR_BOOTS).accept(vindicatorBootsTag);
 		tables.put(BotaniaLootTables.LOONIUM_ARMORSET_COSTUME_VINDICATOR, LootTable.lootTable()
 				.withPool(LootPool.lootPool().add(LootItem.lootTableItem(Items.LEATHER_CHESTPLATE)
-						.apply(SetCustomDataFunction.setTag(vindicatorChestTag))))
+						.apply(SetCustomDataFunction.setCustomData(vindicatorChestTag))))
 				.withPool(LootPool.lootPool().add(LootItem.lootTableItem(Items.LEATHER_LEGGINGS)
-						.apply(SetCustomDataFunction.setTag(vindicatorLegsTag))))
+						.apply(SetCustomDataFunction.setCustomData(vindicatorLegsTag))))
 				.withPool(LootPool.lootPool().add(LootItem.lootTableItem(Items.LEATHER_BOOTS)
-						.apply(SetCustomDataFunction.setTag(vindicatorBootsTag))))
+						.apply(SetCustomDataFunction.setCustomData(vindicatorBootsTag))))
 				.withPool(LootPool.lootPool()
 						.when(LootItemRandomChanceCondition.randomChance(0.9f))
 						.add(LootItem.lootTableItem(Items.IRON_AXE)
@@ -798,7 +798,7 @@ public class LooniumEquipmentLootProvider implements DataProvider {
 										.entityType(EntityTypePredicate.of(EntityType.SKELETON))))
 						.when(LootItemRandomChanceCondition.randomChance(0.9f))
 						.add(LootItem.lootTableItem(Items.TIPPED_ARROW)
-								.apply(SetCustomDataFunction.setTag(blindnessEffectTag))))
+								.apply(SetCustomDataFunction.setCustomData(blindnessEffectTag))))
 		);
 
 		// Vex cosplay, including sword (even for ranged mobs)
@@ -806,7 +806,7 @@ public class LooniumEquipmentLootProvider implements DataProvider {
 		trimSetter.accept(trimFactory.apply(TrimPatterns.VEX, TrimMaterials.AMETHYST), vexHeadTag);
 		tables.put(BotaniaLootTables.LOONIUM_ARMORSET_COSTUME_VEX, LootTable.lootTable()
 				.withPool(LootPool.lootPool().add(LootItem.lootTableItem(Items.DIAMOND_HELMET)
-						.apply(SetCustomDataFunction.setTag(vexHeadTag))))
+						.apply(SetCustomDataFunction.setCustomData(vexHeadTag))))
 				.withPool(LootPool.lootPool().add(LootItem.lootTableItem(Items.DIAMOND_CHESTPLATE)))
 				.withPool(LootPool.lootPool().add(LootItem.lootTableItem(Items.DIAMOND_LEGGINGS)))
 				.withPool(LootPool.lootPool()
@@ -866,7 +866,7 @@ public class LooniumEquipmentLootProvider implements DataProvider {
 		for (Item armorItem : armorItems) {
 			lootTable.withPool(LootPool.lootPool()
 					.setRolls(randomized ? UniformGenerator.between(0, 1) : ConstantValue.exactly(1))
-					.add(LootItem.lootTableItem(armorItem).apply(SetCustomDataFunction.setTag(tag))));
+					.add(LootItem.lootTableItem(armorItem).apply(SetCustomDataFunction.setCustomData(tag))));
 		}
 		return lootTable;
 	}

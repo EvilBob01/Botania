@@ -32,6 +32,12 @@ public class NoOpRecipeSerializer<T extends Recipe<?>> implements RecipeSerializ
 		this(() -> constructor.apply(ResourceLocation.fromNamespaceAndPath("botania", "noop")));
 	}
 
+	/** Returns this serializer's recipe as a factory function compatible with SpecialRecipeBuilder.special() in 1.21.1+. */
+	@SuppressWarnings("unchecked")
+	public java.util.function.Function<net.minecraft.world.item.crafting.CraftingBookCategory, net.minecraft.world.item.crafting.Recipe<?>> asRecipeFactory() {
+		return category -> (net.minecraft.world.item.crafting.Recipe<?>) constructor.get();
+	}
+
 	@Override
 	public MapCodec<T> codec() {
 		return codec;
