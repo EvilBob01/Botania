@@ -104,7 +104,7 @@ public class BlockLootProvider implements DataProvider {
 			} else if (b instanceof BotaniaGrassBlock) {
 				functionTable.put(b, ALT_GRASS_SENTINEL);
 			} else if (b instanceof FlowerPotBlock flowerPot) {
-				functionTable.put(b, block -> createPotAndPlantItemTable(flowerPot.getContent()));
+				functionTable.put(b, block -> createPotAndPlantItemTable(flowerPot.getFlower()));
 			} else if (id.getPath().matches(LibBlockNames.METAMORPHIC_PREFIX + "\\w+" + "_stone")) {
 				functionTable.put(b, METAMORPHIC_STONE_SENTINEL);
 			}
@@ -152,7 +152,7 @@ public class BlockLootProvider implements DataProvider {
 				.withSubPredicate(ItemSubPredicates.ENCHANTMENTS,
 						ItemEnchantmentsPredicate.enchantments(
 								List.of(new net.minecraft.advancements.critereon.EnchantmentPredicate(
-										Optional.of(registryLookup.lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(Enchantments.SILK_TOUCH)),
+										registryLookup.lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(Enchantments.SILK_TOUCH),
 										MinMaxBounds.Ints.atLeast(1))))));
 
 		Map<ResourceLocation, LootTable.Builder> tables = new HashMap<>();

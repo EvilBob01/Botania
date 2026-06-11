@@ -61,7 +61,7 @@ public class LooniumStructureConfigurationProvider implements DataProvider {
 			Path path = pathProvider.json(e.getKey());
 			LooniumStructureConfiguration config = e.getValue();
 			JsonElement jsonTree = LooniumStructureConfiguration.CODEC.encodeStart(JsonOps.INSTANCE, config)
-					.getOrThrow(error -> BotaniaAPI.LOGGER.error(error));
+					.getOrThrow();
 			output.add(DataProvider.saveStable(cache, jsonTree, path));
 		}
 		return CompletableFuture.allOf(output.toArray(CompletableFuture<?>[]::new));

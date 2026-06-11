@@ -47,13 +47,13 @@ public class ShapelessManaUpgradeRecipe extends ShapelessRecipe {
 
 	private static class Serializer implements RecipeSerializer<ShapelessManaUpgradeRecipe> {
 		private static final MapCodec<ShapelessManaUpgradeRecipe> CODEC =
-				ShapelessRecipe.Serializer.CODEC.xmap(
+				RecipeSerializer.SHAPELESS_RECIPE.codec().xmap(
 						ShapelessManaUpgradeRecipe::new,
 						r -> r
 				);
 
 		private static final StreamCodec<RegistryFriendlyByteBuf, ShapelessManaUpgradeRecipe> STREAM_CODEC =
-				ShapelessRecipe.Serializer.STREAM_CODEC.map(
+				RecipeSerializer.SHAPELESS_RECIPE.streamCodec().map(
 						ShapelessManaUpgradeRecipe::new,
 						r -> r
 				);

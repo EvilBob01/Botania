@@ -8,7 +8,6 @@
  */
 package vazkii.botania.common.crafting;
 
-import com.google.common.collect.ImmutableMap;
 import com.google.gson.JsonObject;
 
 import net.minecraft.ChatFormatting;
@@ -72,7 +71,7 @@ public class BlockStateStateIngredient implements StateIngredient {
 	@Nullable
 	@Override
 	public List<Component> descriptionTooltip() {
-		ImmutableMap<Property<?>, Comparable<?>> map = state.getValues();
+		Map<Property<?>, Comparable<?>> map = state.getValues();
 		if (map.isEmpty()) {
 			return StateIngredient.super.descriptionTooltip();
 		}

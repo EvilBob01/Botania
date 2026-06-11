@@ -34,7 +34,7 @@ public class WaterBottleMatchingRecipe extends ShapedRecipe {
 	}
 
 	public WaterBottleMatchingRecipe(ShapedRecipe recipe) {
-		this(recipe.getGroup(), recipe.category(), recipe.pattern(),
+		this(recipe.getGroup(), recipe.category(), recipe.pattern,
 				// XXX: Hacky, but compose should always be a vanilla shaped recipe which doesn't do anything with the
 				// RegistryAccess
 				recipe.getResultItem(RegistryAccess.EMPTY));

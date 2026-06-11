@@ -6,7 +6,7 @@ import net.minecraft.gametest.framework.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.GameType;
+import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.EntityType;

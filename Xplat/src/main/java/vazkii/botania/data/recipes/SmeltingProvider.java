@@ -68,8 +68,4 @@ public class SmeltingProvider extends BotaniaRecipeProvider {
 				.save(output,"botania:smelting/cracked_livingrock_bricks");
 	}
 
-	@Override
-	public String getName() {
-		return "Botania smelting recipes";
-	}
 }

@@ -152,12 +152,6 @@ public class StonecuttingProvider extends BotaniaRecipeProvider {
 		stonecutting(output, cobble, cobbleWall);
 	}
 
-	@NotNull
-	@Override
-	public String getName() {
-		return "Botania stonecutting recipes";
-	}
-
 	protected ResourceLocation idFor(ItemLike a, ItemLike b) {
 		ResourceLocation aId = BuiltInRegistries.ITEM.getKey(a.asItem());
 		ResourceLocation bId = BuiltInRegistries.ITEM.getKey(b.asItem());

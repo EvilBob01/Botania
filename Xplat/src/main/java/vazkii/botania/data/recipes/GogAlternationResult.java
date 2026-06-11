@@ -12,6 +12,7 @@ import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.Recipe;
+import net.neoforged.neoforge.common.conditions.ICondition;
 
 import vazkii.botania.xplat.XplatAbstractions;
 
@@ -54,7 +55,7 @@ public class GogAlternationResult {
 		AdvancementHolder advancement;
 
 		@Override
-		public void accept(ResourceLocation id, Recipe<?> recipe, AdvancementHolder advancement) {
+		public void accept(ResourceLocation id, Recipe<?> recipe, AdvancementHolder advancement, ICondition... conditions) {
 			this.id = id;
 			this.recipe = recipe;
 			this.advancement = advancement;

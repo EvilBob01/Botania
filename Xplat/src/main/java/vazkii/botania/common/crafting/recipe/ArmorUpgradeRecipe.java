@@ -27,7 +27,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class ArmorUpgradeRecipe extends ShapedRecipe {
 	public ArmorUpgradeRecipe(ShapedRecipe compose) {
-		super(compose.getGroup(), compose.category(), compose.pattern(),
+		super(compose.getGroup(), compose.category(), compose.pattern,
 				// XXX: Hacky, but compose should always be a vanilla shaped recipe which doesn't do anything with the
 				// RegistryAccess
 				compose.getResultItem(RegistryAccess.EMPTY));

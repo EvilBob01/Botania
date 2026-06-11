@@ -380,9 +380,9 @@ public class AdvancementProvider {
 					.parent(root)
 					.rewards(AdvancementRewards.Builder.experience(100))
 					.addCriterion("guardian", KilledTrigger.TriggerInstance.playerKilledEntity(
-							EntityPredicate.Builder.entity()
+							Optional.of(EntityPredicate.Builder.entity()
 									.of(BotaniaEntities.DOPPLEGANGER)
-									.nbt(new NbtPredicate(hardmodeNbt)).build()))
+									.nbt(new NbtPredicate(hardmodeNbt)).build())))
 					.save(consumer, challengeId("gaia_guardian_hardmode"));
 
 			relicBindAdvancement(consumer, hardMode, BotaniaItems.infiniteFruit, "infiniteFruit", "fruit");

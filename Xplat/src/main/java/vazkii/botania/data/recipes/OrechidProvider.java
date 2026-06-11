@@ -108,9 +108,5 @@ public class OrechidProvider extends BotaniaRecipeProvider {
 		return StateIngredientHelper.of(tag);
 	}
 
-	@Override
-	public String getName() {
-		return "Botania Orechid and Marimorphosis recipes";
-	}
-
 }
+

@@ -26,9 +26,5 @@ public abstract class BotaniaRecipeProvider extends RecipeProvider {
 	}
 
 	@Override
-	protected final void buildRecipes(HolderLookup.Provider pRegistries, RecipeOutput output) {
-		buildRecipes(output);
-	}
-
-	public abstract void buildRecipes(RecipeOutput output);
+	protected abstract void buildRecipes(RecipeOutput output);
 }

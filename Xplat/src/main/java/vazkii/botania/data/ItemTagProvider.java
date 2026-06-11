@@ -18,6 +18,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
@@ -33,6 +34,8 @@ import java.util.concurrent.CompletableFuture;
 import static vazkii.botania.common.item.BotaniaItems.*;
 
 public class ItemTagProvider extends ItemTagsProvider {
+	// MUSIC_DISCS was removed in 1.21.1; keep the tag via its resource location
+	private static final TagKey<Item> MUSIC_DISCS = ItemTags.create(ResourceLocation.withDefaultNamespace("music_discs"));
 	public ItemTagProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider, CompletableFuture<TagsProvider.TagLookup<Block>> blockTagProvider) {
 		super(packOutput, lookupProvider, blockTagProvider);
 	}
@@ -85,7 +88,7 @@ public class ItemTagProvider extends ItemTagsProvider {
 
 		this.tag(ItemTags.PIGLIN_LOVED).add(BotaniaBlocks.alchemyCatalyst.asItem(), divaCharm,
 				BotaniaBlocks.hourglass.asItem(), BotaniaBlocks.manaPylon.asItem(), monocle);
-		this.tag(ItemTags.MUSIC_DISCS).add(recordGaia1, recordGaia2);
+		this.tag(MUSIC_DISCS).add(recordGaia1, recordGaia2);
 		this.tag(ItemTags.CLUSTER_MAX_HARVESTABLES).add(manasteelPick, elementiumPick, terraPick, glassPick);
 		this.tag(ItemTags.LECTERN_BOOKS).add(lexicon);
 		this.tag(ItemTags.BOOKSHELF_BOOKS).add(lexicon);
@@ -142,7 +145,7 @@ public class ItemTagProvider extends ItemTagsProvider {
 
 		this.tag(BotaniaTags.Items.LOONIUM_BLACKLIST)
 				.add(lexicon, overgrowthSeed, blackLotus, blackerLotus)
-				.addTag(ItemTags.MUSIC_DISCS);
+				.addTag(MUSIC_DISCS);
 		this.tag(ItemTags.ARROWS);
 		this.tag(BotaniaTags.Items.LOONIUM_OFFHAND_EQUIPMENT)
 				.add(Items.FIREWORK_ROCKET, Items.TOTEM_OF_UNDYING)

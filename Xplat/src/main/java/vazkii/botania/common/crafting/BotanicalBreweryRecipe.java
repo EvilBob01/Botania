@@ -17,12 +17,13 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
+
+import vazkii.botania.api.recipe.BotaniaContainer;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -49,10 +50,10 @@ public class BotanicalBreweryRecipe implements vazkii.botania.api.recipe.Botanic
 	}
 
 	@Override
-	public boolean matches(Container inv, @NotNull Level world) {
+	public boolean matches(BotaniaContainer inv, @NotNull Level world) {
 		List<Ingredient> inputsMissing = new ArrayList<>(inputs);
 
-		for (int i = 0; i < inv.getContainerSize(); i++) {
+		for (int i = 0; i < inv.size(); i++) {
 			ItemStack stack = inv.getItem(i);
 			if (stack.isEmpty()) {
 				break;

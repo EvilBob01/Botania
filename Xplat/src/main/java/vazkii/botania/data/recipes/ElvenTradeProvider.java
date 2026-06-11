@@ -59,8 +59,4 @@ public class ElvenTradeProvider extends BotaniaRecipeProvider {
 		return prefix("elven_trade/" + path);
 	}
 
-	@Override
-	public String getName() {
-		return "Botania elven trade recipes";
-	}
 }

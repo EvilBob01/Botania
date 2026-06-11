@@ -28,11 +28,6 @@ public class TerrestrialAgglomerationProvider extends BotaniaRecipeProvider {
 	}
 
 	@Override
-	public String getName() {
-		return "Botania Terra Plate recipes";
-	}
-
-	@Override
 	public void buildRecipes(RecipeOutput output) {
 		ItemStack result = new ItemStack(BotaniaItems.terrasteel);
 		output.accept(idFor("terrasteel_ingot"), new RecipeTerraPlate(ManaPoolBlockEntity.MAX_MANA / 2,

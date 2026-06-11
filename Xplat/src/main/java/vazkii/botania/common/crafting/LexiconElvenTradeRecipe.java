@@ -26,7 +26,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class LexiconElvenTradeRecipe implements ElvenTradeRecipe {
-	LexiconElvenTradeRecipe() {
+	public LexiconElvenTradeRecipe() {
 	}
 
 	@Override

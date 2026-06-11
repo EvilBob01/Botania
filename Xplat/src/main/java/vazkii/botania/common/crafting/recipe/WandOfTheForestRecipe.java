@@ -10,13 +10,14 @@ package vazkii.botania.common.crafting.recipe;
 
 import com.mojang.serialization.MapCodec;
 
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.CraftingInput;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.ShapedRecipe;
 
@@ -30,7 +31,7 @@ public class WandOfTheForestRecipe extends ShapedRecipe {
 	public static final RecipeSerializer<WandOfTheForestRecipe> SERIALIZER = new Serializer();
 
 	public WandOfTheForestRecipe(ShapedRecipe compose) {
-		super(compose.getGroup(), compose.category(), compose.pattern(),
+		super(compose.getGroup(), compose.category(), compose.pattern,
 				// XXX: Hacky, but compose should always be a vanilla shaped recipe which doesn't do anything with the
 				// RegistryAccess
 				compose.getResultItem(RegistryAccess.EMPTY));
@@ -38,9 +39,9 @@ public class WandOfTheForestRecipe extends ShapedRecipe {
 
 	@NotNull
 	@Override
-	public ItemStack assemble(CraftingContainer inv, @NotNull RegistryAccess registries) {
+	public ItemStack assemble(@NotNull CraftingInput inv, @NotNull HolderLookup.Provider registries) {
 		int first = -1;
-		for (int i = 0; i < inv.getContainerSize(); i++) {
+		for (int i = 0; i < inv.size(); i++) {
 			ItemStack stack = inv.getItem(i);
 			Item item = stack.getItem();
 

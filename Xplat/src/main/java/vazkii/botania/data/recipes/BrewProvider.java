@@ -28,11 +28,6 @@ public class BrewProvider extends BotaniaRecipeProvider {
 	}
 
 	@Override
-	public String getName() {
-		return "Botania Brew recipes";
-	}
-
-	@Override
 	public void buildRecipes(RecipeOutput output) {
 		output.accept(idFor("speed"), new BotanicalBreweryRecipe(BotaniaBrews.speed, Ingredient.of(Items.NETHER_WART), Ingredient.of(Items.SUGAR), Ingredient.of(Items.REDSTONE)), null);
 		output.accept(idFor("strength"), new BotanicalBreweryRecipe(BotaniaBrews.strength, Ingredient.of(Items.NETHER_WART), Ingredient.of(Items.BLAZE_POWDER), Ingredient.of(Items.GLOWSTONE_DUST)), null);

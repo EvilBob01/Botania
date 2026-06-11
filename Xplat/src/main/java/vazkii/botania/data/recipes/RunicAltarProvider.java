@@ -31,11 +31,6 @@ public class RunicAltarProvider extends BotaniaRecipeProvider {
 	}
 
 	@Override
-	public String getName() {
-		return "Botania runic altar recipes";
-	}
-
-	@Override
 	public void buildRecipes(RecipeOutput output) {
 		final int costTier1 = 5200;
 		final int costTier2 = 8000;

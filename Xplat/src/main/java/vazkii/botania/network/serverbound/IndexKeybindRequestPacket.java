@@ -25,7 +25,7 @@ public record IndexKeybindRequestPacket(ItemStack stack) implements BotaniaPacke
 
 	@Override
 	public void encode(RegistryFriendlyByteBuf buf) {
-		buf.writeItem(stack());
+		ItemStack.OPTIONAL_STREAM_CODEC.encode(buf, stack());
 	}
 
 	@Override
@@ -34,7 +34,7 @@ public record IndexKeybindRequestPacket(ItemStack stack) implements BotaniaPacke
 	}
 
 	public static IndexKeybindRequestPacket decode(RegistryFriendlyByteBuf buf) {
-		return new IndexKeybindRequestPacket(buf.readItem());
+		return new IndexKeybindRequestPacket(ItemStack.OPTIONAL_STREAM_CODEC.decode(buf));
 	}
 
 	public void handle(MinecraftServer server, ServerPlayer player) {

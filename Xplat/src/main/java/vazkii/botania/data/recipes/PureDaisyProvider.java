@@ -50,11 +50,6 @@ public class PureDaisyProvider extends BotaniaRecipeProvider {
 		output.accept(id("snow_block"), new PureDaisyRecipe(StateIngredientHelper.of(Blocks.WATER), Blocks.SNOW_BLOCK.defaultBlockState(), PureDaisyRecipe.DEFAULT_TIME, Optional.empty()), null);
 	}
 
-	@Override
-	public String getName() {
-		return "Botania Pure Daisy recipes";
-	}
-
 	private static ResourceLocation id(String path) {
 		return prefix("pure_daisy/" + path);
 	}

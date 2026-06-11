@@ -25,7 +25,7 @@ import vazkii.botania.xplat.XplatAbstractions;
 
 public class ManaUpgradeRecipe extends ShapedRecipe {
 	public ManaUpgradeRecipe(ShapedRecipe compose) {
-		super(compose.getGroup(), compose.category(), compose.pattern(),
+		super(compose.getGroup(), compose.category(), compose.pattern,
 				// XXX: Hacky, but compose should always be a vanilla shaped recipe which doesn't do anything with the
 				// RegistryAccess
 				compose.getResultItem(RegistryAccess.EMPTY));

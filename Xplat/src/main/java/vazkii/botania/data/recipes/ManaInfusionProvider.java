@@ -36,11 +36,6 @@ public class ManaInfusionProvider extends BotaniaRecipeProvider {
 	}
 
 	@Override
-	public String getName() {
-		return "Botania mana pool recipes";
-	}
-
-	@Override
 	public void buildRecipes(RecipeOutput output) {
 		output.accept(id("manasteel"), new ManaInfusionRecipe(new ItemStack(BotaniaItems.manaSteel), Ingredient.of(Items.IRON_INGOT), 3000, null, null), null);
 		output.accept(id("manasteel_block"), new ManaInfusionRecipe(new ItemStack(BotaniaBlocks.manasteelBlock), ingr(Blocks.IRON_BLOCK), 27000, null, null), null);

@@ -41,11 +41,6 @@ public class PetalApothecaryProvider extends BotaniaRecipeProvider {
 	}
 
 	@Override
-	public String getName() {
-		return "Botania petal apothecary recipes";
-	}
-
-	@Override
 	public void buildRecipes(RecipeOutput output) {
 		Ingredient white = tagIngr("petals/white");
 		Ingredient orange = tagIngr("petals/orange");
