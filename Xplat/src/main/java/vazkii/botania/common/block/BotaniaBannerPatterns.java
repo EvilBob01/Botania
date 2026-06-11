@@ -22,7 +22,7 @@ import java.util.function.BiConsumer;
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public final class BotaniaBannerPatterns {
-	private static final List<BannerPattern> ALL = new ArrayList<>();
+	private static final List<ResourceLocation> ALL = new ArrayList<>();
 	public static final ResourceKey<BannerPattern> FLOWER = make("flower");
 	public static final ResourceKey<BannerPattern> LEXICON = make("lexicon");
 	public static final ResourceKey<BannerPattern> LOGO = make("logo");
@@ -41,14 +41,15 @@ public final class BotaniaBannerPatterns {
 	public static final ResourceKey<BannerPattern> SWORD = make("sword");
 
 	private static ResourceKey<BannerPattern> make(String hashName) {
-		BannerPattern pattern = new BannerPattern(LibMisc.MOD_ID + ":" + hashName);
-		ALL.add(pattern);
-		return ResourceKey.create(Registries.BANNER_PATTERN, prefix(hashName));
+		ResourceLocation rl = prefix(hashName);
+		ALL.add(rl);
+		return ResourceKey.create(Registries.BANNER_PATTERN, rl);
 	}
 
 	public static void submitRegistrations(BiConsumer<BannerPattern, ResourceLocation> consumer) {
-		for (var pattern : ALL) {
-			consumer.accept(pattern, ResourceLocation.parse(pattern.getHashname()));
+		for (var rl : ALL) {
+			BannerPattern pattern = new BannerPattern(LibMisc.MOD_ID + ":" + rl.getPath(), "block.minecraft.banner." + LibMisc.MOD_ID + "." + rl.getPath().replace('/', '.'));
+			consumer.accept(pattern, rl);
 		}
 	}
 }

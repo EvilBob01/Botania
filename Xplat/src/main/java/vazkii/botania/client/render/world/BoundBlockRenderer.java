@@ -39,13 +39,11 @@ import java.util.List;
 import java.util.Map;
 
 public final class BoundBlockRenderer {
-	private static final MultiBufferSource.BufferSource LINE_BUFFERS = MultiBufferSource.immediateWithBuffers(Util.make(() -> {
-		Map<RenderType, ByteBufferBuilder> ret = new IdentityHashMap<>();
+	private static final MultiBufferSource.BufferSource LINE_BUFFERS = MultiBufferSource.immediateWithBuffers(Util.make(new IdentityHashMap<RenderType, ByteBufferBuilder>(), ret -> {
 		ret.put(RenderHelper.LINE_1_NO_DEPTH, new ByteBufferBuilder(RenderHelper.LINE_1_NO_DEPTH.bufferSize()));
 		ret.put(RenderHelper.LINE_4_NO_DEPTH, new ByteBufferBuilder(RenderHelper.LINE_4_NO_DEPTH.bufferSize()));
 		ret.put(RenderHelper.LINE_5_NO_DEPTH, new ByteBufferBuilder(RenderHelper.LINE_5_NO_DEPTH.bufferSize()));
 		ret.put(RenderHelper.LINE_8_NO_DEPTH, new ByteBufferBuilder(RenderHelper.LINE_8_NO_DEPTH.bufferSize()));
-		return ret;
 	}), new ByteBufferBuilder(1536));
 
 	private BoundBlockRenderer() {}
