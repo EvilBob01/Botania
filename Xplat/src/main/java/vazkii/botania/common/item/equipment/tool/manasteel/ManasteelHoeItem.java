@@ -34,7 +34,7 @@ public class ManasteelHoeItem extends HoeItem implements CustomDamageItem, Sorta
 	}
 
 	public ManasteelHoeItem(Tier mat, Properties properties, float attackSpeed) {
-		super(mat, (int) -mat.getAttackDamageBonus(), attackSpeed, properties);
+		super(mat, properties.attributes(HoeItem.createAttributes(mat, (int) -mat.getAttackDamageBonus(), attackSpeed)));
 	}
 
 	@Override

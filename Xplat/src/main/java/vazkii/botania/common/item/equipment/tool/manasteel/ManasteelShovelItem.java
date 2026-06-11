@@ -35,7 +35,7 @@ public class ManasteelShovelItem extends ShovelItem implements CustomDamageItem,
 	}
 
 	public ManasteelShovelItem(Tier mat, Properties props) {
-		super(mat, 1.5F, -3.0F, props);
+		super(mat, props.attributes(ShovelItem.createAttributes(mat, 1.5F, -3.0F)));
 	}
 
 	@Override

@@ -46,7 +46,7 @@ public class ManasteelAxeItem extends AxeItem implements CustomDamageItem, Sorta
 	}
 
 	public ManasteelAxeItem(Tier mat, float attackDamage, float attackSpeed, Properties props) {
-		super(mat, attackDamage, attackSpeed, props);
+		super(mat, props.attributes(AxeItem.createAttributes(mat, attackDamage, attackSpeed)));
 	}
 
 	@Override
