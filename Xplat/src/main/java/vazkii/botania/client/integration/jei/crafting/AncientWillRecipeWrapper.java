@@ -29,9 +29,10 @@ import java.util.Collections;
 import java.util.List;
 
 public class AncientWillRecipeWrapper implements ICraftingCategoryExtension<AncientWillRecipe> {
-	public AncientWillRecipeWrapper(AncientWillRecipe recipe) {
-		// recipe not needed; retained for use as Function<AncientWillRecipe, ICraftingCategoryExtension<AncientWillRecipe>>
-	}
+	public AncientWillRecipeWrapper() {}
+
+	@Deprecated
+	public AncientWillRecipeWrapper(AncientWillRecipe recipe) {}
 
 	@Override
 	public void setRecipe(@NotNull IRecipeLayoutBuilder builder, @NotNull ICraftingGridHelper helper, @NotNull IFocusGroup focusGroup) {

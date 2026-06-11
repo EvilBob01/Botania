@@ -33,13 +33,18 @@ import java.util.stream.StreamSupport;
 public class CompositeLensRecipeWrapper implements ICraftingCategoryExtension<CompositeLensRecipe> {
 	private final List<Item> allLenses;
 
-	public CompositeLensRecipeWrapper(CompositeLensRecipe recipe) {
+	public CompositeLensRecipeWrapper() {
 		allLenses = StreamSupport.stream(BuiltInRegistries.ITEM.getTagOrEmpty(BotaniaTags.Items.LENS).spliterator(), false)
 				.map(ItemStack::new)
 				.filter(s -> !((LensItem) s.getItem()).isControlLens(s))
 				.filter(s -> ((LensItem) s.getItem()).isCombinable(s))
 				.map(ItemStack::getItem)
 				.toList();
+	}
+
+	@Deprecated
+	public CompositeLensRecipeWrapper(CompositeLensRecipe recipe) {
+		this();
 	}
 
 	@Override

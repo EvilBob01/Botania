@@ -128,9 +128,9 @@ public class JEIBotaniaPlugin implements IModPlugin {
 
 	@Override
 	public void registerVanillaCategoryExtensions(IVanillaCategoryExtensionRegistration registration) {
-		registration.getCraftingCategory().addExtension(AncientWillRecipe.class, r -> new AncientWillRecipeWrapper(r));
-		registration.getCraftingCategory().addExtension(TerraShattererTippingRecipe.class, r -> new TerraShattererTippingRecipeWrapper(r));
-		registration.getCraftingCategory().addExtension(CompositeLensRecipe.class, r -> new CompositeLensRecipeWrapper(r));
+		registration.getCraftingCategory().addExtension(AncientWillRecipe.class, new AncientWillRecipeWrapper());
+		registration.getCraftingCategory().addExtension(TerraShattererTippingRecipe.class, new TerraShattererTippingRecipeWrapper());
+		registration.getCraftingCategory().addExtension(CompositeLensRecipe.class, new CompositeLensRecipeWrapper());
 	}
 
 	@Override
