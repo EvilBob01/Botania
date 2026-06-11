@@ -18,6 +18,7 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 
@@ -274,7 +275,8 @@ public class ManaItemHandlerImpl implements ManaItemHandler {
 			}
 		}
 
-		int unbreaking = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.UNBREAKING, tool);
+		int unbreaking = EnchantmentHelper.getItemEnchantmentLevel(
+				player.level().registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(Enchantments.UNBREAKING), tool);
 		discount += unbreaking * 0.05F;
 		discount = XplatAbstractions.INSTANCE.fireManaDiscountEvent(player, discount, tool);
 

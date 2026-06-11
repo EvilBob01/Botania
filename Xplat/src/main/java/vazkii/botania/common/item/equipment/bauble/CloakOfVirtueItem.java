@@ -95,10 +95,10 @@ public class CloakOfVirtueItem extends BaubleItem {
 			}
 
 			VertexConsumer buffer = buffers.getBuffer(model.renderType(item.getCloakTexture()));
-			model.renderToBuffer(buffer, light, OverlayTexture.NO_OVERLAY);
+			model.renderToBuffer(ms, buffer, light, OverlayTexture.NO_OVERLAY);
 
 			buffer = buffers.getBuffer(model.renderType(item.getCloakGlowTexture()));
-			model.renderToBuffer(buffer, 0xF000F0, OverlayTexture.NO_OVERLAY);
+			model.renderToBuffer(ms, buffer, 0xF000F0, OverlayTexture.NO_OVERLAY);
 		}
 	}
 

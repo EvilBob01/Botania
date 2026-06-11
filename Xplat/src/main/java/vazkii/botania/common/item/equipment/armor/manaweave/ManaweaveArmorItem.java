@@ -16,9 +16,9 @@ import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.level.Level;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -93,13 +93,13 @@ public class ManaweaveArmorItem extends ManasteelArmorItem {
 	}
 
 	@Override
-	public void addInformationAfterShift(ItemStack stack, Level world, List<Component> list, TooltipFlag flags) {
+	public void addInformationAfterShift(ItemStack stack, Item.TooltipContext context, List<Component> list, TooltipFlag flags) {
 		if (XplatAbstractions.INSTANCE.isPhysicalClient() && ClientProxy.jingleTheBells) {
 			list.add(Component.translatable("botaniamisc.santaweaveInfo"));
 			list.add(Component.literal(""));
 		}
 
-		super.addInformationAfterShift(stack, world, list, flags);
+		super.addInformationAfterShift(stack, context, list, flags);
 	}
 
 	@Override

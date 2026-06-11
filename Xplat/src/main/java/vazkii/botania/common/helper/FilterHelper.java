@@ -1,5 +1,6 @@
 package vazkii.botania.common.helper;
 
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
@@ -49,7 +50,7 @@ public class FilterHelper {
 			// BlockItems (especially shulker boxes) can contain BlockEntity data, which may include an inventory.
 			// Otherwise, items may represent an inventory themselves (e.g. Flower Pouch or Bauble Box)
 			CompoundTag tag = filterStack.getItem() instanceof BlockItem
-					? BlockItem.getBlockEntityData(filterStack)
+					? (filterStack.has(DataComponents.BLOCK_ENTITY_DATA) ? filterStack.get(DataComponents.BLOCK_ENTITY_DATA).copyTag() : null)
 					: (filterStack.has(DataComponents.CUSTOM_DATA) ? filterStack.get(DataComponents.CUSTOM_DATA).copyTag() : null);
 			if (tag != null && tag.contains(ITEMS_TAG, Tag.TAG_LIST)) {
 				// item might contain an inventory
@@ -69,7 +70,7 @@ public class FilterHelper {
 			List<ItemStack> items = new ArrayList<>(contents.size());
 			for (int i = 0; i < contents.size(); i++) {
 				CompoundTag entry = contents.getCompound(i);
-				ItemStack stack = ItemStack.parseOptional(BuiltInRegistries.ACCESS, entry);
+				ItemStack stack = ItemStack.parseOptional(RegistryAccess.fromRegistryOfRegistries(BuiltInRegistries.REGISTRY), entry);
 				if (!stack.isEmpty()) {
 					items.add(stack);
 				}

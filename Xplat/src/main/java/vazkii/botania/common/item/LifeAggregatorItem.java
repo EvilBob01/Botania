@@ -104,7 +104,7 @@ public class LifeAggregatorItem extends Item {
 
 			if (!world.isClientSide) {
 				if (ctx.getPlayer() != null) {
-					ctx.getPlayer().broadcastBreakEvent(ctx.getHand());
+					ctx.getPlayer().swing(ctx.getHand());
 				}
 				mover.shrink(1);
 
@@ -116,7 +116,7 @@ public class LifeAggregatorItem extends Item {
 					spawnerTag.putInt("x", pos.getX());
 					spawnerTag.putInt("y", pos.getY());
 					spawnerTag.putInt("z", pos.getZ());
-					te.load(spawnerTag, world.registryAccess());
+					te.loadWithComponents(spawnerTag, world.registryAccess());
 				}
 			} else {
 				for (int i = 0; i < 100; i++) {
@@ -148,7 +148,7 @@ public class LifeAggregatorItem extends Item {
 						UseItemSuccessTrigger.INSTANCE.trigger(serverPlayer, stack, serverPlayer.serverLevel(),
 								pos.getX(), pos.getY(), pos.getZ());
 					}
-					player.broadcastBreakEvent(ctx.getHand());
+					player.swing(ctx.getHand());
 				}
 			} else {
 				for (int i = 0; i < 50; i++) {

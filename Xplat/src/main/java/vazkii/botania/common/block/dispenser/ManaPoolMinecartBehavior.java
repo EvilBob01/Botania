@@ -36,9 +36,9 @@ public class ManaPoolMinecartBehavior extends DefaultDispenseItemBehavior {
 	public ItemStack execute(BlockSource source, ItemStack stack) {
 		Direction direction = source.state().getValue(DispenserBlock.FACING);
 		Level world = source.level();
-		double x = source.x() + (double) direction.getStepX() * 1.125;
-		double y = Math.floor(source.y()) + (double) direction.getStepY();
-		double z = source.z() + (double) direction.getStepZ() * 1.125;
+		double x = source.pos().getX() + 0.5 + (double) direction.getStepX() * 1.125;
+		double y = source.pos().getY() + (double) direction.getStepY();
+		double z = source.pos().getZ() + 0.5 + (double) direction.getStepZ() * 1.125;
 		BlockPos blockpos = source.pos().relative(direction);
 		BlockState blockState = world.getBlockState(blockpos);
 		RailShape railShape = blockState.getBlock() instanceof BaseRailBlock

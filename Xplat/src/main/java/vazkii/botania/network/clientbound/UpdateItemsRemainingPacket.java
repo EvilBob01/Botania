@@ -11,6 +11,7 @@ package vazkii.botania.network.clientbound;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.ComponentSerialization;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 
@@ -27,11 +28,11 @@ public record UpdateItemsRemainingPacket(ItemStack stack, int count, @Nullable C
 
 	@Override
 	public void encode(RegistryFriendlyByteBuf buf) {
-		buf.writeItem(stack);
+		ItemStack.OPTIONAL_STREAM_CODEC.encode(buf, stack);
 		buf.writeVarInt(count);
 		buf.writeBoolean(tooltip != null);
 		if (tooltip != null) {
-			buf.writeComponent(tooltip);
+			ComponentSerialization.TRUSTED_STREAM_CODEC.encode(buf, tooltip);
 		}
 	}
 
@@ -42,9 +43,9 @@ public record UpdateItemsRemainingPacket(ItemStack stack, int count, @Nullable C
 
 	public static UpdateItemsRemainingPacket decode(RegistryFriendlyByteBuf buf) {
 		return new UpdateItemsRemainingPacket(
-				buf.readItem(),
+				ItemStack.OPTIONAL_STREAM_CODEC.decode(buf),
 				buf.readVarInt(),
-				buf.readBoolean() ? buf.readComponent() : null
+				buf.readBoolean() ? ComponentSerialization.TRUSTED_STREAM_CODEC.decode(buf) : null
 		);
 	}
 

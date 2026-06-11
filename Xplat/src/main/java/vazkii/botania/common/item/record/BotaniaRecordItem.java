@@ -8,14 +8,12 @@
  */
 package vazkii.botania.common.item.record;
 
-import net.minecraft.core.Holder;
-import net.minecraft.network.chat.Component;
-import net.minecraft.sounds.SoundEvent;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.JukeboxSong;
-import net.minecraft.world.item.MusicDiscItem;
 
-public class BotaniaRecordItem extends MusicDiscItem {
-	public BotaniaRecordItem(int comparator, Holder<SoundEvent> sound, Properties builder, int lengthInSeconds) {
-		super(Holder.direct(new JukeboxSong(sound, Component.empty(), (float) lengthInSeconds, comparator)), builder);
+public class BotaniaRecordItem extends Item {
+	public BotaniaRecordItem(ResourceKey<JukeboxSong> song, Properties builder) {
+		super(builder.stacksTo(1).jukeboxPlayable(song));
 	}
 }

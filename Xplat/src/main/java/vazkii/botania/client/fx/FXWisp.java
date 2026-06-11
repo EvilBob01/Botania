@@ -132,7 +132,6 @@ public class FXWisp extends TextureSheetParticle {
 			return beginRenderCommon(tesselator, textureManager);
 		}
 
-		@Override
 		public void end(BufferBuilder bufferBuilder) {
 			endRenderCommon(bufferBuilder);
 		}
@@ -150,7 +149,6 @@ public class FXWisp extends TextureSheetParticle {
 			return beginRenderCommon(tesselator, textureManager);
 		}
 
-		@Override
 		public void end(BufferBuilder bufferBuilder) {
 			RenderSystem.enableDepthTest();
 			endRenderCommon(bufferBuilder);

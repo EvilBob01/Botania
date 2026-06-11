@@ -24,6 +24,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.decoration.ItemFrame;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
@@ -103,7 +104,7 @@ public class ManaseerMonocleItem extends BaubleItem implements CosmeticBauble {
 
 				MutableComponent itemName = Component.empty().append(frameItem.getHoverName())
 						.withStyle(frameItem.getRarity().color());
-				if (frameItem.hasCustomHoverName()) {
+				if (frameItem.has(DataComponents.CUSTOM_NAME)) {
 					itemName.withStyle(ChatFormatting.ITALIC);
 				}
 				MutableComponent text = Component.translatable("botaniamisc.monocle.frame.contains", itemName);

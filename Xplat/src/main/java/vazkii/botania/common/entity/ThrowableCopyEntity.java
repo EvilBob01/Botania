@@ -88,13 +88,13 @@ public abstract class ThrowableCopyEntity extends Projectile {
 		this.setDeltaMovement(vec3.scale((double) j));
 		if (!this.isNoGravity()) {
 			Vec3 vec32 = this.getDeltaMovement();
-			this.setDeltaMovement(vec32.x, vec32.y - (double) this.getGravity(), vec32.z);
+			this.setDeltaMovement(vec32.x, vec32.y - (double) this.getBotaniaGravity(), vec32.z);
 		}
 
 		this.setPos(d, e, f);
 	}
 
-	protected float getGravity() {
+	protected float getBotaniaGravity() {
 		return 0.03F;
 	}
 }

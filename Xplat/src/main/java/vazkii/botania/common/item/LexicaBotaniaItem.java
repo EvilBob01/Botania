@@ -58,7 +58,7 @@ public class LexicaBotaniaItem extends Item implements ItemWithBannerPattern, Cu
 	}
 
 	@Override
-	public void appendHoverText(ItemStack stack, Level worldIn, List<Component> tooltip, TooltipFlag flagIn) {
+	public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tooltip, TooltipFlag flagIn) {
 		tooltip.add(getEdition().copy().withStyle(ChatFormatting.GRAY));
 	}
 
@@ -91,7 +91,13 @@ public class LexicaBotaniaItem extends Item implements ItemWithBannerPattern, Cu
 		String akashicTomeNBT = "akashictome:displayName";
 		if (ItemNBTHelper.verifyExistance(stack, akashicTomeNBT)) {
 			CompoundTag nameTextComponent = ItemNBTHelper.getCompound(stack, akashicTomeNBT, false);
-			title = Component.Serializer.fromJson(nameTextComponent.getString("text"));
+			String textStr = nameTextComponent.getString("text");
+			try {
+				com.google.gson.JsonElement json = new com.google.gson.Gson().fromJson(textStr, com.google.gson.JsonElement.class);
+				title = Component.Serializer.fromJson(json, net.minecraft.core.RegistryAccess.fromRegistryOfRegistries(net.minecraft.core.registries.BuiltInRegistries.REGISTRY));
+			} catch (Exception e) {
+				title = Component.literal(textStr);
+			}
 		}
 
 		return title;

@@ -28,6 +28,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.core.Holder;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
+import net.minecraft.world.item.component.ItemAttributeModifiers;
 import net.minecraft.world.level.Level;
 
 import org.jetbrains.annotations.NotNull;
@@ -41,7 +42,6 @@ import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.item.CustomCreativeTabContents;
 
 import java.util.List;
-import java.util.Map;
 import java.util.function.Supplier;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
@@ -143,13 +143,7 @@ public class BaseBrewItem extends Item implements BrewItem, CustomCreativeTabCon
 			for (MobEffectInstance effectinstance : list) {
 				MutableComponent iformattabletextcomponent = Component.translatable(effectinstance.getDescriptionId());
 				MobEffect effect = effectinstance.getEffect().value();
-				Map<Holder<Attribute>, MobEffect.AttributeTemplate> map = effect.getAttributeModifiers();
-				if (!map.isEmpty()) {
-					for (Map.Entry<Holder<Attribute>, MobEffect.AttributeTemplate> entry : map.entrySet()) {
-						AttributeModifier attributemodifier1 = entry.getValue().create(effectinstance.getAmplifier());
-						list1.add(new Pair<>(entry.getKey(), attributemodifier1));
-					}
-				}
+				effect.createModifiers(effectinstance.getAmplifier(), (attribute, modifier) -> list1.add(new Pair<>(attribute, modifier)));
 
 				if (effectinstance.getAmplifier() > 0) {
 					iformattabletextcomponent = Component.translatable("potion.withAmplifier", iformattabletextcomponent, Component.translatable("potion.potency." + effectinstance.getAmplifier()));
@@ -178,10 +172,10 @@ public class BaseBrewItem extends Item implements BrewItem, CustomCreativeTabCon
 				}
 
 				if (d0 > 0.0D) {
-					lores.add((Component.translatable("attribute.modifier.plus." + attributemodifier2.operation().id(), ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(d1), Component.translatable(pair.getFirst().value().getDescriptionId()))).withStyle(ChatFormatting.BLUE));
+					lores.add((Component.translatable("attribute.modifier.plus." + attributemodifier2.operation().id(), ItemAttributeModifiers.ATTRIBUTE_MODIFIER_FORMAT.format(d1), Component.translatable(pair.getFirst().value().getDescriptionId()))).withStyle(ChatFormatting.BLUE));
 				} else if (d0 < 0.0D) {
 					d1 = d1 * -1.0D;
-					lores.add((Component.translatable("attribute.modifier.take." + attributemodifier2.operation().id(), ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(d1), Component.translatable(pair.getFirst().value().getDescriptionId()))).withStyle(ChatFormatting.RED));
+					lores.add((Component.translatable("attribute.modifier.take." + attributemodifier2.operation().id(), ItemAttributeModifiers.ATTRIBUTE_MODIFIER_FORMAT.format(d1), Component.translatable(pair.getFirst().value().getDescriptionId()))).withStyle(ChatFormatting.RED));
 				}
 			}
 		}

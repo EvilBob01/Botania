@@ -91,7 +91,7 @@ public class TerraShattererItem extends ManasteelPickaxeItem implements Sequenti
 	}
 
 	@Override
-	public void appendHoverText(ItemStack stack, Level world, List<Component> stacks, TooltipFlag flags) {
+	public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> stacks, TooltipFlag flags) {
 		Component rank = Component.translatable("botania.rank" + getLevel(stack));
 		Component rankFormat = Component.translatable("botaniamisc.toolRank", rank);
 		stacks.add(rankFormat);
@@ -335,7 +335,6 @@ public class TerraShattererItem extends ManasteelPickaxeItem implements Sequenti
 	}
 
 	@NotNull
-	@Override
 	public Rarity getRarity(@NotNull ItemStack stack) {
 		int level = getLevel(stack);
 		if (stack.isEnchanted()) {

@@ -8,6 +8,7 @@
  */
 package vazkii.botania.common.impl.corporea;
 
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -34,12 +35,12 @@ public class CorporeaItemStackMatcher implements CorporeaRequestMatcher {
 	}
 
 	public static CorporeaItemStackMatcher createFromNBT(CompoundTag tag) {
-		return new CorporeaItemStackMatcher(ItemStack.parseOptional(BuiltInRegistries.ACCESS, tag.getCompound(TAG_REQUEST_STACK)), tag.getBoolean(TAG_REQUEST_CHECK_NBT));
+		return new CorporeaItemStackMatcher(ItemStack.parseOptional(RegistryAccess.fromRegistryOfRegistries(BuiltInRegistries.REGISTRY), tag.getCompound(TAG_REQUEST_STACK)), tag.getBoolean(TAG_REQUEST_CHECK_NBT));
 	}
 
 	@Override
 	public void writeToNBT(CompoundTag tag) {
-		tag.put(TAG_REQUEST_STACK, match.save(BuiltInRegistries.ACCESS));
+		tag.put(TAG_REQUEST_STACK, match.save(RegistryAccess.fromRegistryOfRegistries(BuiltInRegistries.REGISTRY)));
 		tag.putBoolean(TAG_REQUEST_CHECK_NBT, checkNBT);
 	}
 

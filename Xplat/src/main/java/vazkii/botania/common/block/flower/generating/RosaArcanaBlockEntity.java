@@ -145,17 +145,15 @@ public class RosaArcanaBlockEntity extends GeneratingFlowerBlockEntity {
 		}
 		ItemEnchantments curseResult = curseEnchants.toImmutable();
 		EnchantmentHelper.setEnchantments(itemstack, curseResult);
-		itemstack.setRepairCost(0);
 		if (itemstack.is(Items.ENCHANTED_BOOK) && curseResult.isEmpty()) {
-			itemstack = new ItemStack(Items.BOOK);
-			if (stack.has(DataComponents.CUSTOM_NAME)) {
-				itemstack.setHoverName(stack.getHoverName());
-			}
+			itemstack = itemstack.transmuteCopy(Items.BOOK);
 		}
 
+		int repairCost = 0;
 		for (int i = 0; i < curseResult.size(); ++i) {
-			itemstack.setRepairCost(AnvilMenu.calculateIncreasedRepairCost(itemstack.getBaseRepairCost()));
+			repairCost = AnvilMenu.calculateIncreasedRepairCost(repairCost);
 		}
+		itemstack.set(DataComponents.REPAIR_COST, repairCost);
 
 		return itemstack;
 	}

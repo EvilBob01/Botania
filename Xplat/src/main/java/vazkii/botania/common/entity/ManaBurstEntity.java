@@ -637,7 +637,7 @@ public class ManaBurstEntity extends ThrowableProjectile implements ManaBurst {
 		return receiver instanceof ManaSpreader spreader ? spreader : null;
 	}
 
-	public float getGravity() {
+	public float getBotaniaGravity() {
 		return getBurstGravity();
 	}
 

@@ -9,7 +9,8 @@
 package vazkii.botania.common.item;
 
 import net.minecraft.ChatFormatting;
-import net.minecraft.core.Holder;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -28,7 +29,6 @@ import vazkii.botania.client.gui.bag.FlowerPouchContainer;
 import vazkii.botania.client.gui.box.BaubleBoxContainer;
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.crafting.recipe.*;
-import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.item.brew.BaseBrewItem;
 import vazkii.botania.common.item.brew.IncenseStickItem;
 import vazkii.botania.common.item.brew.VialItem;
@@ -336,8 +336,8 @@ public final class BotaniaItems {
 	public static final Item thorRing = make(prefix(LibItemNames.THOR_RING), new RingOfThorItem(unstackable().fireResistant().rarity(Rarity.EPIC)));
 	public static final Item odinRing = make(prefix(LibItemNames.ODIN_RING), new RingOfOdinItem(unstackable().fireResistant().rarity(Rarity.EPIC)));
 	public static final Item lokiRing = make(prefix(LibItemNames.LOKI_RING), new RingOfLokiItem(unstackable().fireResistant().rarity(Rarity.EPIC)));
-	public static final Item recordGaia1 = make(prefix(LibItemNames.RECORD_GAIA1), new BotaniaRecordItem(1, Holder.direct(BotaniaSounds.gaiaMusic1), unstackable().rarity(Rarity.RARE), 202));
-	public static final Item recordGaia2 = make(prefix(LibItemNames.RECORD_GAIA2), new BotaniaRecordItem(1, Holder.direct(BotaniaSounds.gaiaMusic2), unstackable().rarity(Rarity.RARE), 227));
+	public static final Item recordGaia1 = make(prefix(LibItemNames.RECORD_GAIA1), new BotaniaRecordItem(ResourceKey.create(Registries.JUKEBOX_SONG, prefix(LibItemNames.RECORD_GAIA1)), unstackable().rarity(Rarity.RARE)));
+	public static final Item recordGaia2 = make(prefix(LibItemNames.RECORD_GAIA2), new BotaniaRecordItem(ResourceKey.create(Registries.JUKEBOX_SONG, prefix(LibItemNames.RECORD_GAIA2)), unstackable().rarity(Rarity.RARE)));
 	public static final Item ancientWillAhrim = make(prefix(LibItemNames.ANCIENT_WILL_PREFIX + "ahrim"), new AncientWillItem(AncientWillContainer.AncientWillType.AHRIM, unstackable().rarity(Rarity.UNCOMMON)));
 	public static final Item ancientWillDharok = make(prefix(LibItemNames.ANCIENT_WILL_PREFIX + "dharok"), new AncientWillItem(AncientWillContainer.AncientWillType.DHAROK, unstackable().rarity(Rarity.UNCOMMON)));
 	public static final Item ancientWillGuthan = make(prefix(LibItemNames.ANCIENT_WILL_PREFIX + "guthan"), new AncientWillItem(AncientWillContainer.AncientWillType.GUTHAN, unstackable().rarity(Rarity.UNCOMMON)));

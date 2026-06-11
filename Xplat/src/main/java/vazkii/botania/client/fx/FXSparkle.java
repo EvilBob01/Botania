@@ -180,7 +180,6 @@ public class FXSparkle extends TextureSheetParticle {
 			return beginRenderCommon(tesselator, textureManager);
 		}
 
-		@Override
 		public void end(BufferBuilder bufferBuilder) {
 			endRenderCommon(bufferBuilder);
 		}
@@ -198,7 +197,6 @@ public class FXSparkle extends TextureSheetParticle {
 			return beginRenderCommon(tesselator, textureManager);
 		}
 
-		@Override
 		public void end(BufferBuilder bufferBuilder) {
 			endRenderCommon(bufferBuilder);
 		}

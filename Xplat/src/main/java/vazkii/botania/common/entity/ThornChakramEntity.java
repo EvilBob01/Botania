@@ -178,7 +178,7 @@ public class ThornChakramEntity extends ThrowableProjectile implements ItemSuppl
 		}
 	}
 
-	protected float getGravity() {
+	protected float getBotaniaGravity() {
 		return 0F;
 	}
 

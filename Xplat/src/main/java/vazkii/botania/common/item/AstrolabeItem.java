@@ -297,12 +297,12 @@ public class AstrolabeItem extends Item {
 	}
 
 	@Override
-	public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tip, TooltipFlag flags) {
-		if (level == null) {
+	public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tip, TooltipFlag flags) {
+		if (context.level() == null) {
 			return;
 		}
 
-		Block block = getBlock(stack, level.holderLookup(Registries.BLOCK));
+		Block block = getBlock(stack, context.level().holderLookup(Registries.BLOCK));
 		int size = getSize(stack);
 
 		tip.add(Component.literal(size + " x " + size));

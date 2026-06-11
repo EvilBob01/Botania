@@ -84,7 +84,7 @@ public class SojournersSashItem extends BaubleItem {
 
 		var stepHeight = XplatAbstractions.INSTANCE.getStepHeightAttribute();
 		AttributeInstance attrib = player.getAttribute(stepHeight);
-		boolean hasBoost = attrib.hasModifier(STEP_BOOST);
+		boolean hasBoost = attrib.hasModifier(STEP_BOOST.id());
 
 		if (tryConsumeMana(player)) {
 			if (player.level().isClientSide) {
