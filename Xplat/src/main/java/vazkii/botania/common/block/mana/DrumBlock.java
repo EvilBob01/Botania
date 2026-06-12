@@ -20,6 +20,8 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.world.item.component.SuspiciousStewEffects;
 import net.minecraft.world.item.SuspiciousStewItem;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -153,7 +155,8 @@ public class DrumBlock extends BotaniaWaterloggedBlock {
 		for (ItemEntity bowlItemEntity : bowlItemEntities) {
 			ItemStack bowlItem = bowlItemEntity.getItem();
 			ItemStack stewItem = new ItemStack(Items.SUSPICIOUS_STEW);
-			SuspiciousStewItem.saveMobEffect(stewItem, effect, effectDuration);
+			stewItem.set(DataComponents.SUSPICIOUS_STEW_EFFECTS, new SuspiciousStewEffects(
+					java.util.List.of(new SuspiciousStewEffects.Entry(effect.builtInRegistryHolder(), effectDuration))));
 			spawnItem(mushroomCow, stewItem);
 
 			EntityHelper.shrinkItem(bowlItemEntity);

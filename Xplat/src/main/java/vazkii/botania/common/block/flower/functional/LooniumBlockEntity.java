@@ -228,7 +228,7 @@ public class LooniumBlockEntity extends FunctionalFlowerBlockEntity {
 		double y = getEffectivePos().getY();
 		double z = getEffectivePos().getZ() + 0.5 - RANGE + 2 * RANGE * random.nextDouble();
 
-		while (!world.noCollision(pickedMobType.type.getAABB(x, y, z))) {
+		while (!world.noCollision(new net.minecraft.world.phys.AABB(x - 0.5, y, z - 0.5, x + 0.5, y + 2.0, z + 0.5))) {
 			y += 1.0;
 			if (y >= world.getMaxBuildHeight()) {
 				return;

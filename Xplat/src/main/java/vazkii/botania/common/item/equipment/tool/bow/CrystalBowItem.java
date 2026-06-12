@@ -96,10 +96,7 @@ public class CrystalBowItem extends LivingwoodBowItem {
 							arrow.setBaseDamage(arrow.getBaseDamage() + (double) powerEnch * 0.5D + 0.5D);
 						}
 
-						int knockback = EnchantmentHelper.getItemEnchantmentLevel(punchHolder, stack);
-						if (knockback > 0) {
-							arrow.setKnockback(knockback);
-						}
+
 
 						if (EnchantmentHelper.getItemEnchantmentLevel(flameHolder, stack) > 0) {
 							arrow.igniteForSeconds(100);

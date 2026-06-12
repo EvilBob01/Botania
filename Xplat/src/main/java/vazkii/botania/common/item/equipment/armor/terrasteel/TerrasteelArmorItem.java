@@ -53,7 +53,7 @@ public class TerrasteelArmorItem extends ManasteelArmorItem {
 		var builder = ItemAttributeModifiers.builder();
 		parent.modifiers().forEach(e -> builder.add(e.attribute(), e.modifier(), e.slot()));
 		EquipmentSlot slot = getType().getSlot();
-		int reduction = getType().defense;
+		int reduction = getMaterial().value().getDefense(getType());
 		String slotName = slot.getName();
 		ResourceLocation id = ResourceLocation.fromNamespaceAndPath("botania", "terrasteel_knockback_resistance_" + slotName);
 		EquipmentSlotGroup slotGroup = switch (slot) {
