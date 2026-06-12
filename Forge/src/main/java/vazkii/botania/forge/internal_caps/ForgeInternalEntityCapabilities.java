@@ -1,74 +1,65 @@
 package vazkii.botania.forge.internal_caps;
 
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.item.ItemEntity;
-import net.minecraft.world.entity.item.PrimedTnt;
-import net.minecraft.world.entity.monster.Creeper;
-import net.minecraft.world.entity.monster.Slime;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.vehicle.AbstractMinecart;
-import net.neoforged.neoforge.capabilities.*;
-import net.neoforged.neoforge.event.AttachCapabilitiesEvent;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.EntityType;
+import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.attachment.AttachmentType;
+import net.neoforged.neoforge.capabilities.EntityCapability;
+import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
+import net.neoforged.neoforge.registries.DeferredHolder;
+import net.neoforged.neoforge.registries.DeferredRegister;
+import net.neoforged.neoforge.registries.NeoForgeRegistries;
+
+import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.common.internal_caps.*;
 import vazkii.botania.common.lib.LibMisc;
-import vazkii.botania.forge.CapabilityUtil;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public final class ForgeInternalEntityCapabilities {
-	public static final Capability<EthicalComponent> TNT_ETHICAL = CapabilityManager.get(new CapabilityToken<>() {});
-	public static final Capability<SpectralRailComponent> GHOST_RAIL = CapabilityManager.get(new CapabilityToken<>() {});
-	public static final Capability<ItemFlagsComponent> INTERNAL_ITEM = CapabilityManager.get(new CapabilityToken<>() {});
-	public static final Capability<KeptItemsComponent> KEPT_ITEMS = CapabilityManager.get(new CapabilityToken<>() {});
-	public static final Capability<LooniumComponent> LOONIUM_DROP = CapabilityManager.get(new CapabilityToken<>() {});
-	public static final Capability<NarslimmusComponent> NARSLIMMUS = CapabilityManager.get(new CapabilityToken<>() {});
-	public static final Capability<TigerseyeComponent> TIGERSEYE = CapabilityManager.get(new CapabilityToken<>() {});
+	private static final DeferredRegister<AttachmentType<?>> ATTACHMENT_TYPES =
+			DeferredRegister.create(NeoForgeRegistries.Keys.ATTACHMENT_TYPES, LibMisc.MOD_ID);
 
-	@Mod.EventBusSubscriber(modid = LibMisc.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
+	// Mob-type capabilities stored as attachments (work on any entity/mob subtype)
+	public static final DeferredHolder<AttachmentType<?>, AttachmentType<LooniumComponent>> LOONIUM_DROP =
+			ATTACHMENT_TYPES.register("loonium_drop", () -> AttachmentType.builder(LooniumComponent::new).build());
+	public static final DeferredHolder<AttachmentType<?>, AttachmentType<NarslimmusComponent>> NARSLIMMUS =
+			ATTACHMENT_TYPES.register("narslimmus", () -> AttachmentType.builder(NarslimmusComponent::new).build());
+	public static final DeferredHolder<AttachmentType<?>, AttachmentType<TigerseyeComponent>> TIGERSEYE =
+			ATTACHMENT_TYPES.register("tigerseye", () -> AttachmentType.builder(TigerseyeComponent::new).build());
+
+	// Specific-type capabilities stored as EntityCapabilities
+	public static final EntityCapability<EthicalComponent, @Nullable Void> TNT_ETHICAL =
+			EntityCapability.createVoid(prefix("tnt_ethical"), EthicalComponent.class);
+	public static final EntityCapability<SpectralRailComponent, @Nullable Void> GHOST_RAIL =
+			EntityCapability.createVoid(prefix("ghost_rail"), SpectralRailComponent.class);
+	public static final EntityCapability<ItemFlagsComponent, @Nullable Void> INTERNAL_ITEM =
+			EntityCapability.createVoid(prefix("internal_item"), ItemFlagsComponent.class);
+	public static final EntityCapability<KeptItemsComponent, @Nullable Void> KEPT_ITEMS =
+			EntityCapability.createVoid(prefix("kept_items"), KeptItemsComponent.class);
+
+	public static void registerDeferredRegisters(IEventBus modBus) {
+		ATTACHMENT_TYPES.register(modBus);
+	}
+
+	@EventBusSubscriber(modid = LibMisc.MOD_ID, bus = EventBusSubscriber.Bus.MOD)
 	public static class ModBusEvents {
 		@SubscribeEvent
 		public static void registerCaps(RegisterCapabilitiesEvent evt) {
-			evt.register(EthicalComponent.class);
-			evt.register(SpectralRailComponent.class);
-			evt.register(ItemFlagsComponent.class);
-			evt.register(KeptItemsComponent.class);
-			evt.register(LooniumComponent.class);
-			evt.register(NarslimmusComponent.class);
-			evt.register(TigerseyeComponent.class);
-		}
-	}
-
-	@Mod.EventBusSubscriber(modid = LibMisc.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
-	public static class ForgeBusEvents {
-		@SubscribeEvent
-		public static void attachCapabilities(AttachCapabilitiesEvent<Entity> evt) {
-			var entity = evt.getObject();
-
-			if (entity instanceof PrimedTnt tnt) {
-				evt.addCapability(prefix("tnt_ethical"), CapabilityUtil.makeSavedProvider(TNT_ETHICAL, new EthicalComponent(tnt)));
-			}
-			if (entity instanceof AbstractMinecart) {
-				evt.addCapability(prefix("ghost_rail"), CapabilityUtil.makeSavedProvider(GHOST_RAIL, new SpectralRailComponent()));
-			}
-			if (entity instanceof ItemEntity) {
-				evt.addCapability(prefix("iitem"), CapabilityUtil.makeSavedProvider(INTERNAL_ITEM, new ItemFlagsComponent()));
-			}
-			if (entity instanceof Player) {
-				evt.addCapability(prefix("kept_items"), CapabilityUtil.makeSavedProvider(KEPT_ITEMS, new KeptItemsComponent()));
-			}
-			if (entity instanceof Mob) {
-				evt.addCapability(prefix("loonium_drop"), CapabilityUtil.makeSavedProvider(LOONIUM_DROP, new LooniumComponent()));
-			}
-			if (entity instanceof Slime) {
-				evt.addCapability(prefix("narslimmus"), CapabilityUtil.makeSavedProvider(NARSLIMMUS, new NarslimmusComponent()));
-			}
-			if (entity instanceof Creeper) {
-				evt.addCapability(prefix("tigerseye_pacified"), CapabilityUtil.makeSavedProvider(TIGERSEYE, new TigerseyeComponent()));
-			}
+			evt.registerEntity(TNT_ETHICAL, EntityType.TNT, (tnt, ctx) -> new EthicalComponent(tnt));
+			// Register GHOST_RAIL for all vanilla minecart types
+			evt.registerEntity(GHOST_RAIL, EntityType.MINECART, (cart, ctx) -> new SpectralRailComponent());
+			evt.registerEntity(GHOST_RAIL, EntityType.CHEST_MINECART, (cart, ctx) -> new SpectralRailComponent());
+			evt.registerEntity(GHOST_RAIL, EntityType.FURNACE_MINECART, (cart, ctx) -> new SpectralRailComponent());
+			evt.registerEntity(GHOST_RAIL, EntityType.HOPPER_MINECART, (cart, ctx) -> new SpectralRailComponent());
+			evt.registerEntity(GHOST_RAIL, EntityType.TNT_MINECART, (cart, ctx) -> new SpectralRailComponent());
+			evt.registerEntity(GHOST_RAIL, EntityType.SPAWNER_MINECART, (cart, ctx) -> new SpectralRailComponent());
+			evt.registerEntity(GHOST_RAIL, EntityType.COMMAND_BLOCK_MINECART, (cart, ctx) -> new SpectralRailComponent());
+			evt.registerEntity(INTERNAL_ITEM, EntityType.ITEM, (item, ctx) -> new ItemFlagsComponent());
+			evt.registerEntity(KEPT_ITEMS, EntityType.PLAYER, (player, ctx) -> new KeptItemsComponent());
 		}
 	}
 

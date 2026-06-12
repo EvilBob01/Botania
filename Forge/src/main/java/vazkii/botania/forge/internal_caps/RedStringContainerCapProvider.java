@@ -2,39 +2,27 @@ package vazkii.botania.forge.internal_caps;
 
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.neoforged.neoforge.capabilities.Capability;
-import net.neoforged.neoforge.capabilities.ForgeCapabilities;
-import net.neoforged.neoforge.capabilities.ICapabilityProvider;
-import net.neoforged.neoforge.common.util.LazyOptional;
+import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.items.IItemHandler;
-import net.neoforged.neoforge.items.wrapper.EmptyHandler;
 
-import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.common.block.block_entity.red_string.RedStringContainerBlockEntity;
+import vazkii.botania.common.block.BotaniaBlocks;
 
-public class RedStringContainerCapProvider implements ICapabilityProvider {
-	private static final LazyOptional<IItemHandler> EMPTY = LazyOptional.of(EmptyHandler::new);
-
-	private final RedStringContainerBlockEntity container;
-
-	public RedStringContainerCapProvider(RedStringContainerBlockEntity container) {
-		this.container = container;
-	}
-
-	@NotNull
-	@Override
-	public <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, Direction side) {
-		if (cap == ForgeCapabilities.ITEM_HANDLER) {
-			BlockEntity binding = container.getTileAtBinding();
-			if (binding != null) {
-				LazyOptional<?> optional = binding.getCapability(cap, side);
-				if (optional.isPresent()) {
-					return optional.cast();
-				}
-			}
-			return EMPTY.cast();
+/**
+ * Provides an item handler capability for the Red String Container block entity.
+ * It delegates to the bound block entity's item handler.
+ */
+public final class RedStringContainerCapProvider {
+	@Nullable
+	public static IItemHandler getItemHandler(RedStringContainerBlockEntity container, @Nullable Direction side) {
+		BlockEntity binding = container.getTileAtBinding();
+		if (binding != null && container.getLevel() != null) {
+			return container.getLevel().getCapability(Capabilities.ItemHandler.BLOCK, binding.getBlockPos(), side);
 		}
-		return LazyOptional.empty();
+		return null;
 	}
+
+	private RedStringContainerCapProvider() {}
 }

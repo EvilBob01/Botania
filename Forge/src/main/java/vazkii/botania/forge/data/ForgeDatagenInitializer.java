@@ -3,13 +3,14 @@ package vazkii.botania.forge.data;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.common.Mod;
 
 import vazkii.botania.common.lib.LibMisc;
 
 import java.util.Collections;
 
-@Mod.EventBusSubscriber(modid = LibMisc.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(modid = LibMisc.MOD_ID, bus = EventBusSubscriber.Bus.MOD)
 public class ForgeDatagenInitializer {
 	@SubscribeEvent
 	public static void configureForgeDatagen(GatherDataEvent evt) {
