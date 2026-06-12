@@ -36,7 +36,7 @@ public class BotaniaMushroomBlock extends MushroomBlock implements CustomApothec
 	public final DyeColor color;
 
 	public BotaniaMushroomBlock(DyeColor color, Properties builder) {
-		super(builder, (net.minecraft.resources.ResourceKey<ConfiguredFeature<?, ?>>) null /* Doesn't matter, we override the grow method */);
+		super((net.minecraft.resources.ResourceKey<net.minecraft.world.level.levelgen.feature.ConfiguredFeature<?, ?>>) null /* Doesn't matter, we override the grow method */, builder);
 		this.color = color;
 	}
 

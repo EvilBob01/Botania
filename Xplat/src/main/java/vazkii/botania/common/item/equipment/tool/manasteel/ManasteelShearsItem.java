@@ -54,6 +54,7 @@ public class ManasteelShearsItem extends ShearsItem implements CustomDamageItem,
 
 	@Override
 	public int getSortingPriority(ItemStack stack, BlockState state) {
-		return 1000 + EnchantmentHelper.getItemEnchantmentLevel(Enchantments.EFFICIENCY, stack);
+		return 1000 + stack.getOrDefault(net.minecraft.core.component.DataComponents.ENCHANTMENTS, net.minecraft.world.item.enchantment.ItemEnchantments.EMPTY)
+				.entrySet().stream().filter(e -> e.getKey().is(Enchantments.EFFICIENCY)).mapToInt(e -> e.getIntValue()).findFirst().orElse(0);
 	}
 }

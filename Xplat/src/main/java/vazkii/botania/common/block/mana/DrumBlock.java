@@ -156,7 +156,8 @@ public class DrumBlock extends BotaniaWaterloggedBlock {
 			ItemStack bowlItem = bowlItemEntity.getItem();
 			ItemStack stewItem = new ItemStack(Items.SUSPICIOUS_STEW);
 			stewItem.set(DataComponents.SUSPICIOUS_STEW_EFFECTS, new SuspiciousStewEffects(
-					java.util.List.of(new SuspiciousStewEffects.Entry(effect.builtInRegistryHolder(), effectDuration))));
+					java.util.List.of(new SuspiciousStewEffects.Entry(
+							net.minecraft.core.registries.BuiltInRegistries.MOB_EFFECT.wrapAsHolder(effect), effectDuration))));
 			spawnItem(mushroomCow, stewItem);
 
 			EntityHelper.shrinkItem(bowlItemEntity);
