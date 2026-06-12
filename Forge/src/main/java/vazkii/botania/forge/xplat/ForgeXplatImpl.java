@@ -1,7 +1,5 @@
 package vazkii.botania.forge.xplat;
 
-import com.mojang.datafixers.util.Pair;
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
@@ -9,7 +7,6 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerChunkCache;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.resources.PreparableReloadListener;
@@ -37,11 +34,9 @@ import net.minecraft.world.item.BucketItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeType;
-import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.FlowerBlock;
@@ -58,14 +53,13 @@ import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.AABB;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.neoforge.client.event.RegisterClientReloadListenersEvent;
+import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.common.CommonHooks;
+import net.neoforged.neoforge.common.ItemAbility;
 import net.neoforged.neoforge.common.NeoForgeMod;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.common.Tags;
-import net.neoforged.neoforge.common.ToolAction;
-import net.neoforged.neoforge.capabilities.ForgeCapabilities;
-import net.neoforged.neoforge.common.extensions.IForgeMenuType;
-import net.neoforged.neoforge.common.util.LazyOptional;
+import net.neoforged.neoforge.common.extensions.IMenuTypeExtension;
 import net.neoforged.neoforge.energy.IEnergyStorage;
 import net.neoforged.neoforge.event.AddReloadListenerEvent;
 import net.neoforged.neoforge.fluids.FluidStack;
@@ -76,9 +70,6 @@ import net.neoforged.fml.loading.FMLLoader;
 import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.ItemHandlerHelper;
 import net.neoforged.neoforge.items.wrapper.SidedInvWrapper;
-import net.neoforged.neoforge.network.NetworkDirection;
-import net.neoforged.neoforge.network.NetworkHooks;
-import net.neoforged.neoforge.network.PacketDistributor;
 
 import org.apache.commons.lang3.function.TriFunction;
 import org.jetbrains.annotations.Nullable;
@@ -102,7 +93,6 @@ import vazkii.botania.common.handler.EquipmentHandler;
 import vazkii.botania.common.internal_caps.*;
 import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.common.lib.LibMisc;
-import vazkii.botania.forge.CapabilityUtil;
 import vazkii.botania.forge.block.ForgeSpecialFlowerBlock;
 import vazkii.botania.forge.integration.curios.CurioIntegration;
 import vazkii.botania.forge.internal_caps.ForgeInternalEntityCapabilities;
@@ -114,7 +104,6 @@ import vazkii.botania.xplat.XplatAbstractions;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
@@ -149,121 +138,117 @@ public class ForgeXplatImpl implements XplatAbstractions {
 	@Nullable
 	@Override
 	public AvatarWieldable findAvatarWieldable(ItemStack stack) {
-		return stack.getCapability(BotaniaForgeCapabilities.AVATAR_WIELDABLE).orElse(null);
+		return stack.getCapability(BotaniaForgeCapabilities.AVATAR_WIELDABLE);
 	}
 
 	@Nullable
 	@Override
 	public BlockProvider findBlockProvider(ItemStack stack) {
-		return stack.getCapability(BotaniaForgeCapabilities.BLOCK_PROVIDER).orElse(null);
+		return stack.getCapability(BotaniaForgeCapabilities.BLOCK_PROVIDER);
 	}
 
 	@Nullable
 	@Override
 	public CoordBoundItem findCoordBoundItem(ItemStack stack) {
-		return stack.getCapability(BotaniaForgeCapabilities.COORD_BOUND_ITEM).orElse(null);
+		return stack.getCapability(BotaniaForgeCapabilities.COORD_BOUND_ITEM);
 	}
 
 	@Nullable
 	@Override
 	public ManaItem findManaItem(ItemStack stack) {
-		return stack.getCapability(BotaniaForgeCapabilities.MANA_ITEM).orElse(null);
+		return stack.getCapability(BotaniaForgeCapabilities.MANA_ITEM);
 	}
 
 	@Nullable
 	@Override
 	public Relic findRelic(ItemStack stack) {
-		return stack.getCapability(BotaniaForgeCapabilities.RELIC).orElse(null);
+		return stack.getCapability(BotaniaForgeCapabilities.RELIC);
 	}
 
 	@Nullable
 	@Override
 	public ExoflameHeatable findExoflameHeatable(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be) {
-		return CapabilityUtil.findCapability(BotaniaForgeCapabilities.EXOFLAME_HEATABLE, level, pos, state, be);
+		return level.getCapability(BotaniaForgeCapabilities.EXOFLAME_HEATABLE, pos, state, be, null);
 	}
 
 	@Nullable
 	@Override
 	public HornHarvestable findHornHarvestable(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be) {
-		return CapabilityUtil.findCapability(BotaniaForgeCapabilities.HORN_HARVEST, level, pos, state, be);
+		return level.getCapability(BotaniaForgeCapabilities.HORN_HARVEST, pos, state, be, null);
 	}
 
 	@Nullable
 	@Override
 	public HourglassTrigger findHourglassTrigger(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be) {
-		return CapabilityUtil.findCapability(BotaniaForgeCapabilities.HOURGLASS_TRIGGER, level, pos, state, be);
+		return level.getCapability(BotaniaForgeCapabilities.HOURGLASS_TRIGGER, pos, state, be, null);
 	}
 
 	@Nullable
 	@Override
 	public ManaCollisionGhost findManaGhost(Level level, BlockPos pos, BlockState state, @org.jetbrains.annotations.Nullable BlockEntity be) {
-		return CapabilityUtil.findCapability(BotaniaForgeCapabilities.MANA_GHOST, level, pos, state, be);
+		return level.getCapability(BotaniaForgeCapabilities.MANA_GHOST, pos, state, be, null);
 	}
 
 	@Nullable
 	@Override
 	public ManaReceiver findManaReceiver(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be, @Nullable Direction direction) {
-		return CapabilityUtil.findCapability(BotaniaForgeCapabilities.MANA_RECEIVER, level, pos, state, be, direction);
+		return level.getCapability(BotaniaForgeCapabilities.MANA_RECEIVER, pos, state, be, direction);
 	}
 
 	@Nullable
 	@Override
 	public SparkAttachable findSparkAttachable(Level level, BlockPos pos, BlockState blockState, @Nullable BlockEntity be, Direction direction) {
-		return CapabilityUtil.findCapability(BotaniaForgeCapabilities.SPARK_ATTACHABLE, level, pos, blockState, be, direction);
+		return level.getCapability(BotaniaForgeCapabilities.SPARK_ATTACHABLE, pos, blockState, be, direction);
 	}
 
 	@Nullable
 	@Override
 	public ManaTrigger findManaTrigger(Level level, BlockPos pos, BlockState state, @org.jetbrains.annotations.Nullable BlockEntity be) {
-		return CapabilityUtil.findCapability(BotaniaForgeCapabilities.MANA_TRIGGER, level, pos, state, be);
+		return level.getCapability(BotaniaForgeCapabilities.MANA_TRIGGER, pos, state, be, null);
 	}
 
 	@Nullable
 	@Override
 	public Wandable findWandable(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be) {
-		return CapabilityUtil.findCapability(BotaniaForgeCapabilities.WANDABLE, level, pos, state, be);
+		return level.getCapability(BotaniaForgeCapabilities.WANDABLE, pos, state, be, null);
 	}
 
 	@Nullable
 	@Override
 	public PhantomInkableBlock findPhantomInkable(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be) {
-		return CapabilityUtil.findCapability(BotaniaForgeCapabilities.PHANTOM_INKABLE, level, pos, state, be);
+		return level.getCapability(BotaniaForgeCapabilities.PHANTOM_INKABLE, pos, state, be, null);
 	}
 
 	@Override
 	public boolean isFluidContainer(ItemEntity item) {
-		return item.getItem().getCapability(ForgeCapabilities.FLUID_HANDLER_ITEM).isPresent();
+		return item.getItem().getCapability(Capabilities.FluidHandler.ITEM) != null;
 	}
 
 	@Override
 	public boolean extractFluidFromItemEntity(ItemEntity item, Fluid fluid) {
-		return item.getItem().getCapability(ForgeCapabilities.FLUID_HANDLER_ITEM)
-				.map(h -> {
-					var extracted = h.drain(FluidType.BUCKET_VOLUME, IFluidHandler.FluidAction.SIMULATE);
-					var success = extracted.getFluid() == fluid && extracted.getAmount() == FluidType.BUCKET_VOLUME;
-					if (success) {
-						h.drain(extracted, IFluidHandler.FluidAction.EXECUTE);
-						item.setItem(h.getContainer());
-					}
-					return success;
-				})
-				.orElse(false);
+		var h = item.getItem().getCapability(Capabilities.FluidHandler.ITEM);
+		if (h == null) return false;
+		var extracted = h.drain(FluidType.BUCKET_VOLUME, IFluidHandler.FluidAction.SIMULATE);
+		var success = extracted.getFluid() == fluid && extracted.getAmount() == FluidType.BUCKET_VOLUME;
+		if (success) {
+			h.drain(extracted, IFluidHandler.FluidAction.EXECUTE);
+			item.setItem(h.getContainer());
+		}
+		return success;
 	}
 
 	@Override
 	public boolean extractFluidFromPlayerItem(Player player, InteractionHand hand, Fluid fluid) {
 		var stack = player.getItemInHand(hand);
-		return stack.getCapability(ForgeCapabilities.FLUID_HANDLER_ITEM)
-				.map(h -> {
-					var extracted = h.drain(FluidType.BUCKET_VOLUME, IFluidHandler.FluidAction.SIMULATE);
-					var success = extracted.getFluid() == fluid && extracted.getAmount() == FluidType.BUCKET_VOLUME;
-					if (success && !player.getAbilities().instabuild) {
-						h.drain(extracted, IFluidHandler.FluidAction.EXECUTE);
-						player.setItemInHand(hand, h.getContainer());
-					}
-					return success;
-				})
-				.orElse(false);
+		var h = stack.getCapability(Capabilities.FluidHandler.ITEM);
+		if (h == null) return false;
+		var extracted = h.drain(FluidType.BUCKET_VOLUME, IFluidHandler.FluidAction.SIMULATE);
+		var success = extracted.getFluid() == fluid && extracted.getAmount() == FluidType.BUCKET_VOLUME;
+		if (success && !player.getAbilities().instabuild) {
+			h.drain(extracted, IFluidHandler.FluidAction.EXECUTE);
+			player.setItemInHand(hand, h.getContainer());
+		}
+		return success;
 	}
 
 	@Override
@@ -278,9 +263,8 @@ public class ForgeXplatImpl implements XplatAbstractions {
 		ItemStack toFill = stack.copy();
 		toFill.setCount(1);
 
-		var maybeFluidHandler = toFill.getCapability(ForgeCapabilities.FLUID_HANDLER_ITEM);
-		if (maybeFluidHandler.isPresent()) {
-			var fluidHandler = maybeFluidHandler.orElseThrow(IllegalStateException::new);
+		var fluidHandler = toFill.getCapability(Capabilities.FluidHandler.ITEM);
+		if (fluidHandler != null) {
 			var fluidToFill = new FluidStack(fluid, FluidType.BUCKET_VOLUME);
 			int filled = fluidHandler.fill(fluidToFill, IFluidHandler.FluidAction.SIMULATE);
 
@@ -305,15 +289,14 @@ public class ForgeXplatImpl implements XplatAbstractions {
 	@Override
 	public ItemStack fillItemWithWater(ItemStack stackToFill, Player player) {
 		ItemStack split = stackToFill.copyWithCount(1);
-		Optional<IFluidHandlerItem> optionalHandler = FluidUtil.getFluidHandler(split).resolve();
-		if (optionalHandler.isPresent()) {
-			var handler = optionalHandler.get();
+		var handler = split.getCapability(Capabilities.FluidHandler.ITEM);
+		if (handler != null) {
 			if (handler.fill(new FluidStack(Fluids.WATER, FluidType.BUCKET_VOLUME),
 					IFluidHandler.FluidAction.EXECUTE) > 0) {
 				return handler.getContainer();
 			}
 		} else if (split.is(Items.GLASS_BOTTLE)) {
-			return PotionUtils.setPotion(new ItemStack(Items.POTION), Potions.WATER);
+			return net.minecraft.world.item.alchemy.PotionContents.createItemStack(Items.POTION, Potions.WATER);
 		}
 		return ItemStack.EMPTY;
 	}
@@ -322,7 +305,7 @@ public class ForgeXplatImpl implements XplatAbstractions {
 	public boolean hasInventory(Level level, BlockPos pos, Direction sideOfPos) {
 		var state = level.getBlockState(pos);
 		var be = level.getBlockEntity(pos);
-		return be != null && be.getCapability(ForgeCapabilities.ITEM_HANDLER, sideOfPos).isPresent()
+		return level.getCapability(Capabilities.ItemHandler.BLOCK, pos, state, be, sideOfPos) != null
 				|| state.getBlock() instanceof WorldlyContainerHolder wch
 						&& wch.getContainer(state, level, pos).getSlotsForFace(sideOfPos).length > 0;
 	}
@@ -331,27 +314,26 @@ public class ForgeXplatImpl implements XplatAbstractions {
 	public ItemStack insertToInventory(Level level, BlockPos pos, Direction sideOfPos, ItemStack toInsert, boolean simulate) {
 		var be = level.getBlockEntity(pos);
 		var state = level.getBlockState(pos);
-		LazyOptional<IItemHandler> cap = LazyOptional.empty();
-		if (be != null) {
-			cap = be.getCapability(ForgeCapabilities.ITEM_HANDLER, sideOfPos);
-		} else {
-			// check vanilla interface for blocks not covered by forge capabilities, e.g. composter
-			if (state.getBlock() instanceof WorldlyContainerHolder wch) {
-				cap = LazyOptional.of(() -> new SidedInvWrapper(wch.getContainer(state, level, pos), sideOfPos));
-			}
+		IItemHandler handler = level.getCapability(Capabilities.ItemHandler.BLOCK, pos, state, be, sideOfPos);
+		if (handler == null && state.getBlock() instanceof WorldlyContainerHolder wch) {
+			// check vanilla interface for blocks not covered by capabilities, e.g. composter
+			handler = new SidedInvWrapper(wch.getContainer(state, level, pos), sideOfPos);
+		}
+
+		if (handler == null) {
+			return toInsert;
 		}
 
 		// can't do incremental simulations
 		if (simulate || !state.is(BotaniaTags.Blocks.SINGLE_ITEM_INSERT)) {
-			return cap.map(handler -> ItemHandlerHelper.insertItemStacked(handler, toInsert, simulate))
-					.orElse(toInsert);
+			return ItemHandlerHelper.insertItemStacked(handler, toInsert, simulate);
 		}
 
+		final IItemHandler finalHandler = handler;
 		int maxInserts = toInsert.getCount();
 		for (int i = 0; i < maxInserts; i++) {
 			ItemStack single = toInsert.copyWithCount(1);
-			if (!cap.map(handler -> ItemHandlerHelper.insertItemStacked(handler, single, false))
-					.orElse(single).isEmpty()) {
+			if (!ItemHandlerHelper.insertItemStacked(finalHandler, single, false).isEmpty()) {
 				break;
 			}
 			toInsert.setCount(toInsert.getCount() - 1);
@@ -361,47 +343,47 @@ public class ForgeXplatImpl implements XplatAbstractions {
 
 	@Override
 	public EthicalComponent ethicalComponent(PrimedTnt tnt) {
-		return tnt.getCapability(ForgeInternalEntityCapabilities.TNT_ETHICAL).orElseThrow(IllegalStateException::new);
+		EthicalComponent cap = tnt.getCapability(ForgeInternalEntityCapabilities.TNT_ETHICAL);
+		if (cap == null) throw new IllegalStateException("Missing TNT_ETHICAL capability on " + tnt);
+		return cap;
 	}
 
 	@Override
 	public SpectralRailComponent ghostRailComponent(AbstractMinecart cart) {
-		return cart.getCapability(ForgeInternalEntityCapabilities.GHOST_RAIL).orElseThrow(IllegalStateException::new);
+		SpectralRailComponent cap = cart.getCapability(ForgeInternalEntityCapabilities.GHOST_RAIL);
+		if (cap == null) throw new IllegalStateException("Missing GHOST_RAIL capability on " + cart);
+		return cap;
 	}
 
 	@Override
 	public ItemFlagsComponent itemFlagsComponent(ItemEntity item) {
 		// If missing, just give a fresh instance - works around Create's Ponder fake world
-		return item.getCapability(ForgeInternalEntityCapabilities.INTERNAL_ITEM).orElseGet(ItemFlagsComponent::new);
+		ItemFlagsComponent cap = item.getCapability(ForgeInternalEntityCapabilities.INTERNAL_ITEM);
+		return cap != null ? cap : new ItemFlagsComponent();
 	}
 
 	@Override
 	public KeptItemsComponent keptItemsComponent(Player player, boolean reviveCaps) {
-		if (reviveCaps) {
-			// See the javadoc on reviveCaps for why this is necessary
-			player.reviveCaps();
-		}
-		var ret = player.getCapability(ForgeInternalEntityCapabilities.KEPT_ITEMS).orElseThrow(IllegalStateException::new);
-		if (reviveCaps) {
-			player.invalidateCaps();
-		}
-		return ret;
+		// In NeoForge 1.21.1, capabilities are not detached on player clone the same way
+		KeptItemsComponent cap = player.getCapability(ForgeInternalEntityCapabilities.KEPT_ITEMS);
+		if (cap == null) throw new IllegalStateException("Missing KEPT_ITEMS capability on " + player);
+		return cap;
 	}
 
 	@Nullable
 	@Override
 	public LooniumComponent looniumComponent(LivingEntity entity) {
-		return entity.getCapability(ForgeInternalEntityCapabilities.LOONIUM_DROP).orElse(null);
+		return entity.getExistingData(ForgeInternalEntityCapabilities.LOONIUM_DROP).orElse(null);
 	}
 
 	@Override
 	public NarslimmusComponent narslimmusComponent(Slime slime) {
-		return slime.getCapability(ForgeInternalEntityCapabilities.NARSLIMMUS).orElseThrow(IllegalStateException::new);
+		return slime.getData(ForgeInternalEntityCapabilities.NARSLIMMUS);
 	}
 
 	@Override
 	public TigerseyeComponent tigersEyeComponent(Creeper creeper) {
-		return creeper.getCapability(ForgeInternalEntityCapabilities.TIGERSEYE).orElseThrow(IllegalStateException::new);
+		return creeper.getData(ForgeInternalEntityCapabilities.TIGERSEYE);
 	}
 
 	@Override
@@ -444,48 +426,31 @@ public class ForgeXplatImpl implements XplatAbstractions {
 	}
 
 	@Override
-	@SuppressWarnings("unchecked")
 	public Packet<ClientGamePacketListener> toVanillaClientboundPacket(BotaniaPacket packet) {
-		return (Packet<ClientGamePacketListener>) ForgePacketHandler.CHANNEL.toVanillaPacket(packet, NetworkDirection.PLAY_TO_CLIENT);
+		// In NeoForge 1.21.1, use BotaniaPayload wrapped as a custom packet
+		// The BotaniaPayload implements CustomPacketPayload and can be sent via PacketDistributor
+		// For entity spawn packets, create a standard packet using the ForgePacketHandler
+		return ForgePacketHandler.toVanillaPacket(packet);
 	}
 
 	@Override
 	public void sendToPlayer(Player player, BotaniaPacket packet) {
 		if (!player.level().isClientSide && player instanceof ServerPlayer serverPlayer) {
-			ForgePacketHandler.CHANNEL.send(PacketDistributor.PLAYER.with(() -> serverPlayer), packet);
+			ForgePacketHandler.sendToPlayer(serverPlayer, packet);
 		}
 	}
-
-	private static final PacketDistributor<Pair<Level, BlockPos>> TRACKING_CHUNK_AND_NEAR = new PacketDistributor<>(
-			(_d, pairSupplier) -> {
-				var pair = pairSupplier.get();
-				var level = pair.getFirst();
-				var blockpos = pair.getSecond();
-				var chunkpos = new ChunkPos(blockpos);
-				return packet -> {
-					var players = ((ServerChunkCache) level.getChunkSource()).chunkMap
-							.getPlayers(chunkpos, false);
-					for (var player : players) {
-						if (player.distanceToSqr(blockpos.getX(), blockpos.getY(), blockpos.getZ()) < 64 * 64) {
-							player.connection.send(packet);
-						}
-					}
-				};
-			},
-			NetworkDirection.PLAY_TO_CLIENT
-	);
 
 	@Override
 	public void sendToNear(Level level, BlockPos pos, BotaniaPacket packet) {
 		if (!level.isClientSide) {
-			ForgePacketHandler.CHANNEL.send(TRACKING_CHUNK_AND_NEAR.with(() -> Pair.of(level, pos)), packet);
+			ForgePacketHandler.sendToNear(level, pos, packet);
 		}
 	}
 
 	@Override
 	public void sendToTracking(Entity e, BotaniaPacket packet) {
 		if (!e.level().isClientSide) {
-			ForgePacketHandler.CHANNEL.send(PacketDistributor.TRACKING_ENTITY_AND_SELF.with(() -> e), packet);
+			ForgePacketHandler.sendToTracking(e, packet);
 		}
 	}
 
@@ -529,7 +494,7 @@ public class ForgeXplatImpl implements XplatAbstractions {
 
 	@Override
 	public <T extends AbstractContainerMenu> MenuType<T> createMenuType(TriFunction<Integer, Inventory, FriendlyByteBuf, T> constructor) {
-		return IForgeMenuType.create(constructor::apply);
+		return IMenuTypeExtension.create(constructor::apply);
 	}
 
 	@Nullable
@@ -544,7 +509,7 @@ public class ForgeXplatImpl implements XplatAbstractions {
 
 	@Override
 	public void openMenu(ServerPlayer player, MenuProvider menu, Consumer<FriendlyByteBuf> writeInitialData) {
-		NetworkHooks.openScreen(player, menu, writeInitialData);
+		player.openMenu(menu, writeInitialData);
 	}
 
 	@Override
@@ -603,22 +568,16 @@ public class ForgeXplatImpl implements XplatAbstractions {
 				continue;
 			}
 
-			BlockEntity be = level.getBlockEntity(neighbor);
-			if (be == null) {
-				continue;
+			var neighborState = level.getBlockState(neighbor);
+			var be = level.getBlockEntity(neighbor);
+
+			IEnergyStorage storage = level.getCapability(Capabilities.EnergyStorage.BLOCK, neighbor, neighborState, be, e.getOpposite());
+			if (storage == null) {
+				storage = level.getCapability(Capabilities.EnergyStorage.BLOCK, neighbor, neighborState, be, null);
 			}
 
-			LazyOptional<IEnergyStorage> storage = LazyOptional.empty();
-
-			if (be.getCapability(ForgeCapabilities.ENERGY, e.getOpposite()).isPresent()) {
-				storage = be.getCapability(ForgeCapabilities.ENERGY, e.getOpposite());
-			} else if (be.getCapability(ForgeCapabilities.ENERGY, null).isPresent()) {
-				storage = be.getCapability(ForgeCapabilities.ENERGY, null);
-			}
-
-			if (storage.isPresent()) {
-				energy -= storage.orElseThrow(NullPointerException::new).receiveEnergy(energy, false);
-
+			if (storage != null) {
+				energy -= storage.receiveEnergy(energy, false);
 				if (energy <= 0) {
 					return 0;
 				}
@@ -635,13 +594,16 @@ public class ForgeXplatImpl implements XplatAbstractions {
 
 	@Override
 	public boolean canToolLightFire(ItemStack stack) {
-		return stack.is(Items.FLINT_AND_STEEL) || stack.canPerformAction(ToolAction.get("light_fire"));
+		return stack.is(Items.FLINT_AND_STEEL) || stack.canPerformAction(ItemAbility.get("light_fire"));
 	}
 
 	@Override
 	public boolean isRedStringContainerTarget(BlockEntity be) {
+		if (be.getLevel() == null) return false;
+		var pos = be.getBlockPos();
+		var state = be.getBlockState();
 		for (Direction dir : Direction.values()) {
-			if (be.getCapability(ForgeCapabilities.ITEM_HANDLER, dir).isPresent()) {
+			if (be.getLevel().getCapability(Capabilities.ItemHandler.BLOCK, pos, state, be, dir) != null) {
 				return true;
 			}
 		}
