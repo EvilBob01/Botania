@@ -10,7 +10,7 @@ package vazkii.botania.common.block;
 
 import net.minecraft.core.*;
 import net.minecraft.core.dispenser.BlockSource;
-import net.minecraft.core.dispenser.ProjectileDispenseBehavior;
+import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
 import net.minecraft.core.dispenser.DispenseItemBehavior;
 import net.minecraft.core.dispenser.OptionalDispenseItemBehavior;
 import net.minecraft.core.dispenser.ShearsDispenseItemBehavior;
@@ -26,6 +26,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.StandingAndWallBlockItem;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -1505,11 +1506,18 @@ public final class BotaniaBlocks {
 		DispenserBlock.registerBehavior(BotaniaItems.corporeaSpark, behavior);
 		DispenserBlock.registerBehavior(BotaniaItems.corporeaSparkMaster, behavior);
 		DispenserBlock.registerBehavior(BotaniaItems.corporeaSparkCreative, behavior);
-		DispenserBlock.registerBehavior(BotaniaItems.enderAirBottle, new ProjectileDispenseBehavior(BotaniaItems.enderAirBottle) {
+		DispenserBlock.registerBehavior(BotaniaItems.enderAirBottle, new DefaultDispenseItemBehavior() {
 			@NotNull
 			@Override
-			protected net.minecraft.world.entity.projectile.Projectile getProjectile(net.minecraft.server.level.ServerLevel world, net.minecraft.core.Position pos, @NotNull ItemStack stack) {
-				return new EnderAirBottleEntity(pos.x(), pos.y(), pos.z(), world);
+			public ItemStack execute(@NotNull BlockSource source, @NotNull ItemStack stack) {
+				ServerLevel level = source.level();
+				Position pos = DispenserBlock.getDispensePosition(source);
+				EnderAirBottleEntity projectile = new EnderAirBottleEntity(pos.x(), pos.y(), pos.z(), level);
+				Direction facing = source.state().getValue(DispenserBlock.FACING);
+				projectile.shoot(facing.getStepX(), facing.getStepY() + 0.1, facing.getStepZ(), 1.1f, 6.0f);
+				level.addFreshEntity(projectile);
+				stack.shrink(1);
+				return stack;
 			}
 		});
 
@@ -1534,11 +1542,18 @@ public final class BotaniaBlocks {
 
 		DispenserBlock.registerBehavior(BotaniaItems.manasteelShears, new ShearsDispenseItemBehavior());
 		DispenserBlock.registerBehavior(BotaniaItems.elementiumShears, new ShearsDispenseItemBehavior());
-		DispenserBlock.registerBehavior(BotaniaItems.vineBall, new ProjectileDispenseBehavior(BotaniaItems.vineBall) {
+		DispenserBlock.registerBehavior(BotaniaItems.vineBall, new DefaultDispenseItemBehavior() {
 			@NotNull
 			@Override
-			protected net.minecraft.world.entity.projectile.Projectile getProjectile(net.minecraft.server.level.ServerLevel world, net.minecraft.core.Position pos, @NotNull ItemStack stack) {
-				return new VineBallEntity(pos.x(), pos.y(), pos.z(), world);
+			public ItemStack execute(@NotNull BlockSource source, @NotNull ItemStack stack) {
+				ServerLevel level = source.level();
+				Position pos = DispenserBlock.getDispensePosition(source);
+				VineBallEntity projectile = new VineBallEntity(pos.x(), pos.y(), pos.z(), level);
+				Direction facing = source.state().getValue(DispenserBlock.FACING);
+				projectile.shoot(facing.getStepX(), facing.getStepY() + 0.1, facing.getStepZ(), 1.1f, 6.0f);
+				level.addFreshEntity(projectile);
+				stack.shrink(1);
+				return stack;
 			}
 		});
 

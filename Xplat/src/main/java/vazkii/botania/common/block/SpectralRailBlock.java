@@ -75,7 +75,7 @@ public class SpectralRailBlock extends BaseRailBlock {
 			}
 			cart.setDeltaMovement(cart.getDeltaMovement().x() * 1.4, 0.2, cart.getDeltaMovement().z() * 1.4);
 			persistentData.floatTicks--;
-			cart.level().levelEvent(LevelEvent.PARTICLES_SHOOT, entPos, 0);
+			cart.level().levelEvent(LevelEvent.PARTICLES_SHOOT_SMOKE, entPos, 0);
 		}
 
 		cart.level().getProfiler().pop();

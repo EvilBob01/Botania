@@ -34,12 +34,12 @@ import vazkii.botania.mixin.client.LevelRendererAccessor;
 import vazkii.botania.xplat.BotaniaConfig;
 import vazkii.botania.xplat.XplatAbstractions;
 
-import java.util.IdentityHashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 public final class BoundBlockRenderer {
-	private static final MultiBufferSource.BufferSource LINE_BUFFERS = MultiBufferSource.immediateWithBuffers(Util.make(new IdentityHashMap<RenderType, ByteBufferBuilder>(), ret -> {
+	private static final MultiBufferSource.BufferSource LINE_BUFFERS = MultiBufferSource.immediateWithBuffers(Util.make(new LinkedHashMap<RenderType, ByteBufferBuilder>(), ret -> {
 		ret.put(RenderHelper.LINE_1_NO_DEPTH, new ByteBufferBuilder(RenderHelper.LINE_1_NO_DEPTH.bufferSize()));
 		ret.put(RenderHelper.LINE_4_NO_DEPTH, new ByteBufferBuilder(RenderHelper.LINE_4_NO_DEPTH.bufferSize()));
 		ret.put(RenderHelper.LINE_5_NO_DEPTH, new ByteBufferBuilder(RenderHelper.LINE_5_NO_DEPTH.bufferSize()));

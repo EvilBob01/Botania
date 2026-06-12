@@ -54,6 +54,6 @@ public class ManasteelShearsItem extends ShearsItem implements CustomDamageItem,
 
 	@Override
 	public int getSortingPriority(ItemStack stack, BlockState state) {
-		return 1000 + EnchantmentHelper.getItemEnchantmentLevel(Enchantments.BLOCK_EFFICIENCY, stack);
+		return 1000 + EnchantmentHelper.getItemEnchantmentLevel(Enchantments.EFFICIENCY, stack);
 	}
 }

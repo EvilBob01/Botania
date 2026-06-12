@@ -48,7 +48,7 @@ public final class BotaniaBannerPatterns {
 
 	public static void submitRegistrations(BiConsumer<BannerPattern, ResourceLocation> consumer) {
 		for (var rl : ALL) {
-			BannerPattern pattern = new BannerPattern(LibMisc.MOD_ID + ":" + rl.getPath(), "block.minecraft.banner." + LibMisc.MOD_ID + "." + rl.getPath().replace('/', '.'));
+			BannerPattern pattern = new BannerPattern(rl, "block.minecraft.banner." + LibMisc.MOD_ID + "." + rl.getPath().replace('/', '.'));
 			consumer.accept(pattern, rl);
 		}
 	}

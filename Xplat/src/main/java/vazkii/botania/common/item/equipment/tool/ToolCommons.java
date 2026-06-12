@@ -145,7 +145,7 @@ public final class ToolCommons {
 
 		int efficiency = stack.getOrDefault(DataComponents.ENCHANTMENTS, ItemEnchantments.EMPTY)
 				.entrySet().stream()
-				.filter(e -> e.getKey().is(Enchantments.BLOCK_EFFICIENCY))
+				.filter(e -> e.getKey().is(Enchantments.EFFICIENCY))
 				.mapToInt(e -> e.getIntValue())
 				.findFirst().orElse(0);
 		return materialLevel * 100 + modifier * 10 + efficiency;

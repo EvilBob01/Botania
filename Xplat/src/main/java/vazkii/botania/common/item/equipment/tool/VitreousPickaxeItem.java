@@ -113,7 +113,7 @@ public class VitreousPickaxeItem extends ManasteelPickaxeItem {
 			}
 			Holder<Enchantment> silkTouch = world.registryAccess()
 					.lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(Enchantments.SILK_TOUCH);
-			ItemEnchantments.Mutable mutableEnch = new ItemEnchantments.Mutable(EnchantmentHelper.getEnchantments(stack));
+			ItemEnchantments.Mutable mutableEnch = new ItemEnchantments.Mutable(EnchantmentHelper.getEnchantmentsForCrafting(stack));
 			mutableEnch.set(silkTouch, 0);
 			EnchantmentHelper.setEnchantments(stack, mutableEnch.toImmutable());
 		}

@@ -892,7 +892,7 @@ public class GaiaGuardianEntity extends Mob {
 	}
 
 	@Override
-	public boolean canChangeDimensions(net.minecraft.server.level.ServerLevel from, net.minecraft.server.level.ServerLevel to) {
+	public boolean canChangeDimensions(net.minecraft.world.level.Level from, net.minecraft.world.level.Level to) {
 		return false;
 	}
 
