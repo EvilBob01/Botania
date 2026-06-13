@@ -12,6 +12,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexBuffer;
 
 import net.minecraft.client.Camera;
+import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.GameRenderer;
@@ -85,9 +86,10 @@ public class LevelRendererMixin {
 		),
 		require = 0
 	)
-	private void renderExtras(PoseStack ms, Matrix4f projMat, float partialTicks, Camera camera,
+	private void renderExtras(Matrix4f frustumMatrix, Matrix4f projMat, float partialTicks, Camera camera,
 			boolean foggy, Runnable resetFog, CallbackInfo ci) {
 		if (isGogSky()) {
+			PoseStack ms = new PoseStack();
 			SkyblockSkyRenderer.renderExtra(ms, Minecraft.getInstance().level, partialTicks, 0);
 		}
 	}
@@ -142,9 +144,10 @@ public class LevelRendererMixin {
 		at = @At(value = "INVOKE", target = "Lnet/minecraft/client/multiplayer/ClientLevel;getStarBrightness(F)F"),
 		require = 0
 	)
-	private void renderExtraStars(PoseStack ms, Matrix4f projMat, float partialTicks, Camera camera,
+	private void renderExtraStars(Matrix4f frustumMatrix, Matrix4f projMat, float partialTicks, Camera camera,
 			boolean foggy, Runnable resetFog, CallbackInfo ci) {
 		if (isGogSky()) {
+			PoseStack ms = new PoseStack();
 			SkyblockSkyRenderer.renderStars(starBuffer, ms, projMat, partialTicks, resetFog);
 		}
 	}
@@ -159,10 +162,12 @@ public class LevelRendererMixin {
 			ordinal = 0 // after debugRenderer, before a long sequence of endBatch calls
 		)
 	)
-	private void renderOverlays(PoseStack ps, float partialTicks, long unknown, boolean drawBlockOutline,
-			Camera camera, GameRenderer gameRenderer, LightTexture lightTexture, Matrix4f projMat, CallbackInfo ci) {
+	private void renderOverlays(DeltaTracker deltaTracker, boolean drawBlockOutline,
+			Camera camera, GameRenderer gameRenderer, LightTexture lightTexture, Matrix4f frustumMatrix, Matrix4f projMat, CallbackInfo ci) {
 		// Called from our own mixin instead of e.g. Forge's render world last event,
 		// because that event is too late for Fabulous mode
+		float partialTicks = deltaTracker.getGameTimeDeltaPartialTick(true);
+		PoseStack ps = new PoseStack();
 		WorldOverlays.renderWorldLast(camera, partialTicks, ps, renderBuffers, level);
 	}
 }

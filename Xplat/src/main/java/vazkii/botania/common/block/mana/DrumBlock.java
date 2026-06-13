@@ -11,7 +11,6 @@ package vazkii.botania.common.block.mana;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.Shearable;
 import net.minecraft.world.entity.animal.Chicken;
@@ -22,7 +21,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.item.component.SuspiciousStewEffects;
-import net.minecraft.world.item.SuspiciousStewItem;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -89,7 +87,7 @@ public class DrumBlock extends BotaniaWaterloggedBlock {
 				convertNearby(mob, Items.BUCKET, Items.MILK_BUCKET);
 			}
 			if (mob instanceof MushroomCow mooshroom && !mooshroom.isBaby()) {
-				if (mooshroom.getVariant() == MushroomCow.MushroomType.BROWN && ((MushroomCowAccessor) mooshroom).getEffect() != null) {
+				if (mooshroom.getVariant() == MushroomCow.MushroomType.BROWN && ((MushroomCowAccessor) mooshroom).getStewEffects() != null) {
 					fillBowlSuspiciously(mooshroom);
 				}
 				convertNearby(mob, Items.BOWL, Items.MUSHROOM_STEW);
@@ -146,8 +144,7 @@ public class DrumBlock extends BotaniaWaterloggedBlock {
 
 	private static void fillBowlSuspiciously(MushroomCow mushroomCow) {
 		MushroomCowAccessor mushroomCowAccessor = (MushroomCowAccessor) mushroomCow;
-		MobEffect effect = mushroomCowAccessor.getEffect();
-		int effectDuration = mushroomCowAccessor.getEffectDuration();
+		SuspiciousStewEffects stewEffects = mushroomCowAccessor.getStewEffects();
 
 		Level world = mushroomCow.level();
 		List<ItemEntity> bowlItemEntities = world.getEntitiesOfClass(ItemEntity.class, mushroomCow.getBoundingBox(),
@@ -155,9 +152,7 @@ public class DrumBlock extends BotaniaWaterloggedBlock {
 		for (ItemEntity bowlItemEntity : bowlItemEntities) {
 			ItemStack bowlItem = bowlItemEntity.getItem();
 			ItemStack stewItem = new ItemStack(Items.SUSPICIOUS_STEW);
-			stewItem.set(DataComponents.SUSPICIOUS_STEW_EFFECTS, new SuspiciousStewEffects(
-					java.util.List.of(new SuspiciousStewEffects.Entry(
-							net.minecraft.core.registries.BuiltInRegistries.MOB_EFFECT.wrapAsHolder(effect), effectDuration))));
+			stewItem.set(DataComponents.SUSPICIOUS_STEW_EFFECTS, stewEffects);
 			spawnItem(mushroomCow, stewItem);
 
 			EntityHelper.shrinkItem(bowlItemEntity);
@@ -166,8 +161,7 @@ public class DrumBlock extends BotaniaWaterloggedBlock {
 			}
 
 			// only one suspicious stew per flower fed
-			mushroomCowAccessor.setEffect(null);
-			mushroomCowAccessor.setEffectDuration(0);
+			mushroomCowAccessor.setStewEffects(null);
 			break;
 		}
 	}

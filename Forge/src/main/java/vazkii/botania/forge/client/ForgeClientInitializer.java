@@ -18,11 +18,10 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.neoforged.api.distmarker.Dist;
+import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.client.event.*;
-import net.neoforged.neoforge.client.gui.overlay.VanillaGuiOverlay;
+import net.neoforged.neoforge.client.gui.VanillaGuiLayers;
 import net.neoforged.neoforge.common.NeoForge;
-import net.neoforged.neoforge.event.AttachCapabilitiesEvent;
-import net.neoforged.neoforge.event.TickEvent;
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
 import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -55,7 +54,6 @@ import vazkii.botania.common.block.block_entity.corporea.CorporeaIndexBlockEntit
 import vazkii.botania.common.entity.BotaniaEntities;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.item.equipment.bauble.RingOfDexterousMotionItem;
-import vazkii.botania.forge.CapabilityUtil;
 import vazkii.botania.xplat.ClientXplatAbstractions;
 import vazkii.botania.xplat.XplatAbstractions;
 import vazkii.patchouli.api.BookDrawScreenEvent;
@@ -74,9 +72,9 @@ import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 @Mod.EventBusSubscriber(modid = BotaniaAPI.MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class ForgeClientInitializer {
 	@SubscribeEvent
-	public static void registerGuiOverlays(RegisterGuiOverlaysEvent e) {
-		e.registerAbove(VanillaGuiOverlay.EXPERIENCE_BAR.id(), "hud",
-				(gui, poseStack, partialTick, width, height) -> HUDHandler.onDrawScreenPost(poseStack, partialTick));
+	public static void registerGuiLayers(RegisterGuiLayersEvent e) {
+		e.registerAbove(VanillaGuiLayers.EXPERIENCE_BAR, prefix("hud"),
+				(guiGraphics, deltaTracker) -> HUDHandler.onDrawScreenPost(guiGraphics, deltaTracker.getGameTimeDeltaPartialTick(true)));
 	}
 
 	@SubscribeEvent
@@ -96,11 +94,9 @@ public class ForgeClientInitializer {
 		// Events
 		var bus = NeoForge.EVENT_BUS;
 		bus.addListener((BookDrawScreenEvent e) -> KonamiHandler.renderBook(e.getBook(), e.getScreen(), e.getMouseX(), e.getMouseY(), e.getPartialTicks(), e.getGraphics()));
-		bus.addListener((TickEvent.ClientTickEvent e) -> {
-			if (e.phase == TickEvent.Phase.END) {
-				ClientTickHandler.clientTickEnd(Minecraft.getInstance());
-				KonamiHandler.clientTick(Minecraft.getInstance());
-			}
+		bus.addListener((ClientTickEvent.Post e) -> {
+			ClientTickHandler.clientTickEnd(Minecraft.getInstance());
+			KonamiHandler.clientTick(Minecraft.getInstance());
 		});
 		bus.addListener((ItemTooltipEvent e) -> TooltipHandler.onTooltipEvent(e.getItemStack(), e.getFlags(), e.getToolTip()));
 		bus.addListener((ScreenEvent.KeyPressed.Post e) -> CorporeaInputHandler.buttonPressed(e.getKeyCode(), e.getScanCode()));
@@ -125,10 +121,8 @@ public class ForgeClientInitializer {
 			RingOfDexterousMotionItem.ClientLogic.onKeyDown();
 			KonamiHandler.handleInput(e.getKey(), e.getAction(), e.getModifiers());
 		});
-		bus.addListener((TickEvent.RenderTickEvent e) -> {
-			if (e.phase == TickEvent.Phase.START) {
-				ClientTickHandler.renderTick(e.renderTickTime);
-			}
+		bus.addListener((RenderFrameEvent.Pre e) -> {
+			ClientTickHandler.renderTick(e.getPartialTick().getGameTimeDeltaPartialTick(true));
 		});
 		bus.addListener(EventPriority.LOWEST, (RenderTooltipEvent.Color e) -> {
 			var manaItem = XplatAbstractions.INSTANCE.findManaItem(e.getItemStack());
@@ -152,12 +146,18 @@ public class ForgeClientInitializer {
 
 		// Etc
 		ClientProxy.initSeasonal();
-		bus.addGenericListener(Entity.class, ForgeClientInitializer::attachEntityCapabilities);
-		bus.addGenericListener(BlockEntity.class, ForgeClientInitializer::attachBeCapabilities);
 
 		if (XplatAbstractions.INSTANCE.isModLoaded("ears")) {
 			EarsIntegration.register();
 		}
+	}
+
+	@SubscribeEvent
+	public static void registerClientCapabilities(RegisterCapabilitiesEvent e) {
+		WAND_HUD.get().forEach((type, factory) ->
+				e.registerBlockEntityType(BotaniaForgeClientCapabilities.WAND_HUD, type, (be, side) -> factory.apply(be)));
+		ENTITY_WAND_HUD.get().forEach((type, factory) ->
+				e.registerEntityType(BotaniaForgeClientCapabilities.WAND_HUD_ENTITY, type, (entity, ctx) -> factory.apply(entity)));
 	}
 
 	@SubscribeEvent
@@ -194,26 +194,6 @@ public class ForgeClientInitializer {
 		});
 		return Collections.unmodifiableMap(ret);
 	});
-
-	private static void attachBeCapabilities(AttachCapabilitiesEvent<BlockEntity> e) {
-		var be = e.getObject();
-
-		var makeWandHud = WAND_HUD.get().get(be.getType());
-		if (makeWandHud != null) {
-			e.addCapability(prefix("wand_hud"),
-					CapabilityUtil.makeProvider(BotaniaForgeClientCapabilities.WAND_HUD, makeWandHud.apply(be)));
-		}
-	}
-
-	private static void attachEntityCapabilities(AttachCapabilitiesEvent<Entity> e) {
-		var entity = e.getObject();
-
-		var makeWandHud = ENTITY_WAND_HUD.get().get(entity.getType());
-		if (makeWandHud != null) {
-			e.addCapability(prefix("wand_hud"),
-					CapabilityUtil.makeProvider(BotaniaForgeClientCapabilities.WAND_HUD, makeWandHud.apply(entity)));
-		}
-	}
 
 	@SubscribeEvent
 	public static void registerModelLoader(ModelEvent.RegisterGeometryLoaders evt) {
