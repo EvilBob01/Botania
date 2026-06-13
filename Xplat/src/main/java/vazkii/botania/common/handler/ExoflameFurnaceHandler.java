@@ -9,7 +9,7 @@
 package vazkii.botania.common.handler;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.SingleRecipeInput;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
@@ -21,7 +21,7 @@ import vazkii.botania.mixin.AbstractFurnaceBlockEntityAccessor;
 import vazkii.botania.xplat.XplatAbstractions;
 
 public class ExoflameFurnaceHandler {
-	public static boolean canSmeltRecipe(AbstractFurnaceBlockEntity furnace, Recipe<?> recipe) {
+	public static boolean canSmeltRecipe(AbstractFurnaceBlockEntity furnace, RecipeHolder<?> recipe) {
 		var items = ((AbstractFurnaceBlockEntityAccessor) furnace).getItems();
 		return XplatAbstractions.INSTANCE.canFurnaceBurn(furnace, recipe, items, furnace.getMaxStackSize());
 	}
@@ -33,7 +33,7 @@ public class ExoflameFurnaceHandler {
 		try {
 			var qc = ((AbstractFurnaceBlockEntityAccessor) furnace).getQuickCheck();
 			var currentRecipe = qc.getRecipeFor(new SingleRecipeInput(furnace.getItem(0)), furnace.getLevel());
-			return currentRecipe.isPresent() && ExoflameFurnaceHandler.canSmeltRecipe(furnace, currentRecipe.get().value());
+			return currentRecipe.isPresent() && ExoflameFurnaceHandler.canSmeltRecipe(furnace, currentRecipe.get());
 		} catch (Throwable t) {
 			BotaniaAPI.LOGGER.error("Failed to determine if furnace TE can smelt", t);
 			return false;

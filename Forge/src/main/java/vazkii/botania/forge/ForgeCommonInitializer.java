@@ -143,7 +143,10 @@ import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 @Mod(LibMisc.MOD_ID)
 public class ForgeCommonInitializer {
+	private final IEventBus modBus;
+
 	public ForgeCommonInitializer(IEventBus modBus) {
+		this.modBus = modBus;
 		coreInit();
 		registryInit(modBus);
 		modBus.addListener(this::commonSetup);
@@ -176,7 +179,7 @@ public class ForgeCommonInitializer {
 		CraftyCrateBlockEntity.registerListener();
 		CorporeaNodeDetectors.register(new ForgeCapCorporeaNodeDetector());
 		if (ModList.get().isLoaded("inventorysorter")) {
-			InventorySorterIntegration.init();
+			InventorySorterIntegration.init(modBus);
 		}
 	}
 

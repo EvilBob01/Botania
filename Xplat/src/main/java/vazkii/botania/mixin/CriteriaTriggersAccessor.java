@@ -10,7 +10,6 @@ package vazkii.botania.mixin;
 
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.advancements.CriterionTrigger;
-import net.minecraft.resources.ResourceLocation;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Invoker;
@@ -18,7 +17,7 @@ import org.spongepowered.asm.mixin.gen.Invoker;
 @Mixin(CriteriaTriggers.class)
 public interface CriteriaTriggersAccessor {
 	@Invoker("register")
-	static <T extends CriterionTrigger<?>> T botania_register(ResourceLocation id, T thing) {
+	static <T extends CriterionTrigger<?>> T botania_register(String id, T thing) {
 		throw new IllegalStateException();
 	}
 }

@@ -25,7 +25,7 @@ import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
 import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 
 import vazkii.botania.api.BotaniaAPI;
@@ -69,7 +69,7 @@ import java.util.function.Supplier;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-@Mod.EventBusSubscriber(modid = BotaniaAPI.MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+@EventBusSubscriber(modid = BotaniaAPI.MODID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class ForgeClientInitializer {
 	@SubscribeEvent
 	public static void registerGuiLayers(RegisterGuiLayersEvent e) {

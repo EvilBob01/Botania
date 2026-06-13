@@ -83,10 +83,6 @@ repositories {
 dependencies {
     compileOnly project(":Xplat")
 
-    // Mixin annotation processor — generates botania.refmap.json at compile time.
-    // NeoForge ships Mixin at runtime; we only need the AP here.
-    annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
-
     // In NeoForge moddev (non-legacyForge) there is no modImplementation/modCompileOnly.
     // Use compileOnly for APIs and localRuntime for mods needed in dev-run environment.
 
@@ -117,7 +113,7 @@ dependencies {
 compileJava {
     source(project(":Xplat").sourceSets.main.allSource)
     options.compilerArgs << "-Xlint:all,-classfile,-processing,-deprecation,-serial" << "-Werror"
-    // Tell the Mixin AP where to write the refmap
+    // Tell the Mixin AP where to write the refmap (NeoForge 1.21.1, Mojmap — no SRG remapping)
     options.compilerArgs << "-Amixin.refmapName=botania.refmap.json"
 }
 

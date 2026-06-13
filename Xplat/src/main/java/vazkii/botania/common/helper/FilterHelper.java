@@ -18,7 +18,7 @@ import net.minecraft.world.item.component.CustomData;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.mixin.BundleItemAccessor;
+import net.minecraft.world.item.component.BundleContents;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,7 +42,9 @@ public class FilterHelper {
 	public static List<ItemStack> getFilterStacks(ItemStack filterStack) {
 		if (filterStack.is(Items.BUNDLE)) {
 			// get bundle content
-			List<ItemStack> bundledItems = BundleItemAccessor.call_getContents(filterStack).toList();
+			BundleContents contents = filterStack.getOrDefault(DataComponents.BUNDLE_CONTENTS, BundleContents.EMPTY);
+			List<ItemStack> bundledItems = new ArrayList<>();
+			contents.items().forEach(bundledItems::add);
 			if (!bundledItems.isEmpty()) {
 				return bundledItems;
 			}

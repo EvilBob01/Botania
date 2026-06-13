@@ -35,7 +35,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.Potions;
-import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -533,9 +533,8 @@ public class ForgeXplatImpl implements XplatAbstractions {
 	}
 
 	@Override
-	public boolean canFurnaceBurn(AbstractFurnaceBlockEntity furnace, @Nullable Recipe<?> recipe, NonNullList<ItemStack> items, int maxStackSize) {
-		return ((AbstractFurnaceBlockEntityForgeAccessor) furnace)
-				.callCanBurn(furnace.getLevel().registryAccess(), recipe, items, maxStackSize);
+	public boolean canFurnaceBurn(AbstractFurnaceBlockEntity furnace, @Nullable RecipeHolder<?> recipe, NonNullList<ItemStack> items, int maxStackSize) {
+		return AbstractFurnaceBlockEntityForgeAccessor.callCanBurn(furnace.getLevel().registryAccess(), recipe, items, maxStackSize, furnace);
 	}
 
 	@Override
