@@ -10,6 +10,7 @@ package vazkii.botania.mixin;
 
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -26,7 +27,7 @@ public class ServerPlayerMixin {
 	 * Setups up a player when spawning into a GoG world for the first time
 	 */
 	@Inject(at = @At("RETURN"), method = "initMenu")
-	private void onLogin(CallbackInfo ci) {
+	private void onLogin(AbstractContainerMenu menu, CallbackInfo ci) {
 		if (XplatAbstractions.INSTANCE.gogLoaded()) {
 			SkyblockWorldEvents.onPlayerJoin((ServerPlayer) (Object) this);
 		}

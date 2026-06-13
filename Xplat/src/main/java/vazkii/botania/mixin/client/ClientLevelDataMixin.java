@@ -9,6 +9,7 @@
 package vazkii.botania.mixin.client;
 
 import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.world.level.LevelHeightAccessor;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -32,7 +33,7 @@ public abstract class ClientLevelDataMixin implements SkyblockWorldInfo {
 	}
 
 	@Inject(at = @At("HEAD"), method = "getHorizonHeight", cancellable = true)
-	private void gogHorizon(CallbackInfoReturnable<Double> cir) {
+	private void gogHorizon(LevelHeightAccessor levelHeightAccessor, CallbackInfoReturnable<Double> cir) {
 		if (gardenOfGlass) {
 			cir.setReturnValue(0.0);
 		}

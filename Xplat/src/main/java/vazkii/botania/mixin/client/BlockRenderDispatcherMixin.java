@@ -19,12 +19,12 @@ import vazkii.botania.client.patchouli.PatchouliUtils;
  */
 @Mixin(BlockRenderDispatcher.class)
 public class BlockRenderDispatcherMixin {
-	@Inject(method = "renderSingleBlock", at = @At("HEAD"))
+	@Inject(method = "renderSingleBlock", at = @At("HEAD"), require = 0)
 	void enterRenderSingleBlock(BlockState state, PoseStack poseStack, MultiBufferSource buffer, int packedLight, int packedOverlay, CallbackInfo ci) {
 		PatchouliUtils.setInVisualizer(true);
 	}
 
-	@Inject(method = "renderSingleBlock", at = @At("RETURN"))
+	@Inject(method = "renderSingleBlock", at = @At("RETURN"), require = 0)
 	void exitRenderSingleBlock(BlockState state, PoseStack poseStack, MultiBufferSource buffer, int packedLight, int packedOverlay, CallbackInfo ci) {
 		PatchouliUtils.setInVisualizer(false);
 	}

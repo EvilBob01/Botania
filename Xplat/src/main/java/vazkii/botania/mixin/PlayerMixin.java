@@ -14,7 +14,6 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
-import org.spongepowered.asm.mixin.injection.Slice;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
@@ -41,7 +40,8 @@ public abstract class PlayerMixin extends LivingEntity implements PlayerAccess {
 	 */
 	@Inject(
 		at = @At(value = "INVOKE_ASSIGN", target = "Lnet/minecraft/world/entity/player/Player;getVehicle()Lnet/minecraft/world/entity/Entity;"),
-		method = "checkRidingStatistics", locals = LocalCapture.CAPTURE_FAILSOFT
+		method = "checkRidingStatistics", locals = LocalCapture.CAPTURE_FAILSOFT,
+		require = 0
 	)
 	private void trackLuminizerTravel(double dx, double dy, double dz, CallbackInfo ci, int cm, Entity mount) {
 		if (mount.getType() == BotaniaEntities.PLAYER_MOVER) {
@@ -68,11 +68,8 @@ public abstract class PlayerMixin extends LivingEntity implements PlayerAccess {
 		return source;
 	}
 
-	// Clear the entity on any return after the capture.
-	@Inject(
-		at = @At(value = "RETURN"), method = "attack",
-		slice = @Slice(from = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/enchantment/EnchantmentHelper;getKnockbackBonus(Lnet/minecraft/world/entity/LivingEntity;)I"))
-	)
+	// Clear the entity on any return from attack.
+	@Inject(at = @At(value = "RETURN"), method = "attack")
 	private void clearCritTarget(CallbackInfo ci) {
 		this.terraWillCritTarget = null;
 	}

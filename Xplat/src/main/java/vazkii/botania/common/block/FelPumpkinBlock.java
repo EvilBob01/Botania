@@ -11,8 +11,10 @@ package vazkii.botania.common.block;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.monster.Blaze;
@@ -34,7 +36,7 @@ import vazkii.botania.mixin.MobAccessor;
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class FelPumpkinBlock extends BotaniaBlock {
-	private static final ResourceLocation LOOT_TABLE = prefix("fel_blaze");
+	private static final ResourceKey<LootTable> LOOT_TABLE = ResourceKey.create(Registries.LOOT_TABLE, prefix("fel_blaze"));
 
 	public FelPumpkinBlock(Properties builder) {
 		super(builder);
