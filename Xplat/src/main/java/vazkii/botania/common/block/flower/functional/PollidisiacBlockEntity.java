@@ -139,9 +139,7 @@ public class PollidisiacBlockEntity extends FunctionalFlowerBlockEntity implemen
 					MushroomCowAccessor cowAccessor = (MushroomCowAccessor) animal;
 					SuspiciousStewEffects stewEffects = effect.getSuspiciousEffects();
 					if (!stewEffects.effects().isEmpty()) {
-						SuspiciousStewEffects.Entry entry = stewEffects.effects().get(0);
-						cowAccessor.setEffect(entry.effect().value());
-						cowAccessor.setEffectDuration(entry.duration());
+						cowAccessor.setStewEffects(stewEffects);
 					}
 					animal.playSound(SoundEvents.MOOSHROOM_EAT, 2.0F, 1.0F);
 					break;
@@ -165,7 +163,7 @@ public class PollidisiacBlockEntity extends FunctionalFlowerBlockEntity implemen
 	private static boolean isBrownMooshroomWithoutEffect(Animal animal) {
 		if (animal instanceof MushroomCow mushroomCow && mushroomCow.getVariant() == MushroomCow.MushroomType.BROWN) {
 			MushroomCowAccessor cowAccessor = (MushroomCowAccessor) animal;
-			return cowAccessor.getEffect() == null;
+			return cowAccessor.getStewEffects() == null;
 		}
 		return false;
 	}

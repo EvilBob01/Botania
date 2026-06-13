@@ -12,6 +12,8 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.animal.MushroomCow;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.component.SuspiciousStewEffects;
+
+import java.util.List;
 import net.minecraft.world.phys.Vec3;
 
 import org.jetbrains.annotations.Nullable;
@@ -77,8 +79,7 @@ public class DrumBlockTest {
 		var cow = setup(helper, EntityType.MOOSHROOM, Items.BOWL);
 		cow.setVariant(MushroomCow.MushroomType.BROWN);
 		var cowAccessor = (MushroomCowAccessor) cow;
-		cowAccessor.setEffect(MobEffects.BLINDNESS.value());
-		cowAccessor.setEffectDuration(15);
+		cowAccessor.setStewEffects(new SuspiciousStewEffects(List.of(new SuspiciousStewEffects.Entry(MobEffects.BLINDNESS, 15))));
 		helper.startSequence()
 				.thenExecuteAfter(1, () -> helper.pressButton(POSITION_BUTTON))
 				.thenWaitUntil(() -> helper.assertItemEntityPresent(Items.SUSPICIOUS_STEW, POSITION_MOB, 1.0))
