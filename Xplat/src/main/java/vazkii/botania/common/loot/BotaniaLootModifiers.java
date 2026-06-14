@@ -28,7 +28,7 @@ public class BotaniaLootModifiers {
 		consumer.accept(KILLED_BY_REAL_PLAYER, prefix("killed_by_player"));
 	}
 
-	public static void submitLootFunctions(BiConsumer<LootItemFunctionType, ResourceLocation> consumer) {
+	public static void submitLootFunctions(BiConsumer<LootItemFunctionType<?>, ResourceLocation> consumer) {
 		consumer.accept(BIND_UUID, prefix("bind_uuid"));
 	}
 }

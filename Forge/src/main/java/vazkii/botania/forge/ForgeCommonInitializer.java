@@ -51,14 +51,15 @@ import net.neoforged.neoforge.event.level.BlockEvent;
 import net.neoforged.neoforge.event.level.ExplosionEvent;
 import net.neoforged.neoforge.event.server.ServerAboutToStartEvent;
 import net.neoforged.neoforge.event.server.ServerStoppingEvent;
+import net.neoforged.neoforge.event.tick.EntityTickEvent;
 import net.neoforged.neoforge.event.tick.LevelTickEvent;
-import net.neoforged.bus.api.Event;
 import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModList;
 import net.neoforged.fml.ModLoadingContext;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.neoforged.neoforge.common.util.TriState;
 import net.neoforged.neoforge.items.wrapper.SidedInvWrapper;
 import net.neoforged.neoforge.registries.RegisterEvent;
 
@@ -218,7 +219,7 @@ public class ForgeCommonInitializer {
 		bind(Registries.ENTITY_TYPE, BotaniaEntities::registerEntities);
 		modBus.addListener((EntityAttributeCreationEvent e) -> BotaniaEntities.registerAttributes((type, builder) -> e.put(type, builder.build())));
 		modBus.addListener((EntityAttributeModificationEvent e) -> {
-			e.add(EntityType.PLAYER, PixieHandler.PIXIE_SPAWN_CHANCE);
+			e.add(EntityType.PLAYER, PixieHandler.PIXIE_SPAWN_CHANCE_HOLDER);
 		});
 		bind(Registries.ATTRIBUTE, PixieHandler::registerAttribute);
 
@@ -248,7 +249,6 @@ public class ForgeCommonInitializer {
 					.title(Component.translatable("itemGroup.botania").withStyle(style -> style.withColor(ChatFormatting.WHITE)))
 					.icon(() -> new ItemStack(BotaniaItems.lexicon))
 					.withTabsBefore(CreativeModeTabs.SPAWN_EGGS)
-					.backgroundSuffix("botania.png")
 					.withSearchBar()
 					.build(),
 					BotaniaRegistries.BOTANIA_TAB_KEY.location());
@@ -315,10 +315,10 @@ public class ForgeCommonInitializer {
 				e.getEntity(), e.getEntity().level(), InteractionHand.MAIN_HAND, e.getTarget(), null));
 		bus.addListener((RegisterCommandsEvent e) -> this.registerCommands(
 				e.getDispatcher(), e.getCommandSelection() == Commands.CommandSelection.DEDICATED));
-		bus.addListener((PlayerSleepInBedEvent e) -> {
+		bus.addListener((CanPlayerSleepEvent e) -> {
 			Player.BedSleepingProblem problem = SleepingHandler.trySleep(e.getEntity(), e.getPos());
 			if (problem != null) {
-				e.setResult(problem);
+				e.setProblem(problem);
 			}
 		});
 		bus.addListener((PlayerEvent.StartTracking e) -> DaffomillBlockEntity.onItemTrack(e.getEntity(), (ServerPlayer) e.getEntity()));
@@ -383,14 +383,14 @@ public class ForgeCommonInitializer {
 		});
 		// FabricMixinExplosion
 		bus.addListener((ExplosionEvent.Detonate e) -> {
-			if (BenevolentGoddessCharmItem.shouldProtectExplosion(e.getLevel(), e.getExplosion().getPosition())) {
+			if (BenevolentGoddessCharmItem.shouldProtectExplosion(e.getLevel(), e.getExplosion().center())) {
 				e.getExplosion().clearToBlow();
 			}
 		});
 		// FabricMixinItemEntity
-		bus.addListener((EntityItemPickupEvent e) -> {
-			if (FlowerPouchItem.onPickupItem(e.getItem(), e.getEntity())) {
-				e.setCanceled(true);
+		bus.addListener((ItemEntityPickupEvent.Pre e) -> {
+			if (FlowerPouchItem.onPickupItem(e.getItemEntity(), e.getPlayer())) {
+				e.setCanPickup(TriState.FALSE);
 			}
 		});
 		// FabricMixinLivingEntity
@@ -415,20 +415,20 @@ public class ForgeCommonInitializer {
 		}
 		// FabricMixinPlayer
 		{
-			bus.addListener((LivingAttackEvent e) -> {
+			bus.addListener((LivingIncomingDamageEvent e) -> {
 				if (e.getEntity() instanceof Player player
 						&& RingOfOdinItem.onPlayerAttacked(player, e.getSource())) {
 					e.setCanceled(true);
 				}
 			});
 			bus.addListener((ItemTossEvent e) -> RingOfMagnetizationItem.onTossItem(e.getPlayer()));
-			bus.addListener((LivingHurtEvent e) -> {
+			bus.addListener((LivingDamageEvent.Pre e) -> {
 				if (e.getEntity() instanceof Player player) {
 					Container worn = EquipmentHandler.getAllWorn(player);
 					for (int i = 0; i < worn.getContainerSize(); i++) {
 						ItemStack stack = worn.getItem(i);
 						if (stack.getItem() instanceof CloakOfVirtueItem cloak) {
-							e.setAmount(cloak.onPlayerDamage(player, e.getSource(), e.getAmount()));
+							e.setNewDamage(cloak.onPlayerDamage(player, e.getSource(), e.getNewDamage()));
 						}
 					}
 
@@ -438,7 +438,7 @@ public class ForgeCommonInitializer {
 					CharmOfTheDivaItem.onEntityDamaged(player, e.getEntity());
 				}
 			});
-			bus.addListener((LivingEvent.LivingTickEvent e) -> {
+			bus.addListener((EntityTickEvent.Post e) -> {
 				if (e.getEntity() instanceof Player player) {
 					FlugelTiaraItem.updatePlayerFlyStatus(player);
 					SojournersSashItem.tickBelt(player);
@@ -450,15 +450,13 @@ public class ForgeCommonInitializer {
 				}
 			});
 			bus.addListener(EventPriority.LOW, (CriticalHitEvent e) -> {
-				Event.Result result = e.getResult();
 				if (e.getEntity().level().isClientSide
-						|| result == Event.Result.DENY
-						|| result == Event.Result.DEFAULT && !e.isVanillaCritical()
+						|| !e.isCriticalHit()
 						|| !TerrasteelHelmItem.hasTerraArmorSet(e.getEntity())
 						|| !(e.getTarget() instanceof LivingEntity target)) {
 					return;
 				}
-				e.setDamageModifier(e.getDamageModifier() * TerrasteelHelmItem.getCritDamageMult(e.getEntity()));
+				e.setDamageMultiplier(e.getDamageMultiplier() * TerrasteelHelmItem.getCritDamageMult(e.getEntity()));
 				((PlayerAccess) e.getEntity()).botania$setCritTarget(target);
 			});
 
