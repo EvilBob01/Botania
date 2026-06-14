@@ -8,9 +8,9 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
-import net.neoforged.neoforge.registries.NeoForgeRegistries;
 
 import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.helper.ColorHelper;
@@ -32,7 +32,7 @@ public class ForgeBlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
 	public static final TagKey<Block> BLAZE_MESH = forge("storage_blocks/blaze_mesh");
 	public static final Map<DyeColor, TagKey<Block>> PETAL_BLOCKS = ColorHelper.supportedColors().collect(
 			Collectors.toMap(Function.identity(), color -> forge("storage_blocks/"
-					+ NeoForgeRegistries.BLOCKS.getKey(BotaniaBlocks.getPetalBlock(color)).getPath())));
+					+ BuiltInRegistries.BLOCK.getKey(BotaniaBlocks.getPetalBlock(color)).getPath())));
 
 	public ForgeBlockTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> provider,
 			ExistingFileHelper existingFileHelper) {
@@ -46,7 +46,7 @@ public class ForgeBlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
 
 	@Override
 	protected void addTags(HolderLookup.Provider provider) {
-		tag(Tags.Blocks.STORAGE_BLOCKS_QUARTZ).add(
+		tag(c("storage_blocks/quartz")).add(
 				BotaniaBlocks.darkQuartz, BotaniaBlocks.manaQuartz, BotaniaBlocks.blazeQuartz,
 				BotaniaBlocks.lavenderQuartz, BotaniaBlocks.redQuartz, BotaniaBlocks.elfQuartz, BotaniaBlocks.sunnyQuartz
 		);
@@ -76,7 +76,7 @@ public class ForgeBlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
 				.addTag(MANA_DIAMOND)
 				.addTag(DRAGONSTONE)
 				.addTag(BLAZE_MESH);
-		tag(Tags.Blocks.GLASS).add(BotaniaBlocks.manaGlass, BotaniaBlocks.elfGlass, BotaniaBlocks.bifrostPerm);
+		tag(Tags.Blocks.GLASS_BLOCKS).add(BotaniaBlocks.manaGlass, BotaniaBlocks.elfGlass, BotaniaBlocks.bifrostPerm);
 		tag(Tags.Blocks.GLASS_PANES).add(BotaniaBlocks.managlassPane, BotaniaBlocks.alfglassPane, BotaniaBlocks.bifrostPane);
 		tag(Tags.Blocks.FENCES_WOODEN).add(BotaniaBlocks.livingwoodFence, BotaniaBlocks.dreamwoodFence);
 		tag(Tags.Blocks.FENCE_GATES_WOODEN).add(BotaniaBlocks.livingwoodFenceGate, BotaniaBlocks.dreamwoodFenceGate);
@@ -84,5 +84,9 @@ public class ForgeBlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
 
 	private static TagKey<Block> forge(String name) {
 		return TagKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath("forge", name));
+	}
+
+	private static TagKey<Block> c(String name) {
+		return TagKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath("c", name));
 	}
 }

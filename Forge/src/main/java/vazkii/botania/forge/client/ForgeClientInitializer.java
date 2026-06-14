@@ -3,8 +3,8 @@ package vazkii.botania.forge.client;
 import com.google.common.base.Suppliers;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
+import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.client.particle.ParticleProvider;
 import net.minecraft.client.particle.SpriteSet;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
@@ -86,10 +86,7 @@ public class ForgeClientInitializer {
 		BlockRenderLayers.skipPlatformBlocks = true; // platforms can use standard rendering on Forge
 		BlockRenderLayers.init(ItemBlockRenderTypes::setRenderLayer);
 		// GUIs
-		evt.enqueueWork(() -> {
-			MenuScreens.register(BotaniaItems.FLOWER_BAG_CONTAINER, FlowerPouchGui::new);
-			MenuScreens.register(BotaniaItems.BAUBLE_BOX_CONTAINER, BaubleBoxGui::new);
-		});
+		// MenuScreens.register moved to RegisterMenuScreensEvent below
 
 		// Events
 		var bus = NeoForge.EVENT_BUS;
@@ -153,11 +150,17 @@ public class ForgeClientInitializer {
 	}
 
 	@SubscribeEvent
+	public static void registerMenuScreens(RegisterMenuScreensEvent e) {
+		e.register(BotaniaItems.FLOWER_BAG_CONTAINER, FlowerPouchGui::new);
+		e.register(BotaniaItems.BAUBLE_BOX_CONTAINER, BaubleBoxGui::new);
+	}
+
+	@SubscribeEvent
 	public static void registerClientCapabilities(RegisterCapabilitiesEvent e) {
 		WAND_HUD.get().forEach((type, factory) ->
-				e.registerBlockEntityType(BotaniaForgeClientCapabilities.WAND_HUD, type, (be, side) -> factory.apply(be)));
+				e.registerBlockEntity(BotaniaForgeClientCapabilities.WAND_HUD, type, (be, side) -> factory.apply(be)));
 		ENTITY_WAND_HUD.get().forEach((type, factory) ->
-				e.registerEntityType(BotaniaForgeClientCapabilities.WAND_HUD_ENTITY, type, (entity, ctx) -> factory.apply(entity)));
+				e.registerEntity(BotaniaForgeClientCapabilities.WAND_HUD_ENTITY, type, (entity, ctx) -> factory.apply(entity)));
 	}
 
 	@SubscribeEvent
@@ -197,16 +200,17 @@ public class ForgeClientInitializer {
 
 	@SubscribeEvent
 	public static void registerModelLoader(ModelEvent.RegisterGeometryLoaders evt) {
-		evt.register(ClientXplatAbstractions.FLOATING_FLOWER_MODEL_LOADER_ID.getPath(),
+		evt.register(ClientXplatAbstractions.FLOATING_FLOWER_MODEL_LOADER_ID,
 				ForgeFloatingFlowerModel.Loader.INSTANCE);
-		evt.register(ClientXplatAbstractions.MANA_GUN_MODEL_LOADER_ID.getPath(),
+		evt.register(ClientXplatAbstractions.MANA_GUN_MODEL_LOADER_ID,
 				ForgeManaBlasterModel.Loader.INSTANCE);
 	}
 
 	@SubscribeEvent
 	public static void onModelRegister(ModelEvent.RegisterAdditional evt) {
 		var resourceManager = Minecraft.getInstance().getResourceManager();
-		MiscellaneousModels.INSTANCE.onModelRegister(resourceManager, evt::register);
+		MiscellaneousModels.INSTANCE.onModelRegister(resourceManager,
+				rl -> evt.register(new ModelResourceLocation(rl, "standalone")));
 		BotaniaItemProperties.init((item, id, prop) -> ItemProperties.register(item.asItem(), id, prop));
 	}
 
@@ -264,9 +268,11 @@ public class ForgeClientInitializer {
 		});
 	}
 
+	@SuppressWarnings("unchecked")
 	@SubscribeEvent
 	public static void onModelBake(ModelEvent.ModifyBakingResult evt) {
-		MiscellaneousModels.INSTANCE.onModelBake(evt.getModelBakery(), evt.getModels());
+		MiscellaneousModels.INSTANCE.onModelBake(evt.getModelBakery(),
+				(java.util.Map<net.minecraft.resources.ResourceLocation, net.minecraft.client.resources.model.BakedModel>) (Object) evt.getModels());
 	}
 
 }

@@ -18,13 +18,12 @@ import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.core.Holder;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.common.NeoForge;
-import net.neoforged.neoforge.capabilities.ICapabilityProvider;
-import net.neoforged.neoforge.items.wrapper.RecipeWrapper;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -46,8 +45,6 @@ import vazkii.botania.common.helper.ItemNBTHelper;
 import vazkii.botania.common.item.ResoluteIvyItem;
 import vazkii.botania.common.item.equipment.bauble.BaubleItem;
 import vazkii.botania.common.proxy.Proxy;
-import vazkii.botania.forge.CapabilityUtil;
-
 import java.util.UUID;
 import java.util.function.Predicate;
 
@@ -70,7 +67,13 @@ public class CurioIntegration extends EquipmentHandler {
 	protected Container getAllWornItems(LivingEntity living) {
 		return CuriosApi.getCuriosInventory(living)
 				.map(ICuriosItemHandler::getEquippedCurios)
-				.<Container>map(RecipeWrapper::new)
+				.<Container>map(handler -> {
+					SimpleContainer container = new SimpleContainer(handler.getSlots());
+					for (int i = 0; i < handler.getSlots(); i++) {
+						container.setItem(i, handler.getStackInSlot(i));
+					}
+					return container;
+				})
 				.orElseGet(() -> new SimpleContainer(0));
 	}
 
@@ -88,10 +91,6 @@ public class CurioIntegration extends EquipmentHandler {
 				.orElse(ItemStack.EMPTY);
 	}
 
-	public ICapabilityProvider initCapability(ItemStack stack) {
-		return CapabilityUtil.makeProvider(CuriosCapability.ITEM, new Wrapper(stack));
-	}
-
 	@Override
 	public void onInit(Item item) {
 		Proxy.INSTANCE.runOnClient(() -> () -> CuriosRendererRegistry.register(item, () -> Renderer.INSTANCE));
@@ -99,7 +98,7 @@ public class CurioIntegration extends EquipmentHandler {
 
 	@Override
 	public boolean isAccessory(ItemStack stack) {
-		return super.isAccessory(stack) || stack.getCapability(CuriosCapability.ITEM).isPresent();
+		return super.isAccessory(stack) || stack.getCapability(CuriosCapability.ITEM) != null;
 	}
 
 	public static class Wrapper implements ICurio {
@@ -141,7 +140,7 @@ public class CurioIntegration extends EquipmentHandler {
 		}
 
 		@Override
-		public Multimap<Attribute, AttributeModifier> getAttributeModifiers(SlotContext slotContext, UUID uuid) {
+		public Multimap<Holder<Attribute>, AttributeModifier> getAttributeModifiers(SlotContext slotContext, UUID uuid) {
 			return getItem().getEquippedAttributeModifiers(stack);
 		}
 

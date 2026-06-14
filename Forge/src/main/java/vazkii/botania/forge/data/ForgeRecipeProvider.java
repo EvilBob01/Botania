@@ -7,6 +7,8 @@ import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.data.recipes.ShapelessRecipeBuilder;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.ItemTags;
 import net.neoforged.neoforge.common.Tags;
 
 import vazkii.botania.common.block.BotaniaBlocks;
@@ -28,7 +30,7 @@ public class ForgeRecipeProvider extends BotaniaRecipeProvider {
 	protected void buildRecipes(RecipeOutput output) {
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, BotaniaBlocks.azulejo0)
 				.requires(Items.BLUE_DYE)
-				.requires(Tags.Items.STORAGE_BLOCKS_QUARTZ)
+				.requires(ItemTags.create(ResourceLocation.fromNamespaceAndPath("c", "storage_blocks/quartz")))
 				.unlockedBy("has_item", conditionsFromItem(Items.BLUE_DYE))
 				.save(output);
 
@@ -44,7 +46,7 @@ public class ForgeRecipeProvider extends BotaniaRecipeProvider {
 
 		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, BotaniaItems.glassPick)
 				.define('T', BotaniaItems.livingwoodTwig)
-				.define('G', Tags.Items.GLASS_COLORLESS)
+				.define('G', Tags.Items.GLASS_BLOCKS_COLORLESS)
 				.define('I', BotaniaTags.Items.INGOTS_MANASTEEL)
 				.pattern("GIG")
 				.pattern(" T ")
@@ -55,7 +57,7 @@ public class ForgeRecipeProvider extends BotaniaRecipeProvider {
 		ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, BotaniaBlocks.prism)
 				.define('P', Tags.Items.GEMS_PRISMARINE)
 				.define('S', BotaniaBlocks.spectralPlatform)
-				.define('G', Tags.Items.GLASS_COLORLESS)
+				.define('G', Tags.Items.GLASS_BLOCKS_COLORLESS)
 				.pattern("GPG")
 				.pattern("GSG")
 				.pattern("GPG")
@@ -65,7 +67,7 @@ public class ForgeRecipeProvider extends BotaniaRecipeProvider {
 
 		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, BotaniaItems.lensNormal)
 				.define('S', BotaniaTags.Items.INGOTS_MANASTEEL)
-				.define('G', Ingredient.merge(List.of(Ingredient.of(Tags.Items.GLASS_COLORLESS), Ingredient.of(Tags.Items.GLASS_PANES_COLORLESS))))
+				.define('G', Ingredient.of(Tags.Items.GLASS_BLOCKS_COLORLESS))
 				.pattern(" S ")
 				.pattern("SGS")
 				.pattern(" S ")
@@ -81,7 +83,7 @@ public class ForgeRecipeProvider extends BotaniaRecipeProvider {
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BotaniaItems.phantomInk, 4)
 				.requires(BotaniaItems.manaPearl)
 				.requires(Tags.Items.DYES)
-				.requires(Tags.Items.GLASS)
+				.requires(Tags.Items.GLASS_BLOCKS)
 				.requires(Items.GLASS_BOTTLE, 4)
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.manaPearl))
 				.save(output);
@@ -101,8 +103,4 @@ public class ForgeRecipeProvider extends BotaniaRecipeProvider {
 		new GogAlternationResult(gog, base).save(output);
 	}
 
-	@Override
-	public String getName() {
-		return "Botania crafting recipes (Forge-specific)";
-	}
 }
