@@ -29,6 +29,7 @@ import vazkii.botania.common.block.block_entity.red_string.RedStringDispenserBlo
 
 public class RedStringDispenserBlock extends RedStringBlock {
 
+	@SuppressWarnings("this-escape")
 	public RedStringDispenserBlock(BlockBehaviour.Properties builder) {
 		super(builder);
 		registerDefaultState(defaultBlockState().setValue(BlockStateProperties.FACING, Direction.DOWN).setValue(BlockStateProperties.POWERED, false));

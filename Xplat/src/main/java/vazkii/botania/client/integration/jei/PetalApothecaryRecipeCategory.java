@@ -71,6 +71,7 @@ public class PetalApothecaryRecipeCategory implements IRecipeCategory<PetalApoth
 		return localizedName;
 	}
 
+	@SuppressWarnings("removal")
 	@NotNull
 	@Override
 	public IDrawable getBackground() {

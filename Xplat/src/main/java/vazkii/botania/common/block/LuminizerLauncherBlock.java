@@ -37,6 +37,7 @@ public class LuminizerLauncherBlock extends BotaniaWaterloggedBlock {
 
 	private static final VoxelShape SHAPE = box(0, 0, 0, 16, 4, 16);
 
+	@SuppressWarnings("this-escape")
 	public LuminizerLauncherBlock(Properties builder) {
 		super(builder);
 		registerDefaultState(defaultBlockState().setValue(BlockStateProperties.POWERED, false));

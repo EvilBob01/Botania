@@ -38,6 +38,7 @@ import vazkii.botania.common.item.WandOfTheForestItem;
 
 public class ManaEnchanterBlock extends BotaniaBlock implements EntityBlock {
 
+	@SuppressWarnings("this-escape")
 	public ManaEnchanterBlock(Properties builder) {
 		super(builder);
 		registerDefaultState(defaultBlockState().setValue(BotaniaStateProperties.ENCHANTER_DIRECTION, Direction.Axis.X));

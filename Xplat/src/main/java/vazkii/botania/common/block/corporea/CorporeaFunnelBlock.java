@@ -24,6 +24,7 @@ import vazkii.botania.common.block.block_entity.corporea.CorporeaFunnelBlockEnti
 
 public class CorporeaFunnelBlock extends BotaniaBlock implements EntityBlock {
 
+	@SuppressWarnings("this-escape")
 	public CorporeaFunnelBlock(Properties builder) {
 		super(builder);
 		registerDefaultState(defaultBlockState().setValue(BlockStateProperties.POWERED, false));

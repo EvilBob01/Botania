@@ -37,6 +37,7 @@ public class GaiaGuardianRenderer extends HumanoidMobRenderer<GaiaGuardianEntity
 	private final Model normalModel;
 	private final Model slimModel;
 
+	@SuppressWarnings("this-escape")
 	public GaiaGuardianRenderer(EntityRendererProvider.Context ctx) {
 		super(ctx, new Model(ctx.bakeLayer(ModelLayers.PLAYER)), 0F);
 		this.normalModel = (Model) this.getModel();

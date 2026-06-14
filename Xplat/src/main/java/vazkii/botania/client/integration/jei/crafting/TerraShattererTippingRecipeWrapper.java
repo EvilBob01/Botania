@@ -42,6 +42,7 @@ public class TerraShattererTippingRecipeWrapper implements ICraftingCategoryExte
 		this();
 	}
 
+	@SuppressWarnings("removal")
 	@Override
 	public void setRecipe(@NotNull IRecipeLayoutBuilder builder, @NotNull ICraftingGridHelper helper, @NotNull IFocusGroup focuses) {
 		helper.createAndSetInputs(builder, VanillaTypes.ITEM_STACK, inputs, 0, 0);

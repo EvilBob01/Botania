@@ -27,6 +27,7 @@ import vazkii.botania.common.block.block_entity.CraftyCrateBlockEntity;
 
 public class CraftyCrateBlock extends OpenCrateBlock {
 
+	@SuppressWarnings("this-escape")
 	public CraftyCrateBlock(Properties builder) {
 		super(builder);
 		registerDefaultState(defaultBlockState().setValue(BotaniaStateProperties.CRATE_PATTERN, CraftyCratePattern.NONE));

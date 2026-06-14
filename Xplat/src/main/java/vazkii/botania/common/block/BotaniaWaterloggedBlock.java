@@ -26,6 +26,7 @@ import static net.minecraft.world.level.block.state.properties.BlockStatePropert
 
 public abstract class BotaniaWaterloggedBlock extends BotaniaBlock implements SimpleWaterloggedBlock {
 
+	@SuppressWarnings("this-escape")
 	public BotaniaWaterloggedBlock(Properties builder) {
 		super(builder);
 		registerDefaultState(defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, false));

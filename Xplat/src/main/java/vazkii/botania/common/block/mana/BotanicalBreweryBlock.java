@@ -43,6 +43,7 @@ public class BotanicalBreweryBlock extends BotaniaWaterloggedBlock implements En
 
 	private static final VoxelShape SHAPE = box(6, 0.8, 6, 10, 15.2, 10);
 
+	@SuppressWarnings("this-escape")
 	public BotanicalBreweryBlock(Properties builder) {
 		super(builder);
 		registerDefaultState(defaultBlockState().setValue(BlockStateProperties.POWERED, false));

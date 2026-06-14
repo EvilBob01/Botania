@@ -62,6 +62,7 @@ public class BreweryRecipeCategory implements IRecipeCategory<BotanicalBreweryRe
 		return localizedName;
 	}
 
+	@SuppressWarnings("removal")
 	@NotNull
 	@Override
 	public IDrawable getBackground() {

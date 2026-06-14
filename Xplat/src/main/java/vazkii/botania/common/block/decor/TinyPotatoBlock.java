@@ -47,6 +47,7 @@ public class TinyPotatoBlock extends BotaniaWaterloggedBlock implements EntityBl
 
 	private static final VoxelShape SHAPE = box(6, 0, 6, 10, 6, 10);
 
+	@SuppressWarnings("this-escape")
 	public TinyPotatoBlock(Properties builder) {
 		super(builder);
 		registerDefaultState(defaultBlockState()

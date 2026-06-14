@@ -48,6 +48,7 @@ import vazkii.botania.common.handler.BotaniaSounds;
 public class ManaPrismBlock extends BotaniaWaterloggedBlock implements EntityBlock, ManaCollisionGhost {
 	private static final VoxelShape SHAPE = box(4, 0, 4, 12, 16, 12);
 
+	@SuppressWarnings("this-escape")
 	public ManaPrismBlock(Properties builder) {
 		super(builder);
 		registerDefaultState(defaultBlockState()

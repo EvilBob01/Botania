@@ -239,7 +239,7 @@ public final class HUDHandler {
 		if (totalMaxMana == 0) {
 			width = 0;
 		} else {
-			width *= (double) totalMana / (double) totalMaxMana;
+			width = (int)(width * (double) totalMana / (double) totalMaxMana);
 		}
 
 		if (width == 0) {

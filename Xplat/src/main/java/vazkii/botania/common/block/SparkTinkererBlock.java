@@ -37,6 +37,7 @@ public class SparkTinkererBlock extends BotaniaWaterloggedBlock implements Entit
 
 	private static final VoxelShape SHAPE = box(0, 0, 0, 16, 3, 16);
 
+	@SuppressWarnings("this-escape")
 	public SparkTinkererBlock(Properties builder) {
 		super(builder);
 		registerDefaultState(defaultBlockState().setValue(BlockStateProperties.POWERED, true));

@@ -29,6 +29,7 @@ import java.util.stream.IntStream;
 /**
  * Version of {@link SimpleInventoryBlockEntity} where the backing inventory is exposed to automation
  */
+@SuppressWarnings("this-escape")
 public abstract class ExposedSimpleInventoryBlockEntity extends SimpleInventoryBlockEntity implements WorldlyContainer {
 	private final Supplier<int[]> slots = Suppliers.memoize(() -> IntStream.range(0, getContainerSize()).toArray());
 

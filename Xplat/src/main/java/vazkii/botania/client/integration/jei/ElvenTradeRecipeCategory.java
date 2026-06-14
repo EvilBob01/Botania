@@ -69,6 +69,7 @@ public class ElvenTradeRecipeCategory implements IRecipeCategory<ElvenTradeRecip
 		return localizedName;
 	}
 
+	@SuppressWarnings("removal")
 	@NotNull
 	@Override
 	public IDrawable getBackground() {

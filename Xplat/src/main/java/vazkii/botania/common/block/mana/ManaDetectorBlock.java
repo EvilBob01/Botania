@@ -27,6 +27,7 @@ import vazkii.botania.common.block.BotaniaBlock;
 
 public class ManaDetectorBlock extends BotaniaBlock implements ManaCollisionGhost {
 
+	@SuppressWarnings("this-escape")
 	public ManaDetectorBlock(Properties builder) {
 		super(builder);
 		registerDefaultState(defaultBlockState().setValue(BlockStateProperties.POWERED, false));

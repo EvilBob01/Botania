@@ -52,6 +52,7 @@ public class IncensePlateBlock extends BotaniaWaterloggedBlock implements Entity
 	private static final VoxelShape X_SHAPE = box(6, 0, 2, 10, 1, 14);
 	private static final VoxelShape Z_SHAPE = box(2, 0, 6, 14, 1, 10);
 
+	@SuppressWarnings("this-escape")
 	protected IncensePlateBlock(Properties builder) {
 		super(builder);
 		registerDefaultState(defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_FACING, Direction.SOUTH));

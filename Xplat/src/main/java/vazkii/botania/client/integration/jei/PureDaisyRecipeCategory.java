@@ -69,6 +69,7 @@ public class PureDaisyRecipeCategory implements IRecipeCategory<PureDaisyRecipe>
 		return localizedName;
 	}
 
+	@SuppressWarnings("removal")
 	@NotNull
 	@Override
 	public IDrawable getBackground() {
@@ -88,7 +89,7 @@ public class PureDaisyRecipeCategory implements IRecipeCategory<PureDaisyRecipe>
 		RenderSystem.disableBlend();
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({"unchecked", "removal"})
 	@Override
 	public void setRecipe(@NotNull IRecipeLayoutBuilder builder, @NotNull PureDaisyRecipe recipe, @NotNull IFocusGroup focusGroup) {
 		StateIngredient input = recipe.getInput();

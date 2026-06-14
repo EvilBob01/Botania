@@ -34,6 +34,7 @@ public class AncientWillRecipeWrapper implements ICraftingCategoryExtension<Anci
 	@Deprecated
 	public AncientWillRecipeWrapper(AncientWillRecipe recipe) {}
 
+	@SuppressWarnings("removal")
 	@Override
 	public void setRecipe(@NotNull IRecipeLayoutBuilder builder, @NotNull ICraftingGridHelper helper, @NotNull IFocusGroup focusGroup) {
 		var foci = focusGroup.getFocuses(VanillaTypes.ITEM_STACK, RecipeIngredientRole.INPUT)

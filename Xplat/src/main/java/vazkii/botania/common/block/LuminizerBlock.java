@@ -46,6 +46,7 @@ public class LuminizerBlock extends BotaniaWaterloggedBlock implements EntityBlo
 	private static final VoxelShape SHAPE = box(5, 5, 5, 11, 11, 11);
 	public final LuminizerVariant variant;
 
+	@SuppressWarnings("this-escape")
 	protected LuminizerBlock(LuminizerVariant variant, Properties builder) {
 		super(builder);
 		this.variant = variant;

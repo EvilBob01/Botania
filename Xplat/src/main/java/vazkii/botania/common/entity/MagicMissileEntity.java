@@ -52,6 +52,7 @@ public class MagicMissileEntity extends ThrowableProjectile {
 		super(type, world);
 	}
 
+	@SuppressWarnings("this-escape")
 	public MagicMissileEntity(LivingEntity owner, boolean evil) {
 		super(BotaniaEntities.MAGIC_MISSILE, owner, owner.level());
 		setEvil(evil);

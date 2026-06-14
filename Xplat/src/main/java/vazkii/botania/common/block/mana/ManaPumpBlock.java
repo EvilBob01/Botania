@@ -39,6 +39,7 @@ public class ManaPumpBlock extends BotaniaWaterloggedBlock implements EntityBloc
 	private static final VoxelShape X_SHAPE = box(0, 0, 4, 16, 8, 12);
 	private static final VoxelShape Z_SHAPE = box(4, 0, 0, 12, 8, 16);
 
+	@SuppressWarnings("this-escape")
 	public ManaPumpBlock(Properties builder) {
 		super(builder);
 		registerDefaultState(defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_FACING, Direction.SOUTH));

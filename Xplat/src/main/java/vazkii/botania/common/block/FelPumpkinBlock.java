@@ -38,6 +38,7 @@ import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 public class FelPumpkinBlock extends BotaniaBlock {
 	private static final ResourceKey<LootTable> LOOT_TABLE = ResourceKey.create(Registries.LOOT_TABLE, prefix("fel_blaze"));
 
+	@SuppressWarnings("this-escape")
 	public FelPumpkinBlock(Properties builder) {
 		super(builder);
 		registerDefaultState(defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_FACING, Direction.SOUTH));

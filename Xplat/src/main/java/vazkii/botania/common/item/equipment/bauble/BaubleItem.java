@@ -46,6 +46,7 @@ public abstract class BaubleItem extends Item implements CosmeticAttachable, Pha
 	private static final String TAG_COSMETIC_ITEM = "cosmeticItem";
 	private static final String TAG_PHANTOM_INK = "phantomInk";
 
+	@SuppressWarnings("this-escape")
 	public BaubleItem(Properties props) {
 		super(props);
 		EquipmentHandler.instance.onInit(this);

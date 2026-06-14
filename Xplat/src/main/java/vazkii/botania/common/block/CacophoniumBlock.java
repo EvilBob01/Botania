@@ -23,6 +23,7 @@ import org.jetbrains.annotations.NotNull;
 import vazkii.botania.common.block.block_entity.CacophoniumBlockEntity;
 
 public class CacophoniumBlock extends BotaniaBlock implements EntityBlock {
+	@SuppressWarnings("this-escape")
 	protected CacophoniumBlock(Properties builder) {
 		super(builder);
 		registerDefaultState(defaultBlockState().setValue(BlockStateProperties.POWERED, false));

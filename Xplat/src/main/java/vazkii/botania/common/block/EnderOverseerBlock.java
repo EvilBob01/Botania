@@ -31,6 +31,7 @@ import vazkii.botania.common.block.block_entity.EnderOverseerBlockEntity;
 
 public class EnderOverseerBlock extends BotaniaBlock implements EntityBlock {
 
+	@SuppressWarnings("this-escape")
 	protected EnderOverseerBlock(Properties builder) {
 		super(builder);
 		registerDefaultState(defaultBlockState().setValue(BlockStateProperties.POWERED, false));

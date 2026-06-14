@@ -42,6 +42,7 @@ public class SpectralRailBlock extends BaseRailBlock {
 
 	public static final String TAG_FLOAT_TICKS = "botania:float_ticks";
 
+	@SuppressWarnings("this-escape")
 	public SpectralRailBlock(Properties builder) {
 		super(true, builder);
 		registerDefaultState(defaultBlockState().setValue(BlockStateProperties.RAIL_SHAPE_STRAIGHT, RailShape.NORTH_SOUTH));

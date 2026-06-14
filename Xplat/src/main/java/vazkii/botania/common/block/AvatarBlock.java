@@ -48,6 +48,7 @@ public class AvatarBlock extends BotaniaWaterloggedBlock implements EntityBlock 
 	private static final VoxelShape X_AABB = box(5, 0, 3.5, 11, 17, 12.5);
 	private static final VoxelShape Z_AABB = box(3.5, 0, 5, 12.5, 17, 11);
 
+	@SuppressWarnings("this-escape")
 	protected AvatarBlock(Properties builder) {
 		super(builder);
 		registerDefaultState(defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_FACING, Direction.NORTH));

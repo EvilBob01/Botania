@@ -195,6 +195,7 @@ public class GaiaGuardianEntity extends Mob {
 	private UUID bossInfoUUID = bossInfo.getId();
 	public Player trueKiller = null;
 
+	@SuppressWarnings("this-escape")
 	public GaiaGuardianEntity(EntityType<GaiaGuardianEntity> type, Level world) {
 		super(type, world);
 		xpReward = 825;

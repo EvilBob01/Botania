@@ -27,11 +27,13 @@ public abstract class ThrowableCopyEntity extends Projectile {
 		super(entityType, level);
 	}
 
+	@SuppressWarnings("this-escape")
 	protected ThrowableCopyEntity(EntityType<? extends ThrowableCopyEntity> entityType, double d, double e, double f, Level level) {
 		this(entityType, level);
 		this.setPos(d, e, f);
 	}
 
+	@SuppressWarnings("this-escape")
 	protected ThrowableCopyEntity(EntityType<? extends ThrowableCopyEntity> entityType, LivingEntity livingEntity, Level level) {
 		this(entityType, livingEntity.getX(), livingEntity.getEyeY() - 0.10000000149011612D, livingEntity.getZ(), level);
 		this.setOwner(livingEntity);

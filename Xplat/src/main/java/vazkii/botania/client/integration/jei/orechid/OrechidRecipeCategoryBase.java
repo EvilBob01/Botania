@@ -62,6 +62,7 @@ public abstract class OrechidRecipeCategoryBase<T extends OrechidRecipe> impleme
 		return localizedName;
 	}
 
+	@SuppressWarnings("removal")
 	@NotNull
 	@Override
 	public IDrawable getBackground() {
@@ -76,6 +77,7 @@ public abstract class OrechidRecipeCategoryBase<T extends OrechidRecipe> impleme
 
 	protected abstract RecipeType<T> recipeType();
 
+	@SuppressWarnings("removal")
 	@Override
 	public void setRecipe(@NotNull IRecipeLayoutBuilder builder, @NotNull OrechidRecipe recipe, @NotNull IFocusGroup focusGroup) {
 
@@ -102,6 +104,7 @@ public abstract class OrechidRecipeCategoryBase<T extends OrechidRecipe> impleme
 		RenderSystem.disableBlend();
 	}
 
+	@SuppressWarnings("removal")
 	@NotNull
 	@Override
 	public List<Component> getTooltipStrings(@NotNull OrechidRecipe recipe, @NotNull IRecipeSlotsView recipeSlotsView, double mouseX, double mouseY) {

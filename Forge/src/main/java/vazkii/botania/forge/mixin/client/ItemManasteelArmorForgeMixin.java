@@ -20,6 +20,7 @@ public abstract class ItemManasteelArmorForgeMixin extends Item {
 		super(props);
 	}
 
+	@SuppressWarnings("removal")
 	@Override
 	public void initializeClient(Consumer<IClientItemExtensions> consumer) {
 		consumer.accept(new IClientItemExtensions() {

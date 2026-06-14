@@ -40,6 +40,7 @@ public class FXSparkle extends TextureSheetParticle {
 	private final boolean slowdown = true;
 	private final SpriteSet sprite;
 
+	@SuppressWarnings("this-escape")
 	public FXSparkle(ClientLevel world, double x, double y, double z, float size,
 			float red, float green, float blue, int m,
 			boolean fake, boolean noClip, boolean corrupt, SpriteSet sprite) {

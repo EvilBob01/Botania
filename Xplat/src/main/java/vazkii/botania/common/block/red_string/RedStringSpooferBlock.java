@@ -27,6 +27,7 @@ import vazkii.botania.common.block.block_entity.red_string.RedStringSpooferBlock
 
 public class RedStringSpooferBlock extends RedStringBlock {
 
+	@SuppressWarnings("this-escape")
 	public RedStringSpooferBlock(BlockBehaviour.Properties builder) {
 		super(builder);
 		registerDefaultState(defaultBlockState().setValue(BlockStateProperties.FACING, Direction.DOWN));

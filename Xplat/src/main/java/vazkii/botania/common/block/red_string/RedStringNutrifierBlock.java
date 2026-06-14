@@ -31,6 +31,7 @@ import vazkii.botania.common.block.block_entity.red_string.RedStringNutrifierBlo
 
 public class RedStringNutrifierBlock extends RedStringBlock implements BonemealableBlock {
 
+	@SuppressWarnings("this-escape")
 	public RedStringNutrifierBlock(BlockBehaviour.Properties builder) {
 		super(builder);
 		registerDefaultState(defaultBlockState().setValue(BlockStateProperties.FACING, Direction.DOWN));

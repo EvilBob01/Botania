@@ -71,7 +71,7 @@ public class EnderAirBottlingBehavior extends OptionalDispenseItemBehavior {
 		if (input.isEmpty()) {
 			return output.copy();
 		} else {
-			ItemStack remainder = ((DispenserBlockEntity) source.blockEntity()).insertItem(output.copy());
+			ItemStack remainder = source.blockEntity().insertItem(output.copy());
 			if (!remainder.isEmpty()) {
 				this.defaultBehaviour.dispense(source, remainder);
 			}

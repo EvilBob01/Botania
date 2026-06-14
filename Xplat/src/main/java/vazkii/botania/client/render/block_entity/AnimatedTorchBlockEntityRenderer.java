@@ -49,7 +49,7 @@ public class AnimatedTorchBlockEntityRenderer implements BlockEntityRenderer<Ani
 		ms.mulPose(VecHelper.rotateX(90));
 		float rotation = (float) te.rotation;
 		if (te.rotating) {
-			rotation += te.anglePerTick * partialTicks;
+			rotation = (float)(rotation + te.anglePerTick * partialTicks);
 		}
 
 		ms.mulPose(VecHelper.rotateZ(rotation));

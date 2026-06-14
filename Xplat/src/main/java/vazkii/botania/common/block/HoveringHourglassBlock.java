@@ -46,6 +46,7 @@ public class HoveringHourglassBlock extends BotaniaWaterloggedBlock implements E
 
 	private static final VoxelShape SHAPE = box(4, 0, 4, 12, 18.4, 12);
 
+	@SuppressWarnings("this-escape")
 	protected HoveringHourglassBlock(Properties builder) {
 		super(builder);
 		registerDefaultState(defaultBlockState().setValue(BlockStateProperties.POWERED, false));

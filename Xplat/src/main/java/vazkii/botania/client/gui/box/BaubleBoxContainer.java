@@ -34,6 +34,7 @@ public class BaubleBoxContainer extends AbstractContainerMenu {
 
 	private final ItemStack box;
 
+	@SuppressWarnings("this-escape")
 	public BaubleBoxContainer(int windowId, Inventory playerInv, ItemStack box) {
 		super(BotaniaItems.BAUBLE_BOX_CONTAINER, windowId);
 		int i;

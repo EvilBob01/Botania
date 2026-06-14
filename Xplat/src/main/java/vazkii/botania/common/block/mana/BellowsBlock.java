@@ -39,6 +39,7 @@ public class BellowsBlock extends BotaniaBlock implements EntityBlock {
 
 	private static final VoxelShape SHAPE = box(3, 0, 3, 13, 10.0, 13);
 
+	@SuppressWarnings("this-escape")
 	public BellowsBlock(Properties builder) {
 		super(builder);
 		registerDefaultState(defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_FACING, Direction.SOUTH));

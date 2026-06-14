@@ -28,6 +28,7 @@ public class BotaniaDirectionalBlock extends DirectionalBlock {
 		return CODEC;
 	}
 
+	@SuppressWarnings("this-escape")
 	public BotaniaDirectionalBlock(Properties properties) {
 		super(properties);
 		registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.UP));

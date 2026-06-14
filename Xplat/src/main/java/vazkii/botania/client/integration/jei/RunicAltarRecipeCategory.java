@@ -65,6 +65,7 @@ public class RunicAltarRecipeCategory implements IRecipeCategory<RunicAltarRecip
 		return localizedName;
 	}
 
+	@SuppressWarnings("removal")
 	@NotNull
 	@Override
 	public IDrawable getBackground() {

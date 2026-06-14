@@ -139,6 +139,7 @@ public class CurioIntegration extends EquipmentHandler {
 			return getItem().canEquip(stack, slotContext.entity());
 		}
 
+		@SuppressWarnings("removal")
 		@Override
 		public Multimap<Holder<Attribute>, AttributeModifier> getAttributeModifiers(SlotContext slotContext, UUID uuid) {
 			return getItem().getEquippedAttributeModifiers(stack);

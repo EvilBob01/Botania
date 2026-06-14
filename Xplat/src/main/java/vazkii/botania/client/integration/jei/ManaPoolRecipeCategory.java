@@ -67,6 +67,7 @@ public class ManaPoolRecipeCategory implements IRecipeCategory<ManaInfusionRecip
 		return localizedName;
 	}
 
+	@SuppressWarnings("removal")
 	@NotNull
 	@Override
 	public IDrawable getBackground() {
@@ -87,6 +88,7 @@ public class ManaPoolRecipeCategory implements IRecipeCategory<ManaInfusionRecip
 		RenderSystem.disableBlend();
 	}
 
+	@SuppressWarnings("removal")
 	@Override
 	public void setRecipe(@NotNull IRecipeLayoutBuilder builder, @NotNull ManaInfusionRecipe recipe, @NotNull IFocusGroup focusGroup) {
 		builder.addSlot(RecipeIngredientRole.INPUT, 32, 12)

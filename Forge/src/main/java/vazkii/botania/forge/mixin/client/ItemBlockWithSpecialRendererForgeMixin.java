@@ -16,6 +16,7 @@ public abstract class ItemBlockWithSpecialRendererForgeMixin extends Item {
 		super(props);
 	}
 
+	@SuppressWarnings("removal")
 	@Override
 	public void initializeClient(Consumer<IClientItemExtensions> consumer) {
 		ForgeBlockEntityItemRendererHelper.initItem(consumer);

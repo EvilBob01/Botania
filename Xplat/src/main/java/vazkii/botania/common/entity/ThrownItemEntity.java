@@ -32,6 +32,7 @@ public class ThrownItemEntity extends ItemEntity {
 		super(type, world);
 	}
 
+	@SuppressWarnings("this-escape")
 	public ThrownItemEntity(Level world, double x,
 			double y, double z, ItemEntity item) {
 		super(world, x, y, z, item.getItem());

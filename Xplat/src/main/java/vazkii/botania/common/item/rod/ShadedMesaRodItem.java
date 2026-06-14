@@ -99,6 +99,7 @@ public class ShadedMesaRodItem extends Item {
 		ItemNBTHelper.setInt(stack, TAG_TICKS_COOLDOWN, ticksCooldown);
 	}
 
+	@SuppressWarnings("removal")
 	@SoftImplement("IForgeItem")
 	public boolean onEntitySwing(ItemStack stack, LivingEntity entity) {
 		if (entity instanceof Player player) {

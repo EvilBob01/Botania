@@ -78,6 +78,7 @@ public class ManaSpreaderBlock extends BotaniaWaterloggedBlock implements Entity
 
 	public final Variant variant;
 
+	@SuppressWarnings("this-escape")
 	public ManaSpreaderBlock(Variant v, Properties builder) {
 		super(builder);
 		registerDefaultState(defaultBlockState().setValue(BotaniaStateProperties.HAS_SCAFFOLDING, false));

@@ -47,6 +47,7 @@ public class CompositeLensRecipeWrapper implements ICraftingCategoryExtension<Co
 		this();
 	}
 
+	@SuppressWarnings("removal")
 	@Override
 	public void setRecipe(@NotNull IRecipeLayoutBuilder builder, @NotNull ICraftingGridHelper helper, @NotNull IFocusGroup focusGroup) {
 		var possibleFirstLenses = focusGroup.getFocuses(VanillaTypes.ITEM_STACK, RecipeIngredientRole.INPUT)

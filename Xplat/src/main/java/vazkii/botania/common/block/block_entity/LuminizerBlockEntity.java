@@ -308,6 +308,7 @@ public class LuminizerBlockEntity extends BotaniaBlockEntity implements WandBind
 			noPhysics = true;
 		}
 
+		@SuppressWarnings("this-escape")
 		public PlayerMoverEntity(Level world, BlockPos pos, BlockPos exitPos) {
 			this(BotaniaEntities.PLAYER_MOVER, world);
 			setPos(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);

@@ -146,6 +146,7 @@ import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 public class ForgeCommonInitializer {
 	private final IEventBus modBus;
 
+	@SuppressWarnings("this-escape")
 	public ForgeCommonInitializer(IEventBus modBus) {
 		this.modBus = modBus;
 		coreInit();

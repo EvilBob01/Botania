@@ -27,6 +27,7 @@ import vazkii.botania.common.block.block_entity.red_string.RedStringComparatorBl
 
 public class RedStringComparatorBlock extends RedStringBlock {
 
+	@SuppressWarnings("this-escape")
 	public RedStringComparatorBlock(BlockBehaviour.Properties builder) {
 		super(builder);
 		registerDefaultState(defaultBlockState().setValue(BlockStateProperties.FACING, Direction.DOWN));

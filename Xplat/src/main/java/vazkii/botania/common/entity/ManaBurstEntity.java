@@ -132,6 +132,7 @@ public class ManaBurstEntity extends ThrowableProjectile implements ManaBurst {
 		return new Vec3(mx, my, mz);
 	}
 
+	@SuppressWarnings("this-escape")
 	public ManaBurstEntity(Level level, BlockPos pos, float rotX, float rotY, boolean fake) {
 		this(BotaniaEntities.MANA_BURST, level);
 
@@ -150,6 +151,7 @@ public class ManaBurstEntity extends ThrowableProjectile implements ManaBurst {
 		setDeltaMovement(calculateBurstVelocity(getXRot(), getYRot()));
 	}
 
+	@SuppressWarnings("this-escape")
 	public ManaBurstEntity(Player player) {
 		super(BotaniaEntities.MANA_BURST, player, player.level());
 
@@ -598,7 +600,7 @@ public class ManaBurstEntity extends ThrowableProjectile implements ManaBurst {
 		}
 
 		if (receiver instanceof ManaCollector collector) {
-			mana *= collector.getManaYieldMultiplier(this);
+			mana = (int)(mana * collector.getManaYieldMultiplier(this));
 		}
 
 		if (mana > 0) {

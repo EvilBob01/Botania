@@ -23,10 +23,12 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
+@SuppressWarnings("this-escape")
 public abstract class SimpleInventoryBlockEntity extends BotaniaBlockEntity implements Clearable {
 
 	private final SimpleContainer itemHandler = createItemHandler();
 
+	@SuppressWarnings("this-escape")
 	protected SimpleInventoryBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
 		super(type, pos, state);
 		itemHandler.addListener(i -> setChanged());

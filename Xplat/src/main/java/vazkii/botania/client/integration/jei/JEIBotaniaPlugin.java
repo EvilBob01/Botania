@@ -79,6 +79,7 @@ import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 public class JEIBotaniaPlugin implements IModPlugin {
 	private static final ResourceLocation ID = prefix("main");
 
+	@SuppressWarnings("removal")
 	@Override
 	public void registerItemSubtypes(@NotNull ISubtypeRegistration registry) {
 		IIngredientSubtypeInterpreter<ItemStack> interpreter = (stack, ctx) -> BaseBrewItem.getSubtype(stack);

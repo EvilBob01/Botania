@@ -82,6 +82,7 @@ public class PetalApothecaryBlock extends BotaniaBlock implements EntityBlock {
 
 	public final Variant variant;
 
+	@SuppressWarnings("this-escape")
 	protected PetalApothecaryBlock(Variant v, BlockBehaviour.Properties builder) {
 		super(builder);
 		this.variant = v;

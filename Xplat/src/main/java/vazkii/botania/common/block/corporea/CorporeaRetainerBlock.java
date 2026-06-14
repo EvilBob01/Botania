@@ -27,6 +27,7 @@ import vazkii.botania.common.block.block_entity.corporea.CorporeaRetainerBlockEn
 
 public class CorporeaRetainerBlock extends BotaniaBlock implements EntityBlock {
 
+	@SuppressWarnings("this-escape")
 	public CorporeaRetainerBlock(BlockBehaviour.Properties builder) {
 		super(builder);
 		registerDefaultState(defaultBlockState().setValue(BlockStateProperties.POWERED, false));

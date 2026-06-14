@@ -79,6 +79,7 @@ public class ManaPoolBlock extends BotaniaWaterloggedBlock implements EntityBloc
 
 	public final Variant variant;
 
+	@SuppressWarnings("this-escape")
 	public ManaPoolBlock(Variant v, Properties builder) {
 		super(builder);
 		this.variant = v;

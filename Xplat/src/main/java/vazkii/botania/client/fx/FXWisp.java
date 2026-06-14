@@ -33,6 +33,7 @@ public class FXWisp extends TextureSheetParticle {
 	private final float moteParticleScale;
 	private final int moteHalfLife;
 
+	@SuppressWarnings("this-escape")
 	public FXWisp(ClientLevel world, double d, double d1, double d2, double xSpeed, double ySpeed, double zSpeed,
 			float size, float red, float green, float blue, boolean depthTest, float maxAgeMul, boolean noClip, float g) {
 		super(world, d, d1, d2);

@@ -26,6 +26,7 @@ public class ItemBackedInventory extends SimpleContainer {
 	private static final String TAG_ITEMS = "Items";
 	private final ItemStack stack;
 
+	@SuppressWarnings("this-escape")
 	public ItemBackedInventory(ItemStack stack, int expectedSize) {
 		super(expectedSize);
 		this.stack = stack;

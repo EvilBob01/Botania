@@ -73,6 +73,7 @@ public class TerrestrialAgglomerationRecipeCategory implements IRecipeCategory<T
 		return localizedName;
 	}
 
+	@SuppressWarnings("removal")
 	@NotNull
 	@Override
 	public IDrawable getBackground() {
