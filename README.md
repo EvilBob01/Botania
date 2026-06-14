@@ -1,6 +1,9 @@
 ![](web/assets/img/logo.png)  
 Welcome to the Botania repository.  
 
+> ⚠️ **This is an unofficial community port** by [EvilBob01](https://github.com/EvilBob01), porting Botania to **NeoForge 1.21.1**.
+> The original mod is by [Vazkii](https://github.com/VazkiiMods/Botania). This port is **alpha quality** — use at your own risk.
+
 Botania is a [Minecraft](https://minecraft.net/) tech mod themed around natural magic. It's inspired by other magic mods, such as [Thaumcraft](https://www.curseforge.com/minecraft/mc-mods/thaumcraft) or [Blood Magic](https://www.curseforge.com/minecraft/mc-mods/blood-magic).  
 
 Botania is licensed under the [Botania License](http://botaniamod.net/license.php)
@@ -12,10 +15,10 @@ For information on contributing, please read `CONTRIBUTING.md`.
 | Minecraft Version | Fabric | NeoForge | Forge |
 |---|---|---|---|
 | 1.20.1 | ✅ Released | ✅ Released | ✅ Released |
-| 1.21.1 | 🚧 Planned | 🚧 In Progress | ❌ Not planned |
+| 1.21.1 | 🚧 Planned | ⚠️ Alpha (this fork) | ❌ Not planned |
 
-> **Note:** The 1.21.1 NeoForge port is actively being developed on the `neoforge-1.21.1` branch.
-> It is not yet in a releasable state. Forge support is not planned for 1.21+.
+> **Note:** The 1.21.1 NeoForge port in this fork compiles and loads but has not been fully gameplay-tested.
+> Forge support is not planned for 1.21+. For the official upstream port status, see [VazkiiMods/Botania](https://github.com/VazkiiMods/Botania).
 
 ## Maven info
 
