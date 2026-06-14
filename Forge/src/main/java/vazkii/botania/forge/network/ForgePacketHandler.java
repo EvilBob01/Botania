@@ -1,6 +1,9 @@
 package vazkii.botania.forge.network;
 
 import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.common.ClientboundCustomPayloadPacket;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
@@ -101,6 +104,15 @@ public class ForgePacketHandler {
 		return (payload, ctx) -> consumer.accept(payload.packet());
 	}
 
+	public static <T extends BotaniaPacket> void sendToServer(T packet) {
+		PacketDistributor.sendToServer(makeSendable(packet));
+	}
+
+	@SuppressWarnings("unchecked")
+	public static <T extends BotaniaPacket> Packet<ClientGamePacketListener> toVanillaPacket(T packet) {
+		return (Packet<ClientGamePacketListener>) (Object) new ClientboundCustomPayloadPacket(makeSendable(packet));
+	}
+
 	public static <T extends BotaniaPacket> void sendToPlayer(ServerPlayer player, T packet) {
 		PacketDistributor.sendToPlayer(player, makeSendable(packet));
 	}
@@ -127,7 +139,7 @@ public class ForgePacketHandler {
 	public record BotaniaPayload<T extends BotaniaPacket>(CustomPacketPayload.Type<BotaniaPayload<T>> type, T packet)
 			implements CustomPacketPayload {
 		@Override
-		public CustomPacketPayload.Type<? extends CustomPacketPayload> type() {
+		public CustomPacketPayload.Type<BotaniaPayload<T>> type() {
 			return type;
 		}
 	}

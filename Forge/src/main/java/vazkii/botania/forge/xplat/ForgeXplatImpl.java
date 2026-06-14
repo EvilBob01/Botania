@@ -4,6 +4,9 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.resources.ResourceLocation;
@@ -55,6 +58,7 @@ import net.neoforged.api.distmarker.Dist;
 import net.neoforged.neoforge.client.event.RegisterClientReloadListenersEvent;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.common.CommonHooks;
+import net.neoforged.neoforge.event.EventHooks;
 import net.neoforged.neoforge.common.ItemAbility;
 import net.neoforged.neoforge.common.NeoForgeMod;
 import net.neoforged.neoforge.common.NeoForge;
@@ -388,12 +392,12 @@ public class ForgeXplatImpl implements XplatAbstractions {
 
 	@Override
 	public boolean fireCorporeaRequestEvent(CorporeaRequestMatcher matcher, int itemCount, CorporeaSpark spark, boolean dryRun) {
-		return NeoForge.EVENT_BUS.post(new CorporeaRequestEvent(matcher, itemCount, spark, dryRun));
+		return NeoForge.EVENT_BUS.post(new CorporeaRequestEvent(matcher, itemCount, spark, dryRun)).isCanceled();
 	}
 
 	@Override
 	public boolean fireCorporeaIndexRequestEvent(ServerPlayer player, CorporeaRequestMatcher request, int count, CorporeaSpark spark) {
-		return NeoForge.EVENT_BUS.post(new CorporeaIndexRequestEvent(player, request, count, spark));
+		return NeoForge.EVENT_BUS.post(new CorporeaIndexRequestEvent(player, request, count, spark)).isCanceled();
 	}
 
 	@Override
@@ -509,17 +513,17 @@ public class ForgeXplatImpl implements XplatAbstractions {
 
 	@Override
 	public void openMenu(ServerPlayer player, MenuProvider menu, Consumer<FriendlyByteBuf> writeInitialData) {
-		player.openMenu(menu, writeInitialData);
+		player.openMenu(menu, (RegistryFriendlyByteBuf buf) -> writeInitialData.accept(buf));
 	}
 
 	@Override
 	public Holder<Attribute> getReachDistanceAttribute() {
-		return NeoForgeMod.BLOCK_REACH;
+		return Attributes.BLOCK_INTERACTION_RANGE;
 	}
 
 	@Override
 	public Holder<Attribute> getStepHeightAttribute() {
-		return NeoForgeMod.STEP_HEIGHT_ADDITION;
+		return Attributes.STEP_HEIGHT;
 	}
 
 	@Override
@@ -529,7 +533,7 @@ public class ForgeXplatImpl implements XplatAbstractions {
 
 	@Override
 	public boolean isInGlassTag(BlockState state) {
-		return state.is(Tags.Blocks.GLASS) || state.is(Tags.Blocks.GLASS_PANES);
+		return state.is(Tags.Blocks.GLASS_BLOCKS) || state.is(Tags.Blocks.GLASS_PANES);
 	}
 
 	@Override
@@ -539,12 +543,12 @@ public class ForgeXplatImpl implements XplatAbstractions {
 
 	@Override
 	public Fluid getBucketFluid(BucketItem item) {
-		return item.getFluid();
+		return item.content;
 	}
 
 	@Override
 	public int getSmeltingBurnTime(ItemStack stack) {
-		return CommonHooks.getBurnTime(stack, RecipeType.SMELTING);
+		return EventHooks.getItemBurnTime(stack, AbstractFurnaceBlockEntity.getFuel().getOrDefault(stack.getItem(), 0), RecipeType.SMELTING);
 	}
 
 	@Override
@@ -616,7 +620,7 @@ public class ForgeXplatImpl implements XplatAbstractions {
 
 	@Override
 	public BlockSetType registerBlockSetType(String name, boolean canOpenByHand, SoundType soundType, SoundEvent doorClose, SoundEvent doorOpen, SoundEvent trapdoorClose, SoundEvent trapdoorOpen, SoundEvent pressurePlateClickOff, SoundEvent pressurePlateClickOn, SoundEvent buttonClickOff, SoundEvent buttonClickOn) {
-		return BlockSetType.register(new BlockSetType("botania:" + name, canOpenByHand, soundType, doorClose, doorOpen, trapdoorClose, trapdoorOpen, pressurePlateClickOff, pressurePlateClickOn, buttonClickOff, buttonClickOn));
+		return BlockSetType.register(new BlockSetType("botania:" + name, canOpenByHand, true, true, BlockSetType.PressurePlateSensitivity.EVERYTHING, soundType, doorClose, doorOpen, trapdoorClose, trapdoorOpen, pressurePlateClickOff, pressurePlateClickOn, buttonClickOff, buttonClickOn));
 	}
 
 	@Override

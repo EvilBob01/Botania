@@ -25,7 +25,6 @@ import org.jetbrains.annotations.Nullable;
 import vazkii.botania.api.BotaniaForgeClientCapabilities;
 import vazkii.botania.api.block.WandHUD;
 import vazkii.botania.api.item.TinyPotatoRenderEvent;
-import vazkii.botania.forge.CapabilityUtil;
 import vazkii.botania.forge.integration.rubidium.RubidiumHelper;
 import vazkii.botania.forge.network.ForgePacketHandler;
 import vazkii.botania.network.BotaniaPacket;
@@ -40,19 +39,19 @@ public class ForgeClientXplatImpl implements ClientXplatAbstractions {
 
 	@Override
 	public void sendToServer(BotaniaPacket packet) {
-		ForgePacketHandler.CHANNEL.sendToServer(packet);
+		ForgePacketHandler.sendToServer(packet);
 	}
 
 	@Nullable
 	@Override
 	public WandHUD findWandHud(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity be) {
-		return CapabilityUtil.findCapability(BotaniaForgeClientCapabilities.WAND_HUD, level, pos, state, be);
+		return level.getCapability(BotaniaForgeClientCapabilities.WAND_HUD, pos, state, be, null);
 	}
 
 	@Nullable
 	@Override
 	public WandHUD findWandHud(Entity entity) {
-		return entity.getCapability(BotaniaForgeClientCapabilities.WAND_HUD).orElse(null);
+		return entity.getCapability(BotaniaForgeClientCapabilities.WAND_HUD_ENTITY, null);
 	}
 
 	@Override
