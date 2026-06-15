@@ -19,6 +19,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.client.fx.WispParticleData;
+import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
 import vazkii.botania.common.component.BotaniaDataComponents;
 import vazkii.botania.common.lib.BotaniaTags;
@@ -41,7 +42,9 @@ public class HydroangeasBlockEntity extends FluidGeneratorBlockEntity {
 		if (getLevel().isClientSide()) {
 			return;
 		}
-		if (++passiveDecayTicks > DECAY_TIME) {
+		if (getLevel().getBlockState(getBlockPos().below()).is(BotaniaBlocks.enchantedSoil)) {
+			passiveDecayTicks = 0;
+		} else if (++passiveDecayTicks > DECAY_TIME) {
 			getLevel().destroyBlock(getBlockPos(), false);
 			if (Blocks.DEAD_BUSH.defaultBlockState().canSurvive(getLevel(), getBlockPos())) {
 				getLevel().setBlockAndUpdate(getBlockPos(), Blocks.DEAD_BUSH.defaultBlockState());

@@ -304,6 +304,16 @@ public final class BotaniaBlocks {
 	public static final Block manastarFloating = make(floating(LibBlockNames.SUBTILE_MANASTAR), new FloatingManastarBlock(FLOATING_PROPS, () -> BotaniaBlockEntities.MANASTAR));
 	public static final Block manastarPotted = make(potted(LibBlockNames.SUBTILE_MANASTAR), BotaniaBlocks.flowerPot(manastar, 0));
 
+	public static final Block enchantedSoil = make(LibBlockNames.ENCHANTED_SOIL, new EnchantedSoilBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.GRASS_BLOCK)));
+
+	public static final Block daybloom = make(LibBlockNames.SUBTILE_DAYBLOOM, new SlowGeneratingFlowerBlock(MobEffects.SATURATION, 10, FLOWER_PROPS, () -> BotaniaBlockEntities.DAYBLOOM));
+	public static final Block daybloomFloating = make(floating(LibBlockNames.SUBTILE_DAYBLOOM), new FloatingSlowGeneratingFlowerBlock(FLOATING_PROPS, () -> BotaniaBlockEntities.DAYBLOOM));
+	public static final Block daybloomPotted = make(potted(LibBlockNames.SUBTILE_DAYBLOOM), BotaniaBlocks.flowerPot(daybloom, 0));
+
+	public static final Block nightshade = make(LibBlockNames.SUBTILE_NIGHTSHADE, new SlowGeneratingFlowerBlock(MobEffects.NIGHT_VISION, 10, FLOWER_PROPS, () -> BotaniaBlockEntities.NIGHTSHADE));
+	public static final Block nightshadeFloating = make(floating(LibBlockNames.SUBTILE_NIGHTSHADE), new FloatingSlowGeneratingFlowerBlock(FLOATING_PROPS, () -> BotaniaBlockEntities.NIGHTSHADE));
+	public static final Block nightshadePotted = make(potted(LibBlockNames.SUBTILE_NIGHTSHADE), BotaniaBlocks.flowerPot(nightshade, 0));
+
 	public static final Block hydroangeas = make(LibBlockNames.SUBTILE_HYDROANGEAS, new SlowGeneratingFlowerWithCooldownBlock(MobEffects.UNLUCK, 10, FLOWER_PROPS, () -> BotaniaBlockEntities.HYDROANGEAS));
 	public static final Block hydroangeasFloating = make(floating(LibBlockNames.SUBTILE_HYDROANGEAS), new FloatingSlowGeneratingFlowerWithCooldownBlock(FLOATING_PROPS, () -> BotaniaBlockEntities.HYDROANGEAS));
 	public static final Block hydroangeasPotted = make(potted(LibBlockNames.SUBTILE_HYDROANGEAS), BotaniaBlocks.flowerPot(hydroangeas, 0));
@@ -1102,6 +1112,11 @@ public final class BotaniaBlocks {
 
 		r.accept(new SpecialFlowerBlockItem(manastar, props), BuiltInRegistries.BLOCK.getKey(manastar));
 		r.accept(new SpecialFlowerBlockItem(manastarFloating, props), BuiltInRegistries.BLOCK.getKey(manastarFloating));
+
+		r.accept(new SpecialFlowerBlockItem(daybloom, props), BuiltInRegistries.BLOCK.getKey(daybloom));
+		r.accept(new SpecialFlowerBlockItem(daybloomFloating, props), BuiltInRegistries.BLOCK.getKey(daybloomFloating));
+		r.accept(new SpecialFlowerBlockItem(nightshade, props), BuiltInRegistries.BLOCK.getKey(nightshade));
+		r.accept(new SpecialFlowerBlockItem(nightshadeFloating, props), BuiltInRegistries.BLOCK.getKey(nightshadeFloating));
 
 		r.accept(new DecayableSpecialFlowerBlockItem(hydroangeas, HydroangeasBlockEntity.DECAY_TIME, props), BuiltInRegistries.BLOCK.getKey(hydroangeas));
 		r.accept(new DecayableSpecialFlowerBlockItem(hydroangeasFloating, HydroangeasBlockEntity.DECAY_TIME, props), BuiltInRegistries.BLOCK.getKey(hydroangeasFloating));

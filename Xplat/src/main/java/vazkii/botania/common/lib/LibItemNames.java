@@ -146,6 +146,7 @@ public final class LibItemNames {
 	public static final String COBBLE_ROD = "cobble_rod";
 	public static final String SMELT_ROD = "smelt_rod";
 	public static final String WORLD_SEED = "world_seed";
+	public static final String OVERGROWTH_SEED = "overgrowth_seed";
 	public static final String SPELL_CLOTH = "spell_cloth";
 	public static final String THORN_CHAKRAM = "thorn_chakram";
 	public static final String FLARE_CHAKRAM = "flare_chakram";

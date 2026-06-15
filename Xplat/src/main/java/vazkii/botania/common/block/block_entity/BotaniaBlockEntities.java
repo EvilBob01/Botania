@@ -98,6 +98,8 @@ public class BotaniaBlockEntities {
 
 	public static final BlockEntityType<PureDaisyBlockEntity> PURE_DAISY = type(getId(pureDaisy), PureDaisyBlockEntity::new, pureDaisy, pureDaisyFloating);
 	public static final BlockEntityType<ManastarBlockEntity> MANASTAR = type(getId(manastar), ManastarBlockEntity::new, manastar, manastarFloating);
+	public static final BlockEntityType<DaybloomBlockEntity> DAYBLOOM = type(getId(daybloom), DaybloomBlockEntity::new, daybloom, daybloomFloating);
+	public static final BlockEntityType<NightshadeBlockEntity> NIGHTSHADE = type(getId(nightshade), NightshadeBlockEntity::new, nightshade, nightshadeFloating);
 	public static final BlockEntityType<HydroangeasBlockEntity> HYDROANGEAS = type(getId(hydroangeas), HydroangeasBlockEntity::new, hydroangeas, hydroangeasFloating);
 	public static final BlockEntityType<EndoflameBlockEntity> ENDOFLAME = type(getId(endoflame), EndoflameBlockEntity::new, endoflame, endoflameFloating);
 	public static final BlockEntityType<ThermalilyBlockEntity> THERMALILY = type(getId(thermalily), ThermalilyBlockEntity::new, thermalily, thermalilyFloating);

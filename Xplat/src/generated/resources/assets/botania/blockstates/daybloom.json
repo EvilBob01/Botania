@@ -1,0 +1,6 @@
+{
+  "variants": {
+    "generating=false": { "model": "botania:block/daybloom" },
+    "generating=true": { "model": "botania:block/daybloom" }
+  }
+}

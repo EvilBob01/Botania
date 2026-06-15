@@ -175,6 +175,9 @@ public final class LibBlockNames {
 	public static final String SUBTILE_PUREDAISY = "pure_daisy";
 	public static final String SUBTILE_MANASTAR = "manastar";
 
+	public static final String ENCHANTED_SOIL = "enchanted_soil";
+	public static final String SUBTILE_DAYBLOOM = "daybloom";
+	public static final String SUBTILE_NIGHTSHADE = "nightshade";
 	public static final String SUBTILE_ENDOFLAME = "endoflame";
 	public static final String SUBTILE_HYDROANGEAS = "hydroangeas";
 	public static final String SUBTILE_THERMALILY = "thermalily";
