@@ -3,6 +3,37 @@ Welcome to the Botania repository.
 
 > ⚠️ **This is an unofficial community fork** by [EvilBob01](https://github.com/EvilBob01), tracking the upstream [VazkiiMods/Botania](https://github.com/VazkiiMods/Botania) NeoForge 1.21.1 porting branch. The `neoforge-1.21.1` branch here mirrors upstream's port with any additional fixes on top. Alpha quality — use at your own risk.
 
+## Custom Changes (EvilBob01 fork)
+
+The following features have been added on top of the upstream port:
+
+### Enchanted Soil
+A special grass-like block that prevents Hydroangeas placed on top of it from decaying.
+The vanilla Hydroangeas has a passive decay timer that destroys the flower after ~1 hour of real time;
+planting it on Enchanted Soil resets that timer every tick, keeping the flower alive indefinitely.
+
+### Overgrowth Seed
+A new craftable item. **Recipe:** fill a 3×3 crafting grid with wheat seeds (9 total).
+**Use:** right-click any grass block to convert it into Enchanted Soil. The seed is consumed on use.
+
+### Daybloom (re-added)
+A generating flower that produces mana **only during daylight hours**.
+- Generates 1 mana every 20 ticks while the sun is up.
+- Maximum mana pool: 300.
+- Glows/animates when actively generating (GENERATING blockstate = true during day).
+- Does **not** decay over time.
+
+### Nightshade (re-added)
+A generating flower that produces mana **only at night**.
+- Generates 1 mana every 20 ticks while it is night.
+- Maximum mana pool: 300.
+- Glows/animates when actively generating (GENERATING blockstate = true at night).
+- Does **not** decay over time.
+
+> Both flowers produce the smallest mana output of any generating flower in the mod, intentionally making them starter-tier options.
+
+---
+
 Botania is a [Minecraft](https://minecraft.net/) tech mod themed around natural magic. It's inspired by other magic mods, such as [Thaumcraft](https://www.curseforge.com/minecraft/mc-mods/thaumcraft) or [Blood Magic](https://www.curseforge.com/minecraft/mc-mods/blood-magic).  
 
 Botania is licensed under the [Botania License](http://botaniamod.net/license.php)
