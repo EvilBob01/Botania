@@ -1,7 +1,11 @@
 package vazkii.botania.common.block.block_entity.flower.generating;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.component.DataComponentMap;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 
 import org.jetbrains.annotations.Nullable;
@@ -9,9 +13,14 @@ import org.jetbrains.annotations.Nullable;
 import vazkii.botania.api.block_entity.GeneratingFlowerBlockEntity;
 import vazkii.botania.api.block_entity.RadiusDescriptor;
 import vazkii.botania.api.state.BotaniaStateProperties;
+import vazkii.botania.common.block.BotaniaBlocks;
 import vazkii.botania.common.block.block_entity.BotaniaBlockEntities;
+import vazkii.botania.common.component.BotaniaDataComponents;
 
 public class DaybloomBlockEntity extends GeneratingFlowerBlockEntity {
+	private static final String TAG_PASSIVE_DECAY_TICKS = "passiveDecayTicks";
+	private int passiveDecayTicks;
+
 	public DaybloomBlockEntity(BlockPos pos, BlockState state) {
 		super(BotaniaBlockEntities.DAYBLOOM, pos, state);
 	}
@@ -20,6 +29,16 @@ public class DaybloomBlockEntity extends GeneratingFlowerBlockEntity {
 	public void tickFlower() {
 		super.tickFlower();
 		if (getLevel().isClientSide()) {
+			return;
+		}
+
+		if (getLevel().getBlockState(getBlockPos().below()).is(BotaniaBlocks.ENCHANTED_SOIL)) {
+			passiveDecayTicks = 0;
+		} else if (++passiveDecayTicks > HydroangeasBlockEntity.DECAY_TIME) {
+			getLevel().destroyBlock(getBlockPos(), false);
+			if (Blocks.DEAD_BUSH.defaultBlockState().canSurvive(getLevel(), getBlockPos())) {
+				getLevel().setBlockAndUpdate(getBlockPos(), Blocks.DEAD_BUSH.defaultBlockState());
+			}
 			return;
 		}
 
@@ -34,6 +53,32 @@ public class DaybloomBlockEntity extends GeneratingFlowerBlockEntity {
 		if (isDay && shouldUpdateThisTick() && getMana() < getMaxMana()) {
 			addMana(1);
 		}
+	}
+
+	@Override
+	public void loadAdditional(CompoundTag cmp, HolderLookup.Provider registries) {
+		super.loadAdditional(cmp, registries);
+		passiveDecayTicks = cmp.getInt(TAG_PASSIVE_DECAY_TICKS);
+	}
+
+	@Override
+	public void saveAdditional(CompoundTag cmp, HolderLookup.Provider registries) {
+		super.saveAdditional(cmp, registries);
+		cmp.putInt(TAG_PASSIVE_DECAY_TICKS, passiveDecayTicks);
+	}
+
+	@Override
+	protected void collectImplicitComponents(DataComponentMap.Builder components) {
+		super.collectImplicitComponents(components);
+		if (passiveDecayTicks > 0) {
+			components.set(BotaniaDataComponents.DECAY_TICKS, passiveDecayTicks);
+		}
+	}
+
+	@Override
+	protected void applyImplicitComponents(DataComponentInput componentInput) {
+		super.applyImplicitComponents(componentInput);
+		passiveDecayTicks = componentInput.getOrDefault(BotaniaDataComponents.DECAY_TICKS, 0);
 	}
 
 	@Override
