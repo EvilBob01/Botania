@@ -2836,6 +2836,7 @@ public final class BotaniaBlocks {
 		r.accept(new BlockItem(SCORCHED_GRASS_BLOCK, props), BuiltInRegistries.BLOCK.getKey(SCORCHED_GRASS_BLOCK));
 		r.accept(new BlockItem(INFUSED_GRASS_BLOCK, props), BuiltInRegistries.BLOCK.getKey(INFUSED_GRASS_BLOCK));
 		r.accept(new BlockItem(MUTATED_GRASS_BLOCK, props), BuiltInRegistries.BLOCK.getKey(MUTATED_GRASS_BLOCK));
+		r.accept(new BlockItem(ENCHANTED_SOIL, props), BuiltInRegistries.BLOCK.getKey(ENCHANTED_SOIL));
 		r.accept(new BlockItem(DAYBLOOM_MOTIF, props), BuiltInRegistries.BLOCK.getKey(DAYBLOOM_MOTIF));
 		r.accept(new BlockItem(NIGHTSHADE_MOTIF, props), BuiltInRegistries.BLOCK.getKey(NIGHTSHADE_MOTIF));
 		r.accept(new BlockItem(HYDROANGEAS_MOTIF, props), BuiltInRegistries.BLOCK.getKey(HYDROANGEAS_MOTIF));

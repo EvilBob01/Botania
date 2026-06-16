@@ -790,6 +790,13 @@ public class CraftingRecipeProvider extends FabricRecipeProvider {
 				.pattern("D")
 				.unlockedBy("has_item", conditionsFromTag(ConventionalBotaniaTags.Items.DRAGONSTONE_GEMS))
 				.save(recipeOutput);
+		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, BotaniaItems.OVERGROWTH_SEED)
+				.define('S', Items.WHEAT_SEEDS)
+				.pattern("SSS")
+				.pattern("SSS")
+				.pattern("SSS")
+				.unlockedBy("has_item", conditionsFromItem(Items.WHEAT_SEEDS))
+				.save(recipeOutput);
 		ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, BotaniaItems.THORN_CHAKRAM, 2)
 				.define('T', ConventionalBotaniaTags.Items.TERRASTEEL_INGOTS)
 				.define('V', Items.VINE)

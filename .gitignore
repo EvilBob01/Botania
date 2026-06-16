@@ -73,5 +73,5 @@ Temporary Items
 *.log
 
 # Generated stubs / decompiled sources
-data/
-net/
+/data/
+/net/

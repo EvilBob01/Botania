@@ -1,6 +1,7 @@
 {
   "variants": {
-    "generating=false": { "model": "botania:block/nightshade" },
-    "generating=true": { "model": "botania:block/nightshade" }
+    "": {
+      "model": "botania:block/nightshade"
+    }
   }
 }

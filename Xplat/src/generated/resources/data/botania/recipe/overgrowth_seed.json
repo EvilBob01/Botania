@@ -1,16 +1,18 @@
 {
   "type": "minecraft:crafting_shaped",
   "category": "misc",
+  "key": {
+    "S": {
+      "item": "minecraft:wheat_seeds"
+    }
+  },
   "pattern": [
     "SSS",
     "SSS",
     "SSS"
   ],
-  "key": {
-    "S": { "item": "minecraft:wheat_seeds" }
-  },
   "result": {
-    "id": "botania:overgrowth_seed",
-    "count": 1
+    "count": 1,
+    "id": "botania:overgrowth_seed"
   }
 }

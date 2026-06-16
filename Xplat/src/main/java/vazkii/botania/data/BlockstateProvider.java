@@ -650,6 +650,16 @@ public class BlockstateProvider implements DataProvider {
 			));
 		});
 
+		var enchantedSoilModel = ModelTemplates.CUBE_BOTTOM_TOP.create(
+				BotaniaBlocks.ENCHANTED_SOIL, new TextureMapping()
+						.put(TextureSlot.SIDE, botaniaRL("block/infused_grass_side"))
+						.put(TextureSlot.BOTTOM, getBlockTexture(Blocks.DIRT))
+						.put(TextureSlot.TOP, botaniaRL("block/infused_grass_top")),
+				this.modelOutput);
+		this.blockstates.add(MultiVariantGenerator.multiVariant(BotaniaBlocks.ENCHANTED_SOIL,
+				BlockModelGeneratorsAccessor.botania_createRotatedVariants(enchantedSoilModel)));
+		remainingBlocks.remove(BotaniaBlocks.ENCHANTED_SOIL);
+
 		takeAll(remainingBlocks, block -> block instanceof BotaniaGrassBlock).forEach(block -> {
 			var model = ModelTemplates.CUBE_BOTTOM_TOP.create(block, new TextureMapping()
 					.put(TextureSlot.SIDE, getBlockTexture(block, "_side"))
