@@ -1529,6 +1529,15 @@
   "block.botania.endoflame.reference": "Réactivité endothermique",
 
   "block.botania.floating_endoflame": "Endoflamme flottante",
+
+
+
+
+
+
+
+
+
   "block.botania.hydroangeas": "Hydroangelle",
   "block.botania.hydroangeas.reference": "Bonjour les gentils poissons",
 
@@ -1947,6 +1956,7 @@
   "item.botania.cobble_rod": "Bâton des pierres",
   "item.botania.smelt_rod": "Bâton des fontes",
   "item.botania.world_seed": "Graine du monde",
+
   "item.botania.spell_cloth": "Tissu purifiant",
   "item.botania.thorn_chakram": "Chakram épineux",
   "item.botania.flare_chakram": "Chakram ardent",

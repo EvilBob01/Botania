@@ -1529,6 +1529,15 @@
   "block.botania.endoflame.reference": "吸熱反應",
   "block.botania.potted_endoflame": "火紅蓮盆栽",
   "block.botania.floating_endoflame": "浮空火紅蓮",
+
+
+
+
+
+
+
+
+
   "block.botania.hydroangeas": "水繡球",
   "block.botania.hydroangeas.reference": "只有些友好的甲殼動物",
   "block.botania.potted_hydroangeas": "水繡球盆栽",
@@ -1947,6 +1956,7 @@
   "item.botania.cobble_rod": "深淵法杖",
   "item.botania.smelt_rod": "熾心法杖",
   "item.botania.world_seed": "世界之種",
+
   "item.botania.spell_cloth": "封印之布",
   "item.botania.thorn_chakram": "尖刺飛輪",
   "item.botania.flare_chakram": "閃耀飛輪",

@@ -1529,6 +1529,15 @@
   "block.botania.endoflame.reference": "Endotermicamente reativa",
   "block.botania.potted_endoflame": "Endochama Envasada",
   "block.botania.floating_endoflame": "Endochama Flutuante",
+
+
+
+
+
+
+
+
+
   "block.botania.hydroangeas": "Hidrortênsia",
   "block.botania.hydroangeas.reference": "Apenas crustáceos amigáveis",
   "block.botania.potted_hydroangeas": "Hidrortênsia Envasada",
@@ -1947,6 +1956,7 @@
   "item.botania.cobble_rod": "Cajado das Profundezas",
   "item.botania.smelt_rod": "Cajado da Fusão Ígnea",
   "item.botania.world_seed": "Semente Mundial",
+
   "item.botania.spell_cloth": "Tecido Encantador",
   "item.botania.thorn_chakram": "Chakram de Espinhos",
   "item.botania.flare_chakram": "Chakram Flamejante",

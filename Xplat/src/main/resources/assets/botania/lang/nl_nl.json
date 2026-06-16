@@ -1529,6 +1529,15 @@
   "block.botania.endoflame.reference": "Een endotherme reactie",
 
 
+
+
+
+
+
+
+
+
+
   "block.botania.hydroangeas": "Hydroangea",
   "block.botania.hydroangeas.reference": "Gewoon vriendelijke schaaldieren",
 
@@ -1947,6 +1956,7 @@
   "item.botania.cobble_rod": "Staf van de Diepte",
   "item.botania.smelt_rod": "Staf van de Gesmolten Kern",
   "item.botania.world_seed": "Wereldzaad",
+
   "item.botania.spell_cloth": "Betoveringsdoek",
   "item.botania.thorn_chakram": "Doorn van Chakram",
   "item.botania.flare_chakram": "Vlam van Chakram",

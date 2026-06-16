@@ -1529,6 +1529,15 @@
   "block.botania.endoflame.reference": "吸熱反応性",
 
   "block.botania.floating_endoflame": "浮遊するエンドフレイム",
+
+
+
+
+
+
+
+
+
   "block.botania.hydroangeas": "ハイドロエンゲス",
   "block.botania.hydroangeas.reference": "人懐っこい魚たち",
 
@@ -1947,6 +1956,7 @@
   "item.botania.cobble_rod": "深淵の杖",
   "item.botania.smelt_rod": "融解核の杖",
   "item.botania.world_seed": "世界の種",
+
   "item.botania.spell_cloth": "呪文が織り込まれた布",
   "item.botania.thorn_chakram": "棘のチャクラム",
   "item.botania.flare_chakram": "炎のチャクラム",

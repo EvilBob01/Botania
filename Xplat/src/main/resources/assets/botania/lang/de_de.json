@@ -1529,6 +1529,15 @@
   "block.botania.endoflame.reference": "Eine endotherme Reaktion",
   "block.botania.potted_endoflame": "Eingetopfte Endoflamme",
   "block.botania.floating_endoflame": "Schwebende Endoflamme",
+
+
+
+
+
+
+
+
+
   "block.botania.hydroangeas": "Hydroangea",
   "block.botania.hydroangeas.reference": "Vorsicht: Nass",
   "block.botania.potted_hydroangeas": "Eingetopfte Hydroangea",
@@ -1947,6 +1956,7 @@
   "item.botania.cobble_rod": "Rute der Tiefen",
   "item.botania.smelt_rod": "Rute des geschmolzenen Kerns",
   "item.botania.world_seed": "Weltsamen",
+
   "item.botania.spell_cloth": "Zauberbindendes Tuch",
   "item.botania.thorn_chakram": "Dornenchakram",
   "item.botania.flare_chakram": "Loderchakram",

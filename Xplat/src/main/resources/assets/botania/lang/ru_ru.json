@@ -1529,6 +1529,15 @@
   "block.botania.endoflame.reference": "Эндотермически реактивный",
   "block.botania.potted_endoflame": "Эндопламя в горшке",
   "block.botania.floating_endoflame": "Парящее эндопламя",
+
+
+
+
+
+
+
+
+
   "block.botania.hydroangeas": "Водогортензия",
   "block.botania.hydroangeas.reference": "Мана, мана, МАНА!",
   "block.botania.potted_hydroangeas": "Водогортензия в горшке",
@@ -1947,6 +1956,7 @@
   "item.botania.cobble_rod": "Скипетр глубин",
   "item.botania.smelt_rod": "Скипетр огненных недр",
   "item.botania.world_seed": "Семя мира",
+
   "item.botania.spell_cloth": "Ткань снятия чар",
   "item.botania.thorn_chakram": "Шипастый чакрам",
   "item.botania.flare_chakram": "Пылающий чакрам",

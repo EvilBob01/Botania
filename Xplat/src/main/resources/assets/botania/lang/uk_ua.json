@@ -1529,6 +1529,15 @@
   "block.botania.endoflame.reference": "Ендотермічно реактивний",
 
   "block.botania.floating_endoflame": "Плавуча Жаржина",
+
+
+
+
+
+
+
+
+
   "block.botania.hydroangeas": "Гідрогортензія",
   "block.botania.hydroangeas.reference": "Просто дружні ракоподібні",
 
@@ -1947,6 +1956,7 @@
   "item.botania.cobble_rod": "Жезл глибин",
   "item.botania.smelt_rod": "Жезл розплавленого ядра",
   "item.botania.world_seed": "Світове насіння",
+
   "item.botania.spell_cloth": "Чарівна тканина",
   "item.botania.thorn_chakram": "Терновий чакрам",
   "item.botania.flare_chakram": "Палючий чакрам",

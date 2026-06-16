@@ -1530,6 +1530,15 @@
   "block.botania.potted_endoflame": "Saksıda Endoflame",
   "block.botania.floating_endoflame": "Yüzen Endoflame",
 
+
+
+
+
+
+
+
+
+
   "block.botania.hydroangeas.reference": "Sadece arkadaş canlısı kabuklular",
   "block.botania.potted_hydroangeas": "Saksıda Hydroangeas",
   "block.botania.floating_hydroangeas": "Yüzen Hydroangeas",
@@ -1947,6 +1956,7 @@
   "item.botania.cobble_rod": "Derinlikler Çubuğu",
   "item.botania.smelt_rod": "Erimiş Çekirdek Çubuğu",
   "item.botania.world_seed": "Dünya Tohumu",
+
   "item.botania.spell_cloth": "Büyüleyici Kumaş",
   "item.botania.thorn_chakram": "Diken Çakramı",
   "item.botania.flare_chakram": "Alev Çakramı",
