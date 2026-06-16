@@ -79,6 +79,7 @@ import net.neoforged.neoforge.registries.RegisterEvent;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.BotaniaForgeCapabilities;
 import vazkii.botania.api.BotaniaRegistries;
+import vazkii.botania.api.block.Avatar;
 import vazkii.botania.api.block.EdibleBlockWithEffects;
 import vazkii.botania.api.block.ExoflameHeatable;
 import vazkii.botania.api.block.HourglassTrigger;
@@ -156,6 +157,7 @@ import vazkii.patchouli.api.PatchouliAPI;
 
 import java.util.*;
 import java.util.function.BiConsumer;
+import java.util.function.BiFunction;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -195,9 +197,9 @@ public class ForgeCommonInitializer {
 		DefaultCorporeaMatchers.init();
 		PlayerHelper.setFakePlayerClass(FakePlayer.class);
 
-		PatchouliAPI.get().registerMultiblock(BuiltInRegistries.BLOCK.getKey(BotaniaBlocks.alfPortal), AlfheimPortalBlockEntity.MULTIBLOCK.get());
-		PatchouliAPI.get().registerMultiblock(BuiltInRegistries.BLOCK.getKey(BotaniaBlocks.terraPlate), TerrestrialAgglomerationPlateBlockEntity.MULTIBLOCK.get());
-		PatchouliAPI.get().registerMultiblock(BuiltInRegistries.BLOCK.getKey(BotaniaBlocks.enchanter), ManaEnchanterBlockEntity.MULTIBLOCK.get());
+		PatchouliAPI.get().registerMultiblock(BuiltInRegistries.BLOCK.getKey(BotaniaBlocks.ELVEN_GATEWAY_CORE), AlfheimPortalBlockEntity.MULTIBLOCK.get());
+		PatchouliAPI.get().registerMultiblock(BuiltInRegistries.BLOCK.getKey(BotaniaBlocks.TERRESTRIAL_AGGLOMERATION_PLATE), TerrestrialAgglomerationPlateBlockEntity.MULTIBLOCK.get());
+		PatchouliAPI.get().registerMultiblock(BuiltInRegistries.BLOCK.getKey(BotaniaBlocks.MANA_ENCHANTER), ManaEnchanterBlockEntity.MULTIBLOCK.get());
 		PatchouliAPI.get().registerMultiblock(botaniaRL("gaia_ritual"), GaiaGuardianEntity.ARENA_MULTIBLOCK.get());
 
 		OrechidManager.registerListener();
@@ -272,7 +274,7 @@ public class ForgeCommonInitializer {
 		bind(event, Registries.CREATIVE_MODE_TAB, consumer -> consumer.accept(
 				CreativeModeTab.builder()
 						.title(Component.translatable("itemGroup.botania").withStyle(style -> style.withColor(ChatFormatting.WHITE)))
-						.icon(() -> new ItemStack(BotaniaItems.lexicon))
+						.icon(() -> new ItemStack(BotaniaItems.LEXICA_BOTANIA))
 						.withTabsBefore(CreativeModeTabs.SPAWN_EGGS)
 						.backgroundTexture(botaniaRL("textures/gui/tab_botania.png"))
 						.withSearchBar()
@@ -316,7 +318,7 @@ public class ForgeCommonInitializer {
 
 		int blazeTime = 2400 * (XplatAbstractions.INSTANCE.gogLoaded() ? 5 : 10);
 		bus.addListener((FurnaceFuelBurnTimeEvent e) -> {
-			if (e.getItemStack().is(BotaniaBlocks.blazeBlock.asItem())) {
+			if (e.getItemStack().is(BotaniaBlocks.BLAZE_MESH.asItem())) {
 				e.setBurnTime(blazeTime);
 			}
 		});
@@ -330,7 +332,7 @@ public class ForgeCommonInitializer {
 				}
 			});
 		}
-		bus.addListener((PlayerInteractEvent.LeftClickBlock e) -> ((ShiftingCrustRodItem) BotaniaItems.exchangeRod).onLeftClick(
+		bus.addListener((PlayerInteractEvent.LeftClickBlock e) -> ((ShiftingCrustRodItem) BotaniaItems.ROD_OF_THE_SHIFTING_CRUST).onLeftClick(
 				e.getEntity(), e.getLevel(), e.getHand(), e.getPos(), e.getFace()));
 		bus.addListener((PlayerInteractEvent.LeftClickEmpty e) -> TerraBladeItem.leftClick(e.getItemStack()));
 		bus.addListener((AttackEntityEvent e) -> TerraBladeItem.attackEntity(
@@ -487,54 +489,54 @@ public class ForgeCommonInitializer {
 	// chains on items, and also doesn't match how Fabric is set up.
 	// Instead, let's declare ahead of time what items get which caps, similar to how we do it for Fabric.
 	// Needs to be lazy since items aren't initialized yet
-	private static final Supplier<Map<Item, Function<ItemStack, AvatarWieldable>>> AVATAR_WIELDABLES = Suppliers.memoize(() -> Map.of(
-			BotaniaItems.dirtRod, s -> new LandsRodItem.AvatarBehavior(),
-			BotaniaItems.diviningRod, s -> new PlentifulMantleRodItem.AvatarBehavior(),
-			BotaniaItems.fireRod, s -> new HellsRodItem.AvatarBehavior(),
-			BotaniaItems.missileRod, s -> new UnstableReservoirRodItem.AvatarBehavior(),
-			BotaniaItems.rainbowRod, s -> new BifrostRodItem.AvatarBehavior(),
-			BotaniaItems.tornadoRod, s -> new SkiesRodItem.AvatarBehavior()
+	private static final Supplier<Map<Item, BiFunction<ItemStack, Avatar, AvatarWieldable>>> AVATAR_WIELDABLES = Suppliers.memoize(() -> Map.of(
+			BotaniaItems.ROD_OF_THE_LANDS, LandsRodItem.AvatarBehavior::new,
+			BotaniaItems.ROD_OF_THE_PLENTIFUL_MANTLE, PlentifulMantleRodItem.AvatarBehavior::new,
+			BotaniaItems.ROD_OF_THE_HELLS, HellsRodItem.AvatarBehavior::new,
+			BotaniaItems.ROD_OF_THE_UNSTABLE_RESERVOIR, UnstableReservoirRodItem.AvatarBehavior::new,
+			BotaniaItems.ROD_OF_THE_BIFROST, BifrostRodItem.AvatarBehavior::new,
+			BotaniaItems.ROD_OF_THE_SKIES, SkiesRodItem.AvatarBehavior::new
 	));
 
 	private static final Supplier<Map<Item, Function<ItemStack, BlockProvider>>> BLOCK_PROVIDER = Suppliers.memoize(() -> Map.of(
-			BotaniaItems.dirtRod, s -> new LandsRodItem.BlockProviderImpl(),
-			BotaniaItems.skyDirtRod, s -> new LandsRodItem.BlockProviderImpl(),
-			BotaniaItems.blackHoleTalisman, BlackHoleTalismanItem.BlockProviderImpl::new,
-			BotaniaItems.cobbleRod, s -> new DepthsRodItem.BlockProviderImpl(),
-			BotaniaItems.enderHand, EnderHandItem.BlockProviderImpl::new,
-			BotaniaItems.terraformRod, s -> new LandsRodItem.BlockProviderImpl()
+			BotaniaItems.ROD_OF_THE_LANDS, s -> new LandsRodItem.BlockProviderImpl(),
+			BotaniaItems.ROD_OF_THE_HIGHLANDS, s -> new LandsRodItem.BlockProviderImpl(),
+			BotaniaItems.BLACK_HOLE_TALISMAN, BlackHoleTalismanItem.BlockProviderImpl::new,
+			BotaniaItems.ROD_OF_THE_DEPTHS, s -> new DepthsRodItem.BlockProviderImpl(),
+			BotaniaItems.HAND_OF_ENDER, EnderHandItem.BlockProviderImpl::new,
+			BotaniaItems.ROD_OF_THE_TERRA_FIRMA, s -> new LandsRodItem.BlockProviderImpl()
 	));
 
 	private static final Supplier<Map<Item, Function<ItemStack, CoordBoundItem>>> COORD_BOUND_ITEM = Suppliers.memoize(() -> Map.of(
-			BotaniaItems.flugelEye, EyeOfTheFlugelItem.CoordBoundItemImpl::new,
-			BotaniaItems.manaMirror, ManaMirrorItem.CoordBoundItemImpl::new,
-			BotaniaItems.twigWand, WandOfTheForestItem.CoordBoundItemImpl::new,
-			BotaniaItems.dreamwoodWand, WandOfTheForestItem.CoordBoundItemImpl::new
+			BotaniaItems.EYE_OF_THE_FLUEGEL, EyeOfTheFlugelItem.CoordBoundItemImpl::new,
+			BotaniaItems.MANA_MIRROR, ManaMirrorItem.CoordBoundItemImpl::new,
+			BotaniaItems.WAND_OF_THE_FOREST, WandOfTheForestItem.CoordBoundItemImpl::new,
+			BotaniaItems.WAND_OF_THE_ELVEN_FOREST, WandOfTheForestItem.CoordBoundItemImpl::new
 	));
 
 	private static final Supplier<Map<Item, Function<ItemStack, HourglassMaterial>>> HOURGLASS_MATERIAL = Suppliers.memoize(() -> Map.of(
 			Items.SAND, s -> HourglassMaterial.SAND,
 			Items.RED_SAND, s -> HourglassMaterial.RED_SAND,
 			Items.SOUL_SAND, s -> HourglassMaterial.SOUL_SAND,
-			BotaniaItems.manaPowder, s -> HourglassMaterial.MANA_POWDER
+			BotaniaItems.MANA_POWDER, s -> HourglassMaterial.MANA_POWDER
 	));
 
 	private static final Supplier<Map<Item, Function<ItemStack, ManaItem>>> MANA_ITEM = Suppliers.memoize(() -> Map.of(
-			BotaniaItems.manaMirror, DefaultManaItemImpl::new,
-			BotaniaItems.manaRing, DefaultManaItemImpl::new,
-			BotaniaItems.manaRingGreater, DefaultManaItemImpl::new,
-			BotaniaItems.manaTablet, DefaultManaItemImpl::new,
-			BotaniaItems.terraPick, DefaultManaItemImpl::new
+			BotaniaItems.MANA_MIRROR, DefaultManaItemImpl::new,
+			BotaniaItems.BAND_OF_MANA, DefaultManaItemImpl::new,
+			BotaniaItems.GREATER_BAND_OF_MANA, DefaultManaItemImpl::new,
+			BotaniaItems.MANA_TABLET, DefaultManaItemImpl::new,
+			BotaniaItems.TERRA_SHATTERER, DefaultManaItemImpl::new
 	));
 
 	private static final Supplier<Map<Item, Function<ItemStack, Relic>>> RELIC = Suppliers.memoize(() -> Map.of(
-			BotaniaItems.dice, DiceOfFateItem::makeRelic,
-			BotaniaItems.flugelEye, EyeOfTheFlugelItem::makeRelic,
-			BotaniaItems.infiniteFruit, FruitOfGrisaiaItem::makeRelic,
-			BotaniaItems.kingKey, KeyOfTheKingsLawItem::makeRelic,
-			BotaniaItems.lokiRing, RingOfLokiItem::makeRelic,
-			BotaniaItems.odinRing, RingOfOdinItem::makeRelic,
-			BotaniaItems.thorRing, RingOfThorItem::makeRelic
+			BotaniaItems.DICE_OF_FATE, DiceOfFateItem::makeRelic,
+			BotaniaItems.EYE_OF_THE_FLUEGEL, EyeOfTheFlugelItem::makeRelic,
+			BotaniaItems.FRUIT_OF_GRISAIA, FruitOfGrisaiaItem::makeRelic,
+			BotaniaItems.KEY_OF_THE_KINGS_LAW, KeyOfTheKingsLawItem::makeRelic,
+			BotaniaItems.RING_OF_LOKI, RingOfLokiItem::makeRelic,
+			BotaniaItems.RING_OF_ODIN, RingOfOdinItem::makeRelic,
+			BotaniaItems.RING_OF_THOR, RingOfThorItem::makeRelic
 	));
 
 	@SubscribeEvent
@@ -556,12 +558,14 @@ public class ForgeCommonInitializer {
 
 		e.registerItem(Capabilities.FluidHandler.ITEM,
 				(stack, context) -> new WaterBowlFluidHandler(stack),
-				BotaniaItems.waterBowl);
+				BotaniaItems.WATER_BOWL
+		);
 		e.registerItem(Capabilities.FluidHandler.ITEM,
 				(stack, context) -> new ExtrapolatedBucketFluidHandler(stack),
-				BotaniaItems.openBucket);
+				BotaniaItems.EXTRAPOLATED_BUCKET
+		);
 
-		attachMappedItemCaps(e, BotaniaForgeCapabilities.getItemApiLookupById(AvatarWieldable.LOOKUP), AVATAR_WIELDABLES.get());
+		attachMappedItemCapsWithContext(e, BotaniaForgeCapabilities.getItemApiLookupById(AvatarWieldable.LOOKUP), AVATAR_WIELDABLES.get());
 		attachMappedItemCaps(e, BotaniaForgeCapabilities.getItemApiLookupById(BlockProvider.LOOKUP), BLOCK_PROVIDER.get());
 		attachMappedItemCaps(e, BotaniaForgeCapabilities.getItemApiLookupById(CoordBoundItem.LOOKUP), COORD_BOUND_ITEM.get());
 		attachMappedItemCaps(e, BotaniaForgeCapabilities.getItemApiLookupById(HourglassMaterial.LOOKUP), HOURGLASS_MATERIAL.get());
@@ -575,13 +579,20 @@ public class ForgeCommonInitializer {
 				capability, (stack, context) -> provider.apply(stack), item));
 	}
 
+	private static <T, C> void attachMappedItemCapsWithContext(RegisterCapabilitiesEvent e, ItemCapability<T, C> capability,
+			Map<Item, BiFunction<ItemStack, C, T>> itemProviderMap) {
+		itemProviderMap.forEach((item, provider) -> e.registerItem(
+				capability, provider::apply, item));
+	}
+
 	private void registerBlockCapabilities(RegisterCapabilitiesEvent e) {
 		BlockCapability<EdibleBlockWithEffects, Void> edibleBlockWithEffectCapability =
 				BotaniaForgeCapabilities.getBlockApiLookupById(EdibleBlockWithEffects.LOOKUP);
 		// these two blocks implement the capability directly
 		e.registerBlock(edibleBlockWithEffectCapability,
 				(level, pos, state, blockEntity, context) -> (EdibleBlockWithEffects) state.getBlock(),
-				BotaniaBlocks.mutatedGrass, BotaniaBlocks.infusedGrass);
+				BotaniaBlocks.MUTATED_GRASS_BLOCK, BotaniaBlocks.INFUSED_GRASS_BLOCK
+		);
 
 		// TODO: is there any way to identify all BlockEntityTypes for AbstractFurnaceBlock subclasses?
 		BlockCapability<ExoflameHeatable, Void> exoflameHeatableBlockCap =
@@ -601,9 +612,10 @@ public class ForgeCommonInitializer {
 				BotaniaForgeCapabilities.getBlockApiLookupById(ManaCollisionGhost.LOOKUP);
 		e.registerBlock(manaCollisionGhostBlockCap,
 				(level, pos, state, blockEntity, context) -> (ManaCollisionGhost) state.getBlock(),
-				BotaniaBlocks.manaDetector,
-				BotaniaBlocks.abstrusePlatform, BotaniaBlocks.infrangiblePlatform, BotaniaBlocks.spectralPlatform,
-				BotaniaBlocks.prism, BotaniaBlocks.tinyPlanet);
+				BotaniaBlocks.MANA_DETECTOR,
+				BotaniaBlocks.ABSTRUSE_PLATFORM, BotaniaBlocks.INFRANGIBLE_PLATFORM, BotaniaBlocks.SPECTRAL_PLATFORM,
+				BotaniaBlocks.MANA_PRISM, BotaniaBlocks.TINY_PLANET
+		);
 
 		BlockCapability<ManaReceiver, Direction> manaReceiverBlockCap =
 				BotaniaForgeCapabilities.getBlockApiLookupById(ManaReceiver.LOOKUP);
@@ -611,7 +623,8 @@ public class ForgeCommonInitializer {
 				manaReceiverBlockCap, type, (blockEntity, context) -> blockEntity));
 		e.registerBlock(manaReceiverBlockCap,
 				(level, pos, state, blockEntity, context) -> new ManaVoidBlock.ManaReceiverImpl(level, pos, state),
-				BotaniaBlocks.manaVoid);
+				BotaniaBlocks.MANA_VOID
+		);
 
 		BlockCapability<SparkAttachable, Void> sparkAttachableBlockCap =
 				BotaniaForgeCapabilities.getBlockApiLookupById(SparkAttachable.LOOKUP);
@@ -624,20 +637,24 @@ public class ForgeCommonInitializer {
 				manaTriggerBlockCap, blockEntityType, (blockEntity, context) -> blockEntity));
 		e.registerBlock(manaTriggerBlockCap,
 				(level, pos, state, blockEntity, context) -> new DrumBlock.ManaTriggerImpl(level, pos, state),
-				BotaniaBlocks.canopyDrum, BotaniaBlocks.wildDrum, BotaniaBlocks.gatheringDrum);
+				BotaniaBlocks.DRUM_OF_THE_CANOPY, BotaniaBlocks.DRUM_OF_THE_WILD, BotaniaBlocks.DRUM_OF_THE_GATHERING
+		);
 		e.registerBlock(manaTriggerBlockCap,
 				(level, pos, state, blockEntity, context) -> new ManastormChargeBlock.ManaTriggerImpl(level, pos, state),
-				BotaniaBlocks.manaBomb);
+				BotaniaBlocks.MANASTORM_CHARGE
+		);
 		e.registerBlock(manaTriggerBlockCap,
 				(level, pos, state, blockEntity, context) -> new ManaDetectorBlock.ManaTriggerImpl(level, pos, state),
-				BotaniaBlocks.manaDetector);
+				BotaniaBlocks.MANA_DETECTOR
+		);
 
 		BlockCapability<Wandable, Direction> wandableBlockCap =
 				BotaniaForgeCapabilities.getBlockApiLookupById(Wandable.LOOKUP);
 		BlockEntityConstants.SELF_WANDABLE_BES.forEach(blockEntityType -> e.registerBlockEntity(
 				wandableBlockCap, blockEntityType, (blockEntity, context) -> blockEntity));
 		e.registerBlock(wandableBlockCap, ForceRelayBlock::createWandable,
-				BotaniaBlocks.pistonRelay);
+				BotaniaBlocks.FORCE_RELAY
+		);
 		e.registerBlock(wandableBlockCap, ManaEnchanterBlockEntity::createLapisBlockWandable,
 				Blocks.LAPIS_BLOCK);
 
@@ -646,21 +663,22 @@ public class ForgeCommonInitializer {
 		BlockEntityConstants.SELF_WAND_BINDABLE_BES.forEach(blockEntityType -> e.registerBlockEntity(
 				wandBindableBlockCap, blockEntityType, (blockEntity, context) -> blockEntity));
 		e.registerBlock(wandBindableBlockCap, ForceRelayBlock::createWandBindable,
-				BotaniaBlocks.pistonRelay);
+				BotaniaBlocks.FORCE_RELAY
+		);
 
 		BlockCapability<PhantomInkableBlock, Void> phantomInkableBlockCap =
 				BotaniaForgeCapabilities.getBlockApiLookupById(PhantomInkableBlock.LOOKUP);
 		BlockEntityConstants.SELF_PHANTOM_INKABLE_BES.forEach(blockEntityType -> e.registerBlockEntity(
 				phantomInkableBlockCap, blockEntityType, (blockEntity, context) -> blockEntity));
 
-		Stream.of(BotaniaBlockEntities.RED_STRING_CONTAINER, BotaniaBlockEntities.RED_STRING_DISPENSER)
+		Stream.of(BotaniaBlockEntities.RED_STRINGED_CONTAINER, BotaniaBlockEntities.RED_STRINGED_DISPENSER)
 				.forEach(blockEntityType -> e.registerBlockEntity(
 						Capabilities.ItemHandler.BLOCK, blockEntityType, new RedStringContainerCapProvider()));
 
 		BlockEntityConstants.SELF_WORLDLY_CONTAINERS.forEach(blockEntityType -> e.registerBlockEntity(
 				Capabilities.ItemHandler.BLOCK, blockEntityType, SidedInvWrapper::new));
 
-		e.registerBlockEntity(Capabilities.EnergyStorage.BLOCK, BotaniaBlockEntities.FLUXFIELD,
+		e.registerBlockEntity(Capabilities.EnergyStorage.BLOCK, BotaniaBlockEntities.MANA_FLUXFIELD,
 				// we only provide a view of the energy level, no interaction allowed
 				(gen, context) -> new IEnergyStorage() {
 					@Override

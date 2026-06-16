@@ -46,7 +46,7 @@ import static vazkii.botania.api.BotaniaAPI.gogRL;
 public class GogRecipeProvider extends RecipeProvider {
 
 	public static final vazkii.botania.api.recipe.StateIngredient ALCHEMY_CATALYST =
-			StateIngredients.of(BotaniaBlocks.alchemyCatalyst);
+			StateIngredients.of(BotaniaBlocks.ALCHEMY_CATALYST);
 
 	public GogRecipeProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
 		super(output, registries);
@@ -57,25 +57,25 @@ public class GogRecipeProvider extends RecipeProvider {
 		// modifications of standard Botania recipes:
 		nineBlockStorageRecipes(recipeOutput,
 				RecipeCategory.BREWING, Items.BLAZE_POWDER,
-				RecipeCategory.BUILDING_BLOCKS, BotaniaBlocks.blazeBlock,
+				RecipeCategory.BUILDING_BLOCKS, BotaniaBlocks.BLAZE_MESH,
 				"gardenofglass:blaze_block", null, "gardenofglass:blaze_powder_from_blaze_block", null);
-		ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BotaniaItems.fertilizer, 3)
+		ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BotaniaItems.FLORAL_FERTILIZER, 3)
 				.requires(Items.BONE_MEAL)
 				.requires(Ingredient.of(Tags.Items.DYES), 4)
 				.group("botania:fertilizer")
 				.unlockedBy(getHasName(Items.BONE_MEAL), has(Items.BONE_MEAL))
 				.unlockedBy("has_any_dye", has(Tags.Items.DYES))
 				.save(recipeOutput, gogRL("fertilizer_from_dye"));
-		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, BotaniaBlocks.cocoon)
+		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, BotaniaBlocks.COCOON_OF_CAPRICE)
 				.define('S', Items.STRING)
-				.define('P', BotaniaBlocks.felPumpkin)
+				.define('P', BotaniaBlocks.FEL_PUMPKIN)
 				.define('I', ConventionalBotaniaTags.Items.MANASTEEL_INGOTS)
 				.pattern("SSS")
 				.pattern("SPS")
 				.pattern("SIS")
-				.unlockedBy("has_item", has(BotaniaBlocks.felPumpkin))
-				.save(recipeOutput, gogRL(getItemName(BotaniaBlocks.cocoon)));
-		ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, BotaniaBlocks.manaSpreader)
+				.unlockedBy("has_item", has(BotaniaBlocks.FEL_PUMPKIN))
+				.save(recipeOutput, gogRL(getItemName(BotaniaBlocks.COCOON_OF_CAPRICE)));
+		ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, BotaniaBlocks.MANA_SPREADER)
 				.define('P', BotaniaTags.Items.PETALS)
 				.define('W', BotaniaTags.Items.LIVINGWOOD_LOGS)
 				.pattern("WWW")
@@ -83,25 +83,25 @@ public class GogRecipeProvider extends RecipeProvider {
 				.pattern("WWW")
 				.group("botania:spreader")
 				.unlockedBy("has_item", has(BotaniaTags.Items.LIVINGWOOD_LOGS))
-				.save(recipeOutput, gogRL(getItemName(BotaniaBlocks.manaSpreader)));
+				.save(recipeOutput, gogRL(getItemName(BotaniaBlocks.MANA_SPREADER)));
 
 		Ingredient yellow = Ingredient.of(BotaniaTags.Items.PETALS_YELLOW);
 		Ingredient gray = Ingredient.of(BotaniaTags.Items.PETALS_GRAY);
 		Ingredient green = Ingredient.of(BotaniaTags.Items.PETALS_GREEN);
 		Ingredient red = Ingredient.of(BotaniaTags.Items.PETALS_RED);
 		recipeOutput.accept(
-				gogRL("petal_apothecary/" + getItemName(BotaniaBlocks.orechid.asItem())),
-				new PetalApothecaryRecipe(new ItemStack(BotaniaBlocks.orechid),
+				gogRL("petal_apothecary/" + getItemName(BotaniaBlocks.ORECHID.asItem())),
+				new PetalApothecaryRecipe(new ItemStack(BotaniaBlocks.ORECHID),
 						Ingredient.of(BotaniaTags.Items.SEED_APOTHECARY_REAGENT),
 						gray, gray, yellow, yellow, green, green, red, red),
 				null);
 
 		// GoG-specific recipes
 		ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, Blocks.END_PORTAL_FRAME)
-				.define('G', BotaniaItems.lifeEssence)
+				.define('G', BotaniaItems.GAIA_SPIRIT)
 				.define('O', Blocks.OBSIDIAN)
 				.pattern("OGO")
-				.unlockedBy("has_gaia_spirit", has(BotaniaItems.lifeEssence))
+				.unlockedBy("has_gaia_spirit", has(BotaniaItems.GAIA_SPIRIT))
 				.save(recipeOutput, gogRL(getItemName(Blocks.END_PORTAL_FRAME)));
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, Items.SLIME_BALL)
 				.requires(Items.MAGMA_CREAM)
@@ -109,22 +109,22 @@ public class GogRecipeProvider extends RecipeProvider {
 				.unlockedBy(getHasName(Items.MAGMA_CREAM), has(Items.MAGMA_CREAM))
 				.save(recipeOutput, gogRL(getConversionRecipeName(Items.SLIME_BALL, Items.MAGMA_CREAM)));
 		ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, Blocks.COBBLESTONE)
-				.define('#', BotaniaItems.pebble)
+				.define('#', BotaniaItems.PEBBLE)
 				.pattern("##")
 				.pattern("##")
-				.unlockedBy(getHasName(BotaniaItems.pebble), has(BotaniaItems.pebble))
-				.save(recipeOutput, gogRL(getConversionRecipeName(Blocks.COBBLESTONE, BotaniaItems.pebble)));
-		ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BotaniaItems.fertilizer, 1)
-				.requires(BotaniaItems.livingroot)
+				.unlockedBy(getHasName(BotaniaItems.PEBBLE), has(BotaniaItems.PEBBLE))
+				.save(recipeOutput, gogRL(getConversionRecipeName(Blocks.COBBLESTONE, BotaniaItems.PEBBLE)));
+		ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BotaniaItems.FLORAL_FERTILIZER, 1)
+				.requires(BotaniaItems.LIVING_ROOT)
 				.group("botania:fertilizer")
-				.unlockedBy(getHasName(BotaniaItems.livingroot), has(BotaniaItems.livingroot))
-				.save(recipeOutput, gogRL(getConversionRecipeName(BotaniaItems.fertilizer, BotaniaItems.livingroot)));
+				.unlockedBy(getHasName(BotaniaItems.LIVING_ROOT), has(BotaniaItems.LIVING_ROOT))
+				.save(recipeOutput, gogRL(getConversionRecipeName(BotaniaItems.FLORAL_FERTILIZER, BotaniaItems.LIVING_ROOT)));
 		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, Blocks.OAK_SAPLING)
-				.define('#', BotaniaItems.livingroot)
+				.define('#', BotaniaItems.LIVING_ROOT)
 				.pattern("##")
 				.pattern("##")
-				.unlockedBy(getHasName(BotaniaItems.livingroot), has(BotaniaItems.livingroot))
-				.save(recipeOutput, gogRL(getConversionRecipeName(Blocks.OAK_SAPLING, BotaniaItems.livingroot)));
+				.unlockedBy(getHasName(BotaniaItems.LIVING_ROOT), has(BotaniaItems.LIVING_ROOT))
+				.save(recipeOutput, gogRL(getConversionRecipeName(Blocks.OAK_SAPLING, BotaniaItems.LIVING_ROOT)));
 
 		manaInfusion(recipeOutput, Items.HEART_OF_THE_SEA, Items.NAUTILUS_SHELL, 20000, ALCHEMY_CATALYST);
 		manaInfusion(recipeOutput, Items.PRISMARINE_CRYSTALS, Items.PRISMARINE_SHARD, 500, ALCHEMY_CATALYST);

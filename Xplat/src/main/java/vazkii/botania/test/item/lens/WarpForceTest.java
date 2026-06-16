@@ -32,14 +32,14 @@ public class WarpForceTest {
 
 	@GameTest(template = TEMPLATE, timeoutTicks = 50)
 	public void testWarpForceLens(GameTestHelper helper) {
-		setUpLensesAndBindings(helper, BotaniaItems.lensWarp, BotaniaItems.lensPiston);
+		setUpLensesAndBindings(helper, BotaniaItems.WARP_LENS, BotaniaItems.FORCE_LENS);
 
 		helper.startSequence()
 				// short delay to ensure spreader picks up mana from pool
 				.thenExecuteAfter(1, () -> helper.pressButton(BUTTON_POS))
 				.thenWaitUntil(() -> helper.assertBlockProperty(BUTTON_POS, ButtonBlock.POWERED, false))
 				.thenExecute(() -> {
-					helper.assertBlock(RELAY_POS, BotaniaBlocks.pistonRelay::equals, () -> "Force relay moved");
+					helper.assertBlock(RELAY_POS, BotaniaBlocks.FORCE_RELAY::equals, () -> "Force relay moved");
 					helper.assertBlockState(BOUND_POS, BlockState::isAir, () -> "Bound block did not move");
 					helper.assertBlock(BOUND_POS.east(), Blocks.POLISHED_ANDESITE::equals,
 							() -> "Bound block did not move to expected position");
@@ -51,7 +51,7 @@ public class WarpForceTest {
 				.thenExecute(() -> helper.pressButton(BUTTON_POS))
 				.thenWaitUntil(() -> helper.assertBlockProperty(BUTTON_POS, ButtonBlock.POWERED, false))
 				.thenExecute(() -> {
-					helper.assertBlockState(RELAY_POS, blockState -> blockState.is(BotaniaBlocks.pistonRelay),
+					helper.assertBlockState(RELAY_POS, blockState -> blockState.is(BotaniaBlocks.FORCE_RELAY),
 							() -> "Force relay moved after second burst");
 					helper.assertBlockState(BOUND_POS, BlockState::isAir, () -> "Bound block did not move");
 					helper.assertBlock(BOUND_POS.east(), Blocks.POLISHED_DIORITE::equals,
@@ -66,7 +66,7 @@ public class WarpForceTest {
 
 	@GameTest(template = TEMPLATE, timeoutTicks = 50)
 	public void testForceWarpLens(GameTestHelper helper) {
-		setUpLensesAndBindings(helper, BotaniaItems.lensPiston, BotaniaItems.lensWarp);
+		setUpLensesAndBindings(helper, BotaniaItems.FORCE_LENS, BotaniaItems.WARP_LENS);
 
 		helper.startSequence()
 				// short delay to ensure spreader picks up mana from pool
@@ -74,7 +74,7 @@ public class WarpForceTest {
 				.thenWaitUntil(() -> helper.assertBlockProperty(BUTTON_POS, ButtonBlock.POWERED, false))
 				.thenExecute(() -> {
 					helper.assertBlockState(RELAY_POS, BlockState::isAir, () -> "Force relay did not move");
-					helper.assertBlock(RELAY_POS.east(), BotaniaBlocks.pistonRelay::equals,
+					helper.assertBlock(RELAY_POS.east(), BotaniaBlocks.FORCE_RELAY::equals,
 							() -> "Force relay did not move to expected position");
 					helper.assertBlockState(BOUND_POS, BlockState::isAir, () -> "Bound block did not move");
 					helper.assertBlock(BOUND_POS.east(), Blocks.POLISHED_ANDESITE::equals,
@@ -92,7 +92,7 @@ public class WarpForceTest {
 							() -> "New block at original bound position moved");
 					helper.assertBlockState(RELAY_POS.east(), BlockState::isAir,
 							() -> "Force relay did not move after second burst");
-					helper.assertBlock(RELAY_POS.east(2), BotaniaBlocks.pistonRelay::equals,
+					helper.assertBlock(RELAY_POS.east(2), BotaniaBlocks.FORCE_RELAY::equals,
 							() -> "Force relay did not move to expected position after second burst");
 					helper.assertBlockState(BOUND_POS.east(), BlockState::isAir,
 							() -> "Bound block did not move a second time");

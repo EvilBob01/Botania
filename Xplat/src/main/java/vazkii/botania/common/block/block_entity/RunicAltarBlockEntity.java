@@ -84,11 +84,11 @@ public class RunicAltarBlockEntity extends SimpleInventoryBlockEntity implements
 	private int recipeKeepTicks = 0;
 
 	public RunicAltarBlockEntity(BlockPos pos, BlockState state) {
-		super(BotaniaBlockEntities.RUNE_ALTAR, pos, state, true);
+		super(BotaniaBlockEntities.RUNIC_ALTAR, pos, state, true);
 	}
 
 	public boolean addItem(@Nullable Player player, ItemStack stack, @Nullable InteractionHand hand) {
-		if (cooldown > 0 || stack.getItem() instanceof WandOfTheForestItem || stack.is(BotaniaItems.lexicon)) {
+		if (cooldown > 0 || stack.getItem() instanceof WandOfTheForestItem || stack.is(BotaniaItems.LEXICA_BOTANIA)) {
 			return false;
 		}
 
@@ -175,7 +175,7 @@ public class RunicAltarBlockEntity extends SimpleInventoryBlockEntity implements
 		if (self.manaToGet == 0) {
 			List<ItemEntity> items = level.getEntitiesOfClass(ItemEntity.class, new AABB(worldPosition));
 			for (ItemEntity item : items) {
-				if (item.isAlive() && !item.getItem().isEmpty() && !item.getItem().is(BotaniaBlocks.livingrock.asItem())
+				if (item.isAlive() && !item.getItem().isEmpty() && !item.getItem().is(BotaniaBlocks.LIVINGROCK.asItem())
 						&& ItemSource.HOLDER.getFor(item) != ItemSources.RUNIC_ALTAR) {
 					ItemStack stack = item.getItem();
 					if (self.addItem(null, stack, null)) {
@@ -304,8 +304,8 @@ public class RunicAltarBlockEntity extends SimpleInventoryBlockEntity implements
 				level.addFreshEntity(outputItem);
 				currentRecipe = null;
 				level.gameEvent(null, GameEvent.BLOCK_ACTIVATE, getBlockPos());
-				level.blockEvent(getBlockPos(), BotaniaBlocks.runeAltar, SET_COOLDOWN_EVENT, 60);
-				level.blockEvent(getBlockPos(), BotaniaBlocks.runeAltar, CRAFT_EFFECT_EVENT, 0);
+				level.blockEvent(getBlockPos(), BotaniaBlocks.RUNIC_ALTAR, SET_COOLDOWN_EVENT, 60);
+				level.blockEvent(getBlockPos(), BotaniaBlocks.RUNIC_ALTAR, CRAFT_EFFECT_EVENT, 0);
 
 				saveLastRecipe();
 				for (ItemStack remainingStack : recipe.value().getRemainingItems(getRecipeInput())) {
@@ -448,7 +448,7 @@ public class RunicAltarBlockEntity extends SimpleInventoryBlockEntity implements
 						if (playerWand.isEmpty()) {
 							playerWand = PlayerHelper.getItemClassFromInventory(player, WandOfTheForestItem.class);
 						}
-						ItemStack wandToRender = playerWand.isEmpty() ? new ItemStack(BotaniaItems.twigWand) : playerWand;
+						ItemStack wandToRender = playerWand.isEmpty() ? new ItemStack(BotaniaItems.WAND_OF_THE_FOREST) : playerWand;
 						gui.renderFakeItem(wandToRender, xc + radius + 24, yc + 8);
 						ms.popPose();
 					}

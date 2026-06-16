@@ -32,7 +32,7 @@ public class BifrostBlock extends PermanentBifrostBlock implements EntityBlock {
 
 	@Override
 	public ItemStack getCloneItemStack(LevelReader world, BlockPos pos, BlockState state) {
-		return new ItemStack(BotaniaItems.rainbowRod);
+		return new ItemStack(BotaniaItems.ROD_OF_THE_BIFROST);
 	}
 
 	@Override
@@ -44,7 +44,7 @@ public class BifrostBlock extends PermanentBifrostBlock implements EntityBlock {
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
 		if (!level.isClientSide()) {
-			return BotaniaBlock.createTickerHelper(type, BotaniaBlockEntities.BIFROST, BifrostBlockEntity::serverTick);
+			return BotaniaBlock.createTickerHelper(type, BotaniaBlockEntities.TEMPORARY_BIFROST_BLOCK, BifrostBlockEntity::serverTick);
 		}
 		return null;
 	}

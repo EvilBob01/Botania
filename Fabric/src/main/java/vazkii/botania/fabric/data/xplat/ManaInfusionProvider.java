@@ -60,30 +60,30 @@ public class ManaInfusionProvider extends FabricRecipeProvider {
 
 	@Override
 	public void buildRecipes(RecipeOutput consumer) {
-		normal(consumer, BotaniaItems.manaSteel, ConventionalItemTags.IRON_INGOTS, COST_MANASTEEL);
-		normal(consumer, BotaniaBlocks.manasteelBlock, ConventionalItemTags.STORAGE_BLOCKS_IRON,
+		normal(consumer, BotaniaItems.MANASTEEL_INGOT, ConventionalItemTags.IRON_INGOTS, COST_MANASTEEL);
+		normal(consumer, BotaniaBlocks.MANASTEEL_BLOCK, ConventionalItemTags.STORAGE_BLOCKS_IRON,
 				BLOCK_COST_MULTIPLIER * COST_MANASTEEL);
-		normal(consumer, BotaniaItems.manaPearl, Items.ENDER_PEARL, 6000);
-		normal(consumer, BotaniaItems.manaDiamond, ConventionalItemTags.DIAMOND_GEMS, COST_MANA_DIAMOND);
-		normal(consumer, BotaniaBlocks.manaDiamondBlock, ConventionalItemTags.STORAGE_BLOCKS_DIAMOND,
+		normal(consumer, BotaniaItems.MANA_PEARL, Items.ENDER_PEARL, 6000);
+		normal(consumer, BotaniaItems.MANA_DIAMOND, ConventionalItemTags.DIAMOND_GEMS, COST_MANA_DIAMOND);
+		normal(consumer, BotaniaBlocks.MANA_DIAMOND_BLOCK, ConventionalItemTags.STORAGE_BLOCKS_DIAMOND,
 				BLOCK_COST_MULTIPLIER * COST_MANA_DIAMOND);
 
-		normalWithGroup(consumer, BotaniaItems.manaPowder, Ingredient.of(BotaniaTags.Items.MANA_POWDER_SOURCE_DUSTS),
+		normalWithGroup(consumer, BotaniaItems.MANA_POWDER, Ingredient.of(BotaniaTags.Items.MANA_POWDER_SOURCE_DUSTS),
 				500, "_from_dust");
-		normalWithGroup(consumer, BotaniaItems.manaPowder, Ingredient.of(ConventionalItemTags.DYES),
+		normalWithGroup(consumer, BotaniaItems.MANA_POWDER, Ingredient.of(ConventionalItemTags.DYES),
 				400, "_from_dye");
 
-		normal(consumer, BotaniaItems.manaCookie, Items.COOKIE, 20000);
-		normal(consumer, BotaniaItems.manaQuartz, Items.QUARTZ, 250);
-		normal(consumer, BotaniaBlocks.manaGlass, ConventionalItemTags.GLASS_BLOCKS_COLORLESS, 150);
-		normal(consumer, BotaniaItems.manaString, Items.STRING, 1250);
-		normal(consumer, BotaniaItems.manaBottle, Items.GLASS_BOTTLE, 5000);
+		normal(consumer, BotaniaItems.BISCUIT_OF_TOTALITY, Items.COOKIE, 20000);
+		normal(consumer, BotaniaItems.MANA_QUARTZ, Items.QUARTZ, 250);
+		normal(consumer, BotaniaBlocks.MANAGLASS, ConventionalItemTags.GLASS_BLOCKS_COLORLESS, 150);
+		normal(consumer, BotaniaItems.MANA_INFUSED_STRING, Items.STRING, 1250);
+		normal(consumer, BotaniaItems.MANA_IN_A_BOTTLE, Items.GLASS_BOTTLE, 5000);
 
-		normal(consumer, BotaniaBlocks.pistonRelay, Blocks.PISTON, 15000);
-		normal(consumer, BotaniaItems.grassSeeds, Blocks.SHORT_GRASS, 2500);
-		normal(consumer, BotaniaItems.mycelSeeds, ConventionalItemTags.MUSHROOMS, 6500);
-		normal(consumer, BotaniaItems.podzolSeeds, Blocks.DEAD_BUSH, 2500);
-		normal(consumer, BotaniaBlocks.tinyPotato, Items.POTATO, 1337);
+		normal(consumer, BotaniaBlocks.FORCE_RELAY, Blocks.PISTON, 15000);
+		normal(consumer, BotaniaItems.PASTURE_SEEDS, Blocks.SHORT_GRASS, 2500);
+		normal(consumer, BotaniaItems.INFESTATION_SPORES, ConventionalItemTags.MUSHROOMS, 6500);
+		normal(consumer, BotaniaItems.BOREAL_SEEDS, Blocks.DEAD_BUSH, 2500);
+		normal(consumer, BotaniaBlocks.TINY_POTATO, Items.POTATO, 1337);
 
 		alchemy(consumer, Blocks.CHORUS_FLOWER, Items.POPPED_CHORUS_FRUIT, 10000);
 		alchemy(consumer, Blocks.COARSE_DIRT, Blocks.DIRT, 120);
@@ -147,26 +147,26 @@ public class ManaInfusionProvider extends FabricRecipeProvider {
 		deconstructLossy(consumer, Items.NETHER_BRICK, 2, Blocks.RED_NETHER_BRICKS);
 		deconstructLossy(consumer, Items.POINTED_DRIPSTONE, Blocks.DRIPSTONE_BLOCK);
 		deconstructLossy(consumer, Items.QUARTZ, Blocks.QUARTZ_BLOCK);
-		deconstructLossy(consumer, BotaniaItems.darkQuartz, BotaniaBlocks.darkQuartz);
-		deconstructLossy(consumer, BotaniaItems.manaQuartz, BotaniaBlocks.manaQuartz);
-		deconstructLossy(consumer, BotaniaItems.blazeQuartz, BotaniaBlocks.blazeQuartz);
-		deconstructLossy(consumer, BotaniaItems.lavenderQuartz, BotaniaBlocks.lavenderQuartz);
-		deconstructLossy(consumer, BotaniaItems.redQuartz, BotaniaBlocks.redQuartz);
-		deconstructLossy(consumer, BotaniaItems.elfQuartz, BotaniaBlocks.elfQuartz);
-		deconstructLossy(consumer, BotaniaItems.sunnyQuartz, BotaniaBlocks.sunnyQuartz);
+		deconstructLossy(consumer, BotaniaItems.DARK_QUARTZ, BotaniaBlocks.DARK_QUARTZ_BLOCK);
+		deconstructLossy(consumer, BotaniaItems.MANA_QUARTZ, BotaniaBlocks.MANA_QUARTZ_BLOCK);
+		deconstructLossy(consumer, BotaniaItems.BLAZE_QUARTZ, BotaniaBlocks.BLAZE_QUARTZ_BLOCK);
+		deconstructLossy(consumer, BotaniaItems.LAVENDER_QUARTZ, BotaniaBlocks.LAVENDER_QUARTZ_BLOCK);
+		deconstructLossy(consumer, BotaniaItems.RED_QUARTZ, BotaniaBlocks.RED_QUARTZ_BLOCK);
+		deconstructLossy(consumer, BotaniaItems.ELVEN_QUARTZ, BotaniaBlocks.ELVEN_QUARTZ_BLOCK);
+		deconstructLossy(consumer, BotaniaItems.SUNNY_QUARTZ, BotaniaBlocks.SUNNY_QUART_BLOCK);
 		deconstructLossy(consumer, Items.STRING, ItemTags.WOOL);
 
-		alchemy(consumer, BotaniaBlocks.motifHydroangeas, BotaniaBlocks.hydroangeas, 2500);
-		mini(consumer, BotaniaBlocks.agricarnationChibi, BotaniaBlocks.agricarnation);
-		mini(consumer, BotaniaBlocks.bellethornChibi, BotaniaBlocks.bellethorn);
-		mini(consumer, BotaniaBlocks.bubbellChibi, BotaniaBlocks.bubbell);
-		mini(consumer, BotaniaBlocks.clayconiaChibi, BotaniaBlocks.clayconia);
-		mini(consumer, BotaniaBlocks.hopperhockChibi, BotaniaBlocks.hopperhock);
-		mini(consumer, BotaniaBlocks.jiyuuliaChibi, BotaniaBlocks.jiyuulia);
-		mini(consumer, BotaniaBlocks.marimorphosisChibi, BotaniaBlocks.marimorphosis);
-		mini(consumer, BotaniaBlocks.rannuncarpusChibi, BotaniaBlocks.rannuncarpus);
-		mini(consumer, BotaniaBlocks.solegnoliaChibi, BotaniaBlocks.solegnolia);
-		mini(consumer, BotaniaBlocks.tangleberrieChibi, BotaniaBlocks.tangleberrie);
+		alchemy(consumer, BotaniaBlocks.HYDROANGEAS_MOTIF, BotaniaBlocks.HYDROANGEAS, 2500);
+		mini(consumer, BotaniaBlocks.AGRICARNATION_PETITE, BotaniaBlocks.AGRICARNATION);
+		mini(consumer, BotaniaBlocks.BELLETHORNE_PETITE, BotaniaBlocks.BELLETHORNE);
+		mini(consumer, BotaniaBlocks.BUBBELL_PETITE, BotaniaBlocks.BUBBELL);
+		mini(consumer, BotaniaBlocks.CLAYCONIA_PETITE, BotaniaBlocks.CLAYCONIA);
+		mini(consumer, BotaniaBlocks.HOPPERHOCK_PETITE, BotaniaBlocks.HOPPERHOCK);
+		mini(consumer, BotaniaBlocks.JIYUULIA_PETITE, BotaniaBlocks.JIYUULIA);
+		mini(consumer, BotaniaBlocks.MARIMORPHOSIS_PETITE, BotaniaBlocks.MARIMORPHOSIS);
+		mini(consumer, BotaniaBlocks.RANNUNCARPUS_PETITE, BotaniaBlocks.RANNUNCARPUS);
+		mini(consumer, BotaniaBlocks.SOLEGNOLIA_PETITE, BotaniaBlocks.SOLEGNOLIA);
+		mini(consumer, BotaniaBlocks.TANGLEBERRIE_PETITE, BotaniaBlocks.TANGLEBERRIE);
 
 		conjuration(consumer, Items.REDSTONE, 5000);
 		conjuration(consumer, Items.GLOWSTONE_DUST, 5000);
@@ -191,8 +191,8 @@ public class ManaInfusionProvider extends FabricRecipeProvider {
 		conjuration(consumer, Blocks.SHORT_GRASS, 800);
 	}
 
-	private static final StateIngredient ALCHEMY = StateIngredients.of(BotaniaBlocks.alchemyCatalyst);
-	private static final StateIngredient CONJURATION = StateIngredients.of(BotaniaBlocks.conjurationCatalyst);
+	private static final StateIngredient ALCHEMY = StateIngredients.of(BotaniaBlocks.ALCHEMY_CATALYST);
+	private static final StateIngredient CONJURATION = StateIngredients.of(BotaniaBlocks.CONJURATION_CATALYST);
 
 	private static void normal(RecipeOutput consumer, ItemLike output, ItemLike input, int mana) {
 		normal(consumer, output, Ingredient.of(input), mana);

@@ -10,14 +10,13 @@ package vazkii.botania.common.item.rod;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.sounds.SoundSource;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.gameevent.GameEvent;
 
 import vazkii.botania.api.block.Avatar;
@@ -31,10 +30,11 @@ import vazkii.botania.common.handler.BotaniaSounds;
 
 public class HellsRodItem extends Item {
 
-	private static final ResourceLocation avatarOverlay = ResourceLocation.parse(ResourcesLib.MODEL_AVATAR_FIRE);
+	private static final ResourceLocation AVATAR_OVERLAY = ResourceLocation.parse(ResourcesLib.MODEL_AVATAR_FIRE);
 
 	private static final int COST = 900;
 	private static final int COOLDOWN = 1200;
+	private static final int COOLDOWN_AVATAR = 300;
 
 	public HellsRodItem(Properties props) {
 		super(props);
@@ -42,50 +42,51 @@ public class HellsRodItem extends Item {
 
 	@Override
 	public InteractionResult useOn(UseOnContext ctx) {
-		Level world = ctx.getLevel();
+		Level level = ctx.getLevel();
 		Player player = ctx.getPlayer();
 		ItemStack stack = ctx.getItemInHand();
 		BlockPos pos = ctx.getClickedPos();
 
 		if (player != null && ManaItemHandler.instance().requestManaExactForTool(stack, player, COST, false)) {
-			if (!world.isClientSide()) {
-				FlameRingEntity entity = BotaniaEntities.FLAME_RING.create(world);
-				entity.setPos(pos.getX() + 0.5, pos.getY() + 1, pos.getZ() + 0.5);
-				world.addFreshEntity(entity);
+			if (!level.isClientSide()) {
+				FlameRingEntity entity = BotaniaEntities.FLAME_RING.create(level);
+				if (entity != null) {
+					entity.setPos(pos.getX() + 0.5, pos.getY() + 1, pos.getZ() + 0.5);
+					level.addFreshEntity(entity);
 
-				if (!player.isCreative()) {
-					player.getCooldowns().addCooldown(this, ManaItemHandler.instance().hasProficiency(player, stack) ? COOLDOWN / 2 : COOLDOWN);
+					player.getCooldowns().addCooldown(this, player.isCreative()
+							? 10
+							: ManaItemHandler.instance().hasProficiency(player, stack) ? COOLDOWN / 2 : COOLDOWN);
+					ManaItemHandler.instance().requestManaExactForTool(stack, player, COST, true);
+					level.gameEvent(player, GameEvent.PROJECTILE_SHOOT, pos);
 				}
-				ManaItemHandler.instance().requestManaExactForTool(stack, player, COST, true);
-
-				world.gameEvent(player, GameEvent.PROJECTILE_SHOOT, pos);
-				ctx.getLevel().playSound(null, pos.getX(), pos.getY(), pos.getZ(), BotaniaSounds.fireRod, SoundSource.PLAYERS, 1F, 1F);
 			}
+			player.playSound(BotaniaSounds.fireRod, 1, 1);
 		}
 
-		return InteractionResult.sidedSuccess(world.isClientSide());
+		return InteractionResult.sidedSuccess(level.isClientSide());
 	}
 
-	public static class AvatarBehavior implements AvatarWieldable {
+	public record AvatarBehavior(ItemStack rod, Avatar avatar) implements AvatarWieldable {
 		@Override
-		public void onAvatarUpdate(Avatar tile) {
-			BlockEntity te = (BlockEntity) tile;
-			Level world = te.getLevel();
-			BlockPos pos = te.getBlockPos();
-			ManaReceiver receiver = ManaReceiver.LOOKUP.find(world, pos, te.getBlockState(), te, null);
-
-			if (!world.isClientSide && receiver.getCurrentMana() >= COST && tile.getElapsedFunctionalTicks() % 300 == 0 && tile.isEnabled()) {
-				FlameRingEntity entity = BotaniaEntities.FLAME_RING.create(world);
+		public void onAvatarUpdate(ServerLevel level, BlockPos pos, ManaReceiver receiver) {
+			if (receiver.getCurrentMana() >= COST && avatar.isEnabled()
+					&& getTimeSinceLastActivation(level) >= COOLDOWN_AVATAR) {
+				FlameRingEntity entity = BotaniaEntities.FLAME_RING.create(level);
+				if (entity == null) {
+					return;
+				}
 				entity.setPos(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5);
-				world.addFreshEntity(entity);
+				level.addFreshEntity(entity);
 				receiver.receiveMana(-COST);
-				world.gameEvent(null, GameEvent.PROJECTILE_SHOOT, pos);
+				level.gameEvent(null, GameEvent.PROJECTILE_SHOOT, pos);
+				setLastActivationTime(level);
 			}
 		}
 
 		@Override
-		public ResourceLocation getOverlayResource(Avatar tile) {
-			return avatarOverlay;
+		public ResourceLocation getOverlayResource() {
+			return AVATAR_OVERLAY;
 		}
 	}
 

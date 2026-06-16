@@ -22,7 +22,7 @@ public class OvergrowthSeedItem extends Item {
 		BlockPos pos = ctx.getClickedPos();
 		if (level.getBlockState(pos).is(Blocks.GRASS_BLOCK)) {
 			if (!level.isClientSide) {
-				level.setBlockAndUpdate(pos, BotaniaBlocks.enchantedSoil.defaultBlockState());
+				level.setBlockAndUpdate(pos, BotaniaBlocks.ENCHANTED_SOIL.defaultBlockState());
 				level.playSound(null, pos, SoundEvents.GRASS_PLACE, SoundSource.BLOCKS, 1F, 0.8F);
 				ctx.getItemInHand().shrink(1);
 			}

@@ -134,9 +134,15 @@ public final class LibBlockNames {
 	public static final String BELLOWS = "bellows";
 	public static final String BIFROST_PERM = "bifrost_perm";
 	public static final String PAVEMENT_SUFFIX = "_pavement";
+	public static final String PAVEMENT_VARIANT_WHITE = "white";
+	public static final String PAVEMENT_VARIANT_BLACK = "black";
+	public static final String PAVEMENT_VARIANT_BLUE = "blue";
+	public static final String PAVEMENT_VARIANT_RED = "red";
+	public static final String PAVEMENT_VARIANT_YELLOW = "yellow";
+	public static final String PAVEMENT_VARIANT_GREEN = "green";
 	public static final String[] PAVEMENT_VARIANTS = {
-			"white", "black", "blue",
-			"red", "yellow", "green"
+			PAVEMENT_VARIANT_WHITE, PAVEMENT_VARIANT_BLACK, PAVEMENT_VARIANT_BLUE,
+			PAVEMENT_VARIANT_RED, PAVEMENT_VARIANT_YELLOW, PAVEMENT_VARIANT_GREEN
 	};
 	public static final String CELL_BLOCK = "cell_block";
 	public static final String GAIA_HEAD = "gaia_head";
@@ -150,13 +156,23 @@ public final class LibBlockNames {
 	public static final String ALT_GRASS_SUFFIX = "_grass";
 	public static final String ANIMATED_TORCH = "animated_torch";
 	public static final String METAMORPHIC_PREFIX = "metamorphic_";
+	public static final String METAMORPHIC_VARIANT_FOREST = "forest";
+	public static final String METAMORPHIC_VARIANT_PLAINS = "plains";
+	public static final String METAMORPHIC_VARIANT_MOUNTAIN = "mountain";
+	public static final String METAMORPHIC_VARIANT_FUNGAL = "fungal";
+	public static final String METAMORPHIC_VARIANT_SWAMP = "swamp";
+	public static final String METAMORPHIC_VARIANT_DESERT = "desert";
+	public static final String METAMORPHIC_VARIANT_TAIGA = "taiga";
+	public static final String METAMORPHIC_VARIANT_MESA = "mesa";
 	public static final String[] METAMORPHIC_VARIANTS = {
-			"forest", "plains", "mountain", "fungal",
-			"swamp", "desert", "taiga", "mesa"
+			METAMORPHIC_VARIANT_FOREST, METAMORPHIC_VARIANT_PLAINS, METAMORPHIC_VARIANT_MOUNTAIN,
+			METAMORPHIC_VARIANT_FUNGAL, METAMORPHIC_VARIANT_SWAMP, METAMORPHIC_VARIANT_DESERT,
+			METAMORPHIC_VARIANT_TAIGA, METAMORPHIC_VARIANT_MESA
 	};
 	public static final String CORPOREA_BLOCK = "corporea_block";
 	public static final String CORPOREA_PREFIX = "corporea";
 	public static final String CORPOREA_BRICK = "corporea_brick";
+	public static final String BLOCK_SUFFIX = "_block";
 	public static final String SLAB_SUFFIX = "_slab";
 	public static final String STAIR_SUFFIX = "_stairs";
 	public static final String WALL_SUFFIX = "_wall";
@@ -192,9 +208,9 @@ public final class LibBlockNames {
 	public static final String SUBTILE_RAFFLOWSIA = "rafflowsia";
 	public static final String SUBTILE_SHULK_ME_NOT = "shulk_me_not";
 
-	public static final String SUBTILE_BELLETHORN = "bellethorn";
+	public static final String SUBTILE_BELLETHORN = "bellethorne";
 	public static final String SUBTILE_BERGAMUTE = "bergamute";
-	public static final String SUBTILE_DREADTHORN = "dreadthorn";
+	public static final String SUBTILE_DREADTHORN = "dreadthorne";
 	public static final String SUBTILE_HEISEI_DREAM = "heisei_dream";
 	public static final String SUBTILE_TIGERSEYE = "tigerseye";
 	public static final String SUBTILE_JADED_AMARANTHUS = "jaded_amaranthus";

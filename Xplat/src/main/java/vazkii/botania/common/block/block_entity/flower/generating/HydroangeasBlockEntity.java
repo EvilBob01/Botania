@@ -42,7 +42,7 @@ public class HydroangeasBlockEntity extends FluidGeneratorBlockEntity {
 		if (getLevel().isClientSide()) {
 			return;
 		}
-		if (getLevel().getBlockState(getBlockPos().below()).is(BotaniaBlocks.enchantedSoil)) {
+		if (getLevel().getBlockState(getBlockPos().below()).is(BotaniaBlocks.ENCHANTED_SOIL)) {
 			passiveDecayTicks = 0;
 		} else if (++passiveDecayTicks > DECAY_TIME) {
 			getLevel().destroyBlock(getBlockPos(), false);

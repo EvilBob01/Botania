@@ -110,7 +110,7 @@ public final class HUDHandler {
 
 		float partialTick = deltaTracker.getGameTimeDeltaPartialTick(true);
 		if (mc.gameMode.canHurtPlayer()) {
-			ItemStack dodgeRing = EquipmentHandler.findOrEmpty(BotaniaItems.dodgeRing, localPlayer);
+			ItemStack dodgeRing = EquipmentHandler.findOrEmpty(BotaniaItems.RING_OF_DEXTEROUS_MOTION, localPlayer);
 			if (!dodgeRing.isEmpty()) {
 				profiler.push("dodgeRing");
 				RingOfDexterousMotionItem.ClientLogic.renderHUD(gui, localPlayer, dodgeRing, partialTick);
@@ -144,7 +144,7 @@ public final class HUDHandler {
 					renderPoolRecipeHUD(gui, pool, localPlayer.getMainHandItem(), alternateRecipeHudPosition);
 				}
 			}
-			if (!PlayerHelper.hasHeldItem(localPlayer, BotaniaItems.lexicon)) {
+			if (!PlayerHelper.hasHeldItem(localPlayer, BotaniaItems.LEXICA_BOTANIA)) {
 				if (tile instanceof PetalApothecaryBlockEntity altar) {
 					profiler.push("apothecary");
 					PetalApothecaryBlockEntity.Hud.render(altar, gui, window, font, partialTick);
@@ -265,7 +265,7 @@ public final class HUDHandler {
 
 		float partialTick = deltaTracker.getGameTimeDeltaPartialTick(true);
 		if (mc.gameMode.canHurtPlayer()) {
-			ItemStack tiara = EquipmentHandler.findOrEmpty(BotaniaItems.flightTiara, localPlayer);
+			ItemStack tiara = EquipmentHandler.findOrEmpty(BotaniaItems.FLUEGEL_TIARA, localPlayer);
 			if (!tiara.isEmpty()) {
 				profiler.push("flugelTiara");
 				FlugelTiaraItem.ClientLogic.renderHUD(gui, partialTick, localPlayer, tiara);
@@ -350,7 +350,7 @@ public final class HUDHandler {
 		int y = mc.getWindow().getGuiScaledHeight() - 60;
 
 		RenderHelper.renderHUDBox(gui, x - 4, y - 4, x + l + 4, y + 35);
-		gui.renderItem(new ItemStack(BotaniaBlocks.corporeaIndex), x, y + 10);
+		gui.renderItem(new ItemStack(BotaniaBlocks.CORPOREA_INDEX), x, y + 10);
 
 		gui.drawString(mc.font, txt0, x + 20, y, 0xFFFFFF);
 		gui.drawString(mc.font, txt1, x + 20, y + 14, 0xFFFFFF);

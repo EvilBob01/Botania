@@ -8,8 +8,14 @@
  */
 package vazkii.botania.common.item.rod;
 
+import it.unimi.dsi.fastutil.objects.Object2LongArrayMap;
+import it.unimi.dsi.fastutil.objects.Object2LongMap;
+import it.unimi.dsi.fastutil.objects.Object2LongMaps;
+
+import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.sounds.SoundSource;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
@@ -18,10 +24,11 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+
+import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.block.Avatar;
 import vazkii.botania.api.item.AvatarWieldable;
@@ -33,6 +40,7 @@ import vazkii.botania.common.annotations.SoftImplement;
 import vazkii.botania.common.component.BotaniaDataComponents;
 import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.helper.DataComponentHelper;
+import vazkii.botania.common.helper.MathHelper;
 import vazkii.botania.common.helper.PlayerHelper;
 import vazkii.botania.network.clientbound.AvatarSkiesRodEffectPacket;
 import vazkii.botania.network.clientbound.AvatarSkiesRodUpdatePacket;
@@ -44,20 +52,21 @@ import java.util.UUID;
 
 public class SkiesRodItem extends Item {
 
-	private static final ResourceLocation avatarOverlay = ResourceLocation.parse(ResourcesLib.MODEL_AVATAR_TORNADO);
+	private static final ResourceLocation AVATAR_OVERLAY = ResourceLocation.parse(ResourcesLib.MODEL_AVATAR_TORNADO);
 
 	private static final int FLY_TIME = 20;
 	private static final int FALL_MULTIPLIER = 3;
 	private static final int MAX_COUNTER = FLY_TIME * FALL_MULTIPLIER;
 	private static final int COST = 350;
+	private static final int AVATAR_COOLDOWN = 20;
 
 	public SkiesRodItem(Properties props) {
 		super(props);
 	}
 
 	@Override
-	public void inventoryTick(ItemStack stack, Level world, Entity ent, int slot, boolean active) {
-		if (ent instanceof Player player) {
+	public void inventoryTick(ItemStack stack, Level level, Entity entity, int slot, boolean active) {
+		if (entity instanceof Player player) {
 			boolean preventingDamage = getFlyCounter(stack) > 0;
 			boolean held = player.getMainHandItem() == stack || player.getOffhandItem() == stack;
 
@@ -88,11 +97,12 @@ public class SkiesRodItem extends Item {
 						player.gameEvent(GameEvent.FLAP);
 					}
 					for (int i = 0; i < 5; i++) {
-						WispParticleData data = WispParticleData.wisp(0.35F + (float) Math.random() * 0.1F, 0.25F, 0.25F, 0.25F);
-						world.addParticle(data, player.getX(), player.getY(), player.getZ(),
-								0.2F * (float) (Math.random() - 0.5),
-								-0.01F * (float) Math.random(),
-								0.2F * (float) (Math.random() - 0.5));
+						WispParticleData data = WispParticleData.wisp(0.35f + level.getRandom().nextFloat() * 0.1F, 0.25F, 0.25F, 0.25F);
+						level.addParticle(data, player.getX(), player.getY(), player.getZ(),
+								0.2 * (level.getRandom().nextDouble() - 0.5),
+								-0.01 * level.getRandom().nextDouble(),
+								0.2 * (level.getRandom().nextDouble() - 0.5)
+						);
 					}
 				}
 
@@ -122,18 +132,18 @@ public class SkiesRodItem extends Item {
 	@Override
 	public int getBarColor(ItemStack stack) {
 		float frac = 1 - (getFlyCounter(stack) / (float) MAX_COUNTER);
-		return Mth.hsvToRgb(frac / 3.0F, 1.0F, 1.0F);
+		return Mth.hsvToRgb(frac / 3.0f, 1, 1);
 	}
 
 	@Override
-	public InteractionResultHolder<ItemStack> use(Level world, Player player, InteractionHand hand) {
+	public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
 		ItemStack stack = player.getItemInHand(hand);
 		int fly = getFlyCounter(stack);
 		if (fly == 0 && ManaItemHandler.instance().requestManaExactForTool(stack, player, COST, false)) {
 			ManaItemHandler.instance().requestManaExactForTool(stack, player, COST, true);
 			setFlying(stack, true);
 			player.gameEvent(GameEvent.ITEM_INTERACT_FINISH);
-			return InteractionResultHolder.sidedSuccess(stack, world.isClientSide());
+			return InteractionResultHolder.sidedSuccess(stack, level.isClientSide());
 		}
 
 		return InteractionResultHolder.pass(stack);
@@ -155,88 +165,149 @@ public class SkiesRodItem extends Item {
 		DataComponentHelper.setIntNonZero(stack, BotaniaDataComponents.REMAINING_TICKS, counter);
 	}
 
-	public static class AvatarBehavior implements AvatarWieldable {
+	public record AvatarBehavior(ItemStack rod, Avatar avatar) implements AvatarWieldable {
 		@Override
-		public void onAvatarUpdate(Avatar tile) {
-			BlockEntity te = (BlockEntity) tile;
-			Level world = te.getLevel();
-			Map<UUID, Integer> cooldowns = tile.getBoostCooldowns();
-			ManaReceiver receiver = ManaReceiver.LOOKUP.find(world, te.getBlockPos(), te.getBlockState(), te, null);
+		public void onAvatarUpdate(ServerLevel level, BlockPos pos, ManaReceiver receiver) {
+			long gameTime = level.getGameTime();
+			ActivationTimes activationTimes = new ActivationTimes(rod.get(BotaniaDataComponents.LAST_ACTIVATION_TIMES),
+					gameTime - AVATAR_COOLDOWN);
 
-			if (!world.isClientSide) {
-				decAvatarCooldowns(cooldowns);
-			}
-			if (!world.isClientSide && receiver.getCurrentMana() >= COST && tile.isEnabled()) {
-				double range = 5.5;
-				double rangeY = 3.5;
-				List<Player> players = world.getEntitiesOfClass(Player.class, new AABB(
-						te.getBlockPos().getCenter().add(-range, -rangeY, -range),
-						te.getBlockPos().getCenter().add(range, rangeY, range)
-				));
-				for (Player p : players) {
-					int cooldown = 0;
-					if (cooldowns.containsKey(p.getUUID())) {
-						cooldown = cooldowns.get(p.getUUID());
-					}
-					if (!p.isShiftKeyDown() && cooldown <= 0) {
-						if (p.getDeltaMovement().length() > 0.2 && p.getDeltaMovement().length() < 5 && p.isFallFlying()) {
-							doAvatarElytraBoost(p, world);
-							doAvatarMiscEffects(p, receiver);
-							cooldowns.put(p.getUUID(), 20);
-							te.setChanged();
-						} else if (p.getDeltaMovement().y() > 0.3 && p.getDeltaMovement().y() < 2 && !p.isFallFlying()) {
-							doAvatarJump(p, world);
-							doAvatarMiscEffects(p, receiver);
+			if (receiver.getCurrentMana() >= COST && avatar.isEnabled()) {
+				AABB aabb = MathHelper.inflateBoxAround(pos, 5, 3);
+				List<ServerPlayer> players = level.getPlayers(
+						player -> player.canBeSeenByAnyone() && player.getBoundingBox().intersects(aabb));
+				for (Player player : players) {
+					if (!player.isShiftKeyDown() && activationTimes.canActivate(player.getUUID())
+							&& receiver.getCurrentMana() >= COST) {
+						if (player.isFallFlying()) {
+							if (player.getDeltaMovement().lengthSqr() > 0.2 * 0.2
+									&& player.getDeltaMovement().lengthSqr() < 5 * 5 && player.isFallFlying()) {
+								doAvatarElytraBoost(player, level);
+								doAvatarMiscEffects(player, receiver);
+								activationTimes.setActivationTime(player.getUUID(), gameTime);
+							}
+						} else {
+							if (player.getDeltaMovement().y() > 0.3 && player.getDeltaMovement().y() < 2) {
+								doAvatarJump(player, level);
+								doAvatarMiscEffects(player, receiver);
+								avatar.markForPersisting();
+							}
 						}
 					}
 				}
 			}
+			if (activationTimes.hasChanged) {
+				DataComponentHelper.setUnlessDefault(rod, BotaniaDataComponents.LAST_ACTIVATION_TIMES,
+						activationTimes.uuidMap, Object2LongMaps.emptyMap());
+				avatar.markForPersisting();
+			}
 		}
 
 		@Override
-		public ResourceLocation getOverlayResource(Avatar tile) {
-			return avatarOverlay;
+		public ResourceLocation getOverlayResource() {
+			return AVATAR_OVERLAY;
 		}
-	}
 
-	public static void doAvatarElytraBoost(Player p, Level world) {
-		Vec3 lookDir = p.getLookAngle();
-		double mult = 1.25 * Math.pow(Math.E, -0.5 * p.getDeltaMovement().length());
-		p.setDeltaMovement(p.getDeltaMovement().x() + lookDir.x() * mult,
-				p.getDeltaMovement().y() + lookDir.y() * mult,
-				p.getDeltaMovement().z() + lookDir.z() * mult);
+		/**
+		 * Wrapper around the cooldown map to minimize map allocations.
+		 * 
+		 * @implNote Internally this uses an {@link Object2LongArrayMap} for two reasons. Firstly, under normal
+		 *           circumstances there are never going to be more than a few entries in the map. Secondly, the entries
+		 *           that do exist in the map will likely be in ascending order of activation times, which is beneficial
+		 *           for detecting the need to remove an entry. (It's likely only going to be one at a time, unless
+		 *           multiple players somehow enter elytra boost range in the same tick.)
+		 */
+		private static class ActivationTimes {
+			@Nullable
+			public final Map<UUID, Long> immutableUuidMap;
+			public Object2LongMap<UUID> uuidMap = Object2LongMaps.emptyMap();
+			public boolean hasChanged;
 
-		if (!world.isClientSide) {
-			XplatAbstractions.INSTANCE.sendToPlayer(p, new AvatarSkiesRodUpdatePacket(true));
-			XplatAbstractions.INSTANCE.sendToTracking(p, new AvatarSkiesRodEffectPacket(true, p.getId()));
-		}
-	}
+			public ActivationTimes(@Nullable Map<UUID, Long> immutableUuidMap, long cutOffTime) {
+				this.immutableUuidMap = immutableUuidMap;
+				removeOutdatedEntries(cutOffTime);
+			}
 
-	public static void doAvatarJump(Player p, Level world) {
-		PlayerHelper.setCurrentImpulseImpactPos(p, 3, p);
-		p.setDeltaMovement(p.getDeltaMovement().x(), 2.8, p.getDeltaMovement().z());
+			/**
+			 * If any entries have a time index on or before the cut-off time, make a copy of the immutable source map
+			 * without those entries.
+			 * (This method needs to run before any result of {@link #canActivate(UUID)} can be trusted.)
+			 */
+			private void removeOutdatedEntries(long cutOffTime) {
+				if (immutableUuidMap == null) {
+					// we currently store no activation times, nothing to do
+					return;
+				}
 
-		if (!world.isClientSide) {
-			XplatAbstractions.INSTANCE.sendToPlayer(p, new AvatarSkiesRodUpdatePacket(false));
-			XplatAbstractions.INSTANCE.sendToTracking(p, new AvatarSkiesRodEffectPacket(false, p.getId()));
-		}
-	}
+				// check if there are any outdated activation times
+				for (long time : immutableUuidMap.values()) {
+					if (time <= cutOffTime) {
+						// we found an outdated activation time
+						copyRemainingEntries(immutableUuidMap, cutOffTime);
+						break;
+					}
+				}
+			}
 
-	private static void doAvatarMiscEffects(Player p, ManaReceiver tile) {
-		p.level().playSound(null, p.getX(), p.getY(), p.getZ(), BotaniaSounds.dash, SoundSource.PLAYERS, 1F, 1F);
-		p.gameEvent(GameEvent.FLAP);
-		tile.receiveMana(-COST);
-	}
+			private void copyRemainingEntries(Map<UUID, Long> immutableMap, long cutOffTime) {
+				for (Map.Entry<UUID, Long> entry : immutableMap.entrySet()) {
+					if (entry.getValue() > cutOffTime) {
+						if (uuidMap == Object2LongMaps.EMPTY_MAP) {
+							// it's unlikely we will have a lot of entries, so array map is the most efficient option
+							uuidMap = new Object2LongArrayMap<>(immutableMap.size());
+						}
+						uuidMap.put(entry.getKey(), (long) entry.getValue());
+					}
+				}
+				hasChanged = true;
+			}
 
-	private static void decAvatarCooldowns(Map<UUID, Integer> cooldownTag) {
-		for (UUID key : cooldownTag.keySet()) {
-			int val = cooldownTag.get(key);
-			if (val > 0) {
-				cooldownTag.put(key, val - 1);
-			} else {
-				cooldownTag.remove(key);
+			public void setActivationTime(UUID uuid, long activationTime) {
+				if (uuidMap == Object2LongMaps.EMPTY_MAP) {
+					// initialize the proper UUID map
+					Map<UUID, Long> sourceMap = immutableUuidMap != null ? immutableUuidMap : uuidMap;
+					// it's very likely this is the only entry we will add this tick
+					uuidMap = new Object2LongArrayMap<>(sourceMap.size() + 1);
+					uuidMap.putAll(sourceMap);
+				}
+				uuidMap.put(uuid, activationTime);
+				hasChanged = true;
+			}
+
+			public boolean canActivate(UUID uuid) {
+				return hasChanged
+						? !uuidMap.containsKey(uuid)
+						: immutableUuidMap == null || !immutableUuidMap.containsKey(uuid);
 			}
 		}
+	}
+
+	public static void doAvatarElytraBoost(Player player, Level level) {
+		Vec3 lookDir = player.getLookAngle();
+		double mult = 1.25 * Math.pow(Math.E, -0.5 * player.getDeltaMovement().length());
+		player.setDeltaMovement(player.getDeltaMovement().x() + lookDir.x() * mult,
+				player.getDeltaMovement().y() + lookDir.y() * mult,
+				player.getDeltaMovement().z() + lookDir.z() * mult);
+
+		if (!level.isClientSide()) {
+			XplatAbstractions.INSTANCE.sendToPlayer(player, new AvatarSkiesRodUpdatePacket(true));
+			XplatAbstractions.INSTANCE.sendToTracking(player, new AvatarSkiesRodEffectPacket(true, player.getId()));
+		}
+	}
+
+	public static void doAvatarJump(Player player, Level level) {
+		PlayerHelper.setCurrentImpulseImpactPos(player, 3, player);
+		player.setDeltaMovement(player.getDeltaMovement().x(), 2.8, player.getDeltaMovement().z());
+
+		if (!level.isClientSide()) {
+			XplatAbstractions.INSTANCE.sendToPlayer(player, new AvatarSkiesRodUpdatePacket(false));
+			XplatAbstractions.INSTANCE.sendToTracking(player, new AvatarSkiesRodEffectPacket(false, player.getId()));
+		}
+	}
+
+	private static void doAvatarMiscEffects(Player player, ManaReceiver receiver) {
+		player.gameEvent(GameEvent.FLAP);
+		receiver.receiveMana(-COST);
 	}
 
 	@SoftImplement("IItemExtension")

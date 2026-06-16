@@ -76,7 +76,7 @@ public class CocoonBlock extends BotaniaWaterloggedBlock implements EntityBlock 
 		if (!(world.getBlockEntity(pos) instanceof CocoonBlockEntity cocoon)) {
 			return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
 		}
-		if (stack.is(Items.EMERALD) || stack.is(Items.CHORUS_FRUIT) || stack.is(BotaniaItems.lifeEssence)) {
+		if (stack.is(Items.EMERALD) || stack.is(Items.CHORUS_FRUIT) || stack.is(BotaniaItems.GAIA_SPIRIT)) {
 			if (!world.isClientSide) {
 				if (stack.is(Items.EMERALD) && cocoon.emeraldsGiven < CocoonBlockEntity.MAX_EMERALDS) {
 					if (!creative) {
@@ -93,7 +93,7 @@ public class CocoonBlock extends BotaniaWaterloggedBlock implements EntityBlock 
 					cocoon.chorusFruitGiven++;
 					((ServerLevel) world).sendParticles(ParticleTypes.PORTAL, pos.getX() + 0.5, pos.getY(),
 							pos.getZ() + 0.5, 32, 0, 0, 0, 0.5);
-				} else if (stack.is(BotaniaItems.lifeEssence) && !cocoon.gaiaSpiritGiven) {
+				} else if (stack.is(BotaniaItems.GAIA_SPIRIT) && !cocoon.gaiaSpiritGiven) {
 					if (!creative) {
 						stack.shrink(1);
 					}
@@ -118,6 +118,6 @@ public class CocoonBlock extends BotaniaWaterloggedBlock implements EntityBlock 
 	@Nullable
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-		return createTickerHelper(type, BotaniaBlockEntities.COCOON, CocoonBlockEntity::commonTick);
+		return createTickerHelper(type, BotaniaBlockEntities.COCOON_OF_CAPRICE, CocoonBlockEntity::commonTick);
 	}
 }

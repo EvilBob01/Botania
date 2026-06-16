@@ -69,7 +69,7 @@ public class CraftyCrateBlockEntity extends OpenCrateBlockEntity implements Wand
 	}
 
 	public CraftyCrateBlockEntity(BlockPos pos, BlockState state) {
-		super(BotaniaBlockEntities.CRAFT_CRATE, pos, state, true);
+		super(BotaniaBlockEntities.CRAFTY_CRATE, pos, state, true);
 	}
 
 	@Override
@@ -89,7 +89,7 @@ public class CraftyCrateBlockEntity extends OpenCrateBlockEntity implements Wand
 
 	public CraftyCratePattern getPattern() {
 		BlockState state = getBlockState();
-		if (!state.is(BotaniaBlocks.craftCrate)) {
+		if (!state.is(BotaniaBlocks.CRAFTY_CRATE)) {
 			return CraftyCratePattern.NONE;
 		}
 		return state.getValue(BotaniaStateProperties.CRATE_PATTERN);
@@ -148,7 +148,7 @@ public class CraftyCrateBlockEntity extends OpenCrateBlockEntity implements Wand
 		for (int i = 0; i < craft.getContainerSize(); i++) {
 			ItemStack stack = getItemHandler().getItem(i);
 
-			if (stack.isEmpty() || isLocked(i) || stack.is(BotaniaItems.placeholder)) {
+			if (stack.isEmpty() || isLocked(i) || stack.is(BotaniaItems.CRAFTING_PLACEHOLDER)) {
 				continue;
 			}
 
@@ -186,7 +186,7 @@ public class CraftyCrateBlockEntity extends OpenCrateBlockEntity implements Wand
 					ItemStack s = remainders.get(remainderIndex);
 					ItemStack inSlot = handler.getItem(slot);
 					if ((inSlot.isEmpty() && s.isEmpty())
-							|| (!inSlot.isEmpty() && inSlot.is(BotaniaItems.placeholder))) {
+							|| (!inSlot.isEmpty() && inSlot.is(BotaniaItems.CRAFTING_PLACEHOLDER))) {
 						continue;
 					}
 					handler.setItem(slot, s);
