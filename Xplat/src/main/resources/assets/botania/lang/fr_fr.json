@@ -197,7 +197,7 @@
 
 
 
-  "botania.nei.brewery": "Alambic botanique",
+  "botania.nei.botanical_brewery": "Alambic botanique",
   "botania.nei.elvenTrade": "Commerce elfique",
   "botania.nei.floatingFlowers": "Fleur flottante",
   "botania.nei.manaPool": "Bassin de mana",
@@ -230,8 +230,15 @@
 
 
 
-  "tag.block.botania.double_mystical_flowers": "Grandes fleurs mystiques",
+
+
+
+  "tag.block.botania.tall_mystical_flowers": "Grandes fleurs mystiques",
   "tag.block.botania.dreamwood_logs": "Bûches en boisrêve",
+
+
+
+
 
 
   "tag.block.botania.floating_flowers": "Fleurs flottantes",
@@ -256,7 +263,7 @@
   "tag.block.botania.misc_special_flowers": "Flore diverse",
 
   "tag.block.botania.mundane_floating_flowers": "Fleurs flottantes basiques",
-  "tag.block.botania.mystical_flowers": "Fleurs mystiques",
+  "tag.block.botania.small_mystical_flowers": "Fleurs mystiques",
 
 
 
@@ -330,7 +337,7 @@
 
 
 
-  "tag.item.botania.double_mystical_flowers": "Grandes fleurs mystiques",
+  "tag.item.botania.tall_mystical_flowers": "Grandes fleurs mystiques",
   "tag.item.botania.dreamwood_logs": "Bûches en boisrêve",
 
 
@@ -359,7 +366,7 @@
   "tag.item.botania.misc_special_flowers": "Flore diverse",
 
   "tag.item.botania.mundane_floating_flowers": "Fleurs flottantes basiques",
-  "tag.item.botania.mystical_flowers": "Fleurs mystiques",
+  "tag.item.botania.small_mystical_flowers": "Fleurs mystiques",
   "tag.item.botania.petals": "Pétales",
   "tag.item.botania.petals.black": "Pétales noirs",
   "tag.item.botania.petals.blue": "Pétales bleus",
@@ -876,18 +883,18 @@
 
 
 
-  "block.botania.apothecary_default": "Apothicaire de pétales",
-  "block.botania.apothecary_forest": "Apothicaire en fuschite",
-  "block.botania.apothecary_plains": "Apothicaire en talc",
-  "block.botania.apothecary_mountain": "Apothicaire en gneiss",
-  "block.botania.apothecary_fungal": "Apothicaire en mycelite",
-  "block.botania.apothecary_swamp": "Apothicaire en cataclasite",
-  "block.botania.apothecary_desert": "Apothicaire des solite",
-  "block.botania.apothecary_taiga": "Apothicaire en lunite",
-  "block.botania.apothecary_mesa": "Apothicaire en rosite",
-  "block.botania.apothecary_mossy": "Apothicaire moussu",
-  "block.botania.apothecary_livingrock": "Apothicaire de viveroche",
-  "block.botania.apothecary_deepslate": "Apothicaire des abîmes",
+  "block.botania.petal_apothecary": "Apothicaire de pétales",
+  "block.botania.fuchsite_petal_apothecary": "Apothicaire en fuschite",
+  "block.botania.talc_petal_apothecary": "Apothicaire en talc",
+  "block.botania.gneiss_petal_apothecary": "Apothicaire en gneiss",
+  "block.botania.mycelite_petal_apothecary": "Apothicaire en mycelite",
+  "block.botania.cataclasite_petal_apothecary": "Apothicaire en cataclasite",
+  "block.botania.solite_petal_apothecary": "Apothicaire des solite",
+  "block.botania.lunite_petal_apothecary": "Apothicaire en lunite",
+  "block.botania.rosy_talc_petal_apothecary": "Apothicaire en rosite",
+  "block.botania.mossy_petal_apothecary": "Apothicaire moussu",
+  "block.botania.livingrock_petal_apothecary": "Apothicaire de viveroche",
+  "block.botania.deepslate_petal_apothecary": "Apothicaire des abîmes",
 
 
 
@@ -930,7 +937,7 @@
 
 
 
-  "block.botania.redstone_spreader": "Diffuseur pulsé",
+  "block.botania.pulse_mana_spreader": "Diffuseur pulsé",
 
 
 
@@ -947,7 +954,7 @@
 
 
 
-  "block.botania.elven_spreader": "Diffuseur elfique",
+  "block.botania.elven_mana_spreader": "Diffuseur elfique",
 
 
 
@@ -964,7 +971,7 @@
 
 
 
-  "block.botania.gaia_spreader": "Diffuseur Gaïa",
+  "block.botania.gaia_mana_spreader": "Diffuseur Gaïa",
 
 
 
@@ -998,8 +1005,8 @@
 
 
 
-  "block.botania.creative_pool": "Bassin de mana créatif",
-  "block.botania.diluted_pool": "Bassin de mana dilué",
+  "block.botania.creative_mana_pool": "Bassin de mana créatif",
+  "block.botania.diluted_mana_pool": "Bassin de mana dilué",
 
 
 
@@ -1016,7 +1023,7 @@
 
 
 
-  "block.botania.fabulous_pool": "Bassin de mana fabuleux",
+  "block.botania.fabulous_mana_pool": "Bassin de mana fabuleux",
 
 
 
@@ -1034,44 +1041,44 @@
 
 
   "block.botania.runic_altar": "Autel runique",
-  "block.botania.piston_relay": "Relais de force",
-  "block.botania.mana_distributor": "Répartiteur de mana",
+  "block.botania.force_relay": "Relais de force",
+  "block.botania.mana_splitter": "Répartiteur de mana",
   "block.botania.mana_pylon": "Pylône de mana",
   "block.botania.natura_pylon": "Pylône Natura",
   "block.botania.gaia_pylon": "Pylône Gaïa",
   "block.botania.mana_void": "Destructeur de mana",
   "block.botania.mana_detector": "Détecteur de mana",
-  "block.botania.enchanter": "Enchanteur de mana",
-  "block.botania.turntable": "Plaque tournante",
+  "block.botania.mana_enchanter": "Enchanteur de mana",
+  "block.botania.spreader_turntable": "Plaque tournante",
   "block.botania.tiny_planet_block": "Petite planète",
   "block.botania.alchemy_catalyst": "Catalyseur alchimique",
   "block.botania.open_crate": "Caisse percée",
   "block.botania.crafty_crate": "Caisse créatrice",
-  "block.botania.forest_eye": "Oeil des Anciens",
+  "block.botania.eye_of_the_ancients": "Oeil des Anciens",
   "block.botania.manasteel_block": "Bloc de manacier",
   "block.botania.terrasteel_block": "Bloc de terracier",
   "block.botania.elementium_block": "Bloc d'élémentium",
   "block.botania.mana_diamond_block": "Bloc de diamant de mana",
   "block.botania.dragonstone_block": "Bloc de dragonite",
-  "block.botania.drum_wild": "Tambour sauvage",
-  "block.botania.drum_gathering": "Tambour touffu",
-  "block.botania.drum_canopy": "Tambour feuillu",
-  "block.botania.white_shiny_flower": "Fleur lumineuse blanche",
-  "block.botania.orange_shiny_flower": "Fleur lumineuse orange",
-  "block.botania.magenta_shiny_flower": "Fleur lumineuse magenta",
-  "block.botania.light_blue_shiny_flower": "Fleur lumineuse bleu ciel",
-  "block.botania.yellow_shiny_flower": "Fleur lumineuse jaune",
-  "block.botania.lime_shiny_flower": "Fleur lumineuse vert clair",
-  "block.botania.pink_shiny_flower": "Fleur lumineuse rose",
-  "block.botania.gray_shiny_flower": "Fleur lumineuse grise",
-  "block.botania.light_gray_shiny_flower": "Fleur lumineuse gris clair",
-  "block.botania.cyan_shiny_flower": "Fleur lumineuse cyan",
-  "block.botania.purple_shiny_flower": "Fleur lumineuse violette",
-  "block.botania.blue_shiny_flower": "Fleur lumineuse bleue",
-  "block.botania.brown_shiny_flower": "Fleur lumineuse marron",
-  "block.botania.green_shiny_flower": "Fleur lumineuse verte",
-  "block.botania.red_shiny_flower": "Fleur lumineuse rouge",
-  "block.botania.black_shiny_flower": "Fleur lumineuse noire",
+  "block.botania.drum_of_the_wild": "Tambour sauvage",
+  "block.botania.drum_of_the_gathering": "Tambour touffu",
+  "block.botania.drum_of_the_canopy": "Tambour feuillu",
+  "block.botania.white_glimmering_flower": "Fleur lumineuse blanche",
+  "block.botania.orange_glimmering_flower": "Fleur lumineuse orange",
+  "block.botania.magenta_glimmering_flower": "Fleur lumineuse magenta",
+  "block.botania.light_blue_glimmering_flower": "Fleur lumineuse bleu ciel",
+  "block.botania.yellow_glimmering_flower": "Fleur lumineuse jaune",
+  "block.botania.lime_glimmering_flower": "Fleur lumineuse vert clair",
+  "block.botania.pink_glimmering_flower": "Fleur lumineuse rose",
+  "block.botania.gray_glimmering_flower": "Fleur lumineuse grise",
+  "block.botania.light_gray_glimmering_flower": "Fleur lumineuse gris clair",
+  "block.botania.cyan_glimmering_flower": "Fleur lumineuse cyan",
+  "block.botania.purple_glimmering_flower": "Fleur lumineuse violette",
+  "block.botania.blue_glimmering_flower": "Fleur lumineuse bleue",
+  "block.botania.brown_glimmering_flower": "Fleur lumineuse marron",
+  "block.botania.green_glimmering_flower": "Fleur lumineuse verte",
+  "block.botania.red_glimmering_flower": "Fleur lumineuse rouge",
+  "block.botania.black_glimmering_flower": "Fleur lumineuse noire",
 
 
 
@@ -1091,7 +1098,7 @@
   "block.botania.abstruse_platform": "Vifbois spectral",
   "block.botania.spectral_platform": "Boisrêve spectral",
   "block.botania.infrangible_platform": "Botanite",
-  "block.botania.alfheim_portal": "Vifbois sigillaire",
+  "block.botania.elven_gateway_core": "Vifbois sigillaire",
   "block.botania.dark_quartz": "Bloc de quartz fumé",
   "block.botania.chiseled_dark_quartz": "Bloc de quartz fumé sculpté",
   "block.botania.dark_quartz_pillar": "Pilier de quartz fumé",
@@ -1179,7 +1186,7 @@
   "block.botania.red_floating_flower": "Fleur flottante rouge",
   "block.botania.black_floating_flower": "Fleur flottante noire",
   "block.botania.tiny_potato": "Petite patate",
-  "block.botania.spawner_claw": "Injecteur de vie",
+  "block.botania.life_imbuer": "Injecteur de vie",
   "block.botania.azulejo_0": "Azuléjo",
   "block.botania.azulejo_1": "Azuléjo",
   "block.botania.azulejo_2": "Azuléjo",
@@ -1196,21 +1203,21 @@
   "block.botania.azulejo_13": "Azuléjo",
   "block.botania.azulejo_14": "Azuléjo",
   "block.botania.azulejo_15": "Azuléjo",
-  "block.botania.ender_eye_block": "Veilleur du néant",
-  "block.botania.starfield": "Projecteur stellaire",
+  "block.botania.ender_overseer": "Veilleur du néant",
+  "block.botania.starfield_creator": "Projecteur stellaire",
   "block.botania.mana_fluxfield": "Champ de mana-flux",
-  "block.botania.elf_glass": "Verre elfique",
-  "block.botania.brewery": "Alambic botanique",
-  "block.botania.mana_glass": "Verre de mana",
-  "block.botania.terra_plate": "Plaque d'agglomération terrestre",
-  "block.botania.red_string_container": "Conteneur de viveroche",
-  "block.botania.red_string_dispenser": "Distributeur de viveroche",
-  "block.botania.red_string_fertilizer": "Fertiliseur de viveroche",
-  "block.botania.red_string_comparator": "Comparateur de viveroche",
-  "block.botania.red_string_relay": "Imposteur de viveroche",
-  "block.botania.red_string_interceptor": "Intercepteur de viveroche",
+  "block.botania.alfglass": "Verre elfique",
+  "block.botania.botanical_brewery": "Alambic botanique",
+  "block.botania.managlass": "Verre de mana",
+  "block.botania.terrestrial_agglomeration_plate": "Plaque d'agglomération terrestre",
+  "block.botania.red_stringed_container": "Conteneur de viveroche",
+  "block.botania.red_stringed_dispenser": "Distributeur de viveroche",
+  "block.botania.red_stringed_nutrifier": "Fertiliseur de viveroche",
+  "block.botania.red_stringed_comparator": "Comparateur de viveroche",
+  "block.botania.red_stringed_spoofer": "Imposteur de viveroche",
+  "block.botania.red_stringed_interceptor": "Intercepteur de viveroche",
   "block.botania.mana_flame": "Flash de mana",
-  "block.botania.prism": "Prisme de mana",
+  "block.botania.mana_prism": "Prisme de mana",
 
 
 
@@ -1349,22 +1356,22 @@
   "block.botania.black_petal_block": "Bloc de pétales noirs",
   "block.botania.corporea_index": "Index Corporea",
   "block.botania.corporea_funnel": "Distributeur Corporea",
-  "block.botania.white_mushroom": "Champignon blanc",
-  "block.botania.orange_mushroom": "Champignon orange",
-  "block.botania.magenta_mushroom": "Champignon magenta",
-  "block.botania.light_blue_mushroom": "Champignon bleu ciel",
-  "block.botania.yellow_mushroom": "Champignon jaune",
-  "block.botania.lime_mushroom": "Champignon vert clair",
-  "block.botania.pink_mushroom": "Champignon rose",
-  "block.botania.gray_mushroom": "Champignon gris",
-  "block.botania.light_gray_mushroom": "Champignon gris clair",
-  "block.botania.cyan_mushroom": "Champignon cyan",
-  "block.botania.purple_mushroom": "Champignon violet",
-  "block.botania.blue_mushroom": "Champignon bleu",
-  "block.botania.brown_mushroom": "Champignon marron",
-  "block.botania.green_mushroom": "Champignon vert",
-  "block.botania.red_mushroom": "Champignon rouge",
-  "block.botania.black_mushroom": "Champignon noir",
+  "block.botania.white_shimmering_mushroom": "Champignon blanc",
+  "block.botania.orange_shimmering_mushroom": "Champignon orange",
+  "block.botania.magenta_shimmering_mushroom": "Champignon magenta",
+  "block.botania.light_blue_shimmering_mushroom": "Champignon bleu ciel",
+  "block.botania.yellow_shimmering_mushroom": "Champignon jaune",
+  "block.botania.lime_shimmering_mushroom": "Champignon vert clair",
+  "block.botania.pink_shimmering_mushroom": "Champignon rose",
+  "block.botania.gray_shimmering_mushroom": "Champignon gris",
+  "block.botania.light_gray_shimmering_mushroom": "Champignon gris clair",
+  "block.botania.cyan_shimmering_mushroom": "Champignon cyan",
+  "block.botania.purple_shimmering_mushroom": "Champignon violet",
+  "block.botania.blue_shimmering_mushroom": "Champignon bleu",
+  "block.botania.brown_shimmering_mushroom": "Champignon marron",
+  "block.botania.green_shimmering_mushroom": "Champignon vert",
+  "block.botania.red_shimmering_mushroom": "Champignon rouge",
+  "block.botania.black_shimmering_mushroom": "Champignon noir",
 
 
 
@@ -1381,38 +1388,38 @@
 
 
 
-  "block.botania.pump": "Pompe à mana",
-  "block.botania.white_double_flower": "Grande fleur mystique blanche",
-  "block.botania.orange_double_flower": "Grande fleur mystique orange",
-  "block.botania.magenta_double_flower": "Grande fleur mystique magenta",
-  "block.botania.light_blue_double_flower": "Grande fleur mystique bleu ciel",
-  "block.botania.yellow_double_flower": "Grande fleur mystique jaune",
-  "block.botania.lime_double_flower": "Grande fleur mystique vert clair",
-  "block.botania.pink_double_flower": "Grande fleur mystique rose",
-  "block.botania.gray_double_flower": "Grande fleur mystique grise",
-  "block.botania.light_gray_double_flower": "Grande fleur mystique gris clair",
-  "block.botania.cyan_double_flower": "Grande fleur mystique cyan",
-  "block.botania.purple_double_flower": "Grande fleur mystique violette",
-  "block.botania.blue_double_flower": "Grande fleur mystique bleue",
-  "block.botania.brown_double_flower": "Grande fleur mystique marron",
-  "block.botania.green_double_flower": "Grande fleur mystique verte",
-  "block.botania.red_double_flower": "Grande fleur mystique rouge",
-  "block.botania.black_double_flower": "Grande fleur mystique noire",
+  "block.botania.mana_pump": "Pompe à mana",
+  "block.botania.white_tall_mystical_flower": "Grande fleur mystique blanche",
+  "block.botania.orange_tall_mystical_flower": "Grande fleur mystique orange",
+  "block.botania.magenta_tall_mystical_flower": "Grande fleur mystique magenta",
+  "block.botania.light_blue_tall_mystical_flower": "Grande fleur mystique bleu ciel",
+  "block.botania.yellow_tall_mystical_flower": "Grande fleur mystique jaune",
+  "block.botania.lime_tall_mystical_flower": "Grande fleur mystique vert clair",
+  "block.botania.pink_tall_mystical_flower": "Grande fleur mystique rose",
+  "block.botania.gray_tall_mystical_flower": "Grande fleur mystique grise",
+  "block.botania.light_gray_tall_mystical_flower": "Grande fleur mystique gris clair",
+  "block.botania.cyan_tall_mystical_flower": "Grande fleur mystique cyan",
+  "block.botania.purple_tall_mystical_flower": "Grande fleur mystique violette",
+  "block.botania.blue_tall_mystical_flower": "Grande fleur mystique bleue",
+  "block.botania.brown_tall_mystical_flower": "Grande fleur mystique marron",
+  "block.botania.green_tall_mystical_flower": "Grande fleur mystique verte",
+  "block.botania.red_tall_mystical_flower": "Grande fleur mystique rouge",
+  "block.botania.black_tall_mystical_flower": "Grande fleur mystique noire",
   "block.botania.blaze_block": "Bloc de Blaze",
   "block.botania.corporea_interceptor": "Intercepteur Corporea",
   "block.botania.corporea_crystal_cube": "Cristal Corporea",
   "block.botania.incense_plate": "Porte-encens",
-  "block.botania.hourglass": "Sablier",
-  "block.botania.ghost_rail": "Rail spectral",
-  "block.botania.spark_changer": "Bricoleur d'étincelle",
-  "block.botania.root": "Racine vivante",
+  "block.botania.hovering_hourglass": "Sablier",
+  "block.botania.spectral_rail": "Rail spectral",
+  "block.botania.spark_tinkerer": "Bricoleur d'étincelle",
+  "block.botania.living_roots": "Racine vivante",
   "block.botania.fel_pumpkin": "Citrouille infernale",
-  "block.botania.cocoon": "Cocon mystérieux",
-  "block.botania.light_relay": "Luminiseur",
-  "block.botania.detector_light_relay": "Détecteur de luminiseur",
-  "block.botania.fork_light_relay": "Embranchement de luminiseur",
-  "block.botania.toggle_light_relay": "Interrupteur de luminiseur",
-  "block.botania.light_launcher": "Plateforme de luminiseur",
+  "block.botania.cocoon_of_caprice": "Cocon mystérieux",
+  "block.botania.luminizer": "Luminiseur",
+  "block.botania.detector_luminizer": "Détecteur de luminiseur",
+  "block.botania.fork_luminizer": "Embranchement de luminiseur",
+  "block.botania.toggle_luminizer": "Interrupteur de luminiseur",
+  "block.botania.luminizer_launcher": "Plateforme de luminiseur",
   "block.botania.livingrock_wall": "Muret de viveroche",
   "block.botania.livingrock_bricks_wall": "Muret de viveroche taillée",
   "block.botania.mossy_livingrock_bricks_wall": "Muret de viveroche taillée moussue",
@@ -1442,27 +1449,27 @@
 
 
 
-  "block.botania.mana_bomb": "Charge de manatempête",
-  "block.botania.white_buried_petals": "Pétale blanc enterré",
-  "block.botania.orange_buried_petals": "Pétale orange enterré",
-  "block.botania.magenta_buried_petals": "Pétale magenta enterré",
-  "block.botania.light_blue_buried_petals": "Pétale bleu ciel enterré",
-  "block.botania.yellow_buried_petals": "Pétale jaune enterré",
-  "block.botania.lime_buried_petals": "Pétale vert clair enterré",
-  "block.botania.pink_buried_petals": "Pétale rose enterré",
-  "block.botania.gray_buried_petals": "Pétale gris enterré",
-  "block.botania.light_gray_buried_petals": "Pétale gris clair enterré",
-  "block.botania.cyan_buried_petals": "Pétale cyan enterré",
-  "block.botania.purple_buried_petals": "Pétale violet enterré",
-  "block.botania.blue_buried_petals": "Pétale bleu enterré",
-  "block.botania.brown_buried_petals": "Pétale marron enterré",
-  "block.botania.green_buried_petals": "Pétale vert enterré",
-  "block.botania.red_buried_petals": "Pétale rouge enterré",
-  "block.botania.black_buried_petals": "Pétale noir enterré",
+  "block.botania.manastorm_charge": "Charge de manatempête",
+  "block.botania.white_buried_petal": "Pétale blanc enterré",
+  "block.botania.orange_buried_petal": "Pétale orange enterré",
+  "block.botania.magenta_buried_petal": "Pétale magenta enterré",
+  "block.botania.light_blue_buried_petal": "Pétale bleu ciel enterré",
+  "block.botania.yellow_buried_petal": "Pétale jaune enterré",
+  "block.botania.lime_buried_petal": "Pétale vert clair enterré",
+  "block.botania.pink_buried_petal": "Pétale rose enterré",
+  "block.botania.gray_buried_petal": "Pétale gris enterré",
+  "block.botania.light_gray_buried_petal": "Pétale gris clair enterré",
+  "block.botania.cyan_buried_petal": "Pétale cyan enterré",
+  "block.botania.purple_buried_petal": "Pétale violet enterré",
+  "block.botania.blue_buried_petal": "Pétale bleu enterré",
+  "block.botania.brown_buried_petal": "Pétale marron enterré",
+  "block.botania.green_buried_petal": "Pétale vert enterré",
+  "block.botania.red_buried_petal": "Pétale rouge enterré",
+  "block.botania.black_buried_petal": "Pétale noir enterré",
   "block.botania.cacophonium_block": "Bloc cacophonique",
-  "block.botania.bellows": "Soufflet en vifbois",
-  "block.botania.bifrost": "Mirage du Bifrost",
-  "block.botania.bifrost_perm": "Bloc du Bifrost",
+  "block.botania.manatide_bellows": "Soufflet en vifbois",
+  "block.botania.bifrost_bridge": "Mirage du Bifrost",
+  "block.botania.bifrost": "Bloc du Bifrost",
   "block.botania.white_pavement": "Pavés portugais blanc",
   "block.botania.black_pavement": "Pavés portugais noir",
   "block.botania.blue_pavement": "Pavés portugais bleu",
@@ -1481,7 +1488,7 @@
   "block.botania.red_pavement_slab": "Dalle en pavés portugais rouge",
   "block.botania.yellow_pavement_slab": "Dalle en pavés portugais jaune",
   "block.botania.green_pavement_slab": "Dalle en pavés portugais vert",
-  "block.botania.cell_block": "Bloc cellulaire",
+  "block.botania.cellular_block": "Bloc cellulaire",
   "block.botania.gaia_head": "Tête de gardien",
   "block.botania.corporea_block": "Bloc de Corporea",
   "block.botania.corporea_slab": "Dalle de Corporea",
@@ -1494,8 +1501,8 @@
   "block.botania.corporea_brick_stairs": "Escalier en Corporea taillé",
   "block.botania.corporea_brick_wall": "Muret en Corporea taillé",
   "block.botania.corporea_retainer": "Mémoire Corporea",
-  "block.botania.mana_glass_pane": "Vitre de mana",
-  "block.botania.elf_glass_pane": "Vitre elfique",
+  "block.botania.managlass_pane": "Vitre de mana",
+  "block.botania.alfglass_pane": "Vitre elfique",
   "block.botania.bifrost_pane": "Vitre du Bifrost",
   "block.botania.teru_teru_bozu": "Teru teru bōzu",
   "block.botania.shimmerrock": "Opalite",
@@ -2670,7 +2677,7 @@
   "botania.page.elvenLenses0": "Tout ce nouveau savoir elfique vous permet de découvrir de nouvelles applications pour les $(l:mana/lens)lentilles de mana$(/l). Ces $(item)lentilles elfiques$(0) ont des usages un peu plus ... spécifiques.$(p)Les $(thing)lentilles majeures$(0) sont des $(item)lentilles$(0) qui changent radicalement le comportement des $(thing)transferts de mana$(0), et qui sont uniquement compatibles avec les $(l:mana/spreader)diffuseurs de mana$(/l).",
   "botania.page.elvenLenses1": "Tout d'abord, la $(item)lentille de peintre$(0). Il est essentiel de la teinter, avec l'une des $(item)16 teintures$(0), pour qu'elle puisse fonctionner.$(p)Quand un bloc colorable ($(o)$(item)laine$(0), $(item)verre$(0), etc$()) est touché par un $(thing)transfert de mana$(0), alors ce bloc ($(o)et les autres blocs identiques à proximité$()) seront colorés.$(p)Il semblerait que cela fonctionne également sur les $(thing)moutons$(0).",
   "botania.page.elvenLenses2": "Lentille de peintre",
-  "botania.page.elvenLenses3": "La $(item)lentille de téléportation$(0) est une petite merveille. Elle peut téléporter un $(thing)transfert de mana$(0), d'un $(l:ender/piston_relay)relais de force$(/l) à son bloc lié. Mais le $(thing)mana$(0) de ce $(thing)transfert$(0) ne pourra plus être récupéré par un $(l:mana/pool)bassin$(/l).$(p)Si cette $(item)lentille$(0) est combinée à une $(l:mana/lens)lentille de minage$(/l), alors les $(l:ender/piston_relay)relais de force$(/l) ne seront pas cassés et les blocs brisés seront téléportés directement à la source du $(thing)transfert de mana$(0).",
+  "botania.page.elvenLenses3": "La $(item)lentille de téléportation$(0) est une petite merveille. Elle peut téléporter un $(thing)transfert de mana$(0), d'un $(l:ender/force_relay)relais de force$(/l) à son bloc lié. Mais le $(thing)mana$(0) de ce $(thing)transfert$(0) ne pourra plus être récupéré par un $(l:mana/pool)bassin$(/l).$(p)Si cette $(item)lentille$(0) est combinée à une $(l:mana/lens)lentille de minage$(/l), alors les $(l:ender/force_relay)relais de force$(/l) ne seront pas cassés et les blocs brisés seront téléportés directement à la source du $(thing)transfert de mana$(0).",
   "botania.page.elvenLenses4": "Lentille de téléportation",
   "botania.page.elvenLenses5": "Tout $(l:mana/spreader)diffuseur de mana$(/l) ($(o)ou mob$()) qui entrera en contact avec un $(thing)transfert de mana$(0), modifié par cette $(item)lentille$(0), sera orienté en direction de l'origine de ce $(thing)transfert$(0).",
   "botania.page.elvenLenses6": "Lentille de redirection",
@@ -2681,8 +2688,8 @@
   "botania.page.elvenLenses11": "La $(item)lentille de détection$(0) est une $(thing)lentille majeure$(0); elle va empêcher un $(l:mana/spreader)diffuseur$(/l) d'émettre des $(thing)transferts$(0), à condition qu'un $(thing)joueur$(0) ou un mob ne soit pas dans le viseur de ce même $(l:mana/spreader)diffuseur$(/l).",
   "botania.page.elvenLenses12": "Lentille de détection",
 
-  "botania.entry.prism": "Prisme de mana",
-  "botania.tagline.prism": "TAGLINE",
+  "botania.entry.mana_prism": "Prisme de mana",
+  "botania.tagline.mana_prism": "TAGLINE",
   "botania.page.prism0": "Les $(l:mana/lens)lentilles de mana$(/l) modifient les $(thing)transferts de mana$(0) pour leur donner certaines propriétés, et c'est également ce qu'un $(item)prisme de mana$(0) va vous permettre de faire.$(p)Étant composé de $(l:devices/spectral_platform)boisrêve spectral$(/l), les $(thing)transferts de mana$(0) ne pourront pas entrer en collision avec ce bloc.",
   "botania.page.prism1": "Clic-droit avec une $(l:mana/lens)lentille$(/l) sur un $(item)prisme$(0) permet de l'équiper. Tout $(thing)transfert de mana$(0) qui passe au travers d'un $(item)prisme$(0) sera transformé selon la $(l:mana/lens)lentille$(/l) équipée.$(p)Chaque $(thing)transfert$(0) qui passe dans un $(item)prisme$(0) équipé d'une des quatres $(l:mana/lens)lentilles$(/l) basiques ($(o)vélocité, puissance, durabilité ou efficacité$()) aura une durée de vie re-augmentée.$(br)C'est comme un $(item)répéteur de redstone$(0), mais pour les $(thing)transfert de mana$(0).",
   "botania.page.prism2": "Ce $(item)prisme$(0) peut être désactivé par un $(thing)signal redstone$(0).",
@@ -3168,8 +3175,8 @@
   "botania.page.craftCrate10": "Motif",
   "botania.page.craftCrate9": "Fabriquer les $(item)motifs$(0)",
 
-  "botania.entry.hourglass": "Sablier",
-  "botania.tagline.hourglass": "TAGLINE",
+  "botania.entry.hovering_hourglass": "Sablier",
+  "botania.tagline.hovering_hourglass": "TAGLINE",
   "botania.page.hourglass0": "Maîtriser les durées est essentiel pour les gens qui veulent construire des machines intéressantes avec de la redstone. Mais les constructions de ce genre prennent beaucoup de place.$(p)Heureusement le $(item)sablier$(0) est là pour vous aider à mesurer le temps, de manière très précise, avec du sable.",
   "botania.page.hourglass1": "Le $(item)sablier$(0) peut contenir un stack de $(item)sable$(0), de $(item)sable rouge$(0) ou de $(item)sable des âmes$(0); à ajouter avec clic-droit.$(p)Clic-droit sur un $(item)sablier$(0) rempli permet de le vider.$(p)Quand tout le sable s'est écoulé d'un côté, alors le $(item)sablier$(0) se retournera tout seul afin de recommencer un autre cycle et un $(thing)signal redstone$(0) sera émis.",
   "botania.page.hourglass2": "L'intervalle entre chaque cycle dépend de la quantité et du type de sable.$(p)Le $(item)sable$(0) dure 1 seconde, le $(item)sable rouge$(0) dure 10 secondes, et le $(item)sable des âmes$(0) dure 1 minute; par bloc.$(p)Ce n'est pas possible de mélanger différents types de sable.$(p)Une $(l:basics/wand)baguette sylvestre$(/l) permet de voir la durée.",
@@ -4081,7 +4088,7 @@
   "botania.subtitle.astrolabeConfigure": "Astrolabe en élémentium qui s'actionne",
   "botania.subtitle.babylonAttack": "Clé de Babylone déployée",
   "botania.subtitle.babylonSpawn": "Clé de Babylone activée",
-  "botania.subtitle.bellows": "Soufflet qui souffle",
+  "botania.subtitle.manatide_bellows": "Soufflet qui souffle",
   "botania.subtitle.bifrostRod": "Bâton du Bifrost qui résonne",
   "botania.subtitle.blackHoleTalismanConfigure": "Tintement d'un talisman du néant",
   "botania.subtitle.blackLotus": "Lotus noir qui se dissout",

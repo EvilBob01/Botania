@@ -163,7 +163,7 @@ public class CraftingRecipeProvider extends FabricRecipeProvider {
 				.pattern("RRR")
 				.unlockedBy("has_item", conditionsFromItem(BotaniaBlocks.LIVINGROCK))
 				.save(recipeOutput);
-		dyedPools(recipeOutput, BotaniaBlocks.DILUTED_MANA_POOL, "diluted_pool_dyeing", BotaniaTags.Items.DYED_DILUTED_POOLS);
+		dyedPools(recipeOutput, BotaniaBlocks.DILUTED_MANA_POOL, "diluted_pool_dyeing", BotaniaTags.Items.DYED_DILUTED_MANA_POOLS);
 		ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, BotaniaBlocks.FABULOUS_MANA_POOL)
 				.define('R', BotaniaBlocks.SHIMMERROCK)
 				.pattern("R R")
@@ -171,16 +171,16 @@ public class CraftingRecipeProvider extends FabricRecipeProvider {
 				.unlockedBy("has_item", conditionsFromItem(BotaniaBlocks.SHIMMERROCK))
 				.unlockedBy("has_alt_item", conditionsFromItem(BotaniaItems.ROD_OF_THE_BIFROST))
 				.save(recipeOutput);
-		dyedPools(recipeOutput, BotaniaBlocks.FABULOUS_MANA_POOL, "fabulous_pool_dyeing", BotaniaTags.Items.DYED_FABULOUS_POOLS);
+		dyedPools(recipeOutput, BotaniaBlocks.FABULOUS_MANA_POOL, "fabulous_pool_dyeing", BotaniaTags.Items.DYED_FABULOUS_MANA_POOLS);
 		ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, BotaniaBlocks.FABULOUS_MANA_POOL)
 				.define('P', BotaniaBlocks.MANA_POOL)
-				.define('B', BotaniaBlocks.BIFROST_BLOCK)
+				.define('B', BotaniaBlocks.BIFROST)
 				.pattern("BPB")
 				.pattern("BBB")
-				.unlockedBy("has_item", conditionsFromItem(BotaniaBlocks.BIFROST_BLOCK))
+				.unlockedBy("has_item", conditionsFromItem(BotaniaBlocks.BIFROST))
 				.unlockedBy("has_alt_item", conditionsFromItem(BotaniaItems.ROD_OF_THE_BIFROST))
 				.save(recipeOutput, prefix(BuiltInRegistries.ITEM.getKey(BotaniaBlocks.FABULOUS_MANA_POOL.asItem()).getPath() + "_upgrade"));
-		dyedPools(recipeOutput, BotaniaBlocks.CREATIVE_MANA_POOL, "creative_pool_dyeing", BotaniaTags.Items.DYED_CREATIVE_POOLS);
+		dyedPools(recipeOutput, BotaniaBlocks.CREATIVE_MANA_POOL, "creative_pool_dyeing", BotaniaTags.Items.DYED_CREATIVE_MANA_POOLS);
 		ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, BotaniaBlocks.RUNIC_ALTAR)
 				.define('P', ConventionalBotaniaTags.Items.MANA_PEARL_GEMS)
 				.define('S', BotaniaBlocks.LIVINGROCK)
@@ -551,7 +551,7 @@ public class CraftingRecipeProvider extends FabricRecipeProvider {
 				.pattern("SSS")
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.RUNE_OF_AIR))
 				.save(recipeOutput);
-		ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, BotaniaBlocks.BIFROST_BLOCK)
+		ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, BotaniaBlocks.BIFROST)
 				.requires(BotaniaItems.ROD_OF_THE_BIFROST)
 				.requires(BotaniaBlocks.ALFGLASS)
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.ROD_OF_THE_BIFROST))
@@ -871,10 +871,10 @@ public class CraftingRecipeProvider extends FabricRecipeProvider {
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BotaniaItems.BANNER_PATTERN_MATERIALS)
 				.requires(Items.PAPER)
 				.requires(ConventionalItemTags.RAW_FISH_FOODS)
-				.requires(BotaniaTags.Items.MYSTICAL_FLOWERS)
+				.requires(BotaniaTags.Items.SMALL_MYSTICAL_FLOWERS)
 				.requires(ItemTags.SAPLINGS)
 				.unlockedBy("has_fish", conditionsFromTag(ConventionalItemTags.RAW_FISH_FOODS))
-				.unlockedBy("has_flower", conditionsFromTag(BotaniaTags.Items.MYSTICAL_FLOWERS))
+				.unlockedBy("has_flower", conditionsFromTag(BotaniaTags.Items.SMALL_MYSTICAL_FLOWERS))
 				.unlockedBy("has_sapling", conditionsFromTag(ItemTags.SAPLINGS))
 				.save(recipeOutput);
 
@@ -934,8 +934,8 @@ public class CraftingRecipeProvider extends FabricRecipeProvider {
 				.unlockedBy("has_item", conditionsFromTag(BotaniaTags.Items.PETALS))
 				.save(recipeOutput);
 		for (String metamorphicVariant : LibBlockNames.METAMORPHIC_VARIANTS) {
-			Block apothecary = getBlockOrThrow(prefix("apothecary_" + metamorphicVariant));
-			Block cobble = getBlockOrThrow(prefix(LibBlockNames.METAMORPHIC_PREFIX + metamorphicVariant + "_cobblestone"));
+			Block apothecary = getBlockOrThrow(prefix(metamorphicVariant + LibBlockNames.PETAL_APOTHECARY_SUFFIX));
+			Block cobble = getBlockOrThrow(prefix(LibBlockNames.COBBLED_PREFIX + metamorphicVariant));
 			petalApothecary(cobble, apothecary)
 					.group("botania:metamorphic_apothecary")
 					.unlockedBy("has_item", conditionsFromItem(cobble))
@@ -943,22 +943,22 @@ public class CraftingRecipeProvider extends FabricRecipeProvider {
 					.save(recipeOutput);
 		}
 		ColorHelper.supportedColors().forEach(color -> {
-			ShapelessRecipeBuilder.shapeless(RecipeCategory.DECORATIONS, BotaniaBlocks.getShinyFlower(color))
+			ShapelessRecipeBuilder.shapeless(RecipeCategory.DECORATIONS, BotaniaBlocks.getGlimmeringFlower(color))
 					.requires(ConventionalItemTags.GLOWSTONE_DUSTS)
 					.requires(ConventionalItemTags.GLOWSTONE_DUSTS)
-					.requires(BotaniaBlocks.getFlower(color))
-					.group("botania:shiny_flower")
-					.unlockedBy("has_item", conditionsFromItem(BotaniaBlocks.getFlower(color)))
+					.requires(BotaniaBlocks.getMysticalFlower(color))
+					.group("botania:glimmering_flower")
+					.unlockedBy("has_item", conditionsFromItem(BotaniaBlocks.getMysticalFlower(color)))
 					.save(recipeOutput);
 			ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, BotaniaBlocks.getFloatingFlower(color))
 					.define('S', BotaniaItems.PASTURE_SEEDS)
 					.define('D', Items.DIRT)
-					.define('F', BotaniaBlocks.getShinyFlower(color))
+					.define('F', BotaniaBlocks.getGlimmeringFlower(color))
 					.pattern("F")
 					.pattern("S")
 					.pattern("D")
 					.group("botania:floating_flowers")
-					.unlockedBy("has_item", conditionsFromItem(BotaniaBlocks.getShinyFlower(color)))
+					.unlockedBy("has_item", conditionsFromItem(BotaniaBlocks.getGlimmeringFlower(color)))
 					.save(recipeOutput);
 			ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, BotaniaBlocks.getPetalBlock(color))
 					.define('P', BotaniaItems.getPetal(color))
@@ -968,25 +968,27 @@ public class CraftingRecipeProvider extends FabricRecipeProvider {
 					.group("botania:petal_block")
 					.unlockedBy("has_item", conditionsFromItem(BotaniaItems.getPetal(color)))
 					.save(recipeOutput);
-			ShapelessRecipeBuilder.shapeless(RecipeCategory.DECORATIONS, BotaniaBlocks.getMushroom(color))
+			ShapelessRecipeBuilder.shapeless(RecipeCategory.DECORATIONS, BotaniaBlocks.getShimmeringMushroom(color))
 					.requires(Ingredient.of(Items.RED_MUSHROOM, Items.BROWN_MUSHROOM))
 					.requires(DyeItem.byColor(color))
 					.group("botania:mushroom")
 					.unlockedBy("has_item", conditionsFromItem(Items.RED_MUSHROOM))
 					.unlockedBy("has_alt_item", conditionsFromItem(Items.BROWN_MUSHROOM))
-					.save(recipeOutput, "botania:mushroom_" + color.ordinal());
+					.save(recipeOutput);
 			ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BotaniaItems.getPetal(color), 4)
-					.requires(BotaniaBlocks.getDoubleFlower(color))
-					.group("botania:petal_double")
-					.unlockedBy("has_item", conditionsFromItem(BotaniaBlocks.getDoubleFlower(color)))
-					.unlockedBy("has_alt_item", conditionsFromItem(BotaniaItems.getPetal(color)))
-					.save(recipeOutput, "botania:petal_" + color.getName() + "_double");
-			ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BotaniaItems.getPetal(color), 2)
-					.requires(BotaniaBlocks.getFlower(color))
+					.requires(BotaniaBlocks.getTallMysticalFlower(color))
 					.group("botania:petal")
-					.unlockedBy("has_item", conditionsFromItem(BotaniaBlocks.getFlower(color)))
+					.unlockedBy("has_item", conditionsFromItem(BotaniaBlocks.getTallMysticalFlower(color)))
 					.unlockedBy("has_alt_item", conditionsFromItem(BotaniaItems.getPetal(color)))
-					.save(recipeOutput, "botania:petal_" + color.getName());
+					.save(recipeOutput, "botania:" + getConversionRecipeName(
+							BotaniaItems.getPetal(color), BotaniaBlocks.getTallMysticalFlower(color)));
+			ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BotaniaItems.getPetal(color), 2)
+					.requires(BotaniaBlocks.getMysticalFlower(color))
+					.group("botania:petal")
+					.unlockedBy("has_item", conditionsFromItem(BotaniaBlocks.getMysticalFlower(color)))
+					.unlockedBy("has_alt_item", conditionsFromItem(BotaniaItems.getPetal(color)))
+					.save(recipeOutput, "botania:" + getConversionRecipeName(
+							BotaniaItems.getPetal(color), BotaniaBlocks.getMysticalFlower(color)));
 			ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, DyeItem.byColor(color))
 					.requires(Ingredient.of(BotaniaTags.Items.getPetalTag(color)))
 					.group("botania:dye")
@@ -1434,7 +1436,7 @@ public class CraftingRecipeProvider extends FabricRecipeProvider {
 				.pattern("WPW")
 				.pattern("W W")
 				.pattern(" W ")
-				.unlockedBy("has_item", conditionsFromTag(BotaniaTags.Items.MYSTICAL_FLOWERS))
+				.unlockedBy("has_item", conditionsFromTag(BotaniaTags.Items.SMALL_MYSTICAL_FLOWERS))
 				.save(recipeOutput);
 		// TODO: temporary Petal Pouch recipe
 		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, BotaniaItems.PETAL_POUCH)
@@ -2256,14 +2258,14 @@ public class CraftingRecipeProvider extends FabricRecipeProvider {
 				.save(recipeOutput, "botania:mossy_livingrock_bricks_vine");
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, BotaniaBlocks.SHIMMERROCK)
 				.requires(BotaniaBlocks.LIVINGROCK)
-				.requires(BotaniaBlocks.BIFROST_BLOCK)
-				.unlockedBy("has_item", conditionsFromItem(BotaniaBlocks.BIFROST_BLOCK))
+				.requires(BotaniaBlocks.BIFROST)
+				.unlockedBy("has_item", conditionsFromItem(BotaniaBlocks.BIFROST))
 				.unlockedBy("has_alt_item", conditionsFromItem(BotaniaItems.ROD_OF_THE_BIFROST))
 				.save(recipeOutput);
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, BotaniaBlocks.SHIMMERWOOD_PLANKS)
 				.requires(BotaniaBlocks.DREAMWOOD_PLANKS)
-				.requires(BotaniaBlocks.BIFROST_BLOCK)
-				.unlockedBy("has_item", conditionsFromItem(BotaniaBlocks.BIFROST_BLOCK))
+				.requires(BotaniaBlocks.BIFROST)
+				.unlockedBy("has_item", conditionsFromItem(BotaniaBlocks.BIFROST))
 				.unlockedBy("has_alt_item", conditionsFromItem(BotaniaItems.ROD_OF_THE_BIFROST))
 				.save(recipeOutput);
 
@@ -2327,7 +2329,7 @@ public class CraftingRecipeProvider extends FabricRecipeProvider {
 
 		wallShape(BotaniaBlocks.MANAGLASS_PANE, BotaniaBlocks.MANAGLASS, 16).save(recipeOutput);
 		wallShape(BotaniaBlocks.ALFGLASS_PANE, BotaniaBlocks.ALFGLASS, 16).save(recipeOutput);
-		wallShape(BotaniaBlocks.BIFROST_PANE, BotaniaBlocks.BIFROST_BLOCK, 16).save(recipeOutput);
+		wallShape(BotaniaBlocks.BIFROST_PANE, BotaniaBlocks.BIFROST, 16).save(recipeOutput);
 
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, BotaniaBlocks.AZULEJO_0)
 				.requires(Items.BLUE_DYE)
@@ -2761,21 +2763,21 @@ public class CraftingRecipeProvider extends FabricRecipeProvider {
 	}
 
 	private void registerForMetamorphic(RecipeOutput recipeOutput, String variant) {
-		Block base = getBlockOrThrow(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_stone"));
-		Block slab = getBlockOrThrow(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_stone" + LibBlockNames.SLAB_SUFFIX));
-		Block stair = getBlockOrThrow(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_stone" + LibBlockNames.STAIR_SUFFIX));
-		Block wall = getBlockOrThrow(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_stone" + LibBlockNames.WALL_SUFFIX));
-		Block button = getBlockOrThrow(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_stone" + LibBlockNames.BUTTON_SUFFIX));
-		Block pressurePlate = getBlockOrThrow(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_stone" + LibBlockNames.PRESSURE_PLATE_SUFFIX));
-		Block brick = getBlockOrThrow(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_bricks"));
-		Block brickSlab = getBlockOrThrow(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_bricks" + LibBlockNames.SLAB_SUFFIX));
-		Block brickStair = getBlockOrThrow(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_bricks" + LibBlockNames.STAIR_SUFFIX));
-		Block brickWall = getBlockOrThrow(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_bricks" + LibBlockNames.WALL_SUFFIX));
-		Block chiseledBrick = getBlockOrThrow(prefix("chiseled_" + LibBlockNames.METAMORPHIC_PREFIX + variant + "_bricks"));
-		Block cobble = getBlockOrThrow(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_cobblestone"));
-		Block cobbleSlab = getBlockOrThrow(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_cobblestone" + LibBlockNames.SLAB_SUFFIX));
-		Block cobbleStair = getBlockOrThrow(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_cobblestone" + LibBlockNames.STAIR_SUFFIX));
-		Block cobbleWall = getBlockOrThrow(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_cobblestone" + LibBlockNames.WALL_SUFFIX));
+		Block base = getBlockOrThrow(prefix(variant));
+		Block slab = getBlockOrThrow(prefix(variant + LibBlockNames.SLAB_SUFFIX));
+		Block stair = getBlockOrThrow(prefix(variant + LibBlockNames.STAIR_SUFFIX));
+		Block wall = getBlockOrThrow(prefix(variant + LibBlockNames.WALL_SUFFIX));
+		Block button = getBlockOrThrow(prefix(variant + LibBlockNames.BUTTON_SUFFIX));
+		Block pressurePlate = getBlockOrThrow(prefix(variant + LibBlockNames.PRESSURE_PLATE_SUFFIX));
+		Block brick = getBlockOrThrow(prefix(variant + LibBlockNames.BRICKS_SUFFIX));
+		Block brickSlab = getBlockOrThrow(prefix(variant + LibBlockNames.BRICK_INFIX + LibBlockNames.SLAB_SUFFIX));
+		Block brickStair = getBlockOrThrow(prefix(variant + LibBlockNames.BRICK_INFIX + LibBlockNames.STAIR_SUFFIX));
+		Block brickWall = getBlockOrThrow(prefix(variant + LibBlockNames.BRICK_INFIX + LibBlockNames.WALL_SUFFIX));
+		Block chiseledBrick = getBlockOrThrow(prefix(LibBlockNames.CHISELED_PREFIX + variant + LibBlockNames.BRICKS_SUFFIX));
+		Block cobble = getBlockOrThrow(prefix(LibBlockNames.COBBLED_PREFIX + variant));
+		Block cobbleSlab = getBlockOrThrow(prefix(LibBlockNames.COBBLED_PREFIX + variant + LibBlockNames.SLAB_SUFFIX));
+		Block cobbleStair = getBlockOrThrow(prefix(LibBlockNames.COBBLED_PREFIX + variant + LibBlockNames.STAIR_SUFFIX));
+		Block cobbleWall = getBlockOrThrow(prefix(LibBlockNames.COBBLED_PREFIX + variant + LibBlockNames.WALL_SUFFIX));
 
 		slabShape(slab, base).group("botania:metamorphic_stone_slab").save(recipeOutput);
 		stairs(stair, base).group("botania:metamorphic_stone_stairs").save(recipeOutput);

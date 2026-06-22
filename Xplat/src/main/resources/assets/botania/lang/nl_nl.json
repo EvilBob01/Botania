@@ -197,13 +197,20 @@
 
 
 
-  "botania.nei.brewery": "Botanische Brouwerij",
+  "botania.nei.botanical_brewery": "Botanische Brouwerij",
   "botania.nei.elvenTrade": "Elven Handel",
   "botania.nei.floatingFlowers": "Drijvende Bloemen",
   "botania.nei.manaPool": "Mana Voorraad",
   "botania.nei.petalApothecary": "Bloemblad Apotheek",
   "botania.nei.runicAltar": "Runen Altaar",
   "botania.nei.pureDaisy": "Puur Madeliefje",
+
+
+
+
+
+
+
 
 
 
@@ -876,15 +883,15 @@
 
 
 
-  "block.botania.apothecary_default": "Bloemblad Apotheek",
-  "block.botania.apothecary_forest": "Woud Bloemblad Apotheek",
-  "block.botania.apothecary_plains": "Veld Bloemblad Apotheek",
-  "block.botania.apothecary_mountain": "Berg Bloemblad Apotheek",
-  "block.botania.apothecary_fungal": "Schimmel Bloemblad Apotheek",
-  "block.botania.apothecary_swamp": "Moeras Bloemblad Apotheek",
-  "block.botania.apothecary_desert": "Woestijn Bloemblad Apotheek",
-  "block.botania.apothecary_taiga": "Winterwoud Bloemblad Apotheek",
-  "block.botania.apothecary_mesa": "Hoogvlakte Bloemblad Apotheek",
+  "block.botania.petal_apothecary": "Bloemblad Apotheek",
+  "block.botania.fuchsite_petal_apothecary": "Woud Bloemblad Apotheek",
+  "block.botania.talc_petal_apothecary": "Veld Bloemblad Apotheek",
+  "block.botania.gneiss_petal_apothecary": "Berg Bloemblad Apotheek",
+  "block.botania.mycelite_petal_apothecary": "Schimmel Bloemblad Apotheek",
+  "block.botania.cataclasite_petal_apothecary": "Moeras Bloemblad Apotheek",
+  "block.botania.solite_petal_apothecary": "Woestijn Bloemblad Apotheek",
+  "block.botania.lunite_petal_apothecary": "Winterwoud Bloemblad Apotheek",
+  "block.botania.rosy_talc_petal_apothecary": "Hoogvlakte Bloemblad Apotheek",
 
 
 
@@ -930,7 +937,7 @@
 
 
 
-  "block.botania.redstone_spreader": "Redstone Mana Verspreider",
+  "block.botania.pulse_mana_spreader": "Redstone Mana Verspreider",
 
 
 
@@ -947,7 +954,7 @@
 
 
 
-  "block.botania.elven_spreader": "Elven Mana Verspreider",
+  "block.botania.elven_mana_spreader": "Elven Mana Verspreider",
 
 
 
@@ -964,7 +971,7 @@
 
 
 
-  "block.botania.gaia_spreader": "Gaia Mana Verspreider",
+  "block.botania.gaia_mana_spreader": "Gaia Mana Verspreider",
 
 
 
@@ -998,8 +1005,8 @@
 
 
 
-  "block.botania.creative_pool": "De Eeuwige Schuld Voorraad",
-  "block.botania.diluted_pool": "Verdunde Mana Voorraad",
+  "block.botania.creative_mana_pool": "De Eeuwige Schuld Voorraad",
+  "block.botania.diluted_mana_pool": "Verdunde Mana Voorraad",
 
 
 
@@ -1034,44 +1041,44 @@
 
 
   "block.botania.runic_altar": "Runen Altaar",
-  "block.botania.piston_relay": "Krachtverbinding",
-  "block.botania.mana_distributor": "Mana Verdeler",
+  "block.botania.force_relay": "Krachtverbinding",
+  "block.botania.mana_splitter": "Mana Verdeler",
 
 
 
   "block.botania.mana_void": "Mana Leegte",
 
-  "block.botania.enchanter": "Mana Betoveraar",
-  "block.botania.turntable": "Verspreider Draaischijf",
+  "block.botania.mana_enchanter": "Mana Betoveraar",
+  "block.botania.spreader_turntable": "Verspreider Draaischijf",
   "block.botania.tiny_planet_block": "Kleine Planeet",
   "block.botania.alchemy_catalyst": "Chemieversneller",
   "block.botania.open_crate": "Open Krat",
 
-  "block.botania.forest_eye": "Oog der Ouden",
+  "block.botania.eye_of_the_ancients": "Oog der Ouden",
   "block.botania.manasteel_block": "Blok Manastaal",
   "block.botania.terrasteel_block": "Blok Terrastaal",
   "block.botania.elementium_block": "Blok Elementium",
   "block.botania.mana_diamond_block": "Blok Mana Diamant",
   "block.botania.dragonstone_block": "Blok Drakensteen",
-  "block.botania.drum_wild": "Drum van het Wild",
-  "block.botania.drum_gathering": "Drum der Verzameling",
-  "block.botania.drum_canopy": "Drum van de Troonhemel",
-  "block.botania.white_shiny_flower": "Glinsterende Witte Bloem",
-  "block.botania.orange_shiny_flower": "Glinsterende Oranje Bloem",
-  "block.botania.magenta_shiny_flower": "Glinsterende Magenta Bloem",
-  "block.botania.light_blue_shiny_flower": "Glinsterende Lichtblauwe Bloem",
-  "block.botania.yellow_shiny_flower": "Glinsterende Gele Bloem",
-  "block.botania.lime_shiny_flower": "Glinsterende Lichtgroen Bloem",
-  "block.botania.pink_shiny_flower": "Glinsterende Roze Bloem",
-  "block.botania.gray_shiny_flower": "Glinsterende Grijze Bloem",
-  "block.botania.light_gray_shiny_flower": "Glinsterende Lichtgrijze Bloem",
-  "block.botania.cyan_shiny_flower": "Glinsterende Blauwgroene Bloem",
-  "block.botania.purple_shiny_flower": "Glinsterende Paarse Bloem",
-  "block.botania.blue_shiny_flower": "Glinsterende Blauwe Bloem",
-  "block.botania.brown_shiny_flower": "Glinsterende Bruine Bloem",
-  "block.botania.green_shiny_flower": "Glinsterende Groene Bloem",
-  "block.botania.red_shiny_flower": "Glinsterende Rode Bloem",
-  "block.botania.black_shiny_flower": "Glinsterende Zwarte Bloem",
+  "block.botania.drum_of_the_wild": "Drum van het Wild",
+  "block.botania.drum_of_the_gathering": "Drum der Verzameling",
+  "block.botania.drum_of_the_canopy": "Drum van de Troonhemel",
+  "block.botania.white_glimmering_flower": "Glinsterende Witte Bloem",
+  "block.botania.orange_glimmering_flower": "Glinsterende Oranje Bloem",
+  "block.botania.magenta_glimmering_flower": "Glinsterende Magenta Bloem",
+  "block.botania.light_blue_glimmering_flower": "Glinsterende Lichtblauwe Bloem",
+  "block.botania.yellow_glimmering_flower": "Glinsterende Gele Bloem",
+  "block.botania.lime_glimmering_flower": "Glinsterende Lichtgroen Bloem",
+  "block.botania.pink_glimmering_flower": "Glinsterende Roze Bloem",
+  "block.botania.gray_glimmering_flower": "Glinsterende Grijze Bloem",
+  "block.botania.light_gray_glimmering_flower": "Glinsterende Lichtgrijze Bloem",
+  "block.botania.cyan_glimmering_flower": "Glinsterende Blauwgroene Bloem",
+  "block.botania.purple_glimmering_flower": "Glinsterende Paarse Bloem",
+  "block.botania.blue_glimmering_flower": "Glinsterende Blauwe Bloem",
+  "block.botania.brown_glimmering_flower": "Glinsterende Bruine Bloem",
+  "block.botania.green_glimmering_flower": "Glinsterende Groene Bloem",
+  "block.botania.red_glimmering_flower": "Glinsterende Rode Bloem",
+  "block.botania.black_glimmering_flower": "Glinsterende Zwarte Bloem",
 
 
 
@@ -1091,7 +1098,7 @@
   "block.botania.abstruse_platform": "Diepzinnig Platform",
   "block.botania.spectral_platform": "Spookachtig Platform",
   "block.botania.infrangible_platform": "Onbreekbaar Platform",
-  "block.botania.alfheim_portal": "Elven Toegangspoort",
+  "block.botania.elven_gateway_core": "Elven Toegangspoort",
   "block.botania.dark_quartz": "Donker Kwarts Blok",
   "block.botania.chiseled_dark_quartz": "Gebeiteld Donker Kwarts Blok",
   "block.botania.dark_quartz_pillar": "Donkere Kwarts Pilaar",
@@ -1179,7 +1186,7 @@
   "block.botania.red_floating_flower": "Drijvende Rode Bloem",
   "block.botania.black_floating_flower": "Drijvende Zwarte Bloem",
   "block.botania.tiny_potato": "Kleine Aardappel",
-  "block.botania.spawner_claw": "Levensbrenger",
+  "block.botania.life_imbuer": "Levensbrenger",
   "block.botania.azulejo_0": "Helse Baksteen",
   "block.botania.azulejo_1": "Zielen Baksteen",
   "block.botania.azulejo_2": "Bevroren Baksteen",
@@ -1196,21 +1203,21 @@
 
 
 
-  "block.botania.ender_eye_block": "Ender Opzichter",
-  "block.botania.starfield": "Sterrenmaker",
+  "block.botania.ender_overseer": "Ender Opzichter",
+  "block.botania.starfield_creator": "Sterrenmaker",
   "block.botania.mana_fluxfield": "Mana Veld",
-  "block.botania.elf_glass": "Elvenglas",
-  "block.botania.brewery": "Botanische Brouwerij",
-  "block.botania.mana_glass": "Managlas",
-  "block.botania.terra_plate": "Bodemverbindingsplaat",
-  "block.botania.red_string_container": "Rood Gestreepte Container",
-  "block.botania.red_string_dispenser": "Rood Gestreepte Dispenser",
-  "block.botania.red_string_fertilizer": "Rood Gestreepte Bloemvoeder",
-  "block.botania.red_string_comparator": "Rood Gestreepte Comparator",
-  "block.botania.red_string_relay": "Rood Gestreepte Spoofer",
-  "block.botania.red_string_interceptor": "Rood Gestreepte Onderschepper",
+  "block.botania.alfglass": "Elvenglas",
+  "block.botania.botanical_brewery": "Botanische Brouwerij",
+  "block.botania.managlass": "Managlas",
+  "block.botania.terrestrial_agglomeration_plate": "Bodemverbindingsplaat",
+  "block.botania.red_stringed_container": "Rood Gestreepte Container",
+  "block.botania.red_stringed_dispenser": "Rood Gestreepte Dispenser",
+  "block.botania.red_stringed_nutrifier": "Rood Gestreepte Bloemvoeder",
+  "block.botania.red_stringed_comparator": "Rood Gestreepte Comparator",
+  "block.botania.red_stringed_spoofer": "Rood Gestreepte Spoofer",
+  "block.botania.red_stringed_interceptor": "Rood Gestreepte Onderschepper",
   "block.botania.mana_flame": "Mana Flits",
-  "block.botania.prism": "Mana Prisma",
+  "block.botania.mana_prism": "Mana Prisma",
   "block.botania.metamorphic_forest_stone": "Veranderlijke Woudsteen",
   "block.botania.metamorphic_plains_stone": "Veranderlijke Veldsteen",
   "block.botania.metamorphic_mountain_stone": "Veranderlijke Bergsteen",
@@ -1349,22 +1356,22 @@
   "block.botania.black_petal_block": "Zwart Bloemblad Blok",
 
   "block.botania.corporea_funnel": "Corporea Trechter",
-  "block.botania.white_mushroom": "Witte Glinsterende Paddenstoel",
-  "block.botania.orange_mushroom": "Oranje Glinsterende Paddenstoel",
-  "block.botania.magenta_mushroom": "Magenta Glinsterende Paddenstoel",
-  "block.botania.light_blue_mushroom": "Lichtblauwe Glinsterende Paddenstoel",
-  "block.botania.yellow_mushroom": "Gele Glinsterende Paddenstoel",
-  "block.botania.lime_mushroom": "Lichtgroene Glinsterende Paddenstoel",
-  "block.botania.pink_mushroom": "Roze Glinsterende Paddenstoel",
-  "block.botania.gray_mushroom": "Grijze Glinsterende Paddenstoel",
-  "block.botania.light_gray_mushroom": "Lichtgrijze Glinsterende Paddenstoel",
-  "block.botania.cyan_mushroom": "Blauwgroene Glinsterende Paddenstoel",
-  "block.botania.purple_mushroom": "Paarse Glinsterende Paddenstoel",
-  "block.botania.blue_mushroom": "Blauwe Glinsterende Paddenstoel",
-  "block.botania.brown_mushroom": "Bruine Glinsterende Paddenstoel",
-  "block.botania.green_mushroom": "Groene Glinsterende Paddenstoel",
-  "block.botania.red_mushroom": "Rode Glinsterende Paddenstoel",
-  "block.botania.black_mushroom": "Zwarte Glinsterende Paddenstoel",
+  "block.botania.white_shimmering_mushroom": "Witte Glinsterende Paddenstoel",
+  "block.botania.orange_shimmering_mushroom": "Oranje Glinsterende Paddenstoel",
+  "block.botania.magenta_shimmering_mushroom": "Magenta Glinsterende Paddenstoel",
+  "block.botania.light_blue_shimmering_mushroom": "Lichtblauwe Glinsterende Paddenstoel",
+  "block.botania.yellow_shimmering_mushroom": "Gele Glinsterende Paddenstoel",
+  "block.botania.lime_shimmering_mushroom": "Lichtgroene Glinsterende Paddenstoel",
+  "block.botania.pink_shimmering_mushroom": "Roze Glinsterende Paddenstoel",
+  "block.botania.gray_shimmering_mushroom": "Grijze Glinsterende Paddenstoel",
+  "block.botania.light_gray_shimmering_mushroom": "Lichtgrijze Glinsterende Paddenstoel",
+  "block.botania.cyan_shimmering_mushroom": "Blauwgroene Glinsterende Paddenstoel",
+  "block.botania.purple_shimmering_mushroom": "Paarse Glinsterende Paddenstoel",
+  "block.botania.blue_shimmering_mushroom": "Blauwe Glinsterende Paddenstoel",
+  "block.botania.brown_shimmering_mushroom": "Bruine Glinsterende Paddenstoel",
+  "block.botania.green_shimmering_mushroom": "Groene Glinsterende Paddenstoel",
+  "block.botania.red_shimmering_mushroom": "Rode Glinsterende Paddenstoel",
+  "block.botania.black_shimmering_mushroom": "Zwarte Glinsterende Paddenstoel",
 
 
 
@@ -1381,38 +1388,38 @@
 
 
 
-  "block.botania.pump": "Mana Pomp",
-  "block.botania.white_double_flower": "Lange Mystieke Witte Bloem",
-  "block.botania.orange_double_flower": "Lange Mystieke Oranje Bloem",
-  "block.botania.magenta_double_flower": "Lange Mystieke Magenta Bloem",
-  "block.botania.light_blue_double_flower": "Lange Mystieke Lichtblauwe Bloem",
-  "block.botania.yellow_double_flower": "Lange Mystieke Gele Bloem",
-  "block.botania.lime_double_flower": "Lange Mystieke Lichtgroene Bloem",
-  "block.botania.pink_double_flower": "Lange Mystieke Roze Bloem",
-  "block.botania.gray_double_flower": "Lange Mystieke Grijze Bloem",
-  "block.botania.light_gray_double_flower": "Lange Mystieke Lichtgrijze Bloem",
-  "block.botania.cyan_double_flower": "Lange Mystieke Blauwgroene Bloem",
-  "block.botania.purple_double_flower": "Lange Mystieke Paarse Bloem",
-  "block.botania.blue_double_flower": "Lange Mystieke Blauwe Bloem",
-  "block.botania.brown_double_flower": "Lange Mystieke Bruine Bloem",
-  "block.botania.green_double_flower": "Lange Mystieke Groene Bloem",
-  "block.botania.red_double_flower": "Lange Mystieke Rode Bloem",
-  "block.botania.black_double_flower": "Lange Mystieke Zwarte Bloem",
+  "block.botania.mana_pump": "Mana Pomp",
+  "block.botania.white_tall_mystical_flower": "Lange Mystieke Witte Bloem",
+  "block.botania.orange_tall_mystical_flower": "Lange Mystieke Oranje Bloem",
+  "block.botania.magenta_tall_mystical_flower": "Lange Mystieke Magenta Bloem",
+  "block.botania.light_blue_tall_mystical_flower": "Lange Mystieke Lichtblauwe Bloem",
+  "block.botania.yellow_tall_mystical_flower": "Lange Mystieke Gele Bloem",
+  "block.botania.lime_tall_mystical_flower": "Lange Mystieke Lichtgroene Bloem",
+  "block.botania.pink_tall_mystical_flower": "Lange Mystieke Roze Bloem",
+  "block.botania.gray_tall_mystical_flower": "Lange Mystieke Grijze Bloem",
+  "block.botania.light_gray_tall_mystical_flower": "Lange Mystieke Lichtgrijze Bloem",
+  "block.botania.cyan_tall_mystical_flower": "Lange Mystieke Blauwgroene Bloem",
+  "block.botania.purple_tall_mystical_flower": "Lange Mystieke Paarse Bloem",
+  "block.botania.blue_tall_mystical_flower": "Lange Mystieke Blauwe Bloem",
+  "block.botania.brown_tall_mystical_flower": "Lange Mystieke Bruine Bloem",
+  "block.botania.green_tall_mystical_flower": "Lange Mystieke Groene Bloem",
+  "block.botania.red_tall_mystical_flower": "Lange Mystieke Rode Bloem",
+  "block.botania.black_tall_mystical_flower": "Lange Mystieke Zwarte Bloem",
   "block.botania.blaze_block": "Blazelamp",
   "block.botania.corporea_interceptor": "Corporea Onderschepper",
   "block.botania.corporea_crystal_cube": "Corporea Kristallen Kubus",
   "block.botania.incense_plate": "Plaat Wierook",
-  "block.botania.hourglass": "Zwevende Zandloper",
-  "block.botania.ghost_rail": "Spookachtige Rails",
-  "block.botania.spark_changer": "Vonkbewerker",
-  "block.botania.root": "Levenswortel",
+  "block.botania.hovering_hourglass": "Zwevende Zandloper",
+  "block.botania.spectral_rail": "Spookachtige Rails",
+  "block.botania.spark_tinkerer": "Vonkbewerker",
+  "block.botania.living_roots": "Levenswortel",
   "block.botania.fel_pumpkin": "Bezeten Pompoen",
-  "block.botania.cocoon": "Cocoon van Caprice",
-  "block.botania.light_relay": "Verlichter",
-  "block.botania.detector_light_relay": "Detector Verlichter",
+  "block.botania.cocoon_of_caprice": "Cocoon van Caprice",
+  "block.botania.luminizer": "Verlichter",
+  "block.botania.detector_luminizer": "Detector Verlichter",
 
 
-  "block.botania.light_launcher": "Verlichter Lanceerder",
+  "block.botania.luminizer_launcher": "Verlichter Lanceerder",
   "block.botania.livingrock_wall": "Levensteen Muur",
 
 
@@ -1442,27 +1449,27 @@
 
 
 
-  "block.botania.mana_bomb": "Manastorm Lading",
-  "block.botania.white_buried_petals": "Begraven Witte Bloemblad",
-  "block.botania.orange_buried_petals": "Begraven Oranje Bloemblad",
-  "block.botania.magenta_buried_petals": "Begraven Magenta Bloemblad",
-  "block.botania.light_blue_buried_petals": "Begraven Lichtblauw Bloemblad",
-  "block.botania.yellow_buried_petals": "Begraven Gele Bloemblad",
-  "block.botania.lime_buried_petals": "Begraven Lichtgroene Bloemblad",
-  "block.botania.pink_buried_petals": "Begraven Roze Bloemblad",
-  "block.botania.gray_buried_petals": "Begraven Grijze Bloemblad",
-  "block.botania.light_gray_buried_petals": "Begraven Lichtgrijze Bloemblad",
-  "block.botania.cyan_buried_petals": "Begraven Blauwgroene Bloemblad",
-  "block.botania.purple_buried_petals": "Begraven Paarse Bloemblad",
-  "block.botania.blue_buried_petals": "Begraven Blauwe Bloemblad",
-  "block.botania.brown_buried_petals": "Begraven Bruine Bloemblad",
-  "block.botania.green_buried_petals": "Begraven Groene Bloemblad",
-  "block.botania.red_buried_petals": "Begraven Rode Bloemblad",
-  "block.botania.black_buried_petals": "Begraven Zwart Bloemblad",
+  "block.botania.manastorm_charge": "Manastorm Lading",
+  "block.botania.white_buried_petal": "Begraven Witte Bloemblad",
+  "block.botania.orange_buried_petal": "Begraven Oranje Bloemblad",
+  "block.botania.magenta_buried_petal": "Begraven Magenta Bloemblad",
+  "block.botania.light_blue_buried_petal": "Begraven Lichtblauw Bloemblad",
+  "block.botania.yellow_buried_petal": "Begraven Gele Bloemblad",
+  "block.botania.lime_buried_petal": "Begraven Lichtgroene Bloemblad",
+  "block.botania.pink_buried_petal": "Begraven Roze Bloemblad",
+  "block.botania.gray_buried_petal": "Begraven Grijze Bloemblad",
+  "block.botania.light_gray_buried_petal": "Begraven Lichtgrijze Bloemblad",
+  "block.botania.cyan_buried_petal": "Begraven Blauwgroene Bloemblad",
+  "block.botania.purple_buried_petal": "Begraven Paarse Bloemblad",
+  "block.botania.blue_buried_petal": "Begraven Blauwe Bloemblad",
+  "block.botania.brown_buried_petal": "Begraven Bruine Bloemblad",
+  "block.botania.green_buried_petal": "Begraven Groene Bloemblad",
+  "block.botania.red_buried_petal": "Begraven Rode Bloemblad",
+  "block.botania.black_buried_petal": "Begraven Zwart Bloemblad",
   "block.botania.cacophonium_block": "Kakofoon Blok",
-  "block.botania.bellows": "Manavloed Blaasbalg",
-  "block.botania.bifrost": "Tijdelijk Bifrost Blok",
-  "block.botania.bifrost_perm": "Bifrost Blok",
+  "block.botania.manatide_bellows": "Manavloed Blaasbalg",
+  "block.botania.bifrost_bridge": "Tijdelijk Bifrost Blok",
+  "block.botania.bifrost": "Bifrost Blok",
   "block.botania.white_pavement": "Witte Portugese Stoep",
   "block.botania.black_pavement": "Zwarte Portugese Stoep",
   "block.botania.blue_pavement": "Blauwe Portugese Stoep",
@@ -1481,7 +1488,7 @@
   "block.botania.red_pavement_slab": "Rode Portugese Stoeptegel",
   "block.botania.yellow_pavement_slab": "Gele Portugese Stoeptegel",
   "block.botania.green_pavement_slab": "Groene Portugese Stoeptegel",
-  "block.botania.cell_block": "Cellulair Blok",
+  "block.botania.cellular_block": "Cellulair Blok",
   "block.botania.gaia_head": "Beschermer van Gaia's Hoofd",
 
 
@@ -1494,8 +1501,8 @@
 
 
   "block.botania.corporea_retainer": "Corporea Behouder",
-  "block.botania.mana_glass_pane": "Managlas Ruit",
-  "block.botania.elf_glass_pane": "Elvenglas Ruit",
+  "block.botania.managlass_pane": "Managlas Ruit",
+  "block.botania.alfglass_pane": "Elvenglas Ruit",
   "block.botania.bifrost_pane": "Bifrost Ruit",
 
   "block.botania.shimmerrock": "Glinstersteen",
@@ -2681,8 +2688,8 @@
 
 
 
-  "botania.entry.prism": "Mana Prisma",
-  "botania.tagline.prism": "Wissel de werkzame lens op een Mana Burst",
+  "botania.entry.mana_prism": "Mana Prisma",
+  "botania.tagline.mana_prism": "Wissel de werkzame lens op een Mana Burst",
   "botania.page.prism0": "Het concept van de $(item)Mana Lens$(0) is de aanpassing van de kracht die wordt overgebracht door een $(thing)Mana Burst$(0). De $(item)Mana Prisma$(0) laat toe dat het effect van de lens op een burst kan worden omgeschakeld.$(p)Door gebruik van een $(item)Spookachtig Platform$(0) als bestandsdeel, heeft dit blok geen fysieke aanwezigheid, alles kan erdoorheen alsof het niet bestaat.",
   "botania.page.prism1": "Door erop te rechts-klikken met een willekeurige $(item)Mana Lens$(0), komt de lens op het prisma. Waneer een $(thing)Mana Burst$(0) erdoorheen gaat, wordt zijn kleur en effect dat van de lens in het prisma. Als de lens niet gekleurd is, worden de bursten wit.$(p)Het gebruik van 1 van de 4 basis lenzen vergoot de tijd alvorens $(thing)Mana$(0) verlies optreedt.",
   "botania.page.prism2": "Hij kan ook aan/uit geschakeld worden middels een redstone signaal.",
@@ -3168,8 +3175,8 @@
 
   "botania.page.craftCrate9": "9 verschillende patronen",
 
-  "botania.entry.hourglass": "Zwevende Zandloper",
-  "botania.tagline.hourglass": "Een eenvoudige timer",
+  "botania.entry.hovering_hourglass": "Zwevende Zandloper",
+  "botania.tagline.hovering_hourglass": "Een eenvoudige timer",
   "botania.page.hourglass0": "De mogelijkheid om de tijd te kunnen tellen is een noodzaak voor iedereen die dingen wil maken met redstone. Maar een enkele timer is in het algemeen al groot en langzaam. De $(item)Zwevende Zandloper$(0) is een simpele, nauwkeurige, zand-gebaseerde timer. Zoals de naam al zegt is het een zandloper die zweeft en vanzelf omdraait.",
   "botania.page.hourglass1": "De zandloper heeft een inventory, waarin een stack $(item)Zand$(0), $(item)Rood Zand$(0) of $(item)Zielenzand$(0) kan worden gezet middels een rechts-klik. Opnieuw rechts-klikken verwijdert het. Het zand zal gaan lopen van één kamer naar de andere, en als dat klaar is, een enkel redstone signaal afgeven, omdraaien en opnieuw beginnen.",
   "botania.page.hourglass2": "De tijd tussen elk signaal is afhankelijk van hoeveel en welk type zand er in de lopen zit. Met $(item)Zand$(0) duurt een blok 1 seconde, $(item)Rood Zand$(0) tien seconden, en $(item)Zielenzand$(0) een minuut. Typen zand kunnen niet gemengd worden. De tijd per signaal kan gezien worden door het blok te bekijken met een $(item)Staf van het Woud$(0).",

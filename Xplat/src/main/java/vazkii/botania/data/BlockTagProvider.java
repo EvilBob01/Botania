@@ -163,30 +163,30 @@ public class BlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
 		tag(BotaniaTags.Blocks.FLOATING_FLOWERS).addTag(BotaniaTags.Blocks.MUNDANE_FLOATING_FLOWERS)
 				.addTag(BotaniaTags.Blocks.SPECIAL_FLOATING_FLOWERS);
 
-		tag(BotaniaTags.Blocks.MYSTICAL_FLOWERS).add(
+		tag(BotaniaTags.Blocks.SMALL_MYSTICAL_FLOWERS).add(
 				ColorHelper.supportedColors()
-						.map(BotaniaBlocks::getFlower)
+						.map(BotaniaBlocks::getMysticalFlower)
 						.sorted(Comparator.comparing(BuiltInRegistries.BLOCK::getKey))
 						.toArray(Block[]::new)
 		);
 
 		tag(BotaniaTags.Blocks.SHIMMERING_MUSHROOMS).add(
 				ColorHelper.supportedColors()
-						.map(BotaniaBlocks::getMushroom)
+						.map(BotaniaBlocks::getShimmeringMushroom)
 						.sorted(Comparator.comparing(BuiltInRegistries.BLOCK::getKey))
 						.toArray(Block[]::new)
 		);
 
-		tag(BotaniaTags.Blocks.SHINY_FLOWERS).add(
+		tag(BotaniaTags.Blocks.GLIMMERING_FLOWERS).add(
 				ColorHelper.supportedColors()
-						.map(BotaniaBlocks::getShinyFlower)
+						.map(BotaniaBlocks::getGlimmeringFlower)
 						.sorted(Comparator.comparing(BuiltInRegistries.BLOCK::getKey))
 						.toArray(Block[]::new)
 		);
 
-		tag(BotaniaTags.Blocks.DOUBLE_MYSTICAL_FLOWERS).add(
+		tag(BotaniaTags.Blocks.TALL_MYSTICAL_FLOWERS).add(
 				ColorHelper.supportedColors()
-						.map(BotaniaBlocks::getDoubleFlower)
+						.map(BotaniaBlocks::getTallMysticalFlower)
 						.sorted(Comparator.comparing(BuiltInRegistries.BLOCK::getKey))
 						.toArray(Block[]::new)
 		);
@@ -223,19 +223,20 @@ public class BlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
 						&& BuiltInRegistries.BLOCK.getKey(block).getPath().endsWith("_petite"))
 		);
 
-		tag(BotaniaTags.Blocks.ENCHANTER_FLOWERS).addTag(BotaniaTags.Blocks.MYSTICAL_FLOWERS)
-				.addTag(BotaniaTags.Blocks.SHINY_FLOWERS)
+		tag(BotaniaTags.Blocks.ENCHANTER_FLOWERS).addTag(BotaniaTags.Blocks.SMALL_MYSTICAL_FLOWERS)
+				.addTag(BotaniaTags.Blocks.GLIMMERING_FLOWERS)
 				.addTag(BotaniaTags.Blocks.MUNDANE_FLOATING_FLOWERS);
 
 		// Special flowers intentionally excluded due to unwanted behaviors with tree growth and mod compat.
-		tag(BlockTags.TALL_FLOWERS).addTag(BotaniaTags.Blocks.DOUBLE_MYSTICAL_FLOWERS);
-		tag(BlockTags.SMALL_FLOWERS).addTag(BotaniaTags.Blocks.MYSTICAL_FLOWERS);
+		tag(BlockTags.TALL_FLOWERS).addTag(BotaniaTags.Blocks.TALL_MYSTICAL_FLOWERS);
+		tag(BlockTags.SMALL_FLOWERS).addTag(BotaniaTags.Blocks.SMALL_MYSTICAL_FLOWERS);
 		// intentionally not added to small flowers so Endermen don't grab them
-		tag(BlockTags.FLOWERS).addTag(BotaniaTags.Blocks.SHINY_FLOWERS);
+		tag(BlockTags.FLOWERS).addTag(BotaniaTags.Blocks.GLIMMERING_FLOWERS);
 
 		tag(BlockTags.IMPERMEABLE).add(
-				BotaniaBlocks.ALFGLASS, BotaniaBlocks.MANAGLASS, BotaniaBlocks.TEMPORARY_BIFROST_BLOCK,
-				BotaniaBlocks.BIFROST_BLOCK);
+				BotaniaBlocks.ALFGLASS, BotaniaBlocks.MANAGLASS, BotaniaBlocks.BIFROST_BRIDGE,
+				BotaniaBlocks.BIFROST
+		);
 		tag(BlockTags.BEACON_BASE_BLOCKS).add(
 				BotaniaBlocks.MANASTEEL_BLOCK, BotaniaBlocks.TERRASTEEL_BLOCK, BotaniaBlocks.ELEMENTIUM_BLOCK,
 				BotaniaBlocks.MANA_DIAMOND_BLOCK, BotaniaBlocks.DRAGONSTONE_BLOCK
@@ -264,29 +265,53 @@ public class BlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
 		tag(BotaniaTags.Blocks.GAIA_GUARDIAN_IMMUNE).add(
 				Blocks.BEACON, BotaniaBlocks.MANA_PYLON, BotaniaBlocks.NATURA_PYLON, BotaniaBlocks.GAIA_PYLON
 		);
-		tag(BotaniaTags.Blocks.SHIELDS_FROM_MAGNET_RING).add(
-				BotaniaBlocks.MANA_POOL, BotaniaBlocks.CREATIVE_MANA_POOL, BotaniaBlocks.DILUTED_MANA_POOL,
-				BotaniaBlocks.FABULOUS_MANA_POOL, BotaniaBlocks.TERRESTRIAL_AGGLOMERATION_PLATE,
-				BotaniaBlocks.RUNIC_ALTAR
-		);
+		tag(BotaniaTags.Blocks.SHIELDS_FROM_MAGNET_RING)
+				.add(BotaniaBlocks.TERRESTRIAL_AGGLOMERATION_PLATE, BotaniaBlocks.RUNIC_ALTAR)
+				.addTag(BotaniaTags.Blocks.ALL_MANA_POOLS);
 		tag(BotaniaTags.Blocks.LAPUTA_IMMOBILE);
 		tag(BotaniaTags.Blocks.LAPUTA_NO_DOUBLE_BLOCK);
 
 		tag(BotaniaTags.Blocks.COVERED_MANA_SPREADERS)
 				.add(getColoredBlocks(BotaniaBlocks.MANA_SPREADER, LibBlockNames.COVERED_INFIX));
-		tag(BotaniaTags.Blocks.COVERED_PULSE_SPREADERS)
+		tag(BotaniaTags.Blocks.COVERED_PULSE_MANA_SPREADERS)
 				.add(getColoredBlocks(BotaniaBlocks.PULSE_MANA_SPREADER, LibBlockNames.COVERED_INFIX));
-		tag(BotaniaTags.Blocks.COVERED_ELVEN_SPREADERS)
+		tag(BotaniaTags.Blocks.COVERED_ELVEN_MANA_SPREADERS)
 				.add(getColoredBlocks(BotaniaBlocks.ELVEN_MANA_SPREADER, LibBlockNames.COVERED_INFIX));
-		tag(BotaniaTags.Blocks.COVERED_GAIA_SPREADERS)
+		tag(BotaniaTags.Blocks.COVERED_GAIA_MANA_SPREADERS)
 				.add(getColoredBlocks(BotaniaBlocks.GAIA_MANA_SPREADER, LibBlockNames.COVERED_INFIX));
-		tag(BotaniaTags.Blocks.COVERED_SPREADERS)
+		tag(BotaniaTags.Blocks.ALL_COVERED_MANA_SPREADERS)
 				.addTag(BotaniaTags.Blocks.COVERED_MANA_SPREADERS)
-				.addTag(BotaniaTags.Blocks.COVERED_PULSE_SPREADERS)
-				.addTag(BotaniaTags.Blocks.COVERED_ELVEN_SPREADERS)
-				.addTag(BotaniaTags.Blocks.COVERED_GAIA_SPREADERS);
-		tag(BlockTags.OCCLUDES_VIBRATION_SIGNALS).addTag(BotaniaTags.Blocks.COVERED_SPREADERS);
-		tag(BlockTags.DAMPENS_VIBRATIONS).addTag(BotaniaTags.Blocks.COVERED_SPREADERS);
+				.addTag(BotaniaTags.Blocks.COVERED_PULSE_MANA_SPREADERS)
+				.addTag(BotaniaTags.Blocks.COVERED_ELVEN_MANA_SPREADERS)
+				.addTag(BotaniaTags.Blocks.COVERED_GAIA_MANA_SPREADERS);
+		tag(BlockTags.OCCLUDES_VIBRATION_SIGNALS).addTag(BotaniaTags.Blocks.ALL_COVERED_MANA_SPREADERS);
+		tag(BlockTags.DAMPENS_VIBRATIONS).addTag(BotaniaTags.Blocks.ALL_COVERED_MANA_SPREADERS);
+
+		tag(BotaniaTags.Blocks.DYED_MANA_POOLS)
+				.add(getColoredBlocks(BotaniaBlocks.MANA_POOL));
+		tag(BotaniaTags.Blocks.DYED_CREATIVE_MANA_POOLS)
+				.add(getColoredBlocks(BotaniaBlocks.CREATIVE_MANA_POOL));
+		tag(BotaniaTags.Blocks.DYED_DILUTED_MANA_POOLS)
+				.add(getColoredBlocks(BotaniaBlocks.DILUTED_MANA_POOL));
+		tag(BotaniaTags.Blocks.DYED_FABULOUS_MANA_POOLS)
+				.add(getColoredBlocks(BotaniaBlocks.FABULOUS_MANA_POOL));
+		tag(BotaniaTags.Blocks.MANA_POOLS)
+				.add(BotaniaBlocks.MANA_POOL)
+				.addTag(BotaniaTags.Blocks.DYED_MANA_POOLS);
+		tag(BotaniaTags.Blocks.CREATIVE_MANA_POOLS)
+				.add(BotaniaBlocks.CREATIVE_MANA_POOL)
+				.addTag(BotaniaTags.Blocks.DYED_CREATIVE_MANA_POOLS);
+		tag(BotaniaTags.Blocks.DILUTED_MANA_POOLS)
+				.add(BotaniaBlocks.DILUTED_MANA_POOL)
+				.addTag(BotaniaTags.Blocks.DYED_DILUTED_MANA_POOLS);
+		tag(BotaniaTags.Blocks.FABULOUS_MANA_POOLS)
+				.add(BotaniaBlocks.FABULOUS_MANA_POOL)
+				.addTag(BotaniaTags.Blocks.DYED_FABULOUS_MANA_POOLS);
+		tag(BotaniaTags.Blocks.ALL_MANA_POOLS)
+				.addTag(BotaniaTags.Blocks.MANA_POOLS)
+				.addTag(BotaniaTags.Blocks.CREATIVE_MANA_POOLS)
+				.addTag(BotaniaTags.Blocks.DILUTED_MANA_POOLS)
+				.addTag(BotaniaTags.Blocks.FABULOUS_MANA_POOLS);
 
 		tag(BotaniaTags.Blocks.TERRA_PLATE_BASE).add(BotaniaBlocks.LIVINGROCK, BotaniaBlocks.SHIMMERROCK);
 
@@ -323,7 +348,7 @@ public class BlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
 				.addTag(BotaniaTags.Blocks.LIVINGWOOD_LOGS)
 				.addTag(BotaniaTags.Blocks.DREAMWOOD_LOGS);
 
-		tag(BotaniaTags.Blocks.GHOST_RAIL_BARRIER).addTag(BotaniaTags.Blocks.DREAMWOOD_LOGS);
+		tag(BotaniaTags.Blocks.SPECTRAL_RAIL_BARRIER).addTag(BotaniaTags.Blocks.DREAMWOOD_LOGS);
 
 		tag(BotaniaTags.Blocks.ENDER_AIR_CONVERTABLE).add(
 				Blocks.STONE, Blocks.DEEPSLATE, Blocks.GRANITE, Blocks.DIORITE, Blocks.ANDESITE
@@ -349,7 +374,7 @@ public class BlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
 				.addOptional(ResourceLocation.fromNamespaceAndPath("biomesoplenty", "high_grass"))
 				.addOptional(ResourceLocation.fromNamespaceAndPath("biomesoplenty", "high_grass_plant"));
 		tag(BotaniaTags.Blocks.HORN_OF_THE_WILD_IMMUNE)
-				.addTag(BotaniaTags.Blocks.SHINY_FLOWERS)
+				.addTag(BotaniaTags.Blocks.GLIMMERING_FLOWERS)
 				.addTag(BotaniaTags.Blocks.SHIMMERING_MUSHROOMS);
 		tag(BotaniaTags.Blocks.HORN_OF_THE_CANOPY_BREAKABLE)
 				.addTag(BlockTags.LEAVES)
@@ -446,18 +471,18 @@ public class BlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
 
 	private void registerMiningTags() {
 		tag(BlockTags.MINEABLE_WITH_HOE).add(
-				getModBlocks(b -> b == BotaniaBlocks.CELLULAR_BLOCK
-						|| BuiltInRegistries.BLOCK.getKey(b).getPath().contains(LibBlockNames.PETAL_BLOCK_SUFFIX)
+				getModBlocks(block -> block == BotaniaBlocks.CELLULAR_BLOCK
+						|| BuiltInRegistries.BLOCK.getKey(block).getPath().contains(LibBlockNames.PETAL_BLOCK_SUFFIX)
 				)
 		);
 		tag(BlockTags.MINEABLE_WITH_SHOVEL).add(
-				getModBlocks(b -> b instanceof FloatingFlowerBaseBlock || b instanceof BotaniaGrassBlock)
+				getModBlocks(block -> block instanceof FloatingFlowerBaseBlock || block instanceof BotaniaGrassBlock)
 		);
 		var pickaxe = Set.of(
 				BotaniaBlocks.ALCHEMY_CATALYST, BotaniaBlocks.CONJURATION_CATALYST, BotaniaBlocks.MANASTEEL_BLOCK,
 				BotaniaBlocks.ELEMENTIUM_BLOCK, BotaniaBlocks.TERRASTEEL_BLOCK, BotaniaBlocks.MANA_DIAMOND_BLOCK,
 				BotaniaBlocks.DRAGONSTONE_BLOCK, BotaniaBlocks.MANAGLASS, BotaniaBlocks.ALFGLASS,
-				BotaniaBlocks.BIFROST_BLOCK, BotaniaBlocks.MANAGLASS_PANE, BotaniaBlocks.ALFGLASS_PANE,
+				BotaniaBlocks.BIFROST, BotaniaBlocks.MANAGLASS_PANE, BotaniaBlocks.ALFGLASS_PANE,
 				BotaniaBlocks.BIFROST_PANE, BotaniaBlocks.RUNIC_ALTAR, BotaniaBlocks.BOTANICAL_BREWERY,
 				BotaniaBlocks.TERRESTRIAL_AGGLOMERATION_PLATE, BotaniaBlocks.MANA_SPLITTER, BotaniaBlocks.MANA_VOID,
 				BotaniaBlocks.MANA_DETECTOR, BotaniaBlocks.FORCE_RELAY, BotaniaBlocks.TINY_PLANET,
@@ -466,21 +491,23 @@ public class BlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
 				BotaniaBlocks.ENDER_OVERSEER, BotaniaBlocks.HOVERING_HOURGLASS, BotaniaBlocks.STARFIELD_CREATOR,
 				BotaniaBlocks.BLAZE_MESH
 		);
+		Set<String> metamorphicNames = Set.of(LibBlockNames.METAMORPHIC_VARIANTS);
 		tag(BlockTags.MINEABLE_WITH_PICKAXE).add(
-				getModBlocks(b -> pickaxe.contains(b)
-						|| b instanceof PetalApothecaryBlock
-						|| b instanceof PylonBlock
-						|| b instanceof ManaPoolBlock
-						|| b instanceof RedStringBlock
-						|| BuiltInRegistries.BLOCK.getKey(b).getPath().contains(LibBlockNames.AZULEJO_PREFIX)
-						|| BuiltInRegistries.BLOCK.getKey(b).getPath().contains("corporea")
-						|| BuiltInRegistries.BLOCK.getKey(b).getPath().contains(LibBlockNames.PAVEMENT_SUFFIX)
-						|| BuiltInRegistries.BLOCK.getKey(b).getPath().contains("_quartz")
-						|| (BuiltInRegistries.BLOCK.getKey(b).getPath().contains(LibBlockNames.METAMORPHIC_PREFIX)
-								&& !(b instanceof WallBlock)) // vanilla includes #wall already
-						|| (BuiltInRegistries.BLOCK.getKey(b).getPath().contains(LibBlockNames.LIVING_ROCK)
-								&& !(b instanceof WallBlock)) // vanilla includes #wall already
-						|| BuiltInRegistries.BLOCK.getKey(b).getPath().contains(LibBlockNames.SHIMMERROCK)
+				getModBlocks(block -> pickaxe.contains(block)
+						|| block instanceof PetalApothecaryBlock
+						|| block instanceof PylonBlock
+						|| block instanceof ManaPoolBlock
+						|| block instanceof RedStringBlock
+						|| BuiltInRegistries.BLOCK.getKey(block).getPath().contains(LibBlockNames.AZULEJO_PREFIX)
+						|| BuiltInRegistries.BLOCK.getKey(block).getPath().contains("corporea")
+						|| BuiltInRegistries.BLOCK.getKey(block).getPath().contains(LibBlockNames.PAVEMENT_SUFFIX)
+						|| BuiltInRegistries.BLOCK.getKey(block).getPath().contains("_quartz")
+						|| metamorphicNames.stream().anyMatch(
+								variant -> BuiltInRegistries.BLOCK.getKey(block).getPath().contains(variant))
+								&& !(block instanceof WallBlock) // vanilla includes #wall already
+						|| BuiltInRegistries.BLOCK.getKey(block).getPath().contains(LibBlockNames.LIVING_ROCK)
+								&& !(block instanceof WallBlock) // vanilla includes #wall already
+						|| BuiltInRegistries.BLOCK.getKey(block).getPath().contains(LibBlockNames.SHIMMERROCK)
 				)
 		);
 		var axe = Set.of(
@@ -489,14 +516,14 @@ public class BlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
 				BotaniaBlocks.LIVINGWOOD_AVATAR, BotaniaBlocks.LIVING_ROOT, BotaniaBlocks.FEL_PUMPKIN
 		);
 		tag(BlockTags.MINEABLE_WITH_AXE).add(
-				getModBlocks(b -> axe.contains(b)
-						|| b instanceof DrumBlock
-						|| b instanceof OpenCrateBlock
-						|| b instanceof PlatformBlock
-						|| b instanceof ManaSpreaderBlock
-						|| BuiltInRegistries.BLOCK.getKey(b).getPath().contains(LibBlockNames.LIVING_WOOD)
-						|| BuiltInRegistries.BLOCK.getKey(b).getPath().contains(LibBlockNames.DREAM_WOOD)
-						|| BuiltInRegistries.BLOCK.getKey(b).getPath().contains(LibBlockNames.SHIMMERWOOD_PLANKS)
+				getModBlocks(block -> axe.contains(block)
+						|| block instanceof DrumBlock
+						|| block instanceof OpenCrateBlock
+						|| block instanceof PlatformBlock
+						|| block instanceof ManaSpreaderBlock
+						|| BuiltInRegistries.BLOCK.getKey(block).getPath().contains(LibBlockNames.LIVING_WOOD)
+						|| BuiltInRegistries.BLOCK.getKey(block).getPath().contains(LibBlockNames.DREAM_WOOD)
+						|| BuiltInRegistries.BLOCK.getKey(block).getPath().contains(LibBlockNames.SHIMMERWOOD_PLANKS)
 				)
 		);
 	}

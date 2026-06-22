@@ -197,7 +197,7 @@
   "botania.tater.you_came_to_the_wrong_neighborhood.15": "Це не моє ім'я",
   "botania.tater.you_came_to_the_wrong_neighborhood.16": "Це не моє ім'я",
 
-  "botania.nei.brewery": "Ботанічна бродильня",
+  "botania.nei.botanical_brewery": "Ботанічна бродильня",
   "botania.nei.elvenTrade": "Торгівля з ельфами",
   "botania.nei.floatingFlowers": "Квіти, що плавають",
   "botania.nei.manaPool": "Наповнення маною",
@@ -230,8 +230,15 @@
 
 
 
-  "tag.block.botania.double_mystical_flowers": "Високі містичні квіти",
+
+
+
+  "tag.block.botania.tall_mystical_flowers": "Високі містичні квіти",
   "tag.block.botania.dreamwood_logs": "Колоди мрійдрева",
+
+
+
+
 
 
   "tag.block.botania.floating_flowers": "Квіти, що плавають",
@@ -256,7 +263,7 @@
   "tag.block.botania.misc_special_flowers": "Різні спеціальні квіти",
 
   "tag.block.botania.mundane_floating_flowers": "Земні квіти, що плавають",
-  "tag.block.botania.mystical_flowers": "Містичні квіти",
+  "tag.block.botania.small_mystical_flowers": "Містичні квіти",
 
 
 
@@ -330,7 +337,7 @@
 
 
 
-  "tag.item.botania.double_mystical_flowers": "Високі містичні квіти",
+  "tag.item.botania.tall_mystical_flowers": "Високі містичні квіти",
   "tag.item.botania.dreamwood_logs": "Колоди мрійдрева",
 
 
@@ -359,7 +366,7 @@
   "tag.item.botania.misc_special_flowers": "Різні спеціальні квіти",
 
   "tag.item.botania.mundane_floating_flowers": "Земні квіти, що плавають",
-  "tag.item.botania.mystical_flowers": "Містичні квіти",
+  "tag.item.botania.small_mystical_flowers": "Містичні квіти",
   "tag.item.botania.petals": "Пелюстки",
   "tag.item.botania.petals.black": "Чорні пелюстки",
   "tag.item.botania.petals.blue": "Сині пелюстки",
@@ -876,18 +883,18 @@
 
 
 
-  "block.botania.apothecary_default": "Пелюстковий аптекар",
-  "block.botania.apothecary_forest": "Лісовий пелюстковий аптекар",
-  "block.botania.apothecary_plains": "Луговий пелюстковий аптекар",
-  "block.botania.apothecary_mountain": "Гірський пелюстковий аптекар",
-  "block.botania.apothecary_fungal": "Грибний пелюстковий аптекар",
-  "block.botania.apothecary_swamp": "Болотний пелюстковий аптекар",
-  "block.botania.apothecary_desert": "Пустельний пелюстковий аптекар",
-  "block.botania.apothecary_taiga": "Сніжний пелюстковий аптекар",
-  "block.botania.apothecary_mesa": "Меса пелюстковий аптекар",
-  "block.botania.apothecary_mossy": "Моховитий пелюстковий аптекар",
-  "block.botania.apothecary_livingrock": "Живокаміний пелюстковий аптекар",
-  "block.botania.apothecary_deepslate": "Глибокосланцевий пелюстковий аптекар",
+  "block.botania.petal_apothecary": "Пелюстковий аптекар",
+  "block.botania.fuchsite_petal_apothecary": "Лісовий пелюстковий аптекар",
+  "block.botania.talc_petal_apothecary": "Луговий пелюстковий аптекар",
+  "block.botania.gneiss_petal_apothecary": "Гірський пелюстковий аптекар",
+  "block.botania.mycelite_petal_apothecary": "Грибний пелюстковий аптекар",
+  "block.botania.cataclasite_petal_apothecary": "Болотний пелюстковий аптекар",
+  "block.botania.solite_petal_apothecary": "Пустельний пелюстковий аптекар",
+  "block.botania.lunite_petal_apothecary": "Сніжний пелюстковий аптекар",
+  "block.botania.rosy_talc_petal_apothecary": "Меса пелюстковий аптекар",
+  "block.botania.mossy_petal_apothecary": "Моховитий пелюстковий аптекар",
+  "block.botania.livingrock_petal_apothecary": "Живокаміний пелюстковий аптекар",
+  "block.botania.deepslate_petal_apothecary": "Глибокосланцевий пелюстковий аптекар",
 
 
 
@@ -930,7 +937,7 @@
 
 
 
-  "block.botania.redstone_spreader": "Імпульсовий розсіювач мани",
+  "block.botania.pulse_mana_spreader": "Імпульсовий розсіювач мани",
 
 
 
@@ -947,7 +954,7 @@
 
 
 
-  "block.botania.elven_spreader": "Ельфійський розсіювач мани",
+  "block.botania.elven_mana_spreader": "Ельфійський розсіювач мани",
 
 
 
@@ -964,7 +971,7 @@
 
 
 
-  "block.botania.gaia_spreader": "Розсіювач мани Ґаї",
+  "block.botania.gaia_mana_spreader": "Розсіювач мани Ґаї",
 
 
 
@@ -998,8 +1005,8 @@
 
 
 
-  "block.botania.creative_pool": "Нескінченний басейн мани",
-  "block.botania.diluted_pool": "Розбавлений басейн мани",
+  "block.botania.creative_mana_pool": "Нескінченний басейн мани",
+  "block.botania.diluted_mana_pool": "Розбавлений басейн мани",
 
 
 
@@ -1016,7 +1023,7 @@
 
 
 
-  "block.botania.fabulous_pool": "Гарний басейн мани",
+  "block.botania.fabulous_mana_pool": "Гарний басейн мани",
 
 
 
@@ -1034,44 +1041,44 @@
 
 
   "block.botania.runic_altar": "Рунічний вівтар",
-  "block.botania.piston_relay": "Силове реле",
-  "block.botania.mana_distributor": "Розділювач мани",
+  "block.botania.force_relay": "Силове реле",
+  "block.botania.mana_splitter": "Розділювач мани",
   "block.botania.mana_pylon": "Пілон мани",
   "block.botania.natura_pylon": "Природний пілон",
   "block.botania.gaia_pylon": "Пілон Ґаї",
   "block.botania.mana_void": "Мана-порожнина",
   "block.botania.mana_detector": "Мана-детектор",
-  "block.botania.enchanter": "Зачаровувач мани",
-  "block.botania.turntable": "Розсіювальний поворотний стіл",
+  "block.botania.mana_enchanter": "Зачаровувач мани",
+  "block.botania.spreader_turntable": "Розсіювальний поворотний стіл",
   "block.botania.tiny_planet_block": "Крихітна планета",
   "block.botania.alchemy_catalyst": "Алхімічний каталізатор",
   "block.botania.open_crate": "Відкритий ящик",
   "block.botania.crafty_crate": "Вправний ящик",
-  "block.botania.forest_eye": "Око стародавніх",
+  "block.botania.eye_of_the_ancients": "Око стародавніх",
   "block.botania.manasteel_block": "Блок манасталі",
   "block.botania.terrasteel_block": "Блок терасталі",
   "block.botania.elementium_block": "Блок елементія",
   "block.botania.mana_diamond_block": "Блок мана-діамантів",
   "block.botania.dragonstone_block": "Блок дракон-каменю",
-  "block.botania.drum_wild": "Барабан дикої природи",
-  "block.botania.drum_gathering": "Барабан зібрання",
-  "block.botania.drum_canopy": "Барабан навісу",
-  "block.botania.white_shiny_flower": "Мерехтлива біла квітка",
-  "block.botania.orange_shiny_flower": "Мерехтлива помаранчева квітка",
-  "block.botania.magenta_shiny_flower": "Мерехтлива пурпурова квітка",
-  "block.botania.light_blue_shiny_flower": "Мерехтлива блакитна квітка",
-  "block.botania.yellow_shiny_flower": "Мерехтлива жовта квітка",
-  "block.botania.lime_shiny_flower": "Мерехтлива лаймова квітка",
-  "block.botania.pink_shiny_flower": "Мерехтлива рожева квітка",
-  "block.botania.gray_shiny_flower": "Мерехтлива сіра квітка",
-  "block.botania.light_gray_shiny_flower": "Мерехтлива світло-сіра квітка",
-  "block.botania.cyan_shiny_flower": "Мерехтлива бірюзова квітка",
-  "block.botania.purple_shiny_flower": "Мерехтлива фіолетова квітка",
-  "block.botania.blue_shiny_flower": "Мерехтлива синя квітка",
-  "block.botania.brown_shiny_flower": "Мерехтлива коричнева квітка",
-  "block.botania.green_shiny_flower": "Мерехтлива зелена квітка",
-  "block.botania.red_shiny_flower": "Мерехтлива червона квітка",
-  "block.botania.black_shiny_flower": "Мерехтлива чорна квітка",
+  "block.botania.drum_of_the_wild": "Барабан дикої природи",
+  "block.botania.drum_of_the_gathering": "Барабан зібрання",
+  "block.botania.drum_of_the_canopy": "Барабан навісу",
+  "block.botania.white_glimmering_flower": "Мерехтлива біла квітка",
+  "block.botania.orange_glimmering_flower": "Мерехтлива помаранчева квітка",
+  "block.botania.magenta_glimmering_flower": "Мерехтлива пурпурова квітка",
+  "block.botania.light_blue_glimmering_flower": "Мерехтлива блакитна квітка",
+  "block.botania.yellow_glimmering_flower": "Мерехтлива жовта квітка",
+  "block.botania.lime_glimmering_flower": "Мерехтлива лаймова квітка",
+  "block.botania.pink_glimmering_flower": "Мерехтлива рожева квітка",
+  "block.botania.gray_glimmering_flower": "Мерехтлива сіра квітка",
+  "block.botania.light_gray_glimmering_flower": "Мерехтлива світло-сіра квітка",
+  "block.botania.cyan_glimmering_flower": "Мерехтлива бірюзова квітка",
+  "block.botania.purple_glimmering_flower": "Мерехтлива фіолетова квітка",
+  "block.botania.blue_glimmering_flower": "Мерехтлива синя квітка",
+  "block.botania.brown_glimmering_flower": "Мерехтлива коричнева квітка",
+  "block.botania.green_glimmering_flower": "Мерехтлива зелена квітка",
+  "block.botania.red_glimmering_flower": "Мерехтлива червона квітка",
+  "block.botania.black_glimmering_flower": "Мерехтлива чорна квітка",
 
 
 
@@ -1091,7 +1098,7 @@
   "block.botania.abstruse_platform": "Нерозбірлива платформа",
   "block.botania.spectral_platform": "Примарна платформа",
   "block.botania.infrangible_platform": "Незламна платформа",
-  "block.botania.alfheim_portal": "Ядро ельфійських воріт",
+  "block.botania.elven_gateway_core": "Ядро ельфійських воріт",
   "block.botania.dark_quartz": "Блок димчастого кварцу",
   "block.botania.chiseled_dark_quartz": "Точений димчастий кварцовий блок",
   "block.botania.dark_quartz_pillar": "Стовповий димчастий кварцовий блок",
@@ -1179,7 +1186,7 @@
   "block.botania.red_floating_flower": "Червона плавуча квітка",
   "block.botania.black_floating_flower": "Чорна плавуча квітка",
   "block.botania.tiny_potato": "Картоплик",
-  "block.botania.spawner_claw": "Насичувач життям",
+  "block.botania.life_imbuer": "Насичувач життям",
   "block.botania.azulejo_0": "Азулежу",
   "block.botania.azulejo_1": "Азулежу",
   "block.botania.azulejo_2": "Азулежу",
@@ -1196,21 +1203,21 @@
   "block.botania.azulejo_13": "Азулежу",
   "block.botania.azulejo_14": "Азулежу",
   "block.botania.azulejo_15": "Азулежу",
-  "block.botania.ender_eye_block": "Контролер Ендера",
-  "block.botania.starfield": "Утворювач зоряного неба",
+  "block.botania.ender_overseer": "Контролер Ендера",
+  "block.botania.starfield_creator": "Утворювач зоряного неба",
   "block.botania.mana_fluxfield": "Поле потоку мани",
-  "block.botania.elf_glass": "Ельфійське скло",
-  "block.botania.brewery": "Ботанічна бродильня",
-  "block.botania.mana_glass": "Мана-скло",
-  "block.botania.terra_plate": "Плита наземної агломерація",
-  "block.botania.red_string_container": "Червоний струнний контейнер",
-  "block.botania.red_string_dispenser": "Червоний струнний роздавач",
-  "block.botania.red_string_fertilizer": "Червоний струнний засіб живлення",
-  "block.botania.red_string_comparator": "Червоний струнний компаратор",
-  "block.botania.red_string_relay": "Червоний струнний пародист",
-  "block.botania.red_string_interceptor": "Червоний струнний перехоплювач",
+  "block.botania.alfglass": "Ельфійське скло",
+  "block.botania.botanical_brewery": "Ботанічна бродильня",
+  "block.botania.managlass": "Мана-скло",
+  "block.botania.terrestrial_agglomeration_plate": "Плита наземної агломерація",
+  "block.botania.red_stringed_container": "Червоний струнний контейнер",
+  "block.botania.red_stringed_dispenser": "Червоний струнний роздавач",
+  "block.botania.red_stringed_nutrifier": "Червоний струнний засіб живлення",
+  "block.botania.red_stringed_comparator": "Червоний струнний компаратор",
+  "block.botania.red_stringed_spoofer": "Червоний струнний пародист",
+  "block.botania.red_stringed_interceptor": "Червоний струнний перехоплювач",
   "block.botania.mana_flame": "Спалах мани",
-  "block.botania.prism": "Призма мани",
+  "block.botania.mana_prism": "Призма мани",
   "block.botania.metamorphic_forest_stone": "Фуксит",
   "block.botania.metamorphic_plains_stone": "Тальк",
   "block.botania.metamorphic_mountain_stone": "Гнеїс",
@@ -1349,22 +1356,22 @@
   "block.botania.black_petal_block": "Чорний пелюстковий блок",
   "block.botania.corporea_index": "Індекс Корпореї",
   "block.botania.corporea_funnel": "Воронка Корпореї",
-  "block.botania.white_mushroom": "Білий мерехтливий гриб",
-  "block.botania.orange_mushroom": "Помаранчевий мерехтливий гриб",
-  "block.botania.magenta_mushroom": "Пурпуровий мерехтливий гриб",
-  "block.botania.light_blue_mushroom": "Блакитний мерехтливий гриб",
-  "block.botania.yellow_mushroom": "Жовтий мерехтливий гриб",
-  "block.botania.lime_mushroom": "Лаймовий мерехтливий гриб",
-  "block.botania.pink_mushroom": "Рожевий мерехтливий гриб",
-  "block.botania.gray_mushroom": "Сірий мерехтливий гриб",
-  "block.botania.light_gray_mushroom": "Світло-сірий мерехтливий гриб",
-  "block.botania.cyan_mushroom": "Бірюзовий мерехтливий гриб",
-  "block.botania.purple_mushroom": "Фіолетовий мерехтливий гриб",
-  "block.botania.blue_mushroom": "Синій мерехтливий гриб",
-  "block.botania.brown_mushroom": "Коричневий мерехтливий гриб",
-  "block.botania.green_mushroom": "Зелений мерехтливий гриб",
-  "block.botania.red_mushroom": "Червоний мерехтливий гриб",
-  "block.botania.black_mushroom": "Чорний мерехтливий гриб",
+  "block.botania.white_shimmering_mushroom": "Білий мерехтливий гриб",
+  "block.botania.orange_shimmering_mushroom": "Помаранчевий мерехтливий гриб",
+  "block.botania.magenta_shimmering_mushroom": "Пурпуровий мерехтливий гриб",
+  "block.botania.light_blue_shimmering_mushroom": "Блакитний мерехтливий гриб",
+  "block.botania.yellow_shimmering_mushroom": "Жовтий мерехтливий гриб",
+  "block.botania.lime_shimmering_mushroom": "Лаймовий мерехтливий гриб",
+  "block.botania.pink_shimmering_mushroom": "Рожевий мерехтливий гриб",
+  "block.botania.gray_shimmering_mushroom": "Сірий мерехтливий гриб",
+  "block.botania.light_gray_shimmering_mushroom": "Світло-сірий мерехтливий гриб",
+  "block.botania.cyan_shimmering_mushroom": "Бірюзовий мерехтливий гриб",
+  "block.botania.purple_shimmering_mushroom": "Фіолетовий мерехтливий гриб",
+  "block.botania.blue_shimmering_mushroom": "Синій мерехтливий гриб",
+  "block.botania.brown_shimmering_mushroom": "Коричневий мерехтливий гриб",
+  "block.botania.green_shimmering_mushroom": "Зелений мерехтливий гриб",
+  "block.botania.red_shimmering_mushroom": "Червоний мерехтливий гриб",
+  "block.botania.black_shimmering_mushroom": "Чорний мерехтливий гриб",
 
 
 
@@ -1381,38 +1388,38 @@
 
 
 
-  "block.botania.pump": "Помпа мани",
-  "block.botania.white_double_flower": "Висока містична біла квітка",
-  "block.botania.orange_double_flower": "Висока містична помаранчева квітка",
-  "block.botania.magenta_double_flower": "Висока містична пурпурова квітка",
-  "block.botania.light_blue_double_flower": "Висока містична блакитна квітка",
-  "block.botania.yellow_double_flower": "Висока містична жовта квітка",
-  "block.botania.lime_double_flower": "Висока містична лаймова квітка",
-  "block.botania.pink_double_flower": "Висока містична рожева квітка",
-  "block.botania.gray_double_flower": "Висока містична сіра квітка",
-  "block.botania.light_gray_double_flower": "Висока містична світло-сіра квітка",
-  "block.botania.cyan_double_flower": "Висока містична бірюзова квітка",
-  "block.botania.purple_double_flower": "Висока містична фіолетова квітка",
-  "block.botania.blue_double_flower": "Висока містична синя квітка",
-  "block.botania.brown_double_flower": "Висока містична коричнева квітка",
-  "block.botania.green_double_flower": "Висока містична зелена квітка",
-  "block.botania.red_double_flower": "Висока містична червона квітка",
-  "block.botania.black_double_flower": "Висока містична чорна квітка",
+  "block.botania.mana_pump": "Помпа мани",
+  "block.botania.white_tall_mystical_flower": "Висока містична біла квітка",
+  "block.botania.orange_tall_mystical_flower": "Висока містична помаранчева квітка",
+  "block.botania.magenta_tall_mystical_flower": "Висока містична пурпурова квітка",
+  "block.botania.light_blue_tall_mystical_flower": "Висока містична блакитна квітка",
+  "block.botania.yellow_tall_mystical_flower": "Висока містична жовта квітка",
+  "block.botania.lime_tall_mystical_flower": "Висока містична лаймова квітка",
+  "block.botania.pink_tall_mystical_flower": "Висока містична рожева квітка",
+  "block.botania.gray_tall_mystical_flower": "Висока містична сіра квітка",
+  "block.botania.light_gray_tall_mystical_flower": "Висока містична світло-сіра квітка",
+  "block.botania.cyan_tall_mystical_flower": "Висока містична бірюзова квітка",
+  "block.botania.purple_tall_mystical_flower": "Висока містична фіолетова квітка",
+  "block.botania.blue_tall_mystical_flower": "Висока містична синя квітка",
+  "block.botania.brown_tall_mystical_flower": "Висока містична коричнева квітка",
+  "block.botania.green_tall_mystical_flower": "Висока містична зелена квітка",
+  "block.botania.red_tall_mystical_flower": "Висока містична червона квітка",
+  "block.botania.black_tall_mystical_flower": "Висока містична чорна квітка",
   "block.botania.blaze_block": "Полум'яна сітка",
   "block.botania.corporea_interceptor": "Перехоплювач Корпореї",
   "block.botania.corporea_crystal_cube": "Кришталевий куб Корпореї",
   "block.botania.incense_plate": "Тарілка для пахощів",
-  "block.botania.hourglass": "Пісочний годинник",
-  "block.botania.ghost_rail": "Примарна рейка",
-  "block.botania.spark_changer": "Іскровий лудильник",
-  "block.botania.root": "Живий корінь",
+  "block.botania.hovering_hourglass": "Пісочний годинник",
+  "block.botania.spectral_rail": "Примарна рейка",
+  "block.botania.spark_tinkerer": "Іскровий лудильник",
+  "block.botania.living_roots": "Живий корінь",
   "block.botania.fel_pumpkin": "Фел-гарбуз",
-  "block.botania.cocoon": "Кокон капризу",
-  "block.botania.light_relay": "Світлювач",
-  "block.botania.detector_light_relay": "Детектор світлювача",
-  "block.botania.fork_light_relay": "Розвилка світлювача",
-  "block.botania.toggle_light_relay": "Перемикач світлювача",
-  "block.botania.light_launcher": "Панель запуску світлювача",
+  "block.botania.cocoon_of_caprice": "Кокон капризу",
+  "block.botania.luminizer": "Світлювач",
+  "block.botania.detector_luminizer": "Детектор світлювача",
+  "block.botania.fork_luminizer": "Розвилка світлювача",
+  "block.botania.toggle_luminizer": "Перемикач світлювача",
+  "block.botania.luminizer_launcher": "Панель запуску світлювача",
   "block.botania.livingrock_wall": "Стіна з життєкаменю",
   "block.botania.livingrock_bricks_wall": "Стіна з цегли з життєкаменю",
   "block.botania.mossy_livingrock_bricks_wall": "Стіна з моховитої цегли з життєкаменю",
@@ -1442,27 +1449,27 @@
 
 
 
-  "block.botania.mana_bomb": "Заряд мана-шторму",
-  "block.botania.white_buried_petals": "Закопана біла пелюстка",
-  "block.botania.orange_buried_petals": "Закопана помаранчева пелюстка",
-  "block.botania.magenta_buried_petals": "Закопана пурпурова пелюстка",
-  "block.botania.light_blue_buried_petals": "Закопана блакитна пелюстка",
-  "block.botania.yellow_buried_petals": "Закопана жовта пелюстка",
-  "block.botania.lime_buried_petals": "Закопана лаймова пелюстка",
-  "block.botania.pink_buried_petals": "Закопана рожева пелюстка",
-  "block.botania.gray_buried_petals": "Закопана сіра пелюстка",
-  "block.botania.light_gray_buried_petals": "Закопана світло-сіра пелюстка",
-  "block.botania.cyan_buried_petals": "Закопана бірюзова пелюстка",
-  "block.botania.purple_buried_petals": "Закопана фіолетова пелюстка",
-  "block.botania.blue_buried_petals": "Закопана синя пелюстка",
-  "block.botania.brown_buried_petals": "Закопана коричнева пелюстка",
-  "block.botania.green_buried_petals": "Закопана зелена пелюстка",
-  "block.botania.red_buried_petals": "Закопана червона пелюстка",
-  "block.botania.black_buried_petals": "Закопана чорна пелюстка",
+  "block.botania.manastorm_charge": "Заряд мана-шторму",
+  "block.botania.white_buried_petal": "Закопана біла пелюстка",
+  "block.botania.orange_buried_petal": "Закопана помаранчева пелюстка",
+  "block.botania.magenta_buried_petal": "Закопана пурпурова пелюстка",
+  "block.botania.light_blue_buried_petal": "Закопана блакитна пелюстка",
+  "block.botania.yellow_buried_petal": "Закопана жовта пелюстка",
+  "block.botania.lime_buried_petal": "Закопана лаймова пелюстка",
+  "block.botania.pink_buried_petal": "Закопана рожева пелюстка",
+  "block.botania.gray_buried_petal": "Закопана сіра пелюстка",
+  "block.botania.light_gray_buried_petal": "Закопана світло-сіра пелюстка",
+  "block.botania.cyan_buried_petal": "Закопана бірюзова пелюстка",
+  "block.botania.purple_buried_petal": "Закопана фіолетова пелюстка",
+  "block.botania.blue_buried_petal": "Закопана синя пелюстка",
+  "block.botania.brown_buried_petal": "Закопана коричнева пелюстка",
+  "block.botania.green_buried_petal": "Закопана зелена пелюстка",
+  "block.botania.red_buried_petal": "Закопана червона пелюстка",
+  "block.botania.black_buried_petal": "Закопана чорна пелюстка",
   "block.botania.cacophonium_block": "Какофоній",
-  "block.botania.bellows": "Міхи мани",
-  "block.botania.bifrost": "Тимчасовий блок Біфресту",
-  "block.botania.bifrost_perm": "Блок Біфресту",
+  "block.botania.manatide_bellows": "Міхи мани",
+  "block.botania.bifrost_bridge": "Тимчасовий блок Біфресту",
+  "block.botania.bifrost": "Блок Біфресту",
   "block.botania.white_pavement": "Біла португальська бруківка",
   "block.botania.black_pavement": "Чорна португальська бруківка",
   "block.botania.blue_pavement": "Синя португальська бруківка",
@@ -1481,7 +1488,7 @@
   "block.botania.red_pavement_slab": "Плита з червоної португальської бруківки",
   "block.botania.yellow_pavement_slab": "Плита з жовтої португальської бруківки",
   "block.botania.green_pavement_slab": "Плита з зеленої португальської бруківки",
-  "block.botania.cell_block": "Стільниковий блок",
+  "block.botania.cellular_block": "Стільниковий блок",
   "block.botania.gaia_head": "Голова вартівника Ґаї",
   "block.botania.corporea_block": "Блок Корпореї",
   "block.botania.corporea_slab": "Плита Корпореї",
@@ -1494,8 +1501,8 @@
   "block.botania.corporea_brick_stairs": "Сходи з цегли Корпореї",
   "block.botania.corporea_brick_wall": "Стіна з цегли Корпореї",
   "block.botania.corporea_retainer": "Фіксатор Корпореї",
-  "block.botania.mana_glass_pane": "Мана-скляна панель",
-  "block.botania.elf_glass_pane": "Ельфійська скляна панель",
+  "block.botania.managlass_pane": "Мана-скляна панель",
+  "block.botania.alfglass_pane": "Ельфійська скляна панель",
   "block.botania.bifrost_pane": "Панель Біфресту",
   "block.botania.teru_teru_bozu": "Теру-теру-бодзу",
   "block.botania.shimmerrock": "Мерехтливий камінь",
@@ -2670,7 +2677,7 @@
   "botania.page.elvenLenses0": "Знання про методи обробки мани Альвгейма приходять, звичайно, разом із набором нових і корисних $(l:mana/lens)$(item)Лінз мани$(0)$(/l).$(p)На відміну від звичайних лінз, вони дещо більш характерні у своєму використанні...",
   "botania.page.elvenLenses1": "По-перше, $(item)Лінза маляра$(0). Щоб ця лінза працювала, її потрібно пофарбувати в один із 16 кольорів спектру. Коли сплеск, який пройшов крізь нього, потрапляє на кольоровий блок ($(item)Вовна, бетон$(0) або $(item)Скло$(0)...), він перетворює цей блок (і будь-які підключені блоки одного типу та кольору) у колір $(thing)Сплеску мани$(0). Здається, це також працює на $(thing)Вівцях$(0).",
   "botania.page.elvenLenses2": "Лінза маляра",
-  "botania.page.elvenLenses3": "$(item)Лінза викривлення$(0) є цікавою. Сплеск під її дією, який стикається з $(l:ender/piston_relay)$(item)Силовим реле$(0)$(/l), телепортуватиметься до цілі вказаного $(l:ender/piston_relay)$(item)Силовим реле$(0)$(/l), зберігаючи свій імпульс, але роблячи його $(thing)Ману$(0) непоправною.$(p)Крім того, коли його поєднати з $(item)Лінзою буріння$(0) ($(item)Лінза буріння$(0) має бути першою), це запобіжить розриву $(l:ender/piston_relay)$(item)Силових реле$(0)$(/l) або $(item)Поршнів$(0) і телепортуватиме будь-які блоки, розбиті $(item)Лінзою$(0) до джерела сплеску.",
+  "botania.page.elvenLenses3": "$(item)Лінза викривлення$(0) є цікавою. Сплеск під її дією, який стикається з $(l:ender/force_relay)$(item)Силовим реле$(0)$(/l), телепортуватиметься до цілі вказаного $(l:ender/force_relay)$(item)Силовим реле$(0)$(/l), зберігаючи свій імпульс, але роблячи його $(thing)Ману$(0) непоправною.$(p)Крім того, коли його поєднати з $(item)Лінзою буріння$(0) ($(item)Лінза буріння$(0) має бути першою), це запобіжить розриву $(l:ender/force_relay)$(item)Силових реле$(0)$(/l) або $(item)Поршнів$(0) і телепортуватиме будь-які блоки, розбиті $(item)Лінзою$(0) до джерела сплеску.",
   "botania.page.elvenLenses4": "Лінза викривлення",
   "botania.page.elvenLenses5": "Сплеск, на який впливає $(item)Лінза перенаправлення$(0), змусить будь-які $(l:mana/spreader)$(item)Розсіювачі мани$(0)$(/l) або сутності, з якими він зіткнеться, повернутися обличчям до блоку або сутності, яка випустила сплеск.",
   "botania.page.elvenLenses6": "Лінза перенаправлення",
@@ -2681,8 +2688,8 @@
   "botania.page.elvenLenses11": "$(item)Лінза розтяжки$(0) — це ще одна $(thing)Контрольна лінза$(0).$(p)Розсіювач із прикріпленою лінзою зможе стріляти, лише якщо сплеск вразить моба чи гравця.",
   "botania.page.elvenLenses12": "Лінза розтяжки",
 
-  "botania.entry.prism": "Призма мани",
-  "botania.tagline.prism": "Перемикайте лінзи Сплеску мани на льоту",
+  "botania.entry.mana_prism": "Призма мани",
+  "botania.tagline.mana_prism": "Перемикайте лінзи Сплеску мани на льоту",
   "botania.page.prism0": "$(l:mana/lens)$(item)Лінзи мани$(0)$(/l) маніпулюють $(thing)Сплесками мани$(0), щоб надати їм певні сили. $(item)Призма мани$(0) розширює цю функціональність, щоб миттєво перемикати ефекти лінзи сплесків.$(p)З $(l:devices/spectral_platform)$(item)Примарною платформою$(0)$(/l) як компонентом, цей блок не має фізичної присутності; сутності та сплески можуть проходити крізь нього, ніби його там не було.",
   "botania.page.prism1": "Клацання ПКМ призми з будь-яким різновидом $(item)Мана-лінзи$(0) поміщає лінзу в призму. Щоразу, коли $(thing)Сплеск мани$(0) проходить крізь призму, його колір і ефект буде встановлено на колір і ефект лінзи в призмі (якщо лінза не пофарбована, сплеск стане білим).$(p)Використання будь-якої з чотирьох основних лінз у призмі також збільшить час до того, як сплеск почне втрачати $(thing)Ману$(0), дозволяючи йому піти далі.",
   "botania.page.prism2": "Його можна відключити за допомогою сигналу Редстоуна.",
@@ -3168,8 +3175,8 @@
   "botania.page.craftCrate10": "Створення візерунків",
   "botania.page.craftCrate9": "9 різних візерунків",
 
-  "botania.entry.hourglass": "Пісочний годинник",
-  "botania.tagline.hourglass": "Простий таймер, який використовує піски часу",
+  "botania.entry.hovering_hourglass": "Пісочний годинник",
+  "botania.tagline.hovering_hourglass": "Простий таймер, який використовує піски часу",
   "botania.page.hourglass0": "Здатність стежити за часом є важливою для кожного, хто хоче побудувати будь-які пристосування з червоного каменю. Але класичний таймер може займати відверто жалюгідно багато місця, не кажучи вже про ефективність. $(item)Пісочний годинник$(0) — це простий і точний таймер на основі піску. Як випливає з назви, це пісочний годинник, який літає і обертається сам по собі.",
   "botania.page.hourglass1": "Пісочний годинник може вмістити до однієї стопки $(item)Піску$(0), $(item)Червоного піску$(0) або $(item)Піску душ$(0), доданих за допомогою ПКМ. Клацання ПКМ заповненого пісочного годинника видаляє пісок. Після додавання піску він почне стікати з однієї камери в іншу. Коли пісок закінчує стікання, пісочний годинник випромінює один імпульс червоного каменю та перевертається, перезапускаючи процес.",
   "botania.page.hourglass2": "Час між імпульсами залежить від типу та кількості піску в камері. $(item)Пісок$(0) падає зі швидкістю одна секунду за блок, $(item)Червоний пісок$(0) — десять секунд, а $(item)Пісок душ$(0) — одну хвилину за блок. Види піску не можна змішувати; поточний час між імпульсами можна побачити, тримаючи $(l:basics/wand)$(item)Жезл лісу$(0)$(/l) над Пісочним годинником.",
@@ -4081,7 +4088,7 @@
   "botania.subtitle.astrolabeConfigure": "Астролябія світотворця дзвенить",
   "botania.subtitle.babylonAttack": "Ключ королівського закону розкрився",
   "botania.subtitle.babylonSpawn": "Ключ королівського закону активувався",
-  "botania.subtitle.bellows": "Міхи мани шиплять",
+  "botania.subtitle.manatide_bellows": "Міхи мани шиплять",
   "botania.subtitle.bifrostRod": "Жезл Біфресту гуде",
   "botania.subtitle.blackHoleTalismanConfigure": "Талісман чорної діри дзвенить",
   "botania.subtitle.blackLotus": "Чорний Лотос розчиняється",

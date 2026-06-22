@@ -27,9 +27,9 @@ public class BotaniaTags {
 	public static class Items {
 		public static final TagKey<Item> BLOCKS_QUARTZ = tag("quartz_blocks");
 
-		public static final TagKey<Item> MYSTICAL_FLOWERS = tag("mystical_flowers");
-		public static final TagKey<Item> SHINY_FLOWERS = tag("shiny_flowers");
-		public static final TagKey<Item> DOUBLE_MYSTICAL_FLOWERS = tag("double_mystical_flowers");
+		public static final TagKey<Item> SMALL_MYSTICAL_FLOWERS = tag("small_mystical_flowers");
+		public static final TagKey<Item> GLIMMERING_FLOWERS = tag("glimmering_flowers");
+		public static final TagKey<Item> TALL_MYSTICAL_FLOWERS = tag("tall_mystical_flowers");
 		public static final TagKey<Item> SHIMMERING_MUSHROOMS = tag("shimmering_mushrooms");
 
 		/**
@@ -99,15 +99,15 @@ public class BotaniaTags {
 		// for advancement use
 		public static final TagKey<Item> ALL_MANA_POOLS = tag("all_mana_pools");
 		public static final TagKey<Item> MANA_POOLS = tag("mana_pools");
-		public static final TagKey<Item> CREATIVE_POOLS = tag("creative_pools");
-		public static final TagKey<Item> DILUTED_POOLS = tag("diluted_pools");
-		public static final TagKey<Item> FABULOUS_POOLS = tag("fabulous_pools");
+		public static final TagKey<Item> CREATIVE_MANA_POOLS = tag("creative_mana_pools");
+		public static final TagKey<Item> DILUTED_MANA_POOLS = tag("diluted_mana_pools");
+		public static final TagKey<Item> FABULOUS_MANA_POOLS = tag("fabulous_mana_pools");
 
 		// for recipe use
 		public static final TagKey<Item> DYED_MANA_POOLS = tag("dyed_mana_pools");
-		public static final TagKey<Item> DYED_CREATIVE_POOLS = tag("dyed_creative_pools");
-		public static final TagKey<Item> DYED_DILUTED_POOLS = tag("dyed_diluted_pools");
-		public static final TagKey<Item> DYED_FABULOUS_POOLS = tag("dyed_fabulous_pools");
+		public static final TagKey<Item> DYED_CREATIVE_MANA_POOLS = tag("dyed_creative_mana_pools");
+		public static final TagKey<Item> DYED_DILUTED_MANA_POOLS = tag("dyed_diluted_mana_pools");
+		public static final TagKey<Item> DYED_FABULOUS_MANA_POOLS = tag("dyed_fabulous_mana_pools");
 
 		public static final TagKey<Item> MANA_POOL_DYE_REMOVER = tag("mana_pool_dye_remover");
 
@@ -172,9 +172,9 @@ public class BotaniaTags {
 	}
 
 	public static class Blocks {
-		public static final TagKey<Block> MYSTICAL_FLOWERS = tag("mystical_flowers");
-		public static final TagKey<Block> SHINY_FLOWERS = tag("shiny_flowers");
-		public static final TagKey<Block> DOUBLE_MYSTICAL_FLOWERS = tag("double_mystical_flowers");
+		public static final TagKey<Block> SMALL_MYSTICAL_FLOWERS = tag("small_mystical_flowers");
+		public static final TagKey<Block> GLIMMERING_FLOWERS = tag("glimmering_flowers");
+		public static final TagKey<Block> TALL_MYSTICAL_FLOWERS = tag("tall_mystical_flowers");
 		public static final TagKey<Block> SHIMMERING_MUSHROOMS = tag("shimmering_mushrooms");
 
 		public static final TagKey<Block> SPECIAL_FLOWERS = tag("special_flowers");
@@ -234,7 +234,7 @@ public class BotaniaTags {
 		 * Blocks in this tag can sub for livingrock in the terra plate multiblock
 		 */
 		public static final TagKey<Block> TERRA_PLATE_BASE = tag("terra_plate_base");
-		public static final TagKey<Block> GHOST_RAIL_BARRIER = tag("ghost_rail_barrier");
+		public static final TagKey<Block> SPECTRAL_RAIL_BARRIER = tag("spectral_rail_barrier");
 
 		/**
 		 * Blocks in this tag can be turned into end stone by ender air
@@ -340,11 +340,25 @@ public class BotaniaTags {
 		/**
 		 * Wool-covered spreader blocks. These dampen vibrations and occlude vibration signals.
 		 */
-		public static final TagKey<Block> COVERED_SPREADERS = tag("covered_spreaders");
+		public static final TagKey<Block> ALL_COVERED_MANA_SPREADERS = tag("all_covered_mana_spreaders");
 		public static final TagKey<Block> COVERED_MANA_SPREADERS = tag("covered_mana_spreaders");
-		public static final TagKey<Block> COVERED_PULSE_SPREADERS = tag("covered_redstone_spreaders");
-		public static final TagKey<Block> COVERED_ELVEN_SPREADERS = tag("covered_elven_spreaders");
-		public static final TagKey<Block> COVERED_GAIA_SPREADERS = tag("covered_gaia_spreaders");
+		public static final TagKey<Block> COVERED_PULSE_MANA_SPREADERS = tag("covered_pulse_mana_spreaders");
+		public static final TagKey<Block> COVERED_ELVEN_MANA_SPREADERS = tag("covered_elven_mana_spreaders");
+		public static final TagKey<Block> COVERED_GAIA_MANA_SPREADERS = tag("covered_gaia_mana_spreaders");
+
+		/**
+		 * The various types of mana pools. These all shield items from being attracted by a magnet ring.
+		 */
+		public static final TagKey<Block> ALL_MANA_POOLS = tag("all_mana_pools");
+		public static final TagKey<Block> MANA_POOLS = tag("mana_pools");
+		public static final TagKey<Block> CREATIVE_MANA_POOLS = tag("creative_mana_pools");
+		public static final TagKey<Block> DILUTED_MANA_POOLS = tag("diluted_mana_pools");
+		public static final TagKey<Block> FABULOUS_MANA_POOLS = tag("fabulous_mana_pools");
+
+		public static final TagKey<Block> DYED_MANA_POOLS = tag("dyed_mana_pools");
+		public static final TagKey<Block> DYED_CREATIVE_MANA_POOLS = tag("dyed_creative_mana_pools");
+		public static final TagKey<Block> DYED_DILUTED_MANA_POOLS = tag("dyed_diluted_mana_pools");
+		public static final TagKey<Block> DYED_FABULOUS_MANA_POOLS = tag("dyed_fabulous_mana_pools");
 
 		/**
 		 * Blocks consumed by the Munchdew flower.
@@ -374,7 +388,7 @@ public class BotaniaTags {
 		 * Blocks that comprise the "crown" of trees or caps of huge mushrooms.
 		 * The Terra Truncator's breaking effect only traverses through these for a very limited range.
 		 */
-		public static final TagKey<Block> TERRA_TRUNCATOR_CROWN_BLOCKS = tag("terra_truncator/crownk_blocks");
+		public static final TagKey<Block> TERRA_TRUNCATOR_CROWN_BLOCKS = tag("terra_truncator/crown_blocks");
 
 		public static final TagKey<Block> GOG_PEBBLE_SOURCES =
 				TagKey.create(Registries.BLOCK, gogRL("pebble_sources"));
@@ -469,15 +483,15 @@ public class BotaniaTags {
 		public static final TagKey<Biome> MYSTICAL_FLOWER_BLOCKLIST = tag("mystical_flower_blocklist");
 
 		/**
-		 * Biomes in this tag are eligible for the mystical_mushroom placed_feature.
+		 * Biomes in this tag are eligible for the shimmering_mushroom placed_feature.
 		 */
-		public static final TagKey<Biome> MYSTICAL_MUSHROOM_SPAWNLIST = tag("mystical_mushroom_spawnlist");
+		public static final TagKey<Biome> SHIMMERING_MUSHROOM_SPAWNLIST = tag("shimmering_mushroom_spawnlist");
 
 		/**
-		 * Biomes in this tag are blocked from having the mystical_mushroom placed_feature.
+		 * Biomes in this tag are blocked from having the shimmering_mushroom placed_feature.
 		 * Overrides mystical_mushroom_spawnlist tag.
 		 */
-		public static final TagKey<Biome> MYSTICAL_MUSHROOM_BLOCKLIST = tag("mystical_mushroom_blocklist");
+		public static final TagKey<Biome> SHIMMERING_MUSHROOM_BLOCKLIST = tag("shimmering_mushroom_blocklist");
 
 		private static TagKey<Biome> tag(String name) {
 			return TagKey.create(Registries.BIOME, botaniaRL(name));

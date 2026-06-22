@@ -262,6 +262,13 @@
 
 
 
+
+
+
+
+
+
+
   "tag.block.botania.shields_from_magnet_ring": "Shields from Ring of Magnetisation",
 
 
@@ -932,8 +939,8 @@
 
 
 
-  "block.botania.light_gray_covered_redstone_spreader": "Light Grey Covered Pulse Mana Spreader",
-  "block.botania.gray_covered_redstone_spreader": "Grey Covered Pulse Mana Spreader",
+  "block.botania.light_gray_covered_pulse_mana_spreader": "Light Grey Covered Pulse Mana Spreader",
+  "block.botania.gray_covered_pulse_mana_spreader": "Grey Covered Pulse Mana Spreader",
 
 
 
@@ -949,8 +956,8 @@
 
 
 
-  "block.botania.light_gray_covered_elven_spreader": "Light Grey Covered Elven Mana Spreader",
-  "block.botania.gray_covered_elven_spreader": "Grey Covered elven Mana Spreader",
+  "block.botania.light_gray_covered_elven_mana_spreader": "Light Grey Covered Elven Mana Spreader",
+  "block.botania.gray_covered_elven_mana_spreader": "Grey Covered elven Mana Spreader",
 
 
 
@@ -966,8 +973,8 @@
 
 
 
-  "block.botania.light_gray_covered_gaia_spreader": "Light Grey Covered Gaia Mana Spreader",
-  "block.botania.gray_covered_gaia_spreader": "Grey Covered Gaia Mana Spreader",
+  "block.botania.light_gray_covered_gaia_mana_spreader": "Light Grey Covered Gaia Mana Spreader",
+  "block.botania.gray_covered_gaia_mana_spreader": "Grey Covered Gaia Mana Spreader",
 
 
 
@@ -1007,8 +1014,8 @@
 
 
 
-  "block.botania.gray_diluted_pool": "Grey Diluted Mana Pool",
-  "block.botania.light_gray_diluted_pool": "Light Grey Diluted Mana Pool",
+  "block.botania.gray_diluted_mana_pool": "Grey Diluted Mana Pool",
+  "block.botania.light_gray_diluted_mana_pool": "Light Grey Diluted Mana Pool",
 
 
 
@@ -1024,8 +1031,8 @@
 
 
 
-  "block.botania.gray_fabulous_pool": "Grey Fabulous Mana Pool",
-  "block.botania.light_gray_fabulous_pool": "Light Grey Fabulous Mana Pool",
+  "block.botania.gray_fabulous_mana_pool": "Grey Fabulous Mana Pool",
+  "block.botania.light_gray_fabulous_mana_pool": "Light Grey Fabulous Mana Pool",
 
 
 
@@ -1063,8 +1070,8 @@
 
 
 
-  "block.botania.gray_shiny_flower": "Glimmering Grey Flower",
-  "block.botania.light_gray_shiny_flower": "Glimmering Light Grey Flower",
+  "block.botania.gray_glimmering_flower": "Glimmering Grey Flower",
+  "block.botania.light_gray_glimmering_flower": "Glimmering Light Grey Flower",
 
 
 
@@ -1079,8 +1086,8 @@
 
 
 
-  "block.botania.potted_gray_shiny_flower": "Potted Glimmering Grey Flower",
-  "block.botania.potted_light_gray_shiny_flower": "Potted Glimmering Light Grey Flower",
+  "block.botania.potted_gray_glimmering_flower": "Potted Glimmering Grey Flower",
+  "block.botania.potted_light_gray_glimmering_flower": "Potted Glimmering Light Grey Flower",
 
 
 
@@ -1356,8 +1363,8 @@
 
 
 
-  "block.botania.gray_mushroom": "Grey Shimmering Mushroom",
-  "block.botania.light_gray_mushroom": "Light Grey Shimmering Mushroom",
+  "block.botania.gray_shimmering_mushroom": "Grey Shimmering Mushroom",
+  "block.botania.light_gray_shimmering_mushroom": "Light Grey Shimmering Mushroom",
 
 
 
@@ -1372,8 +1379,8 @@
 
 
 
-  "block.botania.potted_gray_mushroom": "Potted Grey Shimmering Mushroom",
-  "block.botania.potted_light_gray_mushroom": "Potted Light Grey Shimmering Mushroom",
+  "block.botania.potted_gray_shimmering_mushroom": "Potted Grey Shimmering Mushroom",
+  "block.botania.potted_light_gray_shimmering_mushroom": "Potted Light Grey Shimmering Mushroom",
 
 
 
@@ -1389,8 +1396,8 @@
 
 
 
-  "block.botania.gray_double_flower": "Tall Mystical Grey Flower",
-  "block.botania.light_gray_double_flower": "Tall Mystical Light Grey Flower",
+  "block.botania.gray_tall_mystical_flower": "Tall Mystical Grey Flower",
+  "block.botania.light_gray_tall_mystical_flower": "Tall Mystical Light Grey Flower",
 
 
 
@@ -1408,11 +1415,11 @@
 
 
 
-  "block.botania.light_relay": "Luminiser",
-  "block.botania.detector_light_relay": "Detector Luminiser",
-  "block.botania.fork_light_relay": "Fork Luminiser",
-  "block.botania.toggle_light_relay": "Toggle Luminiser",
-  "block.botania.light_launcher": "Luminiser Launcher",
+  "block.botania.luminizer": "Luminiser",
+  "block.botania.detector_luminizer": "Detector Luminiser",
+  "block.botania.fork_luminizer": "Fork Luminiser",
+  "block.botania.toggle_luminizer": "Toggle Luminiser",
+  "block.botania.luminizer_launcher": "Luminiser Launcher",
 
 
 
@@ -1450,8 +1457,8 @@
 
 
 
-  "block.botania.gray_buried_petals": "Buried Grey Petal",
-  "block.botania.light_gray_buried_petals": "Buried Light Grey Petal",
+  "block.botania.gray_buried_petal": "Buried Grey Petal",
+  "block.botania.light_gray_buried_petal": "Buried Light Grey Petal",
 
 
 

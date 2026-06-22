@@ -102,9 +102,9 @@ public class ItemTagProvider extends ItemTagsProvider {
 		this.copy(BotaniaTags.Blocks.FUNCTIONAL_SPECIAL_FLOATING_FLOWERS, BotaniaTags.Items.FUNCTIONAL_SPECIAL_FLOATING_FLOWERS);
 		this.copy(BotaniaTags.Blocks.SPECIAL_FLOATING_FLOWERS, BotaniaTags.Items.SPECIAL_FLOATING_FLOWERS);
 		this.copy(BotaniaTags.Blocks.FLOATING_FLOWERS, BotaniaTags.Items.FLOATING_FLOWERS);
-		this.copy(BotaniaTags.Blocks.DOUBLE_MYSTICAL_FLOWERS, BotaniaTags.Items.DOUBLE_MYSTICAL_FLOWERS);
-		this.copy(BotaniaTags.Blocks.MYSTICAL_FLOWERS, BotaniaTags.Items.MYSTICAL_FLOWERS);
-		this.copy(BotaniaTags.Blocks.SHINY_FLOWERS, BotaniaTags.Items.SHINY_FLOWERS);
+		this.copy(BotaniaTags.Blocks.TALL_MYSTICAL_FLOWERS, BotaniaTags.Items.TALL_MYSTICAL_FLOWERS);
+		this.copy(BotaniaTags.Blocks.SMALL_MYSTICAL_FLOWERS, BotaniaTags.Items.SMALL_MYSTICAL_FLOWERS);
+		this.copy(BotaniaTags.Blocks.GLIMMERING_FLOWERS, BotaniaTags.Items.GLIMMERING_FLOWERS);
 		this.copy(BotaniaTags.Blocks.SHIMMERING_MUSHROOMS, BotaniaTags.Items.SHIMMERING_MUSHROOMS);
 
 		this.copy(BotaniaTags.Blocks.MISC_SPECIAL_FLOWERS, BotaniaTags.Items.MISC_SPECIAL_FLOWERS);
@@ -116,10 +116,10 @@ public class ItemTagProvider extends ItemTagsProvider {
 				.addTag(BotaniaTags.Items.SPECIAL_FLOWERS)
 				.add(BotaniaBlocks.DAYBLOOM_MOTIF.asItem(), BotaniaBlocks.NIGHTSHADE_MOTIF.asItem());
 
-		this.tag(ItemTags.TALL_FLOWERS).addTag(BotaniaTags.Items.DOUBLE_MYSTICAL_FLOWERS);
+		this.tag(ItemTags.TALL_FLOWERS).addTag(BotaniaTags.Items.TALL_MYSTICAL_FLOWERS);
 		this.tag(ItemTags.SMALL_FLOWERS)
-				.addTag(BotaniaTags.Items.MYSTICAL_FLOWERS)
-				.addTag(BotaniaTags.Items.SHINY_FLOWERS)
+				.addTag(BotaniaTags.Items.SMALL_MYSTICAL_FLOWERS)
+				.addTag(BotaniaTags.Items.GLIMMERING_FLOWERS)
 				.addTag(BotaniaTags.Items.SPECIAL_FLOWERS)
 				.add(
 						BotaniaBlocks.DAYBLOOM_MOTIF.asItem(),
@@ -181,7 +181,7 @@ public class ItemTagProvider extends ItemTagsProvider {
 		TagAppender<Item> allPetals = this.tag(BotaniaTags.Items.PETALS);
 		ColorHelper.supportedColors().forEach(color -> {
 			var petalTag = BotaniaTags.Items.getPetalTag(color);
-			this.tag(petalTag).add(BotaniaItems.getPetal(color), BotaniaBlocks.getMushroom(color).asItem());
+			this.tag(petalTag).add(BotaniaItems.getPetal(color), BotaniaBlocks.getShimmeringMushroom(color).asItem());
 			allPetals.addTag(petalTag);
 		});
 
@@ -286,27 +286,15 @@ public class ItemTagProvider extends ItemTagsProvider {
 				BotaniaItems.ROD_OF_THE_LANDS, BotaniaItems.ROD_OF_THE_HIGHLANDS, BotaniaItems.ROD_OF_THE_DEPTHS,
 				BotaniaItems.BLACK_HOLE_TALISMAN);
 
-		this.tag(BotaniaTags.Items.DYED_MANA_POOLS).add(getColoredBlockItems(BotaniaBlocks.MANA_POOL));
-		this.tag(BotaniaTags.Items.DYED_CREATIVE_POOLS).add(getColoredBlockItems(BotaniaBlocks.CREATIVE_MANA_POOL));
-		this.tag(BotaniaTags.Items.DYED_DILUTED_POOLS).add(getColoredBlockItems(BotaniaBlocks.DILUTED_MANA_POOL));
-		this.tag(BotaniaTags.Items.DYED_FABULOUS_POOLS).add(getColoredBlockItems(BotaniaBlocks.FABULOUS_MANA_POOL));
-		this.tag(BotaniaTags.Items.MANA_POOLS)
-				.add(BotaniaBlocks.MANA_POOL.asItem())
-				.addTag(BotaniaTags.Items.DYED_MANA_POOLS);
-		this.tag(BotaniaTags.Items.CREATIVE_POOLS)
-				.add(BotaniaBlocks.CREATIVE_MANA_POOL.asItem())
-				.addTag(BotaniaTags.Items.DYED_CREATIVE_POOLS);
-		this.tag(BotaniaTags.Items.DILUTED_POOLS)
-				.add(BotaniaBlocks.DILUTED_MANA_POOL.asItem())
-				.addTag(BotaniaTags.Items.DYED_DILUTED_POOLS);
-		this.tag(BotaniaTags.Items.FABULOUS_POOLS)
-				.add(BotaniaBlocks.FABULOUS_MANA_POOL.asItem())
-				.addTag(BotaniaTags.Items.DYED_FABULOUS_POOLS);
-		this.tag(BotaniaTags.Items.ALL_MANA_POOLS)
-				.addTag(BotaniaTags.Items.MANA_POOLS)
-				.addTag(BotaniaTags.Items.DILUTED_POOLS)
-				.addTag(BotaniaTags.Items.FABULOUS_POOLS)
-				.addTag(BotaniaTags.Items.CREATIVE_POOLS);
+		copy(BotaniaTags.Blocks.DYED_MANA_POOLS, BotaniaTags.Items.DYED_MANA_POOLS);
+		copy(BotaniaTags.Blocks.DYED_CREATIVE_MANA_POOLS, BotaniaTags.Items.DYED_CREATIVE_MANA_POOLS);
+		copy(BotaniaTags.Blocks.DYED_DILUTED_MANA_POOLS, BotaniaTags.Items.DYED_DILUTED_MANA_POOLS);
+		copy(BotaniaTags.Blocks.DYED_FABULOUS_MANA_POOLS, BotaniaTags.Items.DYED_FABULOUS_MANA_POOLS);
+		copy(BotaniaTags.Blocks.MANA_POOLS, BotaniaTags.Items.MANA_POOLS);
+		copy(BotaniaTags.Blocks.CREATIVE_MANA_POOLS, BotaniaTags.Items.CREATIVE_MANA_POOLS);
+		copy(BotaniaTags.Blocks.DILUTED_MANA_POOLS, BotaniaTags.Items.DILUTED_MANA_POOLS);
+		copy(BotaniaTags.Blocks.FABULOUS_MANA_POOLS, BotaniaTags.Items.FABULOUS_MANA_POOLS);
+		copy(BotaniaTags.Blocks.ALL_MANA_POOLS, BotaniaTags.Items.ALL_MANA_POOLS);
 
 		tag(BotaniaTags.Items.MANA_POOL_DYE_REMOVER).add(Items.CLAY_BALL);
 

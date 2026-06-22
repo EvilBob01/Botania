@@ -97,9 +97,9 @@ public class BotaniaBlockEntities {
 			"alfheim_portal", AlfheimPortalBlockEntity::new,
 			BotaniaBlocks.ELVEN_GATEWAY_CORE
 	);
-	public static final BlockEntityType<BifrostBlockEntity> TEMPORARY_BIFROST_BLOCK = type(
-			"temporary_bifrost_block", BifrostBlockEntity::new,
-			BotaniaBlocks.TEMPORARY_BIFROST_BLOCK
+	public static final BlockEntityType<BifrostBlockEntity> BIFROST_BRIDGE = type(
+			"bifrost_bridge", BifrostBlockEntity::new,
+			BotaniaBlocks.BIFROST_BRIDGE
 	);
 	public static final BlockEntityType<FloatingFlowerBlockEntity> FLOATING_MUNDANE_FLOWER = type(
 			"floating_mundane_flower", FloatingFlowerBlockEntity::new,
@@ -141,7 +141,7 @@ public class BotaniaBlockEntities {
 			BotaniaBlocks.RED_STRINGED_DISPENSER
 	);
 	public static final BlockEntityType<RedStringNutrifierBlockEntity> RED_STRINGED_NUTRIFIER = type(
-			"red_stringed_fertilizer", RedStringNutrifierBlockEntity::new,
+			"red_stringed_nutrifier", RedStringNutrifierBlockEntity::new,
 			BotaniaBlocks.RED_STRINGED_NUTRIFIER
 	);
 	public static final BlockEntityType<RedStringComparatorBlockEntity> RED_STRINGED_COMPARATOR = type(
@@ -149,7 +149,7 @@ public class BotaniaBlockEntities {
 			BotaniaBlocks.RED_STRINGED_COMPARATOR
 	);
 	public static final BlockEntityType<RedStringSpooferBlockEntity> RED_STRINGED_SPOOFER = type(
-			"red_stringed_relay", RedStringSpooferBlockEntity::new,
+			"red_stringed_spoofer", RedStringSpooferBlockEntity::new,
 			BotaniaBlocks.RED_STRINGED_SPOOFER
 	);
 	public static final BlockEntityType<ManaFlameBlockEntity> MANA_FLAME = type(
@@ -169,7 +169,7 @@ public class BotaniaBlockEntities {
 			BotaniaBlocks.CORPOREA_FUNNEL
 	);
 	public static final BlockEntityType<ManaPumpBlockEntity> MANA_PUMP = type(
-			"mana_pump", ManaPumpBlockEntity::new,
+			"mana_mana_pump", ManaPumpBlockEntity::new,
 			BotaniaBlocks.MANA_PUMP
 	);
 	public static final BlockEntityType<FakeAirBlockEntity> FAKE_AIR = type(

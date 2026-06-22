@@ -197,7 +197,7 @@
 
 
 
-  "botania.nei.brewery": "보타니아 양조기",
+  "botania.nei.botanical_brewery": "보타니아 양조기",
   "botania.nei.elvenTrade": "요정과의 거래",
   "botania.nei.floatingFlowers": "떠다니는 꽃",
   "botania.nei.manaPool": "마나 주입",
@@ -230,8 +230,15 @@
 
 
 
-  "tag.block.botania.double_mystical_flowers": "키 큰 신비로운 꽃",
+
+
+
+  "tag.block.botania.tall_mystical_flowers": "키 큰 신비로운 꽃",
   "tag.block.botania.dreamwood_logs": "꿈나무 원목",
+
+
+
+
 
 
   "tag.block.botania.floating_flowers": "떠다니는 꽃",
@@ -256,7 +263,7 @@
   "tag.block.botania.misc_special_flowers": "기타 특별한 꽃",
 
   "tag.block.botania.mundane_floating_flowers": "수수한 떠다니는 꽃",
-  "tag.block.botania.mystical_flowers": "신비로운 꽃",
+  "tag.block.botania.small_mystical_flowers": "신비로운 꽃",
 
 
 
@@ -330,7 +337,7 @@
 
 
 
-  "tag.item.botania.double_mystical_flowers": "키 큰 신비로운 꽃",
+  "tag.item.botania.tall_mystical_flowers": "키 큰 신비로운 꽃",
   "tag.item.botania.dreamwood_logs": "꿈나무 원목",
 
 
@@ -359,7 +366,7 @@
   "tag.item.botania.misc_special_flowers": "기타 특별한 꽃",
 
   "tag.item.botania.mundane_floating_flowers": "수수한 떠다니는 꽃",
-  "tag.item.botania.mystical_flowers": "신비로운 꽃",
+  "tag.item.botania.small_mystical_flowers": "신비로운 꽃",
   "tag.item.botania.petals": "꽃잎",
   "tag.item.botania.petals.black": "검은색 꽃잎",
   "tag.item.botania.petals.blue": "푸른색 꽃잎",
@@ -876,18 +883,18 @@
 
 
 
-  "block.botania.apothecary_default": "꽃잎 연금술기",
-  "block.botania.apothecary_forest": "숲 꽃잎 연금술기",
-  "block.botania.apothecary_plains": "평원 꽃잎 연금술기",
-  "block.botania.apothecary_mountain": "산 꽃잎 연금술기",
-  "block.botania.apothecary_fungal": "균사 꽃잎 연금술기",
-  "block.botania.apothecary_swamp": "늪 꽃잎 연금술기",
-  "block.botania.apothecary_desert": "사막 꽃잎 연금술기",
-  "block.botania.apothecary_taiga": "타이가 꽃잎 연금술기",
-  "block.botania.apothecary_mesa": "메사 꽃잎 연금술기",
-  "block.botania.apothecary_mossy": "이끼 낀 꽃잎 연금술기",
-  "block.botania.apothecary_livingrock": "생명의 돌 꽃잎 연금술기",
-  "block.botania.apothecary_deepslate": "심층암 꽃잎 연금술기",
+  "block.botania.petal_apothecary": "꽃잎 연금술기",
+  "block.botania.fuchsite_petal_apothecary": "숲 꽃잎 연금술기",
+  "block.botania.talc_petal_apothecary": "평원 꽃잎 연금술기",
+  "block.botania.gneiss_petal_apothecary": "산 꽃잎 연금술기",
+  "block.botania.mycelite_petal_apothecary": "균사 꽃잎 연금술기",
+  "block.botania.cataclasite_petal_apothecary": "늪 꽃잎 연금술기",
+  "block.botania.solite_petal_apothecary": "사막 꽃잎 연금술기",
+  "block.botania.lunite_petal_apothecary": "타이가 꽃잎 연금술기",
+  "block.botania.rosy_talc_petal_apothecary": "메사 꽃잎 연금술기",
+  "block.botania.mossy_petal_apothecary": "이끼 낀 꽃잎 연금술기",
+  "block.botania.livingrock_petal_apothecary": "생명의 돌 꽃잎 연금술기",
+  "block.botania.deepslate_petal_apothecary": "심층암 꽃잎 연금술기",
 
 
 
@@ -930,7 +937,7 @@
 
 
 
-  "block.botania.redstone_spreader": "레드스톤 마나 공급기",
+  "block.botania.pulse_mana_spreader": "레드스톤 마나 공급기",
 
 
 
@@ -947,7 +954,7 @@
 
 
 
-  "block.botania.elven_spreader": "요정의 마나 공급기",
+  "block.botania.elven_mana_spreader": "요정의 마나 공급기",
 
 
 
@@ -964,7 +971,7 @@
 
 
 
-  "block.botania.gaia_spreader": "대지의 마나 공급기",
+  "block.botania.gaia_mana_spreader": "대지의 마나 공급기",
 
 
 
@@ -998,8 +1005,8 @@
 
 
 
-  "block.botania.creative_pool": "영원한 속죄의 웅덩이",
-  "block.botania.diluted_pool": "희박한 마나 웅덩이",
+  "block.botania.creative_mana_pool": "영원한 속죄의 웅덩이",
+  "block.botania.diluted_mana_pool": "희박한 마나 웅덩이",
 
 
 
@@ -1016,7 +1023,7 @@
 
 
 
-  "block.botania.fabulous_pool": "멋진 마나 웅덩이",
+  "block.botania.fabulous_mana_pool": "멋진 마나 웅덩이",
 
 
 
@@ -1034,44 +1041,44 @@
 
 
   "block.botania.runic_altar": "신비로운 제단",
-  "block.botania.piston_relay": "힘 전달기",
-  "block.botania.mana_distributor": "마나 분산기",
+  "block.botania.force_relay": "힘 전달기",
+  "block.botania.mana_splitter": "마나 분산기",
   "block.botania.mana_pylon": "마나 파일론",
   "block.botania.natura_pylon": "자연 파일론",
   "block.botania.gaia_pylon": "가이아 파일론",
   "block.botania.mana_void": "마나 공허",
   "block.botania.mana_detector": "마나 탐지기",
-  "block.botania.enchanter": "마나 인첸터",
-  "block.botania.turntable": "회전 공급기",
+  "block.botania.mana_enchanter": "마나 인첸터",
+  "block.botania.spreader_turntable": "회전 공급기",
   "block.botania.tiny_planet_block": "작은 유성",
   "block.botania.alchemy_catalyst": "연금술 촉매",
   "block.botania.open_crate": "오픈 그레이트",
   "block.botania.crafty_crate": "제작용 상자",
-  "block.botania.forest_eye": "고대인의 눈",
+  "block.botania.eye_of_the_ancients": "고대인의 눈",
   "block.botania.manasteel_block": "마나 합금 블록",
   "block.botania.terrasteel_block": "테라스틸 블록",
   "block.botania.elementium_block": "엘레멘티움 블록",
   "block.botania.mana_diamond_block": "마나 다이아몬드 블록",
   "block.botania.dragonstone_block": "드래곤스톤 블록",
-  "block.botania.drum_wild": "야생의 드럼",
-  "block.botania.drum_gathering": "수집의 드럼",
-  "block.botania.drum_canopy": "캐너피 드럼",
-  "block.botania.white_shiny_flower": "빛나는 하얀색 꽃",
-  "block.botania.orange_shiny_flower": "빛나는 주황색 꽃",
-  "block.botania.magenta_shiny_flower": "빛나는 자홍색 꽃",
-  "block.botania.light_blue_shiny_flower": "빛나는 하늘색 꽃",
-  "block.botania.yellow_shiny_flower": "빛나는 노란색 꽃",
-  "block.botania.lime_shiny_flower": "빛나는 연두색 꽃",
-  "block.botania.pink_shiny_flower": "빛나는 분홍색 꽃",
-  "block.botania.gray_shiny_flower": "빛나는 회색 꽃",
-  "block.botania.light_gray_shiny_flower": "빛나는 밝은 회색 꽃",
-  "block.botania.cyan_shiny_flower": "빛나는 청록색 꽃",
-  "block.botania.purple_shiny_flower": "빛나는 보라색 꽃",
-  "block.botania.blue_shiny_flower": "빛나는 파란색 꽃",
-  "block.botania.brown_shiny_flower": "빛나는 갈색 꽃",
-  "block.botania.green_shiny_flower": "빛나는 초록색 꽃",
-  "block.botania.red_shiny_flower": "빛나는 빨간색 꽃",
-  "block.botania.black_shiny_flower": "빛나는 검은색 꽃",
+  "block.botania.drum_of_the_wild": "야생의 드럼",
+  "block.botania.drum_of_the_gathering": "수집의 드럼",
+  "block.botania.drum_of_the_canopy": "캐너피 드럼",
+  "block.botania.white_glimmering_flower": "빛나는 하얀색 꽃",
+  "block.botania.orange_glimmering_flower": "빛나는 주황색 꽃",
+  "block.botania.magenta_glimmering_flower": "빛나는 자홍색 꽃",
+  "block.botania.light_blue_glimmering_flower": "빛나는 하늘색 꽃",
+  "block.botania.yellow_glimmering_flower": "빛나는 노란색 꽃",
+  "block.botania.lime_glimmering_flower": "빛나는 연두색 꽃",
+  "block.botania.pink_glimmering_flower": "빛나는 분홍색 꽃",
+  "block.botania.gray_glimmering_flower": "빛나는 회색 꽃",
+  "block.botania.light_gray_glimmering_flower": "빛나는 밝은 회색 꽃",
+  "block.botania.cyan_glimmering_flower": "빛나는 청록색 꽃",
+  "block.botania.purple_glimmering_flower": "빛나는 보라색 꽃",
+  "block.botania.blue_glimmering_flower": "빛나는 파란색 꽃",
+  "block.botania.brown_glimmering_flower": "빛나는 갈색 꽃",
+  "block.botania.green_glimmering_flower": "빛나는 초록색 꽃",
+  "block.botania.red_glimmering_flower": "빛나는 빨간색 꽃",
+  "block.botania.black_glimmering_flower": "빛나는 검은색 꽃",
 
 
 
@@ -1091,7 +1098,7 @@
   "block.botania.abstruse_platform": "난해한 플랫폼",
   "block.botania.spectral_platform": "유령 플랫폼",
   "block.botania.infrangible_platform": "강한 플랫폼",
-  "block.botania.alfheim_portal": "요정의 게이트 코어",
+  "block.botania.elven_gateway_core": "요정의 게이트 코어",
   "block.botania.dark_quartz": "스모키석영 블록",
   "block.botania.chiseled_dark_quartz": "조각 된 스모키석영 블록",
   "block.botania.dark_quartz_pillar": "스모키석영 기둥 블록",
@@ -1179,7 +1186,7 @@
   "block.botania.red_floating_flower": "떠다니는 빨간색 꽃",
   "block.botania.black_floating_flower": "떠다니는 검은색 꽃",
   "block.botania.tiny_potato": "작은 감자",
-  "block.botania.spawner_claw": "생명 침투",
+  "block.botania.life_imbuer": "생명 침투",
   "block.botania.azulejo_0": "아줄레조",
   "block.botania.azulejo_1": "아줄레조",
   "block.botania.azulejo_2": "아줄레조",
@@ -1196,21 +1203,21 @@
   "block.botania.azulejo_13": "아줄레조",
   "block.botania.azulejo_14": "아줄레조",
   "block.botania.azulejo_15": "아줄레조",
-  "block.botania.ender_eye_block": "엔더 감독관",
-  "block.botania.starfield": "별 생성기",
+  "block.botania.ender_overseer": "엔더 감독관",
+  "block.botania.starfield_creator": "별 생성기",
   "block.botania.mana_fluxfield": "마나 플럭스변환기",
-  "block.botania.elf_glass": "엘프유리",
-  "block.botania.brewery": "보타니아 양조기",
-  "block.botania.mana_glass": "마나유리",
-  "block.botania.terra_plate": "테라스틸 집적 판",
-  "block.botania.red_string_container": "붉은 실 컨테이너",
-  "block.botania.red_string_dispenser": "붉은 실 발사기",
-  "block.botania.red_string_fertilizer": "붉은 실 매개",
-  "block.botania.red_string_comparator": "붉은 실 비교기",
-  "block.botania.red_string_relay": "붉은 실 릴레이",
-  "block.botania.red_string_interceptor": "붉은 실 인터셉터",
+  "block.botania.alfglass": "엘프유리",
+  "block.botania.botanical_brewery": "보타니아 양조기",
+  "block.botania.managlass": "마나유리",
+  "block.botania.terrestrial_agglomeration_plate": "테라스틸 집적 판",
+  "block.botania.red_stringed_container": "붉은 실 컨테이너",
+  "block.botania.red_stringed_dispenser": "붉은 실 발사기",
+  "block.botania.red_stringed_nutrifier": "붉은 실 매개",
+  "block.botania.red_stringed_comparator": "붉은 실 비교기",
+  "block.botania.red_stringed_spoofer": "붉은 실 릴레이",
+  "block.botania.red_stringed_interceptor": "붉은 실 인터셉터",
   "block.botania.mana_flame": "마나 불꽃",
-  "block.botania.prism": "마나 프리즘",
+  "block.botania.mana_prism": "마나 프리즘",
   "block.botania.metamorphic_forest_stone": "크롬운모",
   "block.botania.metamorphic_plains_stone": "활석",
   "block.botania.metamorphic_mountain_stone": "편마암",
@@ -1349,22 +1356,22 @@
   "block.botania.black_petal_block": "검은색 꽃잎 블록",
   "block.botania.corporea_index": "코포리아 인덱스",
   "block.botania.corporea_funnel": "코포리아 퍼널",
-  "block.botania.white_mushroom": "반짝이는 하얀색  버섯",
-  "block.botania.orange_mushroom": "반짝이는 주황색  버섯",
-  "block.botania.magenta_mushroom": "반짝이는 자홍색 버섯",
-  "block.botania.light_blue_mushroom": "반짝이는 하늘색 버섯",
-  "block.botania.yellow_mushroom": "반짝이는 노란색 버섯",
-  "block.botania.lime_mushroom": "반짝이는 연두색 버섯",
-  "block.botania.pink_mushroom": "반짝이는 분홍색  버섯",
-  "block.botania.gray_mushroom": "반짝이는 회색 버섯",
-  "block.botania.light_gray_mushroom": "반짝이는 밝은 회색 버섯",
-  "block.botania.cyan_mushroom": "반짝이는 청록색 버섯",
-  "block.botania.purple_mushroom": "반짝이는 보라색 버섯",
-  "block.botania.blue_mushroom": "반짝이는 파란색 버섯",
-  "block.botania.brown_mushroom": "반짝이는 갈색 버섯",
-  "block.botania.green_mushroom": "반짝이는 초록색 버섯",
-  "block.botania.red_mushroom": "반짝이는 빨간색 버섯",
-  "block.botania.black_mushroom": "반짝이는 검은색 버섯",
+  "block.botania.white_shimmering_mushroom": "반짝이는 하얀색  버섯",
+  "block.botania.orange_shimmering_mushroom": "반짝이는 주황색  버섯",
+  "block.botania.magenta_shimmering_mushroom": "반짝이는 자홍색 버섯",
+  "block.botania.light_blue_shimmering_mushroom": "반짝이는 하늘색 버섯",
+  "block.botania.yellow_shimmering_mushroom": "반짝이는 노란색 버섯",
+  "block.botania.lime_shimmering_mushroom": "반짝이는 연두색 버섯",
+  "block.botania.pink_shimmering_mushroom": "반짝이는 분홍색  버섯",
+  "block.botania.gray_shimmering_mushroom": "반짝이는 회색 버섯",
+  "block.botania.light_gray_shimmering_mushroom": "반짝이는 밝은 회색 버섯",
+  "block.botania.cyan_shimmering_mushroom": "반짝이는 청록색 버섯",
+  "block.botania.purple_shimmering_mushroom": "반짝이는 보라색 버섯",
+  "block.botania.blue_shimmering_mushroom": "반짝이는 파란색 버섯",
+  "block.botania.brown_shimmering_mushroom": "반짝이는 갈색 버섯",
+  "block.botania.green_shimmering_mushroom": "반짝이는 초록색 버섯",
+  "block.botania.red_shimmering_mushroom": "반짝이는 빨간색 버섯",
+  "block.botania.black_shimmering_mushroom": "반짝이는 검은색 버섯",
 
 
 
@@ -1381,38 +1388,38 @@
 
 
 
-  "block.botania.pump": "마나 펌프",
-  "block.botania.white_double_flower": "신비로운 하얀색 꽃",
-  "block.botania.orange_double_flower": "신비로운 주황색 꽃",
-  "block.botania.magenta_double_flower": "신비로운 자홍색 꽃",
-  "block.botania.light_blue_double_flower": "신비로운 하늘색 꽃",
-  "block.botania.yellow_double_flower": "신비로운 노란색 꽃",
-  "block.botania.lime_double_flower": "신비로운 연두색 꽃",
-  "block.botania.pink_double_flower": "신비로운 분홍색 꽃",
-  "block.botania.gray_double_flower": "신비로운 회색 꽃",
-  "block.botania.light_gray_double_flower": "신비로운 밝은 회색 꽃",
-  "block.botania.cyan_double_flower": "신비로운 청록색 꽃",
-  "block.botania.purple_double_flower": "신비로운 보라색 꽃",
-  "block.botania.blue_double_flower": "신비로운 파란색 꽃",
-  "block.botania.brown_double_flower": "신비로운 갈색 꽃",
-  "block.botania.green_double_flower": "신비로운 초록색 꽃",
-  "block.botania.red_double_flower": "신비로운 빨간색 꽃",
-  "block.botania.black_double_flower": "신비로운 검은색 꽃",
+  "block.botania.mana_pump": "마나 펌프",
+  "block.botania.white_tall_mystical_flower": "신비로운 하얀색 꽃",
+  "block.botania.orange_tall_mystical_flower": "신비로운 주황색 꽃",
+  "block.botania.magenta_tall_mystical_flower": "신비로운 자홍색 꽃",
+  "block.botania.light_blue_tall_mystical_flower": "신비로운 하늘색 꽃",
+  "block.botania.yellow_tall_mystical_flower": "신비로운 노란색 꽃",
+  "block.botania.lime_tall_mystical_flower": "신비로운 연두색 꽃",
+  "block.botania.pink_tall_mystical_flower": "신비로운 분홍색 꽃",
+  "block.botania.gray_tall_mystical_flower": "신비로운 회색 꽃",
+  "block.botania.light_gray_tall_mystical_flower": "신비로운 밝은 회색 꽃",
+  "block.botania.cyan_tall_mystical_flower": "신비로운 청록색 꽃",
+  "block.botania.purple_tall_mystical_flower": "신비로운 보라색 꽃",
+  "block.botania.blue_tall_mystical_flower": "신비로운 파란색 꽃",
+  "block.botania.brown_tall_mystical_flower": "신비로운 갈색 꽃",
+  "block.botania.green_tall_mystical_flower": "신비로운 초록색 꽃",
+  "block.botania.red_tall_mystical_flower": "신비로운 빨간색 꽃",
+  "block.botania.black_tall_mystical_flower": "신비로운 검은색 꽃",
   "block.botania.blaze_block": "블레이즈 램프",
   "block.botania.corporea_interceptor": "코포리아 인터셉터",
   "block.botania.corporea_crystal_cube": "코포리아 크리스탈 큐브",
   "block.botania.incense_plate": "향 받침대",
-  "block.botania.hourglass": "유영 모래시계",
-  "block.botania.ghost_rail": "스펙트럼 레일",
-  "block.botania.spark_changer": "스파크 편집기",
-  "block.botania.root": "생명의 뿌리",
+  "block.botania.hovering_hourglass": "유영 모래시계",
+  "block.botania.spectral_rail": "스펙트럼 레일",
+  "block.botania.spark_tinkerer": "스파크 편집기",
+  "block.botania.living_roots": "생명의 뿌리",
   "block.botania.fel_pumpkin": "쓴 호박",
-  "block.botania.cocoon": "변덕의 고치",
-  "block.botania.light_relay": "루미나이저",
-  "block.botania.detector_light_relay": "디텍터 루미나이저",
-  "block.botania.fork_light_relay": "포크 루미나이저",
-  "block.botania.toggle_light_relay": "토글 루미나이저",
-  "block.botania.light_launcher": "루미나이저 런처",
+  "block.botania.cocoon_of_caprice": "변덕의 고치",
+  "block.botania.luminizer": "루미나이저",
+  "block.botania.detector_luminizer": "디텍터 루미나이저",
+  "block.botania.fork_luminizer": "포크 루미나이저",
+  "block.botania.toggle_luminizer": "토글 루미나이저",
+  "block.botania.luminizer_launcher": "루미나이저 런처",
   "block.botania.livingrock_wall": "생명의 나무 담장",
   "block.botania.livingrock_bricks_wall": "생명의 돌 벽돌 담장",
   "block.botania.mossy_livingrock_bricks_wall": "이끼 낀 생명의 돌 벽돌 담장",
@@ -1442,27 +1449,27 @@
 
 
 
-  "block.botania.mana_bomb": "마나폭탄",
-  "block.botania.white_buried_petals": "묻혀있는 하얀색 꽃잎",
-  "block.botania.orange_buried_petals": "묻혀있는 주황색 꽃잎",
-  "block.botania.magenta_buried_petals": "묻혀있는 자홍색 꽃잎",
-  "block.botania.light_blue_buried_petals": "묻혀있는 하늘색 꽃잎",
-  "block.botania.yellow_buried_petals": "묻혀있는 노란색 꽃잎",
-  "block.botania.lime_buried_petals": "묻혀있는 연두색 꽃잎",
-  "block.botania.pink_buried_petals": "묻혀있는 분홍색 꽃잎",
-  "block.botania.gray_buried_petals": "묻혀있는 회색 꽃잎",
-  "block.botania.light_gray_buried_petals": "묻혀있는 밝은 회색 꽃잎",
-  "block.botania.cyan_buried_petals": "묻혀있는 청록색 꽃잎",
-  "block.botania.purple_buried_petals": "묻혀있는 보라색 꽃잎",
-  "block.botania.blue_buried_petals": "묻혀있는 파란색 꽃잎",
-  "block.botania.brown_buried_petals": "묻혀있는 갈색 꽃잎",
-  "block.botania.green_buried_petals": "묻혀있는 초록색 꽃잎",
-  "block.botania.red_buried_petals": "묻혀있는 빨간색 꽃잎",
-  "block.botania.black_buried_petals": "묻혀있는 검은색 꽃잎",
+  "block.botania.manastorm_charge": "마나폭탄",
+  "block.botania.white_buried_petal": "묻혀있는 하얀색 꽃잎",
+  "block.botania.orange_buried_petal": "묻혀있는 주황색 꽃잎",
+  "block.botania.magenta_buried_petal": "묻혀있는 자홍색 꽃잎",
+  "block.botania.light_blue_buried_petal": "묻혀있는 하늘색 꽃잎",
+  "block.botania.yellow_buried_petal": "묻혀있는 노란색 꽃잎",
+  "block.botania.lime_buried_petal": "묻혀있는 연두색 꽃잎",
+  "block.botania.pink_buried_petal": "묻혀있는 분홍색 꽃잎",
+  "block.botania.gray_buried_petal": "묻혀있는 회색 꽃잎",
+  "block.botania.light_gray_buried_petal": "묻혀있는 밝은 회색 꽃잎",
+  "block.botania.cyan_buried_petal": "묻혀있는 청록색 꽃잎",
+  "block.botania.purple_buried_petal": "묻혀있는 보라색 꽃잎",
+  "block.botania.blue_buried_petal": "묻혀있는 파란색 꽃잎",
+  "block.botania.brown_buried_petal": "묻혀있는 갈색 꽃잎",
+  "block.botania.green_buried_petal": "묻혀있는 초록색 꽃잎",
+  "block.botania.red_buried_petal": "묻혀있는 빨간색 꽃잎",
+  "block.botania.black_buried_petal": "묻혀있는 검은색 꽃잎",
   "block.botania.cacophonium_block": "불협화음 색소폰 블록",
-  "block.botania.bellows": "마나타이드 풀무",
-  "block.botania.bifrost": "비프로스트 블록(기간제)",
-  "block.botania.bifrost_perm": "비프로스트 블록",
+  "block.botania.manatide_bellows": "마나타이드 풀무",
+  "block.botania.bifrost_bridge": "비프로스트 블록(기간제)",
+  "block.botania.bifrost": "비프로스트 블록",
   "block.botania.white_pavement": "하얀색 포르투갈식 포장판",
   "block.botania.black_pavement": "검은색 포르투갈식 포장판",
   "block.botania.blue_pavement": "파란색 포르투갈식 포장판",
@@ -1481,7 +1488,7 @@
   "block.botania.red_pavement_slab": "빨간색 포르투갈식 포장판 반 블록",
   "block.botania.yellow_pavement_slab": "노란색 포르투갈식 포장판 반 블록",
   "block.botania.green_pavement_slab": "초록색 포르투갈식 포장판 반 블록",
-  "block.botania.cell_block": "셀룰러 블록",
+  "block.botania.cellular_block": "셀룰러 블록",
   "block.botania.gaia_head": "가이아 수호자의 머리",
   "block.botania.corporea_block": "코포리아 블록",
   "block.botania.corporea_slab": "코포리아 반 블록",
@@ -1494,8 +1501,8 @@
   "block.botania.corporea_brick_stairs": "코포리아 벽돌 계단",
   "block.botania.corporea_brick_wall": "코포리아 벽돌 담장",
   "block.botania.corporea_retainer": "코포리아 리테이너",
-  "block.botania.mana_glass_pane": "마나유리 판",
-  "block.botania.elf_glass_pane": "요정유리 판",
+  "block.botania.managlass_pane": "마나유리 판",
+  "block.botania.alfglass_pane": "요정유리 판",
   "block.botania.bifrost_pane": "비프로스트 판",
   "block.botania.teru_teru_bozu": "테루 테루 보즈",
   "block.botania.shimmerrock": "심머락",
@@ -2670,7 +2677,7 @@
   "botania.page.elvenLenses0": "알펠하임의 마나 처리 방법에 대한 지식은 물론, 다양하고 유용한 $(l:mana/lens)$(item)마나 렌즈$(0)$(/l)도 함께 제공됩니다.$(p)평범한 오버월드 렌즈와는 달리 이들은 사용 방법에서 조금 더 독특합니다...",
   "botania.page.elvenLenses1": "우선, $(item)Paintslinger Lens$(0)입니다. 이 렌즈는 스펙트럼의 16가지 색상 중 하나로 염색되어야 합니다. 이를 통과한 버스트가 칠할 수 있는 블록($(item)Wool, Stained Clay$(0), 또는 $(item)Glass$(0)...)에 부딪히면 해당 블록(및 동일한 종류와 색상의 연결된 블록)을 $(thing)Mana Burst$(0)의 색으로 변환합니다. $(thing)양손 들고 있는 양$(0)도 작동하는 것 같습니다.",
 
-  "botania.page.elvenLenses3": "$(item)Warp Lens$(0)는 흥미로운 렌즈입니다. 이 렌즈의 영향을 받은 버스트가 $(l:ender/piston_relay)$(item)Force Relay$(0)$(/l)에 부딪히면 해당 $(l:ender/piston_relay)$(item)Force Relay$(0)$(/l)의 대상으로 이동하며 그 동안 동력을 유지하지만, 그 $(thing)마나$(0)는 회수할 수 없게 됩니다.$(p)게다가 이 렌즈를 $(item)Bore Lens$(0)와 결합하면($(item)Bore Lens$(0)가 먼저 나와야 함) 버스트가 $(l:ender/piston_relay)$(item)Force Relay$(0)$(/l) 또는 $(item)Piston$(0)을 파괴하지 못하게 하며, $(item)Bore Lens$(0)에 의해 파괴된 블록을 버스트의 원점으로 순간 이동시킵니다.",
+  "botania.page.elvenLenses3": "$(item)Warp Lens$(0)는 흥미로운 렌즈입니다. 이 렌즈의 영향을 받은 버스트가 $(l:ender/force_relay)$(item)Force Relay$(0)$(/l)에 부딪히면 해당 $(l:ender/force_relay)$(item)Force Relay$(0)$(/l)의 대상으로 이동하며 그 동안 동력을 유지하지만, 그 $(thing)마나$(0)는 회수할 수 없게 됩니다.$(p)게다가 이 렌즈를 $(item)Bore Lens$(0)와 결합하면($(item)Bore Lens$(0)가 먼저 나와야 함) 버스트가 $(l:ender/force_relay)$(item)Force Relay$(0)$(/l) 또는 $(item)Piston$(0)을 파괴하지 못하게 하며, $(item)Bore Lens$(0)에 의해 파괴된 블록을 버스트의 원점으로 순간 이동시킵니다.",
 
   "botania.page.elvenLenses5": "$(item)Redirective Lens$(0)의 영향을 받은 버스트는 향하는 블록 또는 엔터티로 이동하도록 한 $(l:mana/spreader)$(item)마나 공급기$(0)$(/l) 또는 부딪힌 엔터티를 향하게 만듭니다.",
 
@@ -2682,7 +2689,7 @@
 
 
 
-  "botania.tagline.prism": "마나 버스트의 효과 렌즈를 동적으로 전환",
+  "botania.tagline.mana_prism": "마나 버스트의 효과 렌즈를 동적으로 전환",
   "botania.page.prism0": "$(l:mana/lens)$(item)마나 렌즈$(0)$(/l)는 $(thing)Mana Burst$(0)를 통해 특정 능력을 제공하기 위해 조작합니다. $(item)Mana Prism$(0)은 이러한 기능을 확장하여 버스트의 렌즈 효과를 동적으로 전환할 수 있게 합니다.$(p)$(l:devices/spectral_platform)$(item)Spectral Platform$(0)$(/l)을 구성 요소로 사용하면 이 블록은 물리적인 존재가 없으며, 엔터티 및 버스트는 그것이 없는 것처럼 통과할 수 있습니다.",
   "botania.page.prism1": "프리즘에 $(item)Mana Lens$(0)의 모든 종류 중 하나를 우클릭하면 해당 렌즈가 프리즘에 배치됩니다. $(thing)Mana Burst$(0)가 프리즘을 통과할 때 해당 렌즈의 색상과 효과가 설정됩니다(렌즈가 염색되지 않은 경우 버스트는 흰색이 됩니다).$(p)프리즘에 네 가지 기본 렌즈 중 하나를 사용하면 버스트가 $(thing)마나 손실$(0)을 시작하기 전까지의 시간이 늘어납니다.",
   "botania.page.prism2": "레드스톤 신호로 비활성화할 수 있습니다.",
@@ -3168,8 +3175,8 @@
   "botania.page.craftCrate10": "제작 패턴",
   "botania.page.craftCrate9": "다양한 9가지 패턴",
 
-  "botania.entry.hourglass": "호버링 모래시계",
-  "botania.tagline.hourglass": "시간의 모래를 이용한 간단한 타이머",
+  "botania.entry.hovering_hourglass": "호버링 모래시계",
+  "botania.tagline.hovering_hourglass": "시간의 모래를 이용한 간단한 타이머",
   "botania.page.hourglass0": "시간을 유지하는 능력은 레드스톤 장치를 구축하려는 누구에게나 필수적입니다. 그러나 고전적인 타이머는 공간을 매우 많이 차지할 뿐만 아니라 효율성에 대해 언급할 필요도 없습니다. $(item)Hovering Hourglass$(0)는 간단하고 정확한 모래 기반 타이머입니다. 이름에서 알 수 있듯이 떠다니면서 스스로 회전하는 모래시계입니다.",
   "botania.page.hourglass1": "모래시계에는 우클릭으로 추가할 수 있는 $(item)Sand$(0), $(item)Red Sand$(0) 또는 $(item)Soul Sand$(0) 중 하나의 스택을 보관할 수 있습니다. 채워진 모래시계를 우클릭하면 모래가 제거됩니다. 모래가 추가되면 한 쪽에서 다른 쪽으로 모래가 떨어지기 시작합니다. 모래가 모두 떨어지면 모래시계는 레드스톤 펄스를 내보내고 프로세스를 재시작합니다.",
   "botania.page.hourglass2": "펄스 간의 시간은 챔버의 모래 유형 및 수량에 따라 달라집니다. $(item)Sand$(0) 한 블록은 1초, $(item)Red Sand$(0)은 10초, $(item)Soul Sand$(0)은 1분이 소요됩니다. 모래의 유형은 혼합될 수 없으며 현재 펄스 간의 시간은 $(l:basics/wand)$(item)Wand of the Forest$(0)$(/l)로 모래시계 위에 잡아 놓음으로써 확인할 수 있습니다.",

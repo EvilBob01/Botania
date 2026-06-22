@@ -18,7 +18,7 @@ import net.minecraft.world.level.block.TallFlowerBlock;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.block.BotaniaBlocks;
-import vazkii.botania.common.block.BotaniaMushroomBlock;
+import vazkii.botania.common.block.ShimmeringMushroomBlock;
 import vazkii.botania.common.block.flower.FloatingFlowerBaseBlock;
 
 import java.util.function.BiConsumer;
@@ -49,9 +49,9 @@ public final class BlockRenderLayers {
 		consumer.accept(BotaniaBlocks.MANAGLASS_PANE, RenderType.translucent());
 		consumer.accept(BotaniaBlocks.ALFGLASS, RenderType.translucent());
 		consumer.accept(BotaniaBlocks.ALFGLASS_PANE, RenderType.translucent());
-		consumer.accept(BotaniaBlocks.TEMPORARY_BIFROST_BLOCK, RenderType.translucent());
+		consumer.accept(BotaniaBlocks.BIFROST_BRIDGE, RenderType.translucent());
 		consumer.accept(BotaniaBlocks.BIFROST_PANE, RenderType.translucent());
-		consumer.accept(BotaniaBlocks.BIFROST_BLOCK, RenderType.translucent());
+		consumer.accept(BotaniaBlocks.BIFROST, RenderType.translucent());
 		consumer.accept(BotaniaBlocks.MANA_PRISM, RenderType.translucent());
 
 		consumer.accept(BotaniaBlocks.STARFIELD_CREATOR, RenderType.cutoutMipped());
@@ -68,7 +68,7 @@ public final class BlockRenderLayers {
 				BotaniaAPI.MODID))
 				.forEach(b -> {
 					if (b instanceof FloatingFlowerBaseBlock || b instanceof FlowerBlock
-							|| b instanceof TallFlowerBlock || b instanceof BotaniaMushroomBlock
+							|| b instanceof TallFlowerBlock || b instanceof ShimmeringMushroomBlock
 							|| b instanceof FlowerPotBlock) {
 						consumer.accept(b, RenderType.cutout());
 					}
