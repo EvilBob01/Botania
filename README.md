@@ -8,9 +8,8 @@ Welcome to the Botania repository.
 The following features have been added on top of the upstream port:
 
 ### Enchanted Soil
-A special grass-like block that prevents Hydroangeas placed on top of it from decaying.
-The vanilla Hydroangeas has a passive decay timer that destroys the flower after ~1 hour of real time;
-planting it on Enchanted Soil resets that timer every tick, keeping the flower alive indefinitely.
+A special grass-like block. Any of the three early-game flowers placed on top will **never decay**.
+The vanilla decay timer is reset every tick while the flower sits on Enchanted Soil.
 
 ### Overgrowth Seed
 A new craftable item. **Recipe:** fill a 3×3 crafting grid with wheat seeds (9 total).
@@ -20,17 +19,20 @@ A new craftable item. **Recipe:** fill a 3×3 crafting grid with wheat seeds (9 
 A generating flower that produces mana **only during daylight hours**.
 - Generates 1 mana every 20 ticks while the sun is up.
 - Maximum mana pool: 300.
-- Glows/animates when actively generating (GENERATING blockstate = true during day).
-- Does **not** decay over time.
+- Decays after ~1 hour (72 000 ticks) unless planted on Enchanted Soil.
 
 ### Nightshade (re-added)
 A generating flower that produces mana **only at night**.
 - Generates 1 mana every 20 ticks while it is night.
 - Maximum mana pool: 300.
-- Glows/animates when actively generating (GENERATING blockstate = true at night).
-- Does **not** decay over time.
+- Decays after ~1 hour (72 000 ticks) unless planted on Enchanted Soil.
 
-> Both flowers produce the smallest mana output of any generating flower in the mod, intentionally making them starter-tier options.
+### Hydroangeas (existing, unchanged)
+The standard early-game water-consuming flower. Also benefits from Enchanted Soil — its ~1 hour
+decay timer is suppressed when planted on it.
+
+> Daybloom, Nightshade, and Hydroangeas are intentionally the lowest-output generating flowers in
+> the mod, making Enchanted Soil a meaningful early-game crafting goal.
 
 ---
 
