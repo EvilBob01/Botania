@@ -1,18 +1,21 @@
 {
   "type": "minecraft:crafting_shaped",
-  "category": "building",
-  "group": "botania:quartz_block",
+  "category": "misc",
   "key": {
+    "C": {
+      "tag": "c:dusts/redstone"
+    },
     "Q": {
-      "item": "botania:quartz_red"
+      "item": "minecraft:quartz"
     }
   },
   "pattern": [
-    "QQ",
-    "QQ"
+    "QQQ",
+    "QCQ",
+    "QQQ"
   ],
   "result": {
-    "count": 1,
+    "count": 8,
     "id": "botania:red_quartz"
   }
 }

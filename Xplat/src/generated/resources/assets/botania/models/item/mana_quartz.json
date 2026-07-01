@@ -1,3 +1,6 @@
 {
-  "parent": "botania:block/mana_quartz"
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "botania:item/mana_quartz"
+  }
 }

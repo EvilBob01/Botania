@@ -23,12 +23,15 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Unit;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.CraftingRecipe;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.SmeltingRecipe;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.material.Fluids;
@@ -50,6 +53,7 @@ import vazkii.botania.common.item.lens.LensItem;
 import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.xplat.XplatAbstractions;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
@@ -199,13 +203,13 @@ public class BotaniaEmiPlugin implements EmiPlugin {
 		registry.addRecipe(new EmiCraftingRecipe(List.of(EmiStack.of(BotaniaItems.TERRA_SHATTERER),
 				EmiStack.of(BotaniaItems.ELEMENTIUM_PICKAXE)), EmiStack.of(tipped), null));
 
-		for (var recipe : registry.getRecipeManager().getAllRecipesFor(BotaniaRecipeTypes.PETAL_TYPE)) {
+		for (var recipe : registry.getRecipeManager().getAllRecipesFor(BotaniaRecipeTypes.PETAL_APOTHECARY_TYPE)) {
 			registry.addRecipe(new PetalApothecaryEmiRecipe(recipe));
 		}
 		for (var recipe : registry.getRecipeManager().getAllRecipesFor(BotaniaRecipeTypes.MANA_INFUSION_TYPE)) {
 			registry.addRecipe(new ManaInfusionEmiRecipe(recipe));
 		}
-		for (var recipe : registry.getRecipeManager().getAllRecipesFor(BotaniaRecipeTypes.RUNE_TYPE)) {
+		for (var recipe : registry.getRecipeManager().getAllRecipesFor(BotaniaRecipeTypes.RUNIC_ALTAR_TYPE)) {
 			registry.addRecipe(new RunicAltarEmiRecipe(recipe));
 		}
 		for (var recipe : registry.getRecipeManager().getAllRecipesFor(BotaniaRecipeTypes.TERRA_PLATE_TYPE)) {
@@ -294,6 +298,50 @@ public class BotaniaEmiPlugin implements EmiPlugin {
 							.supportsRecipeTree(false)
 							.build());
 				});
+
+		// rods
+		Map.of(
+				BotaniaItems.ROD_OF_THE_LANDS, EmiStack.of(Blocks.DIRT),
+				BotaniaItems.ROD_OF_THE_HIGHLANDS, EmiStack.of(Blocks.DIRT),
+				BotaniaItems.ROD_OF_THE_DEPTHS, EmiStack.of(Blocks.COBBLESTONE),
+				BotaniaItems.ROD_OF_THE_SEAS, EmiStack.of(Fluids.WATER)
+		).forEach((in, out) -> {
+			registry.addRecipe(EmiWorldInteractionRecipe.builder()
+					.id(BuiltInRegistries.ITEM.getKey(in).withPrefix("/world/rod/"))
+					.leftInput(EmiStack.EMPTY)
+					.rightInput(EmiStack.of(in), true)
+					.output(out)
+					.build());
+		});
+
+		// rod of the molten core can smelt blocks into blocks
+		EmiIngredient moltenCoreRod = EmiStack.of(BotaniaItems.ROD_OF_THE_MOLTEN_CORE);
+		for (RecipeHolder<SmeltingRecipe> recipeHolder : registry.getRecipeManager().getAllRecipesFor(RecipeType.SMELTING)) {
+			SmeltingRecipe recipe = recipeHolder.value();
+			ResourceLocation id = recipeHolder.id();
+			Level level = Minecraft.getInstance().level;
+			ItemStack output = recipe.getResultItem(level.registryAccess());
+			if (output.isEmpty() || !(output.getItem() instanceof BlockItem)) {
+				continue;
+			}
+			List<ItemStack> filteredInputStacks = new ArrayList<>();
+			for (ItemStack stack : recipe.getIngredients().getFirst().getItems()) {
+				if (stack.getItem() instanceof BlockItem) {
+					filteredInputStacks.add(stack);
+				}
+			}
+			if (filteredInputStacks.isEmpty()) {
+				continue;
+			}
+			Ingredient filteredInput = Ingredient.of(filteredInputStacks.stream());
+			registry.addRecipe(EmiWorldInteractionRecipe.builder()
+					.leftInput(EmiIngredient.of(filteredInput))
+					.rightInput(moltenCoreRod, true)
+					.output(EmiStack.of(output))
+					.id(id.withPrefix("/world/molten_core_rod/"))
+					.build());
+
+		}
 	}
 
 	public static int rotateXAround(int x, int y, int cx, int cy, double degrees) {

@@ -32,7 +32,7 @@
 		],
 		"subtitle": "botania.subtitle.arcane_rose_disenchant"
 	},
-	"astrolabe_configure": {
+	"worldshapers_astrolabe_configure": {
 		"sounds": [
 			{
 				"type": "event",
@@ -108,7 +108,7 @@
 		"sounds": ["botania:ding"],
 		"subtitle": "botania.subtitle.ding"
 	},
-	"diva_charm": {
+	"charm_of_the_diva": {
 		"sounds": ["botania:divacharm"],
 		"subtitle": "botania.subtitle.divaCharm"
 	},
@@ -232,7 +232,7 @@
 		],
 		"subtitle": "botania.subtitle.equipTerrasteel"
 	},
-	"fire_rod": {
+	"rod_of_the_hells": {
 		"sounds": [
 			{
 				"type": "event",
@@ -251,7 +251,7 @@
 		],
 		"subtitle": "botania.subtitle.flareChakramThrow"
 	},
-	"flugel_eye_bind": {
+	"eye_of_the_fluegel_bind": {
 		"sounds": [
 			{
 				"type": "event",
@@ -261,7 +261,7 @@
 		],
 		"subtitle": "botania.subtitle.flugelEyeBind"
 	},
-	"flugel_eye_teleport": {
+	"eye_of_the_fluegel_teleport": {
 		"sounds": [
 			{
 				"type": "event",
@@ -309,7 +309,7 @@
 		],
 		"subtitle": "botania.subtitle.gaiaTrap"
 	},
-	"holy_cloak": {
+	"cloak_of_virtue": {
 		"sounds": ["botania:holycloak"],
 		"subtitle": "botania.subtitle.holyCloak"
 	},
@@ -473,7 +473,7 @@
 		],
 		"subtitle": "botania.subtitle.orechid"
 	},
-	"pinkinator": {
+	"the_pinkinator": {
 		"sounds": [
 			{
 				"type": "event",
@@ -481,7 +481,7 @@
 				"volume": 4
 			}
 		],
-		"subtitle": "botania.subtitle.pinkinator"
+		"subtitle": "botania.subtitle.the_pinkinator"
 	},
 	"potion_create": {
 		"sounds": ["botania:potioncreate"],
@@ -498,11 +498,11 @@
 		],
 		"subtitle": "botania.subtitle.redStringInterceptorClick"
 	},
-	"rune_altar_craft": {
+	"runic_altar_craft": {
 		"sounds": ["botania:runealtarcraft"],
 		"subtitle": "botania.subtitle.runeAltarCraft"
 	},
-	"rune_altar_start": {
+	"runic_altar_start": {
 		"sounds": ["botania:runealtarstart"],
 		"subtitle": "botania.subtitle.runeAltarStart"
 	},
@@ -516,7 +516,7 @@
 		],
 		"subtitle": "botania.subtitle.shulkMeNot"
 	},
-	"smelt_rod": {
+	"rod_of_the_molten_core": {
 		"sounds": [
 			{
 				"type": "event",
@@ -526,7 +526,7 @@
 		],
 		"subtitle": "botania.subtitle.smeltRod"
 	},
-	"smelt_rod_extra_no_subtitle": {
+	"rod_of_the_molten_core_extra_no_subtitle": {
 		"sounds": [
 			{
 				"type": "event",
@@ -534,7 +534,7 @@
 			}
 		]
 	},
-	"smelt_rod_simmer": {
+	"rod_of_the_molten_core_simmer": {
 		"sounds": [
 			{
 				"type": "event",
@@ -629,7 +629,7 @@
 		],
 		"subtitle": "botania.subtitle.starcaller"
 	},
-	"temperance_stone_configure": {
+	"stone_of_temperance_configure": {
 		"sounds": [
 			{
 				"type": "event",
@@ -662,7 +662,7 @@
 		],
 		"subtitle": "botania.subtitle.petalPouchConfigure"
 	},
-	"terra_pick_mode": {
+	"terra_shatterer_mode": {
 		"sounds": [
 			{
 				"name": "botania:terrapickmode",
@@ -682,7 +682,7 @@
 		],
 		"subtitle": "botania.subtitle.terraBlade"
 	},
-	"terraform_rod": {
+	"rod_of_the_terra_firma": {
 		"sounds": [
 			{
 				"name": "botania:terraformrod",
@@ -723,7 +723,7 @@
 		],
 		"subtitle": "botania.subtitle.tigerseyePacify"
 	},
-	"unholy_cloak": {
+	"cloak_of_sin": {
 		"sounds": ["botania:unholycloak"],
 		"subtitle": "botania.subtitle.unholyCloak"
 	},

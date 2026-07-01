@@ -48,7 +48,7 @@ public class FabricItemTagProvider extends ItemTagProvider {
 		this.tag(accessory("chest/cape")).add(
 				BotaniaItems.CLOAK_OF_BALANCE,
 				BotaniaItems.CLOAK_OF_VIRTUE,
-				BotaniaItems.INVINSIBILITY_CLOAK,
+				BotaniaItems.INVISIBILITY_CLOAK,
 				BotaniaItems.CLOAK_OF_SIN
 		);
 		this.tag(accessory("chest/necklace")).add(
@@ -122,7 +122,8 @@ public class FabricItemTagProvider extends ItemTagProvider {
 				.add(
 						BotaniaItems.DICE_OF_FATE, BotaniaItems.MANA_TABLET, BotaniaItems.BAND_OF_MANA,
 						BotaniaItems.GREATER_BAND_OF_MANA, BotaniaItems.BLACKER_LOTUS, BotaniaItems.BLACK_HOLE_TALISMAN,
-						BotaniaItems.FLOWER_POUCH, BotaniaItems.LIFE_AGGREGATOR, BotaniaItems.TERRA_SHATTERER,
+						BotaniaItems.FLOWER_POUCH, BotaniaItems.PETAL_POUCH, BotaniaItems.TRINKET_CASE,
+						BotaniaItems.LIFE_AGGREGATOR, BotaniaItems.TERRA_SHATTERER,
 						BotaniaBlocks.TERRASTEEL_BLOCK.asItem());
 	}
 

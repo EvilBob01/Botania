@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_item": {
+    "has_pink_mystical_petal": {
       "conditions": {
         "items": [
           {
-            "items": "botania:pink_petal"
+            "items": "botania:pink_mystical_petal"
           }
         ]
       },
@@ -21,7 +21,7 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_item"
+      "has_pink_mystical_petal"
     ]
   ],
   "rewards": {

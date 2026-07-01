@@ -1,18 +1,21 @@
 {
   "type": "minecraft:crafting_shaped",
-  "category": "building",
-  "group": "botania:quartz_block",
+  "category": "misc",
   "key": {
+    "C": {
+      "item": "minecraft:sunflower"
+    },
     "Q": {
-      "item": "botania:quartz_sunny"
+      "item": "minecraft:quartz"
     }
   },
   "pattern": [
-    "QQ",
-    "QQ"
+    "QQQ",
+    "QCQ",
+    "QQQ"
   ],
   "result": {
-    "count": 1,
+    "count": 8,
     "id": "botania:sunny_quartz"
   }
 }

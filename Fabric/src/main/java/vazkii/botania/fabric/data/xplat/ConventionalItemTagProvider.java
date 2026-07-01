@@ -144,6 +144,9 @@ public class ConventionalItemTagProvider extends ItemTagsProvider {
 				.addTag(ConventionalBotaniaTags.Items.MANA_QUARTZ_GEMS)
 				.addTag(ConventionalBotaniaTags.Items.RED_QUARTZ_GEMS)
 				.addTag(ConventionalBotaniaTags.Items.SUNNY_QUARTZ_GEMS);
+		tag(BotaniaTags.Items.MANA_GEMS)
+				.addTag(ConventionalBotaniaTags.Items.MANA_DIAMOND_GEMS)
+				.addTag(ConventionalBotaniaTags.Items.MANA_PEARL_GEMS);
 
 		// Glass blocks and panes
 		copy(ConventionalBotaniaTags.Blocks.MANA_GLASS_BLOCKS, ConventionalBotaniaTags.Items.MANA_GLASS_BLOCKS);
@@ -234,7 +237,7 @@ public class ConventionalItemTagProvider extends ItemTagsProvider {
 		// Miscellaneous
 		tag(ConventionalItemTags.MUSHROOMS).addTag(BotaniaTags.Items.SHIMMERING_MUSHROOMS);
 		tag(ConventionalItemTags.MUSIC_DISCS).add(
-				BotaniaItems.MUSIC_DISC_ENDURE_EMPTINESS, BotaniaItems.MUSIC_DISC_FIGHT_FOR_QUIESCENCE);
+				BotaniaItems.SCATHED_MUSIC_DISC_1, BotaniaItems.SCATHED_MUSIC_DISC_2);
 		copy(ConventionalBlockTags.STRIPPED_LOGS, ConventionalItemTags.STRIPPED_LOGS);
 		copy(ConventionalBlockTags.STRIPPED_WOODS, ConventionalItemTags.STRIPPED_WOODS);
 

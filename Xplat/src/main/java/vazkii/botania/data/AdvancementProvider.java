@@ -154,8 +154,8 @@ public class AdvancementProvider {
 					.display(simple(BotaniaItems.MANAWEAVE_CLOTH, "manaweaveArmorCraft", AdvancementType.TASK))
 					.parent(manaPoolPickup)
 					.addCriterion("head", onPickup(
-							BotaniaItems.MANAWEAVE_COWL, BotaniaItems.MANAWEAVE_ROBE_TOP,
-							BotaniaItems.MANAWEAVE_ROBE_BOTTOM, BotaniaItems.MANAWEAVE_BOOTS))
+							BotaniaItems.MANAWEAVE_HELMET, BotaniaItems.MANAWEAVE_CHESTPLATE,
+							BotaniaItems.MANAWEAVE_LEGGINGS, BotaniaItems.MANAWEAVE_BOOTS))
 					.save(writer, mainId("manaweave_armor_craft"));
 			Advancement.Builder.advancement()
 					.display(simple(BotaniaItems.SPARK, "sparkCraft", AdvancementType.TASK))
@@ -167,12 +167,12 @@ public class AdvancementProvider {
 					.parent(manaPoolPickup)
 					.addCriterion("cookie",
 							ConsumeItemTrigger.TriggerInstance.usedItem(BotaniaItems.BISCUIT_OF_TOTALITY))
-					.save(writer, mainId("mana_cookie_eat"));
+					.save(writer, mainId("biscuit_of_totality_eat"));
 			Advancement.Builder.advancement()
 					.display(simple(BotaniaItems.ASSEMBLY_HALO, "craftingHaloCraft", AdvancementType.TASK))
 					.parent(manaPoolPickup)
 					.addCriterion("pool", onPickup(BotaniaItems.ASSEMBLY_HALO))
-					.save(writer, mainId("crafting_halo_craft"));
+					.save(writer, mainId("assembly_halo_craft"));
 			Advancement.Builder.advancement()
 					.display(simple(BotaniaItems.BAND_OF_MANA, "baubleWear", AdvancementType.TASK))
 					.parent(manaPoolPickup)
@@ -201,7 +201,7 @@ public class AdvancementProvider {
 					.display(simple(BotaniaItems.ROD_OF_THE_LANDS, "dirtRodCraft", AdvancementType.TASK))
 					.parent(runePickup)
 					.addCriterion("dirtrod", onPickup(BotaniaItems.ROD_OF_THE_LANDS))
-					.save(writer, mainId("dirt_rod_craft"));
+					.save(writer, mainId("rod_of_the_lands_craft"));
 			Advancement.Builder.advancement()
 					.display(simple(BotaniaBlocks.BOTANICAL_BREWERY, "brewPickup", AdvancementType.TASK))
 					.parent(runePickup)
@@ -236,9 +236,9 @@ public class AdvancementProvider {
 			Advancement.Builder.advancement()
 					.display(simple(BotaniaItems.LIFE_AGGREGATOR, "spawnerMoverUse", AdvancementType.TASK))
 					.parent(gaiaGuardianKill)
-					.addCriterion("use_spawner_mover",
+					.addCriterion("use_life_aggregator",
 							UseItemSuccessTrigger.Instance.used(BotaniaItems.LIFE_AGGREGATOR))
-					.save(writer, mainId("spawner_mover_use"));
+					.save(writer, mainId("life_aggregator_use"));
 			DisplayInfo tiaraWings = simple(BotaniaItems.FLUEGEL_TIARA, "tiaraWings", AdvancementType.TASK);
 			tiaraWings.getIcon().set(BotaniaDataComponents.TIARA_VARIANT, 1);
 			Criterion<?>[] variants = IntStream.range(1, FlugelTiaraItem.WING_TYPES)
@@ -400,14 +400,14 @@ public class AdvancementProvider {
 					.rewards(AdvancementRewards.Builder.experience(85))
 					.addCriterion("place_blocks",
 							LokiPlaceTrigger.Instance.blocksPlaced(MinMaxBounds.Ints.atLeast(255)))
-					.save(writer, challengeId("loki_ring_many"));
+					.save(writer, challengeId("ring_of_loki_many"));
 			Advancement.Builder.advancement()
-					.display(simple(BotaniaItems.THE_PINKINATOR, "pinkinator", AdvancementType.CHALLENGE))
+					.display(simple(BotaniaItems.THE_PINKINATOR, "the_pinkinator", AdvancementType.CHALLENGE))
 					.parent(hardMode)
 					.rewards(AdvancementRewards.Builder.experience(40))
 					.addCriterion("use_pinkinator",
 							UseItemSuccessTrigger.Instance.used(BotaniaItems.THE_PINKINATOR))
-					.save(writer, challengeId("pinkinator"));
+					.save(writer, challengeId("the_pinkinator"));
 
 			// Misc challenges
 			Advancement.Builder.advancement()

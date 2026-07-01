@@ -58,14 +58,14 @@ public class GogRecipeProvider extends RecipeProvider {
 		nineBlockStorageRecipes(recipeOutput,
 				RecipeCategory.BREWING, Items.BLAZE_POWDER,
 				RecipeCategory.BUILDING_BLOCKS, BotaniaBlocks.BLAZE_MESH,
-				"gardenofglass:blaze_block", null, "gardenofglass:blaze_powder_from_blaze_block", null);
+				"gardenofglass:blaze_mesh", null, "gardenofglass:blaze_powder", null);
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BotaniaItems.FLORAL_FERTILIZER, 3)
 				.requires(Items.BONE_MEAL)
 				.requires(Ingredient.of(Tags.Items.DYES), 4)
-				.group("botania:fertilizer")
+				.group("botania:floral_fertilizer")
 				.unlockedBy(getHasName(Items.BONE_MEAL), has(Items.BONE_MEAL))
 				.unlockedBy("has_any_dye", has(Tags.Items.DYES))
-				.save(recipeOutput, gogRL("fertilizer_from_dye"));
+				.save(recipeOutput, gogRL("floral_fertilizer_from_dye"));
 		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, BotaniaBlocks.COCOON_OF_CAPRICE)
 				.define('S', Items.STRING)
 				.define('P', BotaniaBlocks.FEL_PUMPKIN)
@@ -116,7 +116,7 @@ public class GogRecipeProvider extends RecipeProvider {
 				.save(recipeOutput, gogRL(getConversionRecipeName(Blocks.COBBLESTONE, BotaniaItems.PEBBLE)));
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, BotaniaItems.FLORAL_FERTILIZER, 1)
 				.requires(BotaniaItems.LIVING_ROOT)
-				.group("botania:fertilizer")
+				.group("botania:floral_fertilizer")
 				.unlockedBy(getHasName(BotaniaItems.LIVING_ROOT), has(BotaniaItems.LIVING_ROOT))
 				.save(recipeOutput, gogRL(getConversionRecipeName(BotaniaItems.FLORAL_FERTILIZER, BotaniaItems.LIVING_ROOT)));
 		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, Blocks.OAK_SAPLING)

@@ -2,12 +2,12 @@
   "values": [
     "botania:manasteel_sword",
     "botania:manasteel_axe",
-    "botania:ender_dagger",
-    "botania:terra_sword",
-    "botania:terra_axe",
+    "botania:soulscribe",
+    "botania:terra_blade",
+    "botania:terra_truncator",
     "botania:elementium_sword",
     "botania:elementium_axe",
-    "botania:thunder_sword",
-    "botania:star_sword"
+    "botania:thundercaller",
+    "botania:starcaller"
   ]
 }

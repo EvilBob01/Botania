@@ -269,7 +269,7 @@
 
 
 
-  "tag.block.botania.shields_from_magnet_ring": "Shields from Ring of Magnetisation",
+  "tag.block.botania.shields_from_ring_of_magnetization": "Shields from Ring of Magnetisation",
 
 
 
@@ -357,7 +357,8 @@
 
 
 
-  "tag.item.botania.magnet_ring_ignored": "Ignored by Ring of Magnetisation",
+  "tag.item.botania.ring_of_magnetization_ignored": "Ignored by Ring of Magnetisation",
+
 
 
 
@@ -1100,37 +1101,65 @@
 
 
 
-  "block.botania.chiseled_dark_quartz": "Chiselled Smokey Quartz Block",
+  "block.botania.chiseled_smokey_quartz_block": "Chiselled Smokey Quartz Block",
 
 
 
 
-  "block.botania.chiseled_mana_quartz": "Chiselled Mana Quartz Block",
 
 
 
 
-  "block.botania.chiseled_blaze_quartz": "Chiselled Blaze Quartz Block",
+  "block.botania.chiseled_mana_quartz_block": "Chiselled Mana Quartz Block",
 
 
 
 
-  "block.botania.chiseled_lavender_quartz": "Chiselled Lavender Quartz Block",
 
 
 
 
-  "block.botania.chiseled_red_quartz": "Chiselled Redquartz Block",
+  "block.botania.chiseled_blaze_quartz_block": "Chiselled Blaze Quartz Block",
 
 
 
 
-  "block.botania.chiseled_elf_quartz": "Chiselled Elven Quartz Block",
 
 
 
 
-  "block.botania.chiseled_sunny_quartz": "Chiselled Sunny Quartz Block",
+  "block.botania.chiseled_lavender_quartz_block": "Chiselled Lavender Quartz Block",
+
+
+
+
+
+
+
+
+  "block.botania.chiseled_red_quartz_block": "Chiselled Redquartz Block",
+
+
+
+
+
+
+
+
+  "block.botania.chiseled_elven_quartz_block": "Chiselled Elven Quartz Block",
+
+
+
+
+
+
+
+
+  "block.botania.chiseled_sunny_quartz_block": "Chiselled Sunny Quartz Block",
+
+
+
+
 
 
 
@@ -1242,14 +1271,14 @@
 
 
 
-  "block.botania.chiseled_metamorphic_forest_bricks": "Chiselled Fuchsite Bricks",
-  "block.botania.chiseled_metamorphic_plains_bricks": "Chiselled Talc Bricks",
-  "block.botania.chiseled_metamorphic_mountain_bricks": "Chiselled Gneiss Bricks",
-  "block.botania.chiseled_metamorphic_fungal_bricks": "Chiselled Mycelite Bricks",
-  "block.botania.chiseled_metamorphic_swamp_bricks": "Chiselled Cataclasite Bricks",
-  "block.botania.chiseled_metamorphic_desert_bricks": "Chiselled Solite Bricks",
-  "block.botania.chiseled_metamorphic_taiga_bricks": "Chiselled Lunite Bricks",
-  "block.botania.chiseled_metamorphic_mesa_bricks": "Chiselled Rosy Talc Bricks",
+  "block.botania.chiseled_fuchsite_bricks": "Chiselled Fuchsite Bricks",
+  "block.botania.chiseled_talc_bricks": "Chiselled Talc Bricks",
+  "block.botania.chiseled_gneiss_bricks": "Chiselled Gneiss Bricks",
+  "block.botania.chiseled_mycelite_bricks": "Chiselled Mycelite Bricks",
+  "block.botania.chiseled_cataclasite_bricks": "Chiselled Cataclasite Bricks",
+  "block.botania.chiseled_solite_bricks": "Chiselled Solite Bricks",
+  "block.botania.chiseled_lunite_bricks": "Chiselled Lunite Bricks",
+  "block.botania.chiseled_rosy_talc_bricks": "Chiselled Rosy Talc Bricks",
 
 
 
@@ -1761,9 +1790,9 @@
 
 
 
-  "item.botania.gray_petal": "Mystical Grey Petal",
-  "item.botania.light_gray_petal": "Mystical Light Grey Petal",
 
+  "item.botania.gray_mystical_petal": "Mystical Grey Petal",
+  "item.botania.light_gray_mystical_petal": "Mystical Light Grey Petal",
 
 
 
@@ -1794,9 +1823,9 @@
 
 
 
-  "item.botania.lens_magnet": "Magnetising Lens",
-  "item.botania.lens_magnet.short": "Magnetising",
 
+  "item.botania.magnetizing_lens": "Magnetising Lens",
+  "item.botania.magnetizing_lens.short": "Magnetising",
 
 
 
@@ -1844,8 +1873,8 @@
 
 
 
-  "item.botania.fertilizer": "Floral Fertiliser",
 
+  "item.botania.floral_fertilizer": "Floral Fertiliser",
 
 
 
@@ -1888,8 +1917,8 @@
 
 
 
-  "item.botania.magnet_ring": "Ring of Magnetisation",
 
+  "item.botania.ring_of_magnetization": "Ring of Magnetisation",
 
 
 
@@ -2054,8 +2083,8 @@
 
 
 
-  "item.botania.magnet_ring_greater": "Greater Ring of Magnetisation",
 
+  "item.botania.greater_ring_of_magnetization": "Greater Ring of Magnetisation",
 
 
 
@@ -2084,7 +2113,8 @@
 
 
 
-  "botania.brew.regen": "Revitalisation",
+
+  "botania.brew.revitalization": "Revitalisation",
 
 
 
@@ -2413,7 +2443,7 @@
 
   "botania.page.gardenOfGlass4": "Creating $(l:basics/flowers)$(item)Floral Fertiliser$(0)$(/l)",
 
-  "botania.page.gardenOfGlass6": "Aside from that, some things in $(thing)Botania$(0) have been changed to fit Skyblock gameplay: The $(l:functional_flowers/orechid_gog)$(item)Orechid$(0)$(/l) is easier to make, faster, and much more $(thing)Mana$(0)-efficient; The $(l:devices/cocoon_gog)$(item)Cocoon of Caprice$(0)$(/l) and the $(l:mana/spreader)$(item)Mana Spreader$(0)$(/l) have simpler recipes; the $(l:misc/blaze_block)$(item)Blaze Mesh$(0)$(/l), which can be purified into $(item)Obsidian$(0), is made from powder instead of rods; melon and pumpkin seeds can drop from tall grass; floral fertiliser yields more per craft; and certain additional recipes have been added.",
+  "botania.page.gardenOfGlass6": "Aside from that, some things in $(thing)Botania$(0) have been changed to fit Skyblock gameplay: The $(l:functional_flowers/orechid_gog)$(item)Orechid$(0)$(/l) is easier to make, faster, and much more $(thing)Mana$(0)-efficient; The $(l:devices/cocoon_gog)$(item)Cocoon of Caprice$(0)$(/l) and the $(l:mana/spreader)$(item)Mana Spreader$(0)$(/l) have simpler recipes; the $(l:misc/blaze_mesh)$(item)Blaze Mesh$(0)$(/l), which can be purified into $(item)Obsidian$(0), is made from powder instead of rods; melon and pumpkin seeds can drop from tall grass; floral fertiliser yields more per craft; and certain additional recipes have been added.",
 
 
 
@@ -2505,7 +2535,7 @@
 
 
 
-  "botania.page.terrasteel0": "$(item)Terrasteel$(0) is a complex and useful magical alloy, infused with ridiculous amounts of $(thing)Mana$(0). Synthesising it proves to be no small task. For starters, its creation requires a $(item)Terrestrial Agglomeration Plate$(0) placed over a checkerboard pattern of $(item)Lapis Lazuli Blocks$(0) and $(l:basics/pure_daisy)$(item)Livingrock$(0)$(/l) (or $(l:tools/rainbow_rod)$(item)Shimmerrock$(0)$(/l)). This block then needs to be provided with $(thing)Mana$(0), with $(l:mana/sparks)$(item)Sparks$(0)$(/l) being the most efficient mode of transfer.",
+  "botania.page.terrasteel0": "$(item)Terrasteel$(0) is a complex and useful magical alloy, infused with ridiculous amounts of $(thing)Mana$(0). Synthesising it proves to be no small task. For starters, its creation requires a $(item)Terrestrial Agglomeration Plate$(0) placed over a checkerboard pattern of $(item)Lapis Lazuli Blocks$(0) and $(l:basics/pure_daisy)$(item)Livingrock$(0)$(/l) (or $(l:tools/rod_of_the_bifrost)$(item)Shimmerrock$(0)$(/l)). This block then needs to be provided with $(thing)Mana$(0), with $(l:mana/sparks)$(item)Sparks$(0)$(/l) being the most efficient mode of transfer.",
 
 
 
@@ -2872,7 +2902,7 @@
 
 
   "botania.tagline.solegnolia": "Creates spaces where the Ring of Magnetisation doesn't work",
-  "botania.page.solegnolia0": "The $(l:baubles/magnet_ring)$(item)Ring of Magnetisation$(0)$(/l) is quite the handy tool for any diggers or collectors. However, it can also pick up unwanted items, disrupting automation setups in the process. The $(item)Solegnolia$(0) disrupts the ring's field of effect and prevents any items in its range from being pulled towards a ring-bearer. It also prevents any ring-bearers in its range from pulling any items. It does not consume $(thing)Mana$(0).",
+  "botania.page.solegnolia0": "The $(l:baubles/ring_of_magnetization)$(item)Ring of Magnetisation$(0)$(/l) is quite the handy tool for any diggers or collectors. However, it can also pick up unwanted items, disrupting automation setups in the process. The $(item)Solegnolia$(0) disrupts the ring's field of effect and prevents any items in its range from being pulled towards a ring-bearer. It also prevents any ring-bearers in its range from pulling any items. It does not consume $(thing)Mana$(0).",
 
 
 
@@ -3767,7 +3797,7 @@
 
 
 
-  "botania.page.waterRing0": "The $(item)Ring of Chordata$(0) allows its user to swim like, well, a fish. When equipped, it uses $(thing)Mana$(0) to bestow an underwater wearer with greater vision, manoeuvrability, and mining speed, as well as the ability to breathe indefinitely.$(p)If the speed boost becomes an issue, an active $(l:tools/temperance_stone)$(item)Stone of Temperance$(0)$(/l) can disable it.",
+  "botania.page.waterRing0": "The $(item)Ring of Chordata$(0) allows its user to swim like, well, a fish. When equipped, it uses $(thing)Mana$(0) to bestow an underwater wearer with greater vision, manoeuvrability, and mining speed, as well as the ability to breathe indefinitely.$(p)If the speed boost becomes an issue, an active $(l:tools/stone_of_temperance)$(item)Stone of Temperance$(0)$(/l) can disable it.",
 
 
 
@@ -3917,7 +3947,7 @@
 
 
 
-  "botania.page.gaiaRitual4": "Standard gear for this ritual is a set of enchanted $(item)Elementium Armour$(0), a $(l:tools/terra_sword)$(item)Terra Blade$(0)$(/l), and a miscellany of $(thing)Brews$(0) and $(thing)Trinkets$(0). Do note that the $(item)Beacon$(0)'s effect is forcibly nullified during the battle.$(p)The $(item)Guardian$(0) has a massive pool of health, so preparing with $(thing)Enchantments$(0) and $(thing)Brews$(0) is a must!",
+  "botania.page.gaiaRitual4": "Standard gear for this ritual is a set of enchanted $(item)Elementium Armour$(0), a $(l:tools/terra_blade)$(item)Terra Blade$(0)$(/l), and a miscellany of $(thing)Brews$(0) and $(thing)Trinkets$(0). Do note that the $(item)Beacon$(0)'s effect is forcibly nullified during the battle.$(p)The $(item)Guardian$(0) has a massive pool of health, so preparing with $(thing)Enchantments$(0) and $(thing)Brews$(0) is a must!",
 
 
 

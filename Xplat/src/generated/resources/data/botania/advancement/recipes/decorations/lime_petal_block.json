@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_item": {
+    "has_lime_mystical_petal": {
       "conditions": {
         "items": [
           {
-            "items": "botania:lime_petal"
+            "items": "botania:lime_mystical_petal"
           }
         ]
       },
@@ -21,7 +21,7 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_item"
+      "has_lime_mystical_petal"
     ]
   ],
   "rewards": {

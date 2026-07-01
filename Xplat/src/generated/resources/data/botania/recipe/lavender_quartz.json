@@ -1,18 +1,32 @@
 {
   "type": "minecraft:crafting_shaped",
-  "category": "building",
-  "group": "botania:quartz_block",
+  "category": "misc",
   "key": {
+    "C": [
+      {
+        "item": "minecraft:allium"
+      },
+      {
+        "item": "minecraft:pink_tulip"
+      },
+      {
+        "item": "minecraft:lilac"
+      },
+      {
+        "item": "minecraft:peony"
+      }
+    ],
     "Q": {
-      "item": "botania:quartz_lavender"
+      "item": "minecraft:quartz"
     }
   },
   "pattern": [
-    "QQ",
-    "QQ"
+    "QQQ",
+    "QCQ",
+    "QQQ"
   ],
   "result": {
-    "count": 1,
+    "count": 8,
     "id": "botania:lavender_quartz"
   }
 }

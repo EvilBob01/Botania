@@ -56,7 +56,7 @@ public class BotaniaTags {
 		/**
 		 * Items in this tag cannot be pulled by the magnet rings
 		 */
-		public static final TagKey<Item> MAGNET_RING_IGNORED = tag("magnet_ring_ignored");
+		public static final TagKey<Item> MAGNET_RING_IGNORED = tag("ring_of_magnetization_ignored");
 		/**
 		 * Items in this tag cannot be rolled by Looniums
 		 */
@@ -130,6 +130,10 @@ public class BotaniaTags {
 		public static final TagKey<Item> MANA_USING_ITEMS = tag("mana_using_items");
 		public static final TagKey<Item> SEED_APOTHECARY_REAGENT = tag("seed_apothecary_reagent");
 		public static final TagKey<Item> MANA_POWDER_SOURCE_DUSTS = tag("mana_powder_source_dusts");
+		/**
+		 * Gem-like items that are used for crafting certain mana-related objects, such mana tablet or runic altar.
+		 */
+		public static final TagKey<Item> MANA_GEMS = tag("mana_gems");
 
 		/**
 		 * Block provider items in this tag can be auto-selected via the vanilla "Pick Block" feature.
@@ -209,7 +213,7 @@ public class BotaniaTags {
 		/**
 		 * Items resting on blocks in this tag cannot be pulled by magnet rings
 		 */
-		public static final TagKey<Block> SHIELDS_FROM_MAGNET_RING = tag("shields_from_magnet_ring");
+		public static final TagKey<Block> SHIELDS_FROM_MAGNET_RING = tag("shields_from_ring_of_magnetization");
 		/**
 		 * Blocks in this tag cannot be moved by the Laputa Shard
 		 */

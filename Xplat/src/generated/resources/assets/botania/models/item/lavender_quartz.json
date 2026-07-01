@@ -1,3 +1,6 @@
 {
-  "parent": "botania:block/lavender_quartz"
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "botania:item/lavender_quartz"
+  }
 }

@@ -26,12 +26,12 @@
         },
         {
           "type": "minecraft:item",
-          "name": "botania:lexicon",
+          "name": "botania:lexica_botania",
           "weight": 20
         },
         {
           "type": "minecraft:item",
-          "name": "botania:mana_bottle",
+          "name": "botania:mana_in_a_bottle",
           "weight": 10
         },
         {
