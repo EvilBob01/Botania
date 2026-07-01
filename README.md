@@ -1,7 +1,7 @@
 ![](web/assets/img/logo.png)  
-Welcome to the Botania repository.  
+# Botania: High Yield
 
-> ⚠️ **This is an unofficial community fork** by [EvilBob01](https://github.com/EvilBob01), tracking the upstream [VazkiiMods/Botania](https://github.com/VazkiiMods/Botania) NeoForge 1.21.1 porting branch. The `neoforge-1.21.1` branch here mirrors upstream's port with any additional fixes on top. Alpha quality — use at your own risk.
+> ⚠️ **This is an unofficial community fork of [Botania](https://github.com/VazkiiMods/Botania)** by [EvilBob01](https://github.com/EvilBob01), tracking the upstream NeoForge 1.21.1 porting branch. The `neoforge-1.21.1` branch here mirrors upstream's port with any additional fixes on top. Alpha quality — use at your own risk.
 
 ## Why this fork exists
 
