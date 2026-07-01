@@ -11,8 +11,12 @@ still in progress and doesn't build/run standalone yet. This fork tracks that br
 (merging upstream commits in regularly) so it stays buildable on NeoForge 1.21.1, and layers a
 small set of early-game gameplay tweaks on top — see below.
 
-This is **not** an attempt to compete with or replace official Botania. Once the upstream port is
-finished and released, most players should just use that instead.
+Those tweaks are a deliberate philosophy shift, not just a bugfix branch. Vanilla Botania leans on
+inherent complexity for its early mana economy — Dandelifeon, for example, expects players to
+understand Conway's Game of Life to get good output. This fork instead favors economies of scale:
+Enchanted Soil removes the decay penalty on Hydroangeas, Daybloom, and Nightshade, so the path to
+more mana is building bigger — jumbo Hydroangea towers, entire fields of Daybloom and Nightshade —
+rather than mastering a puzzle mechanic. It's an easier, more approachable take on the early game.
 
 ## Custom Changes (EvilBob01 fork)
 
