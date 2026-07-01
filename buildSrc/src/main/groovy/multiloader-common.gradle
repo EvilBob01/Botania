@@ -92,8 +92,8 @@ sourceSets.main.resources {
 }
 
 jar {
-    from(rootProject.file('LICENSE')) {
-        rename { "${it}_${mod_name}" }
+    from(rootProject.file('LICENSE.txt')) {
+        rename { "${it}_${mod_name.replaceAll('[:\\\\/*?"<>|]', '_')}" }
     }
 
     exclude "**/*.bat"
@@ -119,8 +119,8 @@ jar {
 }
 
 sourcesJar {
-    from(rootProject.file('LICENSE')) {
-        rename { "${it}_${mod_name}" }
+    from(rootProject.file('LICENSE.txt')) {
+        rename { "${it}_${mod_name.replaceAll('[:\\\\/*?"<>|]', '_')}" }
     }
 
     // Exclude datagenerator .cache directory
