@@ -3,36 +3,59 @@ Welcome to the Botania repository.
 
 > ⚠️ **This is an unofficial community fork** by [EvilBob01](https://github.com/EvilBob01), tracking the upstream [VazkiiMods/Botania](https://github.com/VazkiiMods/Botania) NeoForge 1.21.1 porting branch. The `neoforge-1.21.1` branch here mirrors upstream's port with any additional fixes on top. Alpha quality — use at your own risk.
 
+## Why this fork exists
+
+Official Botania is being ported to NeoForge 1.21.1 by the upstream team on the
+[`1.21.1-porting`](https://github.com/VazkiiMods/Botania/tree/1.21.1-porting) branch, but that port is
+still in progress and doesn't build/run standalone yet. This fork tracks that branch closely
+(merging upstream commits in regularly) so it stays buildable on NeoForge 1.21.1, and layers a
+small set of early-game gameplay tweaks on top — see below.
+
+This is **not** an attempt to compete with or replace official Botania. Once the upstream port is
+finished and released, most players should just use that instead.
+
 ## Custom Changes (EvilBob01 fork)
 
-The following features have been added on top of the upstream port:
+The following features are **not** present in upstream Botania and have been added on top of the
+NeoForge 1.21.1 port:
+
+| Change | Type | Summary |
+|---|---|---|
+| [Enchanted Soil](#enchanted-soil) | New block | Grass-like block that stops early-game flowers from decaying |
+| [Overgrowth Seed](#overgrowth-seed) | New item | Crafted from 9 wheat seeds; converts grass into Enchanted Soil |
+| [Daybloom](#daybloom-re-added) | Re-added flower | Removed upstream in an earlier version; restored with decay logic |
+| [Nightshade](#nightshade-re-added) | Re-added flower | Removed upstream in an earlier version; restored with decay logic |
 
 ### Enchanted Soil
-A special grass-like block. Any of the three early-game flowers placed on top will **never decay**.
-The vanilla decay timer is reset every tick while the flower sits on Enchanted Soil.
+A special grass-like block, craftable via the Overgrowth Seed. Any of the three low-tier
+mana-generating flowers (Daybloom, Nightshade, Hydroangeas) placed on top will **never decay** —
+their passive decay timer is reset every tick while the flower sits on Enchanted Soil. It behaves
+like normal grass otherwise (tillable, can be walked on, supports flowers/crops).
 
 ### Overgrowth Seed
-A new craftable item. **Recipe:** fill a 3×3 crafting grid with wheat seeds (9 total).
-**Use:** right-click any grass block to convert it into Enchanted Soil. The seed is consumed on use.
+A new craftable item, since there's no other in-world way to obtain Enchanted Soil.
+- **Recipe:** fill a 3×3 crafting grid with wheat seeds (9 total).
+- **Use:** right-click any grass block to convert it into Enchanted Soil. The seed is consumed on use.
 
 ### Daybloom (re-added)
-A generating flower that produces mana **only during daylight hours**.
+Present in older versions of Botania but removed upstream; restored here as a low-tier generating
+flower that produces mana **only during daylight hours**.
 - Generates 1 mana every 20 ticks while the sun is up.
 - Maximum mana pool: 300.
-- Decays after ~1 hour (72 000 ticks) unless planted on Enchanted Soil.
+- Decays after ~1 hour (72 000 ticks) unless planted on Enchanted Soil — matching how Hydroangeas
+  already behaved, so the three early flowers are now consistent with each other.
 
 ### Nightshade (re-added)
-A generating flower that produces mana **only at night**.
+The nocturnal counterpart to Daybloom, restored the same way: a low-tier generating flower that
+produces mana **only at night**.
 - Generates 1 mana every 20 ticks while it is night.
 - Maximum mana pool: 300.
-- Decays after ~1 hour (72 000 ticks) unless planted on Enchanted Soil.
-
-### Hydroangeas (existing, unchanged)
-The standard early-game water-consuming flower. Also benefits from Enchanted Soil — its ~1 hour
-decay timer is suppressed when planted on it.
+- Decays after ~1 hour (72 000 ticks) unless planted on Enchanted Soil, same as Daybloom and
+  Hydroangeas.
 
 > Daybloom, Nightshade, and Hydroangeas are intentionally the lowest-output generating flowers in
-> the mod, making Enchanted Soil a meaningful early-game crafting goal.
+> the mod, which is what makes Enchanted Soil a meaningful early-game crafting goal rather than
+> something that trivializes progression.
 
 ---
 
