@@ -25,6 +25,7 @@ NeoForge 1.21.1 port:
 | [Overgrowth Seed](#overgrowth-seed) | New item | Crafted from 9 wheat seeds; converts grass into Enchanted Soil |
 | [Daybloom](#daybloom-re-added) | Re-added flower | Removed upstream in an earlier version; restored with decay logic |
 | [Nightshade](#nightshade-re-added) | Re-added flower | Removed upstream in an earlier version; restored with decay logic |
+| [Hydroangeas](#hydroangeas-modified) | Modified flower | Now also skips decay when planted on Enchanted Soil |
 
 ### Enchanted Soil
 A special grass-like block, craftable via the Overgrowth Seed. Any of the three low-tier
@@ -42,8 +43,8 @@ Present in older versions of Botania but removed upstream; restored here as a lo
 flower that produces mana **only during daylight hours**.
 - Generates 1 mana every 20 ticks while the sun is up.
 - Maximum mana pool: 300.
-- Decays after ~1 hour (72 000 ticks) unless planted on Enchanted Soil — matching how Hydroangeas
-  already behaved, so the three early flowers are now consistent with each other.
+- Decays after ~1 hour (72 000 ticks) unless planted on Enchanted Soil, same as Hydroangeas and
+  Nightshade — so the three early flowers are consistent with each other.
 
 ### Nightshade (re-added)
 The nocturnal counterpart to Daybloom, restored the same way: a low-tier generating flower that
@@ -52,6 +53,11 @@ produces mana **only at night**.
 - Maximum mana pool: 300.
 - Decays after ~1 hour (72 000 ticks) unless planted on Enchanted Soil, same as Daybloom and
   Hydroangeas.
+
+### Hydroangeas (modified)
+Hydroangeas already existed upstream with its own ~1 hour decay timer. We added the same Enchanted
+Soil check used by Daybloom and Nightshade, so planting it on Enchanted Soil now suppresses that
+decay timer too — no other behavior was changed.
 
 > Daybloom, Nightshade, and Hydroangeas are intentionally the lowest-output generating flowers in
 > the mod, which is what makes Enchanted Soil a meaningful early-game crafting goal rather than
