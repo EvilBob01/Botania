@@ -169,11 +169,20 @@
 
 
 
+
+
+
+
   "botania.tater_birthday.0": "Вау, это для меня?",
   "botania.tater_birthday.1": "Сегодня мой день рождения; теперь мне %d лет!",
   "botania.tater_birthday.2": "Большое спасибо! Надеюсь, что и для вас этот год был хорош.",
   "botania.tater_birthday.3": "Всегда помните: я верю в вас, и у вас всё получится! ❤",
   "botania.tater_birthday.4": "Ура!!!",
+
+
+
+
+
   "botania.tater.my_son": "Никогда больше не разговаривайте со мной или моим сыном.",
   "botania.tater.my_daughter": "Никогда больше не разговаривайте со мной или моей дочерью.",
   "botania.tater.my_child": "Никогда больше не разговаривайте со мной или моим ребёнком.",
@@ -241,6 +250,7 @@
 
 
 
+
   "tag.block.botania.floating_flowers": "Парящие цветы",
   "tag.block.botania.functional_special_flowers": "Функциональные особые цветы",
 
@@ -259,8 +269,10 @@
   "tag.block.botania.livingwood_logs": "Брёвна жизнедерева",
 
 
+
   "tag.block.botania.mini_flowers": "Миниатюрные цветы",
   "tag.block.botania.misc_special_flowers": "Некатегорированные особые цветы",
+
 
   "tag.block.botania.mundane_floating_flowers": "Мирские парящие цветы",
   "tag.block.botania.small_mystical_flowers": "Мистические цветы",
@@ -273,8 +285,12 @@
   "tag.block.botania.shimmering_mushrooms": "Мерцающие грибы",
 
 
+
   "tag.block.botania.special_floating_flowers": "Особые парящие цветы",
   "tag.block.botania.special_flowers": "Особые цветы",
+
+
+
 
 
 
@@ -315,6 +331,7 @@
 
 
   "tag.block.c.storage_blocks.terrasteel": "Террастальные блоки",
+
 
 
 
@@ -463,17 +480,28 @@
 
 
 
+
+
+
+
+
+
+
+
+
   "structure.minecraft.ancient_city": "Древний город",
   "structure.minecraft.bastion_remnant": "Развалины бастиона",
   "structure.minecraft.buried_treasure": "Зарытый клад",
   "structure.minecraft.desert_pyramid": "Пустынный храм",
   "structure.minecraft.end_city": "Город Энда",
   "structure.minecraft.fortress": "Крепость Незера",
+
   "structure.minecraft.jungle_pyramid": "Храм в джунглях",
   "structure.minecraft.mansion": "Лесной особняк",
   "structure.minecraft.mineshaft_mesa": "Заброшенная шахта в месе",
   "structure.minecraft.mineshaft": "Заброшенная шахта",
   "structure.minecraft.monument": "Океанский монумент",
+
   "structure.minecraft.ocean_ruin_cold": "Руины холодного океана",
   "structure.minecraft.ocean_ruin_warm": "Руины тёплого океана",
   "structure.minecraft.pillager_outpost": "Аванпост разбойников",
@@ -487,7 +515,9 @@
   "structure.minecraft.shipwreck_beached": "Выброшенный на берег корабль",
   "structure.minecraft.shipwreck": "Кораблекрушение",
   "structure.minecraft.stronghold": "Крепость",
+
   "structure.minecraft.trail_ruins": "Дворец испытаний",
+
   "structure.minecraft.village_desert": "Пустынная деревня",
   "structure.minecraft.village_plains": "Равнинная деревня",
   "structure.minecraft.village_savanna": "Саванная деревня",

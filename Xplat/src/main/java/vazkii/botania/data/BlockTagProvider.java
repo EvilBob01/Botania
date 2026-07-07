@@ -126,11 +126,11 @@ public class BlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
 						.toArray(Block[]::new)
 		);
 
-		tag(BotaniaTags.Blocks.MISC_SPECIAL_FLOATING_FLOWERS).add(
+		tag(BotaniaTags.Blocks.MISC_FLOATING_FLOWERS).add(
 				BotaniaBlocks.FLOATING_MANASTAR, BotaniaBlocks.FLOATING_PURE_DAISY, BotaniaBlocks.FLOATING_BERGAMUTE,
 				BotaniaBlocks.FLOATING_SOLEGNOLIA, BotaniaBlocks.FLOATING_SOLEGNOLIA_PETITE
 		);
-		tag(BotaniaTags.Blocks.GENERATING_SPECIAL_FLOATING_FLOWERS).add(
+		tag(BotaniaTags.Blocks.GENERATING_FLOATING_FLOWERS).add(
 				BotaniaBlocks.FLOATING_DANDELIFEON, BotaniaBlocks.FLOATING_ENDOFLAME,
 				BotaniaBlocks.FLOATING_ENTROPINNYUM, BotaniaBlocks.FLOATING_GOURMARYLLIS,
 				BotaniaBlocks.FLOATING_HYDROANGEAS, BotaniaBlocks.FLOATING_KEKIMURUS, BotaniaBlocks.FLOATING_MUNCHDEW,
@@ -138,7 +138,7 @@ public class BlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
 				BotaniaBlocks.FLOATING_ROSA_ARCANA, BotaniaBlocks.FLOATING_SHULK_ME_NOT,
 				BotaniaBlocks.FLOATING_SPECTROLUS, BotaniaBlocks.FLOATING_THERMALILY
 		);
-		tag(BotaniaTags.Blocks.FUNCTIONAL_SPECIAL_FLOATING_FLOWERS).add(
+		tag(BotaniaTags.Blocks.FUNCTIONAL_FLOATING_FLOWERS).add(
 				BotaniaBlocks.FLOATING_AGRICARNATION, BotaniaBlocks.FLOATING_AGRICARNATION_PETITE,
 				BotaniaBlocks.FLOATING_BELLETHORNE, BotaniaBlocks.FLOATING_BELLETHORNE_PETITE,
 				BotaniaBlocks.FLOATING_BUBBELL, BotaniaBlocks.FLOATING_BUBBELL_PETITE, BotaniaBlocks.FLOATING_CLAYCONIA,
@@ -156,9 +156,9 @@ public class BlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
 				BotaniaBlocks.FLOATING_TANGLEBERRIE, BotaniaBlocks.FLOATING_TANGLEBERRIE_PETITE,
 				BotaniaBlocks.FLOATING_TIGERSEYE, BotaniaBlocks.FLOATING_VINCULOTUS
 		);
-		tag(BotaniaTags.Blocks.SPECIAL_FLOATING_FLOWERS).addTag(BotaniaTags.Blocks.MISC_SPECIAL_FLOATING_FLOWERS)
-				.addTag(BotaniaTags.Blocks.GENERATING_SPECIAL_FLOATING_FLOWERS)
-				.addTag(BotaniaTags.Blocks.FUNCTIONAL_SPECIAL_FLOATING_FLOWERS);
+		tag(BotaniaTags.Blocks.SPECIAL_FLOATING_FLOWERS).addTag(BotaniaTags.Blocks.MISC_FLOATING_FLOWERS)
+				.addTag(BotaniaTags.Blocks.GENERATING_FLOATING_FLOWERS)
+				.addTag(BotaniaTags.Blocks.FUNCTIONAL_FLOATING_FLOWERS);
 
 		tag(BotaniaTags.Blocks.FLOATING_FLOWERS).addTag(BotaniaTags.Blocks.MUNDANE_FLOATING_FLOWERS)
 				.addTag(BotaniaTags.Blocks.SPECIAL_FLOATING_FLOWERS);
@@ -481,9 +481,7 @@ public class BlockTagProvider extends IntrinsicHolderTagsProvider<Block> {
 		var pickaxe = Set.of(
 				BotaniaBlocks.ALCHEMY_CATALYST, BotaniaBlocks.CONJURATION_CATALYST, BotaniaBlocks.MANASTEEL_BLOCK,
 				BotaniaBlocks.ELEMENTIUM_BLOCK, BotaniaBlocks.TERRASTEEL_BLOCK, BotaniaBlocks.MANA_DIAMOND_BLOCK,
-				BotaniaBlocks.DRAGONSTONE_BLOCK, BotaniaBlocks.MANAGLASS, BotaniaBlocks.ALFGLASS,
-				BotaniaBlocks.BIFROST, BotaniaBlocks.MANAGLASS_PANE, BotaniaBlocks.ALFGLASS_PANE,
-				BotaniaBlocks.BIFROST_PANE, BotaniaBlocks.RUNIC_ALTAR, BotaniaBlocks.BOTANICAL_BREWERY,
+				BotaniaBlocks.DRAGONSTONE_BLOCK, BotaniaBlocks.RUNIC_ALTAR, BotaniaBlocks.BOTANICAL_BREWERY,
 				BotaniaBlocks.TERRESTRIAL_AGGLOMERATION_PLATE, BotaniaBlocks.MANA_SPLITTER, BotaniaBlocks.MANA_VOID,
 				BotaniaBlocks.MANA_DETECTOR, BotaniaBlocks.FORCE_RELAY, BotaniaBlocks.TINY_PLANET,
 				BotaniaBlocks.LIFE_IMBUER, BotaniaBlocks.MANA_FLUXFIELD, BotaniaBlocks.MANA_PRISM,

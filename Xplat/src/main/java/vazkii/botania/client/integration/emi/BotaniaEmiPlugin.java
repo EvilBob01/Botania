@@ -13,7 +13,12 @@ import dev.emi.emi.api.EmiApi;
 import dev.emi.emi.api.EmiEntrypoint;
 import dev.emi.emi.api.EmiPlugin;
 import dev.emi.emi.api.EmiRegistry;
-import dev.emi.emi.api.recipe.*;
+import dev.emi.emi.api.recipe.EmiCraftingRecipe;
+import dev.emi.emi.api.recipe.EmiRecipe;
+import dev.emi.emi.api.recipe.EmiRecipeCategory;
+import dev.emi.emi.api.recipe.EmiRecipeSorting;
+import dev.emi.emi.api.recipe.EmiWorldInteractionRecipe;
+import dev.emi.emi.api.recipe.VanillaEmiRecipeCategories;
 import dev.emi.emi.api.render.EmiRenderable;
 import dev.emi.emi.api.stack.Comparison;
 import dev.emi.emi.api.stack.EmiIngredient;
@@ -342,6 +347,15 @@ public class BotaniaEmiPlugin implements EmiPlugin {
 					.build());
 
 		}
+
+		// Lapis block turns into enchanter when using a wand
+		registry.addRecipe(EmiWorldInteractionRecipe.builder()
+				.leftInput(EmiStack.of(Blocks.LAPIS_BLOCK))
+				.rightInput(EmiIngredient.of(List.of(EmiStack.of(BotaniaItems.WAND_OF_THE_FOREST),
+						EmiStack.of(BotaniaItems.WAND_OF_THE_ELVEN_FOREST))), true)
+				.output(EmiStack.of(BotaniaBlocks.MANA_ENCHANTER))
+				.id(BuiltInRegistries.BLOCK.getKey(BotaniaBlocks.MANA_ENCHANTER).withPrefix("/world/wandable/"))
+				.build());
 	}
 
 	public static int rotateXAround(int x, int y, int cx, int cy, double degrees) {

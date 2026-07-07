@@ -71,7 +71,10 @@ Here's a general overview of what you can expect to change in terms of gameplay:
   * Mobs spawned by the Guardian of Gaia no longer in-fight and will focus on things within the arena
 * Change: Rosa Arcana is now focused on consuming only XP orbs; it extracts them from players and enchanted items, and even attracts them (players near the flower cannot pickup XP orbs anymore)
 * Change: Terra Truncator can cut down huge mushrooms and nether fungi, and properly breaks larger tree crowns (e.g. of large jungle trees)
+* Change: Managlass, Alfglass, and Bifrost blocks/panes are no longer faster to mine with any pickaxe
+  (you need a vitreous pickaxe for fast breaking now, but you can still obtain these blocks without any tools)
 * Remove: Overgrowth Seed and Enchanted Soil
+* Remove: Crafting recipes for recombining slabs into full blocks
 * API: Runic Altar recipes define catalyst items separately (these are returned unchanged when crafting is complete)
 * API: Petal Apothecary, Runic Altar, and Botanical Brewery return craft remainder items
 * API: Many block attributes that were block entity NBT data before have moved to block state properties
@@ -82,7 +85,23 @@ Here's a general overview of what you can expect to change in terms of gameplay:
 {% include changelog_header.html version="Upcoming" %}
 The following changes will be released in an upcoming version of Botania for 1.20.1:
 
-* (nothing so far)
+---
+
+{% include changelog_header.html version="1.20.1-454" %}
+
+* Add: SpeedrunIGT integration. Currently supports four categories: defeating Gaia Guardian I/II, obtaining dreamwood,
+  and celebrating Tiny Potato's birthday (also known as Blessing%). That last one can be run on any day of the year,
+  but you won't get the advancement if it's not July 19th. Feel free to suggest more categories if there's something
+  specific you'd like to run that's different enough from these!
+* Add: Several additional world interactions are shown in EMI (thanks to Abbie for the various rod interactions)
+* Change: Ownership of mana bursts and the Manastorm Epicenter (the thing that happens when you trigger a Manastorm
+  Charge) is tracked more consistenty, and the various lenses make more "may-interact" checks against e.g. the spawn
+  protection area on dedicated servers
+* Change: Mana bursts owned by a player in adventure mode can only apply the bore lens effect or trigger drums,
+  mana detectors, or manastorm charges if the player's currently held item (typically a mana blaster, but maybe also a
+  terra blade) allows such interactions
+* Fix: Tiny potato now continuously checks whether it is its birthday, instead of checking once on game/server start.
+* Fix: A single Tiny Potato can now celebrate its birthday multiple times.
 
 ---
 
@@ -2246,7 +2265,7 @@ thanks to Wormbo for a lot of work on this feature!
 * Added the Benevolent Goddess' Charm, it stops nearby explosions from breaking blocks.
 * Added the Worldshaper's Astrolabe, a new fancy tool to place a lot of blocks really quick.
 * Changed the crafting recipe for Cellular Blocks to include Beetroot.
-* Changed the secret code for the <span class="censored">------ -----</span>.
+* Changed the secret code for the <span class="censored">Matrix</span> <span class="censored">Wings</span>.
 * Fixed a texture being poorly sized and breaking mipmapping.
 * Fixed log spam when the Loonium is doing its thing.
 * Fixed Resolute Ivy not working.
@@ -4815,10 +4834,10 @@ in the Minecraft 1.8-1.10 era.
 * Fixed the Manasteel/Elementium Pick and Axe not removing the last item from the inventory but a ghost stack instead when their right click ability is used.
 * Fixed the Resolute Ivy being able to dupe items in the crafting grid.
 * Fixed the Ring of Odin displaying a fake player death animation when unequipped.
-* Having the <span class="censored">----</span> <span class="censored">--</span> <span class="censored">----</span> equipped increases the Terra Shatterer's level by 1.
-* Increased <span class="censored">---</span> <span class="censored">-----</span> <span class="censored">--</span> <span class="censored">-------</span>'s saturation output.
+* Having the <span class="censored">Ring</span> <span class="censored">of</span> <span class="censored">Thor</span> equipped increases the Terra Shatterer's level by 1.
+* Increased <span class="censored">The</span> <span class="censored">Fruit</span> <span class="censored">of</span> <span class="censored">Grisaia</span>'s saturation output.
 * Increased Thermalily cooldown from 6 minutes to 7 minutes.
-* Made the <span class="censored">----</span> <span class="censored">--</span> <span class="censored">----</span>'s regen effect slower.
+* Made the <span class="censored">Ring</span> <span class="censored">of</span> <span class="censored">Odin</span>'s regen effect slower.
 * Optimized flower (and other botania tile entities) client load on syncing by not marking blocks for update and rather directly sending packets to nearby players.
 * Optimized spark network usage and processing. They should work a lot better, both fps and tps wise.
 * Replaced Flugel Tiara Firelord Wings with Phoenix Wings.
@@ -6428,7 +6447,7 @@ in the Minecraft 1.8-1.10 era.
 * Added some checks to the Rod of the Lands to prevent players from suffocating themselves with it.
 * Added some new quartz types (might have gone overboard), find them in the Decorative Blocks entry under Miscellaneous.
 * Added the Soulscribe, a weapon to kill Endermen.
-* Some more work on <a href="https://gfycat.com/ShamefulGlitteringCentipede"><span class="censored">----------</span></a>.
+* Some more work on <a href="https://gfycat.com/ShamefulGlitteringCentipede"><span class="censored">Alfhomancy</span></a>.
 * *I wonder what happens if I throw sixteen pink petals in an apothecary...*
 * *I apologize for any possible issues in this patch, as I stayed up till 3 to finish it :')*
 
@@ -6439,7 +6458,7 @@ in the Minecraft 1.8-1.10 era.
 * Artificially increased the accuracy of the Damaging Lens and Terra Blade.
 * Commented the flower quantity and density config options.
 * Fixed the Kekimurus eating only from the south east.
-* Some behind the scenes work on <a href="https://gfycat.com/DarkUnhealthyEthiopianwolf"><span class="censored">----------</span></a>.
+* Some behind the scenes work on <a href="https://gfycat.com/DarkUnhealthyEthiopianwolf"><span class="censored">Alfhomancy</span></a>.
 
 ---
 
@@ -6453,7 +6472,7 @@ in the Minecraft 1.8-1.10 era.
 {% include changelog_header.html version="r1.0 47" %}
 
 * Added a config option to disable the references in the flowers' tooltips. *Though, be warned, I hate you if you do <3*
-* Added a tease for <span class="censored">----------</span>.
+* Added a tease for <span class="censored">Alfhomancy</span>.
 * Added two new generating flowers, the Entropinnyum and the Kekimurus. *Help, I'm running out of names :c*
 * Buffed the output of the Rosa Arcana.
 * Fixed Composite lenses not being localized.

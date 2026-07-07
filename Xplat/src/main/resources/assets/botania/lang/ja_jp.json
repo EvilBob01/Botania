@@ -169,10 +169,19 @@
 
 
 
+
+
+
+
   "botania.tater_birthday.0": "わぁ！これを私に？",
   "botania.tater_birthday.1": "今日は私の誕生日！今年で%d才になりました！",
   "botania.tater_birthday.2": "本当にありがとう！あなたにとっても素敵な一年だったら私も嬉しいです！",
   "botania.tater_birthday.3": "覚えておいてね！私はいつでもあなたを信じてます！あなたはなんだって出来る！\u2764",
+
+
+
+
+
 
 
   "botania.tater.my_daughter": "二度と私と娘に話しかけないでください。",
@@ -241,6 +250,7 @@
 
 
 
+
   "tag.block.botania.floating_flowers": "浮遊している花",
   "tag.block.botania.functional_special_flowers": "機能を持つ特別な花",
 
@@ -259,8 +269,10 @@
   "tag.block.botania.livingwood_logs": "リビングウッドの原木",
 
 
+
   "tag.block.botania.mini_flowers": "プチな花",
   "tag.block.botania.misc_special_flowers": "その他の特別な花",
+
 
   "tag.block.botania.mundane_floating_flowers": "ありふれた浮遊している花",
   "tag.block.botania.small_mystical_flowers": "神秘的な花",
@@ -273,8 +285,12 @@
 
 
 
+
   "tag.block.botania.special_floating_flowers": "特別な浮遊している花",
   "tag.block.botania.special_flowers": "特別な花",
+
+
+
 
 
 
@@ -315,6 +331,7 @@
 
 
   "tag.block.c.storage_blocks.terrasteel": "テラスチールブロック",
+
 
 
 
@@ -453,6 +470,19 @@
 
 
   "tag.item.c.storage_blocks.terrasteel": "テラスチールブロック",
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
