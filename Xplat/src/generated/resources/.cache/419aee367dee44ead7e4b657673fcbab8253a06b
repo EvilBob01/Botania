@@ -1,4 +1,4 @@
-// 1.21.1	Botania/Tags for minecraft:block
+// 1.21.1	Botania: High Yield/Tags for minecraft:block
 7a68ff158ad853180a69e6a2276ae92648e36622 data/botania/tags/block/agricarnation/apply_bonemeal.json
 875c72992696488f2f82f9474864d8b56c9c7c85 data/botania/tags/block/agricarnation/growth_candidate.json
 e016f3ffb8b5cd781715f6f9dbbd57a21d8a0e31 data/botania/tags/block/agricarnation/growth_excluded.json
@@ -74,7 +74,7 @@ f7564fb27f40366c91189740add1236534b0686e data/minecraft/tags/block/impermeable.j
 6ed52809b902aaeb855eee79b173187c1446b7ae data/minecraft/tags/block/mineable/axe.json
 0a9898eba9e523237ac5d9c9946b669c4148e29b data/minecraft/tags/block/mineable/hoe.json
 144cba9def7af68910c3f6c7ae67e5499f34c85b data/minecraft/tags/block/mineable/pickaxe.json
-6dc502923dba1a83ac5d5e380311c30ac7983924 data/minecraft/tags/block/mineable/shovel.json
+40f68c57ac93a9a08de9c4d75ef282b5b5a22704 data/minecraft/tags/block/mineable/shovel.json
 be674e83ee679e0b1aa5e1c446b262f43c024ce0 data/minecraft/tags/block/mushroom_grow_block.json
 ecce163938cc925fe079c2984cf7301b86cc49fa data/minecraft/tags/block/occludes_vibration_signals.json
 119b4275cbffb61da75b503795d3fb0af0e1f35d data/minecraft/tags/block/planks.json
