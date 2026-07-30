@@ -251,6 +251,7 @@
 
 
 
+
   "tag.block.botania.floating_flowers": "Flores Flutuantes",
   "tag.block.botania.functional_special_flowers": "Flores Funcionais Especiais",
 
@@ -707,22 +708,22 @@
 
   "entity.botania.mana_burst": "Pulso de Mana",
   "entity.botania.pixie": "Fada",
-  "entity.botania.ring_of_flame": "Anel de Chamas",
+  "entity.botania.flame_ring": "Anel de Chamas",
   "entity.botania.vine_ball": "Bola de Vinhas",
-  "entity.botania.doppleganger": "Guardião de Gaia",
-  "entity.botania.magic_landmine": "Armadilha de Gaia",
+  "entity.botania.gaia_guardian": "Guardião de Gaia",
+  "entity.botania.gaia_trap": "Armadilha de Gaia",
   "entity.botania.spark": "Fagulha",
   "entity.botania.thrown_item": "Item arremessado",
   "entity.botania.magic_missile": "Míssil Mágico",
   "entity.botania.thorn_chakram": "Chakram Espinhento",
   "entity.botania.corporea_spark": "Fagulha Corporea",
   "entity.botania.ender_air_bottle": "Frasco de ar do End",
-  "entity.botania.ender_air": "Nuvem de ar do End",
-  "entity.botania.pool_minecart": "Carrinho com Poço de Mana",
+  "entity.botania.ender_air_cloud": "Nuvem de ar do End",
+  "entity.botania.mana_pool_minecart": "Carrinho com Poço de Mana",
   "entity.botania.pink_wither": "Wither Rosa",
-  "entity.botania.player_mover": "Feixe de Luminizador",
-  "entity.botania.mana_storm": "Epicentro de Devastação Manica",
-  "entity.botania.babylon_weapon": "Arma de Tesouro",
+  "entity.botania.luminizer_beam": "Feixe de Luminizador",
+  "entity.botania.manastorm_epicenter": "Epicentro de Devastação Manica",
+  "entity.botania.treasury_weapon": "Arma de Tesouro",
   "entity.botania.falling_star": "Estrela Cadente",
 
   "advancement.botania_challenge": "Desafios da Botania",
@@ -1954,7 +1955,7 @@
   "item.botania.ring_of_far_reach": "Anel do Longo Alcance",
   "item.botania.terra_shatterer": "Terra-Destruidor",
   "item.botania.charm_of_the_diva": "Amuleto da Diva",
-  "item.botania.fluegel_tiara": "Tiara de Flügel",
+  "item.botania.flugel_tiara": "Tiara de Flügel",
   "item.botania.soulscribe": "Risca-Almas",
   "item.botania.smokey_quartz": "Quartzo Fumê",
   "item.botania.mana_quartz": "Quartzo de Mana",
@@ -2087,11 +2088,11 @@
   "item.botania.flower_pouch": "Sacola de Flores",
   "item.botania.petal_pouch": "Sacola de Pétalas",
   "item.botania.phantom_ink": "Tinta Fantasma",
-  "item.botania.pool_minecart": "Carrinho com Poço de Mana",
+  "item.botania.mana_pool_minecart": "Carrinho com Poço de Mana",
   "item.botania.the_pinkinator": "O Rosanator",
   "item.botania.the_fruit_of_grisaia": "A Fruta de Grisaia",
   "item.botania.key_of_the_kings_law": "Chave da Lei do Rei",
-  "item.botania.eye_of_the_fluegel": "Olho de Flügel",
+  "item.botania.eye_of_the_flugel": "Olho de Flügel",
   "item.botania.ring_of_thor": "Anel de Thor",
   "item.botania.ring_of_odin": "Anel de Odin",
   "item.botania.ring_of_loki": "Anel de Loki",
@@ -4005,8 +4006,8 @@
 
   "botania.entry.flugelEye": "Olho de Flügel",
   "botania.tagline.flugelEye": "Os verdadeiros poderes de um Flügel",
-  "botania.page.flugelEye0": "Diferente de uma $(l:ender/fluegel_tiara)$(item)Tiara de Flügel$(0)$(/l) fabricada, o $(item)Olho de Flügel$(0) contém magia primordial dos $(thing)Flügels$(0). Forte o bastante para utilizar a habilidade deles de se transportar de volta a um local já visitado.$(br)Agachar e clicar com o botão direito com ele em um bloco irá o vincular a esse lugar. Segurar o botão direito com um olho vinculado irá então usar $(thing)Mana$(0) para teletransportar seu dono de volta ao local.",
-  "botania.page.flugelEye1": "Infelizmente, o Olho ainda é apenas um fragmento do verdadeiro potencial dos $(thing)Flügels$(0), então ele não pode teleportar seu usuário através de dimensões.$(p)Entretanto, apenas possuir um $(item)Olho de Flügel$(0) em mãos permite que um usuário de $(l:ender/fluegel_tiara)$(item)Tiara de Flügel$(0)$(/l) voe mesmo com um barra de voo vazia (a um custo maior de $(thing)Mana$(0)).",
+  "botania.page.flugelEye0": "Diferente de uma $(l:ender/flugel_tiara)$(item)Tiara de Flügel$(0)$(/l) fabricada, o $(item)Olho de Flügel$(0) contém magia primordial dos $(thing)Flügels$(0). Forte o bastante para utilizar a habilidade deles de se transportar de volta a um local já visitado.$(br)Agachar e clicar com o botão direito com ele em um bloco irá o vincular a esse lugar. Segurar o botão direito com um olho vinculado irá então usar $(thing)Mana$(0) para teletransportar seu dono de volta ao local.",
+  "botania.page.flugelEye1": "Infelizmente, o Olho ainda é apenas um fragmento do verdadeiro potencial dos $(thing)Flügels$(0), então ele não pode teleportar seu usuário através de dimensões.$(p)Entretanto, apenas possuir um $(item)Olho de Flügel$(0) em mãos permite que um usuário de $(l:ender/flugel_tiara)$(item)Tiara de Flügel$(0)$(/l) voe mesmo com um barra de voo vazia (a um custo maior de $(thing)Mana$(0)).",
 
   "botania.entry.thorRing": "Anel de Thor",
   "botania.tagline.thorRing": "Porque seu Terra-Destruidor não era forte o bastante",

@@ -12,13 +12,9 @@ package vazkii.botania.common.entity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.protocol.Packet;
-import net.minecraft.network.protocol.game.ClientGamePacketListener;
-import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.server.level.ServerEntity;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
@@ -52,7 +48,7 @@ public class LuminizerMoverEntity extends Entity {
 	}
 
 	public LuminizerMoverEntity(Level world, BlockPos pos, BlockPos exitPos) {
-		this(BotaniaEntities.PLAYER_MOVER, world);
+		this(BotaniaEntities.LUMINIZER_BEAM, world);
 		setPos(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
 		setExit(exitPos);
 	}
@@ -178,11 +174,6 @@ public class LuminizerMoverEntity extends Entity {
 		}
 
 		return super.getDismountLocationForPassenger(living);
-	}
-
-	@Override
-	public Packet<ClientGamePacketListener> getAddEntityPacket(ServerEntity entity) {
-		return new ClientboundAddEntityPacket(this, entity);
 	}
 
 	public BlockPos getExitPos() {

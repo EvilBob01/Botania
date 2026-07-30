@@ -251,6 +251,7 @@
 
 
 
+
   "tag.block.botania.floating_flowers": "浮遊している花",
   "tag.block.botania.functional_special_flowers": "機能を持つ特別な花",
 
@@ -707,10 +708,10 @@
 
   "entity.botania.mana_burst": "マナバースト",
   "entity.botania.pixie": "ピクシー",
-  "entity.botania.ring_of_flame": "炎の輪",
+  "entity.botania.flame_ring": "炎の輪",
   "entity.botania.vine_ball": "ツタ玉",
-  "entity.botania.doppleganger": "ガイアの守護者",
-  "entity.botania.magic_landmine": "ガイアの罠",
+  "entity.botania.gaia_guardian": "ガイアの守護者",
+  "entity.botania.gaia_trap": "ガイアの罠",
   "entity.botania.spark": "スパーク",
   "entity.botania.thrown_item": "投げ込まれたアイテム",
   "entity.botania.magic_missile": "魔弾",
@@ -718,11 +719,11 @@
   "entity.botania.corporea_spark": "コーポリアスパーク",
   "entity.botania.ender_air_bottle": "エンドの空気入り瓶",
 
-  "entity.botania.pool_minecart": "マナプールマインカート",
+  "entity.botania.mana_pool_minecart": "マナプールマインカート",
   "entity.botania.pink_wither": "桃色ウィザー",
-  "entity.botania.player_mover": "ルミナイザ光線",
-  "entity.botania.mana_storm": "マナストームの発生地",
-  "entity.botania.babylon_weapon": "宝物庫の武器",
+  "entity.botania.luminizer_beam": "ルミナイザ光線",
+  "entity.botania.manastorm_epicenter": "マナストームの発生地",
+  "entity.botania.treasury_weapon": "宝物庫の武器",
   "entity.botania.falling_star": "流星",
 
   "advancement.botania_challenge": "Botaniaチャレンジ",
@@ -1954,7 +1955,7 @@
   "item.botania.ring_of_far_reach": "広範の指輪",
   "item.botania.terra_shatterer": "テラシャッタラー",
   "item.botania.charm_of_the_diva": "歌姫のお守り",
-  "item.botania.fluegel_tiara": "フリューゲルのティアラ",
+  "item.botania.flugel_tiara": "フリューゲルのティアラ",
   "item.botania.soulscribe": "ソウルスクライブ",
   "item.botania.smokey_quartz": "煙がかったクォーツ",
   "item.botania.mana_quartz": "マナクォーツ",
@@ -2087,11 +2088,11 @@
   "item.botania.flower_pouch": "花入れ小袋",
 
   "item.botania.phantom_ink": "幻影インク",
-  "item.botania.pool_minecart": "マナプールカート",
+  "item.botania.mana_pool_minecart": "マナプールカート",
   "item.botania.the_pinkinator": "ピンキネイター",
   "item.botania.the_fruit_of_grisaia": "グリザイアの果実",
   "item.botania.key_of_the_kings_law": "王律鍵",
-  "item.botania.eye_of_the_fluegel": "フリューゲルの目",
+  "item.botania.eye_of_the_flugel": "フリューゲルの目",
   "item.botania.ring_of_thor": "トールの指輪",
   "item.botania.ring_of_odin": "オーディンの指輪",
   "item.botania.ring_of_loki": "ロキの指輪",
@@ -4005,8 +4006,8 @@
 
   "botania.entry.flugelEye": "フリューゲルの目",
   "botania.tagline.flugelEye": "フリューゲルの真の力",
-  "botania.page.flugelEye0": "模造品の$(l:ender/fluegel_tiara)$(item)フリューゲルのティアラ$(0)$(/l)とは異なり、$(item)フリューゲルの目$(0)には原初の$(thing)フリューゲル$(0)の魔力が秘められています。$(thing)フリューゲル$(0)達が訪れたことのある場所へ自身を呼び戻すという能力を利用するのに十分な魔力です。$(p)この目を持ち、どこかをスニーク右クリックで位置を紐付け、その後右クリックを押し続けると、$(thing)マナ$(0)を消費してその位置へワープすることが出来ます。",
-  "botania.page.flugelEye1": "残念ながら、目だけでは$(thing)フリューゲル$(0)の真の能力の断片に過ぎない為、使用者が次元を超えてワープすることは出来ません。$(p)しかし、$(l:ender/fluegel_tiara)$(item)フリューゲルのティアラ$(0)$(/l)の使用者は$(item)フリューゲルの目$(0)を所持しておくだけで、飛行ゲージが空になっても飛行し続ける事が出来ます。ただし、より高い$(thing)マナ$(0)コストが必要になります。",
+  "botania.page.flugelEye0": "模造品の$(l:ender/flugel_tiara)$(item)フリューゲルのティアラ$(0)$(/l)とは異なり、$(item)フリューゲルの目$(0)には原初の$(thing)フリューゲル$(0)の魔力が秘められています。$(thing)フリューゲル$(0)達が訪れたことのある場所へ自身を呼び戻すという能力を利用するのに十分な魔力です。$(p)この目を持ち、どこかをスニーク右クリックで位置を紐付け、その後右クリックを押し続けると、$(thing)マナ$(0)を消費してその位置へワープすることが出来ます。",
+  "botania.page.flugelEye1": "残念ながら、目だけでは$(thing)フリューゲル$(0)の真の能力の断片に過ぎない為、使用者が次元を超えてワープすることは出来ません。$(p)しかし、$(l:ender/flugel_tiara)$(item)フリューゲルのティアラ$(0)$(/l)の使用者は$(item)フリューゲルの目$(0)を所持しておくだけで、飛行ゲージが空になっても飛行し続ける事が出来ます。ただし、より高い$(thing)マナ$(0)コストが必要になります。",
 
   "botania.entry.thorRing": "トールの指輪",
   "botania.tagline.thorRing": "テラシャッタラーが十分な強さではなかったので",

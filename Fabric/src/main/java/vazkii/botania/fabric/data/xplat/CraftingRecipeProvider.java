@@ -1420,16 +1420,16 @@ public class CraftingRecipeProvider extends FabricRecipeProvider {
 				.pattern(" W ")
 				.unlockedBy("has_item", conditionsFromTag(BotaniaTags.Items.SMALL_MYSTICAL_FLOWERS))
 				.save(recipeOutput);
-		// TODO: temporary Petal Pouch recipe
 		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, BotaniaItems.PETAL_POUCH)
-				.define('P', BotaniaItems.FLOWER_POUCH)
+				.define('P', BotaniaTags.Items.PETALS)
+				.define('W', ItemTags.WOOL)
 				.define('D', ConventionalBotaniaTags.Items.MANA_DUSTS)
-				.pattern(" D ")
-				.pattern("DPD")
-				.pattern(" D ")
-				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.FLOWER_POUCH))
+				.pattern("WPW")
+				.pattern("WDW")
+				.pattern(" W ")
+				.unlockedBy("has_item", conditionsFromTag(ConventionalBotaniaTags.Items.MANA_DUSTS))
 				.save(recipeOutput);
-		ShapelessRecipeBuilder.shapeless(RecipeCategory.TRANSPORTATION, BotaniaItems.POOL_MINECART)
+		ShapelessRecipeBuilder.shapeless(RecipeCategory.TRANSPORTATION, BotaniaItems.MANA_POOL_MINECART)
 				.requires(Items.MINECART)
 				.requires(BotaniaBlocks.MANA_POOL)
 				.unlockedBy("has_item", conditionsFromItem(Items.MINECART))
@@ -1618,7 +1618,7 @@ public class CraftingRecipeProvider extends FabricRecipeProvider {
 				.pattern(" GL")
 				.unlockedBy("has_item", conditionsFromItem(BotaniaItems.GAIA_SPIRIT))
 				.save(recipeOutput);
-		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, BotaniaItems.FLUEGEL_TIARA)
+		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, BotaniaItems.FLUGEL_TIARA)
 				.define('E', BotaniaItems.ENDER_AIR_BOTTLE)
 				.define('F', Items.FEATHER)
 				.define('I', ConventionalBotaniaTags.Items.ELEMENTIUM_INGOTS)
@@ -1638,7 +1638,7 @@ public class CraftingRecipeProvider extends FabricRecipeProvider {
 		for (int variant = 0; variant < items.length; variant++) {
 			Ingredient material = items[variant] == null ? Ingredient.EMPTY : Ingredient.of(items[variant]);
 			TiaraWingsRecipeBuilder.with(material, variant)
-					.unlockedBy("has_item", conditionsFromItem(BotaniaItems.FLUEGEL_TIARA))
+					.unlockedBy("has_item", conditionsFromItem(BotaniaItems.FLUGEL_TIARA))
 					.save(recipeOutput);
 		}
 		ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, BotaniaItems.GREAT_FAIRY_RING)

@@ -67,7 +67,6 @@ import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.material.Fluids;
 
 import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.BotaniaFabricCapabilities;
 import vazkii.botania.api.BotaniaRegistries;
 import vazkii.botania.api.block.Avatar;
 import vazkii.botania.api.block.EdibleBlockWithEffects;
@@ -79,6 +78,8 @@ import vazkii.botania.api.block.WandBindable;
 import vazkii.botania.api.block.Wandable;
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.corporea.CorporeaHelper;
+import vazkii.botania.api.fabric.BotaniaFabricCapabilities;
+import vazkii.botania.api.fabric.mana.ManaNetworkCallback;
 import vazkii.botania.api.internal.ItemSource;
 import vazkii.botania.api.item.AvatarWieldable;
 import vazkii.botania.api.item.BlockProvider;
@@ -88,7 +89,6 @@ import vazkii.botania.api.item.Relic;
 import vazkii.botania.api.mana.ManaCollisionGhost;
 import vazkii.botania.api.mana.ManaItem;
 import vazkii.botania.api.mana.ManaItemHandler;
-import vazkii.botania.api.mana.ManaNetworkCallback;
 import vazkii.botania.api.mana.ManaReceiver;
 import vazkii.botania.api.mana.ManaTrigger;
 import vazkii.botania.api.mana.spark.SparkAttachable;
@@ -236,7 +236,7 @@ public class FabricCommonInitializer implements ModInitializer {
 		BotaniaEntities.registerEntities(bind(BuiltInRegistries.ENTITY_TYPE));
 		PixieHandler.registerAttribute(BuiltInRegistries.ATTRIBUTE);
 		BotaniaEntities.registerAttributes(FabricDefaultAttributeRegistry::register);
-		MinecartComparatorLogicRegistry.register(BotaniaEntities.POOL_MINECART, (minecart, state, pos) -> minecart.getComparatorLevel());
+		MinecartComparatorLogicRegistry.register(BotaniaEntities.MANA_POOL_MINECART, (minecart, state, pos) -> minecart.getComparatorLevel());
 		ItemSources.submitRegistrations(bind(ITEM_SOURCE_REGISTRY));
 
 		// Potions
@@ -358,7 +358,7 @@ public class FabricCommonInitializer implements ModInitializer {
 		blockProviderItemLookup.registerForItems((stack, c) -> new EnderHandItem.BlockProviderImpl(stack), BotaniaItems.HAND_OF_ENDER);
 
 		ItemApiLookup<CoordBoundItem, Unit> coordBoundItemLookup = BotaniaFabricCapabilities.getItemApiLookupById(CoordBoundItem.LOOKUP);
-		coordBoundItemLookup.registerForItems((st, c) -> new EyeOfTheFlugelItem.CoordBoundItemImpl(st), BotaniaItems.EYE_OF_THE_FLUEGEL);
+		coordBoundItemLookup.registerForItems((st, c) -> new EyeOfTheFlugelItem.CoordBoundItemImpl(st), BotaniaItems.EYE_OF_THE_FLUGEL);
 		coordBoundItemLookup.registerForItems((st, c) -> new ManaMirrorItem.CoordBoundItemImpl(st), BotaniaItems.MANA_MIRROR);
 		coordBoundItemLookup.registerForItems((st, c) -> new WandOfTheForestItem.CoordBoundItemImpl(st), BotaniaItems.WAND_OF_THE_FOREST);
 		coordBoundItemLookup.registerForItems((st, c) -> new WandOfTheForestItem.CoordBoundItemImpl(st), BotaniaItems.WAND_OF_THE_ELVEN_FOREST);
@@ -376,7 +376,7 @@ public class FabricCommonInitializer implements ModInitializer {
 
 		ItemApiLookup<Relic, Unit> relicItemLookup = BotaniaFabricCapabilities.getItemApiLookupById(Relic.LOOKUP);
 		relicItemLookup.registerForItems((st, c) -> DiceOfFateItem.makeRelic(st), BotaniaItems.DICE_OF_FATE);
-		relicItemLookup.registerForItems((st, c) -> EyeOfTheFlugelItem.makeRelic(st), BotaniaItems.EYE_OF_THE_FLUEGEL);
+		relicItemLookup.registerForItems((st, c) -> EyeOfTheFlugelItem.makeRelic(st), BotaniaItems.EYE_OF_THE_FLUGEL);
 		relicItemLookup.registerForItems((st, c) -> FruitOfGrisaiaItem.makeRelic(st), BotaniaItems.FRUIT_OF_GRISAIA);
 		relicItemLookup.registerForItems((st, c) -> KeyOfTheKingsLawItem.makeRelic(st), BotaniaItems.KEY_OF_THE_KINGS_LAW);
 		relicItemLookup.registerForItems((st, c) -> RingOfLokiItem.makeRelic(st), BotaniaItems.RING_OF_LOKI);

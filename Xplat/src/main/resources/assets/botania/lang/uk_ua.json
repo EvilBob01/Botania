@@ -251,6 +251,7 @@
 
 
 
+
   "tag.block.botania.floating_flowers": "Квіти, що плавають",
   "tag.block.botania.functional_special_flowers": "Функціональні спеціальні квіти",
 
@@ -707,22 +708,22 @@
 
   "entity.botania.mana_burst": "Сплеск мани",
   "entity.botania.pixie": "Піксі",
-  "entity.botania.ring_of_flame": "Кільце вогню",
+  "entity.botania.flame_ring": "Кільце вогню",
   "entity.botania.vine_ball": "Кулька лози",
-  "entity.botania.doppleganger": "Вартівник Ґаї",
-  "entity.botania.magic_landmine": "Пастка Ґаї",
+  "entity.botania.gaia_guardian": "Вартівник Ґаї",
+  "entity.botania.gaia_trap": "Пастка Ґаї",
   "entity.botania.spark": "Іскра",
   "entity.botania.thrown_item": "Кинутий предмет",
   "entity.botania.magic_missile": "Чарівний снаряд",
   "entity.botania.thorn_chakram": "Терновий чакрам",
   "entity.botania.corporea_spark": "Іскра Корпореї",
   "entity.botania.ender_air_bottle": "Пляшка з повітрям Енду",
-  "entity.botania.ender_air": "Хмара повітря Енду",
-  "entity.botania.pool_minecart": "Вагонетка з басейном мани",
+  "entity.botania.ender_air_cloud": "Хмара повітря Енду",
+  "entity.botania.mana_pool_minecart": "Вагонетка з басейном мани",
   "entity.botania.pink_wither": "Гламурний Візер",
-  "entity.botania.player_mover": "Промінь світлювача",
-  "entity.botania.mana_storm": "Епіцентр мана-шторму",
-  "entity.botania.babylon_weapon": "Скарбниця зброї",
+  "entity.botania.luminizer_beam": "Промінь світлювача",
+  "entity.botania.manastorm_epicenter": "Епіцентр мана-шторму",
+  "entity.botania.treasury_weapon": "Скарбниця зброї",
   "entity.botania.falling_star": "Зірка, що падає",
 
   "advancement.botania_challenge": "Виклики Botania",
@@ -1954,7 +1955,7 @@
   "item.botania.ring_of_far_reach": "Каблучка далекого охоплення",
   "item.botania.terra_shatterer": "Терарозколювач",
   "item.botania.charm_of_the_diva": "Шарм діви",
-  "item.botania.fluegel_tiara": "Тіара Флігеля",
+  "item.botania.flugel_tiara": "Тіара Флігеля",
   "item.botania.soulscribe": "Писар душі",
   "item.botania.smokey_quartz": "Димчастий кварц",
   "item.botania.mana_quartz": "Кварц мани",
@@ -2087,11 +2088,11 @@
   "item.botania.flower_pouch": "Квітковий мішечок",
 
   "item.botania.phantom_ink": "Фантомне чорнило",
-  "item.botania.pool_minecart": "Вагонетка з басейном мани",
+  "item.botania.mana_pool_minecart": "Вагонетка з басейном мани",
   "item.botania.the_pinkinator": "Орожевлювач",
   "item.botania.the_fruit_of_grisaia": "Плід Ґрисаї",
   "item.botania.key_of_the_kings_law": "Ключ королівського закону",
-  "item.botania.eye_of_the_fluegel": "Око Флігеля",
+  "item.botania.eye_of_the_flugel": "Око Флігеля",
   "item.botania.ring_of_thor": "Перстень Тора",
   "item.botania.ring_of_odin": "Перстень Одіна",
   "item.botania.ring_of_loki": "Перстень Локі",
@@ -4005,8 +4006,8 @@
 
   "botania.entry.flugelEye": "Око Флігеля",
   "botania.tagline.flugelEye": "Справжня сила Флігеля",
-  "botania.page.flugelEye0": "На відміну від створеної $(l:ender/fluegel_tiara)$(item)Тіари Флігеля$(0)$(/l), $(item)Око Флігеля$(0) містить первинну магію $(thing)Флігелів$(0). Насправді магія достатньо сильна, щоб використовувати здатність $(thing)Флігелів$(0) відкликати себе до раніше відвіданого місця.$(p)Натиснувши десь Шифт+ПКМ цим око, воно прив’яже себе до цього положення. Утримуючи ПКМ з прив’язаним оком, ви використовуєте $(thing)Ману$(0), щоб деформувати матерію свого власника у прив’язане місце.",
-  "botania.page.flugelEye1": "На жаль, Око все ще є лише фрагментом справжнього потенціалу $(thing)Флігелів$(0), тому воно не може деформувати свого користувача в різних вимірах.$(p)Однак, лише маючи $(item)Око Флігеля$(0) під рукою дозволяє користувачеві $(l:ender/fluegel_tiara)$(item)Тіари Флігеля$(0)$(/l) літати з порожньою шкалою польоту (за більшу вартість $(thing)Мани$(0)).",
+  "botania.page.flugelEye0": "На відміну від створеної $(l:ender/flugel_tiara)$(item)Тіари Флігеля$(0)$(/l), $(item)Око Флігеля$(0) містить первинну магію $(thing)Флігелів$(0). Насправді магія достатньо сильна, щоб використовувати здатність $(thing)Флігелів$(0) відкликати себе до раніше відвіданого місця.$(p)Натиснувши десь Шифт+ПКМ цим око, воно прив’яже себе до цього положення. Утримуючи ПКМ з прив’язаним оком, ви використовуєте $(thing)Ману$(0), щоб деформувати матерію свого власника у прив’язане місце.",
+  "botania.page.flugelEye1": "На жаль, Око все ще є лише фрагментом справжнього потенціалу $(thing)Флігелів$(0), тому воно не може деформувати свого користувача в різних вимірах.$(p)Однак, лише маючи $(item)Око Флігеля$(0) під рукою дозволяє користувачеві $(l:ender/flugel_tiara)$(item)Тіари Флігеля$(0)$(/l) літати з порожньою шкалою польоту (за більшу вартість $(thing)Мани$(0)).",
 
   "botania.entry.thorRing": "Перстень Тора",
   "botania.tagline.thorRing": "Бо твій Терарозколювач не був достатньо сильним",

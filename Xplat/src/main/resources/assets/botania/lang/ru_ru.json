@@ -251,6 +251,7 @@
 
 
 
+
   "tag.block.botania.floating_flowers": "Парящие цветы",
   "tag.block.botania.functional_special_flowers": "Функциональные особые цветы",
 
@@ -707,22 +708,22 @@
 
   "entity.botania.mana_burst": "Сгусток маны",
   "entity.botania.pixie": "Пикси",
-  "entity.botania.ring_of_flame": "Пламенное кольцо",
+  "entity.botania.flame_ring": "Пламенное кольцо",
   "entity.botania.vine_ball": "Шар лозы",
-  "entity.botania.doppleganger": "Страж Гайи",
-  "entity.botania.magic_landmine": "Ловушка Гайи",
+  "entity.botania.gaia_guardian": "Страж Гайи",
+  "entity.botania.gaia_trap": "Ловушка Гайи",
   "entity.botania.spark": "Искра",
   "entity.botania.thrown_item": "Брошенный предмет",
   "entity.botania.magic_missile": "Магический снаряд",
   "entity.botania.thorn_chakram": "Шипастый чакрам",
   "entity.botania.corporea_spark": "Эфирная искра",
   "entity.botania.ender_air_bottle": "Пузырёк с воздухом Энда",
-  "entity.botania.ender_air": "Облако воздуха Энда",
-  "entity.botania.pool_minecart": "Вагонетка с бассейном для маны",
+  "entity.botania.ender_air_cloud": "Облако воздуха Энда",
+  "entity.botania.mana_pool_minecart": "Вагонетка с бассейном для маны",
   "entity.botania.pink_wither": "Розовый Визер",
-  "entity.botania.player_mover": "Течение люкседука",
-  "entity.botania.mana_storm": "Эпицентр манашторма",
-  "entity.botania.babylon_weapon": "Оружие королевского арсенала",
+  "entity.botania.luminizer_beam": "Течение люкседука",
+  "entity.botania.manastorm_epicenter": "Эпицентр манашторма",
+  "entity.botania.treasury_weapon": "Оружие королевского арсенала",
   "entity.botania.falling_star": "Падающая звезда",
 
   "advancement.botania_challenge": "Botania — Испытания",
@@ -1954,7 +1955,7 @@
   "item.botania.ring_of_far_reach": "Кольцо долгорукости",
   "item.botania.terra_shatterer": "Терра-крушитель",
   "item.botania.charm_of_the_diva": "Амулет Дивы",
-  "item.botania.fluegel_tiara": "Тиара флюгель",
+  "item.botania.flugel_tiara": "Тиара флюгель",
   "item.botania.soulscribe": "Бесплотный резчик",
   "item.botania.smokey_quartz": "Дымный кварц",
   "item.botania.mana_quartz": "Манакварц",
@@ -2087,11 +2088,11 @@
   "item.botania.flower_pouch": "Мешочек для цветов",
 
   "item.botania.phantom_ink": "Фантомные чернила",
-  "item.botania.pool_minecart": "Вагонетка с бассейном маны",
+  "item.botania.mana_pool_minecart": "Вагонетка с бассейном маны",
   "item.botania.the_pinkinator": "Розовинатор",
   "item.botania.the_fruit_of_grisaia": "Плод Грисайи",
   "item.botania.key_of_the_kings_law": "Ключ от королевского арсенала",
-  "item.botania.eye_of_the_fluegel": "Око флюгель",
+  "item.botania.eye_of_the_flugel": "Око флюгель",
   "item.botania.ring_of_thor": "Кольцо Тора",
   "item.botania.ring_of_odin": "Кольцо Одина",
   "item.botania.ring_of_loki": "Кольцо Локи",
@@ -4005,8 +4006,8 @@
 
   "botania.entry.flugelEye": "Око флюгель",
   "botania.tagline.flugelEye": "Истинная сила флюгель",
-  "botania.page.flugelEye0": "В отличие от создаваемой $(l:ender/fluegel_tiara)тиары флюгель$(/l), $(item)око флюгель$(0) хранит часть первородной $(thing)магии расы флюгель$(0). Этой части хватает, чтобы использовать способность $(thing)флюгель$(0) — возвращаться на ранее посещённые места.$(p)Нажатие [$(k:sneak)+$(k:use)] привяжет око к текущей позиции пользователя.",
-  "botania.page.flugelEye1": "Но око всего лишь фрагмент истинного потенциала $(thing)флюгель$(0), поэтому не может перемещать пользователя между измерениями.$(p)Однако простое удерживание $(item)ока флюгель$(0) в руке позволяет пользователю $(l:ender/fluegel_tiara)тиары флюгель$(/l) летать с пустой полоской полёта (расходуя при этом больше $(thing)маны$(0)).",
+  "botania.page.flugelEye0": "В отличие от создаваемой $(l:ender/flugel_tiara)тиары флюгель$(/l), $(item)око флюгель$(0) хранит часть первородной $(thing)магии расы флюгель$(0). Этой части хватает, чтобы использовать способность $(thing)флюгель$(0) — возвращаться на ранее посещённые места.$(p)Нажатие [$(k:sneak)+$(k:use)] привяжет око к текущей позиции пользователя.",
+  "botania.page.flugelEye1": "Но око всего лишь фрагмент истинного потенциала $(thing)флюгель$(0), поэтому не может перемещать пользователя между измерениями.$(p)Однако простое удерживание $(item)ока флюгель$(0) в руке позволяет пользователю $(l:ender/flugel_tiara)тиары флюгель$(/l) летать с пустой полоской полёта (расходуя при этом больше $(thing)маны$(0)).",
 
   "botania.entry.thorRing": "Кольцо Тора",
   "botania.tagline.thorRing": "Потому что ваш терра-крушитель недостаточно силён",

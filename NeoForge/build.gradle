@@ -1,6 +1,6 @@
 plugins {
-    id 'multiloader-loader'
-    id 'net.neoforged.moddev'
+    id("multiloader-loader")
+    alias(libs.plugins.mdg)
 }
 
 repositories {
@@ -13,78 +13,80 @@ repositories {
 neoForge {
     version = neoforge_version
     // Automatically enable neoforge AccessTransformers if the file exists
-    def at = project(':Xplat').file('src/main/resources/META-INF/accesstransformer.cfg')
+    def at = project(":Xplat").file("src/main/resources/META-INF/accesstransformer.cfg")
     if (at.exists()) {
         accessTransformers.from(at.absolutePath)
     }
 
     parchment {
-        minecraftVersion = parchment_minecraft
+        minecraftVersion = minecraft_version
         mappingsVersion = parchment_version
     }
 
     runs {
         configureEach {
-            systemProperty('neoforge.enabledGameTestNamespaces', mod_id)
-            systemProperty('fml.earlyprogresswindow', 'false')
+            systemProperty("neoforge.enabledGameTestNamespaces", mod_id)
+            systemProperty("fml.earlyprogresswindow", "false")
             ideName = "NeoForge ${it.name.capitalize()} (${project.path})" // Unify the run config names with fabric
-            gameDirectory = file('../run/')
+            gameDirectory = file("../run/")
         }
 
         client {
             client()
-            systemProperty('neoforge.logging.console.level', 'debug')
+            systemProperty("neoforge.logging.console.level", "debug")
         }
         neoforgeDatagen {
             data()
-            programArguments.addAll '--mod', mod_id, '--all',
-                    '--output', file('src/generated/resources/').getAbsolutePath(),
-                    '--existing', file('src/main/resources/').getAbsolutePath()
+            programArguments.addAll("--mod", mod_id, "--all",
+                    "--output", file("src/generated/resources/").getAbsolutePath(),
+                    "--existing", file("src/main/resources/").getAbsolutePath())
         }
         gardenOfGlassDatagen {
             data()
-            programArguments.addAll('--mod', mod_id, '--all',
-                    '--output', file('../garden_of_glass/src/generated/resources/').getAbsolutePath(),
-                    '--existing', file('../garden_of_glass/src/main/resources/').getAbsolutePath())
-            systemProperty('botania.gog_datagen', '1')
+            programArguments.addAll("--mod", mod_id, "--all",
+                    "--output", file("../garden_of_glass/src/generated/resources/").getAbsolutePath(),
+                    "--existing", file("../garden_of_glass/src/main/resources/").getAbsolutePath())
+            systemProperty("botania.gog_datagen", "1")
         }
         server {
             server()
-            systemProperty('neoforge.logging.console.level', 'debug')
-            programArgument '--nogui'
+            systemProperty("neoforge.logging.console.level", "debug")
+            programArgument("--nogui")
         }
     }
 
     mods {
         "${mod_id}" {
-            sourceSet sourceSets.main
+            sourceSet(sourceSets.main)
         }
     }
 }
 
 dependencies {
-    implementation "vazkii.patchouli:Patchouli:${patchouli_version}-NEOFORGE"
-    compileOnly "mezz.jei:jei-${minecraft_version}-neoforge-api:${jei_version}"
-    runtimeOnly "mezz.jei:jei-${minecraft_version}-neoforge:${jei_version}"
+    compileOnly(libs.jetbrains.annotations)
 
-    compileOnly "dev.emi:emi-neoforge:${emi_version}:api"
-    //runtimeOnly "dev.emi:emi-neoforge:${emi_version}"
+    implementation(libs.patchouli.neoforge)
+    compileOnly(variantOf(libs.curios) { classifier("api") })
 
-    compileOnly "me.shedaniel:RoughlyEnoughItems-neoforge:${rei_version}"
-    //runtimeOnly "me.shedaniel:RoughlyEnoughItems-neoforge:${rei_version}"
+    compileOnly(variantOf(libs.emi.neoforge) { classifier("api") })
+    compileOnly(libs.jei.neoforge.api)
+    compileOnly(libs.rei.neoforge)
 
-    compileOnly "top.theillusivec4.curios:curios-neoforge:${curios_version}:api"
-    runtimeOnly "top.theillusivec4.curios:curios-neoforge:${curios_version}"
+    compileOnly(libs.ears)
+    compileOnly(libs.sodium.neoforge) { transitive = false }
+    compileOnly(libs.embeddium) { transitive = false }
 
-    compileOnly "com.unascribed:ears-api:${ears_version}"
+    runtimeOnly(libs.curios)
 
-    compileOnly("maven.modrinth:sodium:mc${minecraft_version}-${sodium_version}-neoforge") { transitive = false }
-
-    compileOnly("maven.modrinth:embeddium:${embeddium_version}+mc${minecraft_version}") { transitive = false }
-
-    compileOnly "org.jetbrains:annotations:26.0.2"
+    if (rootProject.hasProperty("load_override_emi")) {
+        runtimeOnly(libs.emi.neoforge)
+    } else if (rootProject.hasProperty("load_override_rei")) {
+        runtimeOnly(libs.rei.neoforge)
+    } else {
+        runtimeOnly(libs.jei.neoforge.full)
+    }
 
     if (file("../garden_of_glass/gardenofglass-${gog_version}.jar").exists()) {
-        runtimeOnly files("../garden_of_glass/gardenofglass-${gog_version}.jar")
+        runtimeOnly(files("../garden_of_glass/gardenofglass-${gog_version}.jar"))
     }
 }

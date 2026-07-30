@@ -40,6 +40,8 @@ import vazkii.botania.common.component.BotaniaDataComponents;
 import vazkii.botania.common.helper.MathHelper;
 import vazkii.botania.common.internal_caps.ItemLifetime;
 import vazkii.botania.common.lib.BotaniaTags;
+import vazkii.botania.network.clientbound.FlowerTakeItemEffectPacket;
+import vazkii.botania.xplat.BotaniaConfig;
 import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.Collections;
@@ -178,11 +180,12 @@ public class GourmaryllisBlockEntity extends GeneratingFlowerBlockEntity {
 				item.playSound(SoundEvents.GENERIC_EAT, 0.2f, 0.6f);
 				level.gameEvent(null, GameEvent.BLOCK_ACTIVATE, getEffectivePos());
 				setChanged();
-				((ServerLevel) level).sendParticles(new ItemParticleOption(ParticleTypes.ITEM, stack),
-						item.getX(), item.getY(), item.getZ(),
-						20, 0.1, 0.1, 0.1, 0.05);
 			}
 
+			if (BotaniaConfig.common().flowerItemPickupAnimations()) {
+				XplatAbstractions.instance().sendToTracking(item,
+						FlowerTakeItemEffectPacket.create(item.getId(), getEffectivePos(), item.getItem().getCount()));
+			}
 			item.discard();
 		}
 
@@ -202,7 +205,7 @@ public class GourmaryllisBlockEntity extends GeneratingFlowerBlockEntity {
 	}
 
 	private static int getFoodValue(ItemStack stack) {
-		// support for Forge's NBT-based food properties
+		// support for NeoForge's DataComponent-based food properties
 		FoodProperties foodProperties = XplatAbstractions.INSTANCE.getFoodProperties(stack);
 		int nutrition = foodProperties != null ? foodProperties.nutrition() : 0;
 		return Math.min(MAX_FOOD_VALUE, nutrition);

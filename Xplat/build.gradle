@@ -1,45 +1,39 @@
 plugins {
-    id 'multiloader-common'
-    id 'net.neoforged.moddev'
+    id("multiloader-common")
+    alias(libs.plugins.mdg)
 }
 
 neoForge {
     neoFormVersion = neo_form_version
     // Automatically enable AccessTransformers if the file exists
-    def at = file('src/main/resources/META-INF/accesstransformer_xplat.cfg')
+    def at = file("src/main/resources/META-INF/accesstransformer_xplat.cfg")
     if (at.exists()) {
         accessTransformers.from(at.absolutePath)
     }
     parchment {
-        minecraftVersion = parchment_minecraft
+        minecraftVersion = minecraft_version
         mappingsVersion = parchment_version
     }
 }
 
 dependencies {
-    compileOnly "net.fabricmc:sponge-mixin:0.15.2+mixin.0.8.7"
-    // fabric and neoforge both bundle mixinextras, so it is safe to use it in common
-    compileOnly "io.github.llamalad7:mixinextras-common:0.4.1"
-    annotationProcessor "io.github.llamalad7:mixinextras-common:0.4.1"
+    compileOnly(libs.bundles.mixin)
+    annotationProcessor(libs.mixin.extras)
 
-    compileOnly "vazkii.patchouli:Patchouli-xplat:$patchouli_version"
+    compileOnly(libs.patchouli.xplat)
+    compileOnly(libs.ears)
+    compileOnly(libs.jei.common.api)
+    compileOnly(variantOf(libs.emi.xplat) { classifier("api") })
+    compileOnly(libs.rei.neoforge) // (the -common variant would be in Intermediary mapping)
 
-    compileOnly "com.unascribed:ears-api:$ears_version"
-
-    compileOnly "mezz.jei:jei-$minecraft_version-common-api:$jei_version"
-    compileOnly "dev.emi:emi-xplat-mojmap:${emi_version}:api"
-
-    // Looks weird, but actually seems to work (the -common variant would be in Intermediary mapping)
-    compileOnly "me.shedaniel:RoughlyEnoughItems-neoforge:${rei_version}"
-
-    compileOnly "org.jetbrains:annotations:26.0.2"
+    compileOnly(libs.jetbrains.annotations)
 }
 
-tasks.register('normalizeLanguageFiles', JavaExec) {
+tasks.register("normalizeLanguageFiles", JavaExec) {
     group = "verification"
     description = "Normalize language file layout according to en_us.json"
     classpath = sourceSets.main.runtimeClasspath
-    mainClass = 'vazkii.botania.data.LangSortTool'
+    mainClass = "vazkii.botania.data.LangSortTool"
     workingDir = projectDir.parent
 }
 
@@ -55,6 +49,6 @@ configurations {
 }
 
 artifacts {
-    commonJava sourceSets.main.java.sourceDirectories.singleFile
-    commonResources sourceSets.main.resources.sourceDirectories.files
+    commonJava(sourceSets.main.java.sourceDirectories.files)
+    commonResources(sourceSets.main.resources.sourceDirectories.files)
 }

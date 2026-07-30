@@ -1,30 +1,20 @@
 plugins {
-    id 'com.diffplug.spotless' version '7.0.2' apply false
-    id "org.jetbrains.gradle.plugin.idea-ext" version "1.1.7"
-    // see https://fabricmc.net/develop/ for new versions
-    id 'net.fabricmc.fabric-loom-remap' version '1.14.7' apply false
-    // see https://projects.neoforged.net/neoforged/moddevgradle for new versions
-    id 'net.neoforged.moddev' version '2.0.123' apply false
+    id("idea")
+    alias(libs.plugins.spotless) apply false
 }
 
-subprojects {
-    apply plugin: 'pmd'
-    apply plugin: 'com.diffplug.spotless'
+println("Java: ${System.getProperty("java.version")}, JVM: ${System.getProperty("java.vm.version")} (${System.getProperty("java.vendor")}), Arch: ${System.getProperty("os.arch")}")
 
-    pmd {
-        toolVersion = '6.55.0'
-        incrementalAnalysis.set(true)
-        ruleSetFiles = rootProject.files("spotless/pmd-ruleset.xml")
-    }
+idea.module {
+    downloadJavadoc = true
+    downloadSources = true
+}
 
-    spotless {
-        enforceCheck = false // workaround around jenkins having wrong line endings in some files
-        // we explicitly check in github actions builds
-        java {
-            indentWithTabs()
-            eclipse().configFile rootProject.file('spotless/eclipseformat.xml')
-            removeUnusedImports()
-            importOrderFile rootProject.file('spotless/eclipse.importorder')
-        }
-    }
+tasks.register("runAllDatagen") {
+    dependsOn(
+            project("Fabric").tasks.named("runXplatDatagen"),
+            project("Fabric").tasks.named("runFabricDatagen"),
+            project("NeoForge").tasks.named("runNeoforgeDatagen"),
+            project("NeoForge").tasks.named("runGardenOfGlassDatagen")
+    )
 }

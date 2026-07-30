@@ -251,6 +251,7 @@
 
 
 
+
   "tag.block.botania.floating_flowers": "Yüzen Çiçekler",
   "tag.block.botania.functional_special_flowers": "Fonksiyonel Özel Çiçekler",
 
@@ -707,22 +708,22 @@
 
   "entity.botania.mana_burst": "Mana Patlaması",
   "entity.botania.pixie": "Peri",
-  "entity.botania.ring_of_flame": "Alev Halkası",
+  "entity.botania.flame_ring": "Alev Halkası",
   "entity.botania.vine_ball": "Sarmaşık Topu",
-  "entity.botania.doppleganger": "Gaia Muhafızı",
-  "entity.botania.magic_landmine": "Gaia Tuzağı",
+  "entity.botania.gaia_guardian": "Gaia Muhafızı",
+  "entity.botania.gaia_trap": "Gaia Tuzağı",
   "entity.botania.spark": "Kıvılcım",
   "entity.botania.thrown_item": "Atılan Eşya",
   "entity.botania.magic_missile": "Büyülü Füze",
   "entity.botania.thorn_chakram": "Dikenli Çakram",
   "entity.botania.corporea_spark": "Corporea Kıvılcımı",
   "entity.botania.ender_air_bottle": "Ender Havası Şişesi",
-  "entity.botania.ender_air": "Ender Havası Bulutu",
-  "entity.botania.pool_minecart": "Mana Havuzu Vagonu",
+  "entity.botania.ender_air_cloud": "Ender Havası Bulutu",
+  "entity.botania.mana_pool_minecart": "Mana Havuzu Vagonu",
   "entity.botania.pink_wither": "Pembe Wither",
-  "entity.botania.player_mover": "Luminizer Işını",
-  "entity.botania.mana_storm": "Manastorm Merkezi",
-  "entity.botania.babylon_weapon": "Hazine Silahı",
+  "entity.botania.luminizer_beam": "Luminizer Işını",
+  "entity.botania.manastorm_epicenter": "Manastorm Merkezi",
+  "entity.botania.treasury_weapon": "Hazine Silahı",
   "entity.botania.falling_star": "Kayan Yıldız",
 
   "advancement.botania_challenge": "Botania Mücadeleleri",
@@ -1954,7 +1955,7 @@
   "item.botania.ring_of_far_reach": "Uzak Erişim Yüzüğü",
   "item.botania.terra_shatterer": "Terra Kırıcı",
   "item.botania.charm_of_the_diva": "Diva Tılsımı",
-  "item.botania.fluegel_tiara": "Flügel Tacı",
+  "item.botania.flugel_tiara": "Flügel Tacı",
   "item.botania.soulscribe": "Ruhyazan",
   "item.botania.smokey_quartz": "Dumanlı Kuvars",
   "item.botania.mana_quartz": "Mana Kuvarsı",
@@ -2087,11 +2088,11 @@
   "item.botania.flower_pouch": "Çiçek Kesesi",
   "item.botania.petal_pouch": "Taç Yaprağı Kesesi",
   "item.botania.phantom_ink": "Hayalet Mürekkebi",
-  "item.botania.pool_minecart": "Mana Havuzlu Vagon",
+  "item.botania.mana_pool_minecart": "Mana Havuzlu Vagon",
 
   "item.botania.the_fruit_of_grisaia": "Grisaia'nın Meyvesi",
   "item.botania.key_of_the_kings_law": "Kralın Hukuku Anahtarı",
-  "item.botania.eye_of_the_fluegel": "Flügel'in Gözü",
+  "item.botania.eye_of_the_flugel": "Flügel'in Gözü",
   "item.botania.ring_of_thor": "Thor'un Yüzüğü",
   "item.botania.ring_of_odin": "Odin'in Yüzüğü",
   "item.botania.ring_of_loki": "Loki'nin Yüzüğü",

@@ -36,8 +36,7 @@ public class EntityTagProvider extends IntrinsicHolderTagsProvider<EntityType<?>
 				.add(EntityType.HORSE, EntityType.DONKEY, EntityType.WOLF, EntityType.OCELOT,
 						EntityType.CAT, EntityType.PARROT, EntityType.LLAMA, EntityType.FOX,
 						EntityType.PANDA, EntityType.TURTLE, EntityType.GOAT, EntityType.CAMEL,
-						EntityType.ARMADILLO)
-				.addOptional(ResourceLocation.fromNamespaceAndPath("quark", "frog"));
+						EntityType.ARMADILLO);
 
 		tag(BotaniaTags.Entities.COCOON_COMMON_AQUATIC)
 				.add(EntityType.COD, EntityType.SALMON, EntityType.TROPICAL_FISH, EntityType.PUFFERFISH, EntityType.SQUID, EntityType.FROG)
@@ -52,8 +51,9 @@ public class EntityTagProvider extends IntrinsicHolderTagsProvider<EntityType<?>
 				EntityType.COMMAND_BLOCK_MINECART, EntityType.MARKER, EntityType.AREA_EFFECT_CLOUD,
 				EntityType.EVOKER_FANGS, EntityType.LEASH_KNOT, EntityType.BLOCK_DISPLAY, EntityType.ITEM_DISPLAY,
 				EntityType.TEXT_DISPLAY, EntityType.INTERACTION, EntityType.MARKER,
-				BotaniaEntities.CORPOREA_SPARK, BotaniaEntities.GAIA_GUARDIAN, BotaniaEntities.FLAME_RING, BotaniaEntities.MAGIC_LANDMINE,
-				BotaniaEntities.MAGIC_MISSILE, BotaniaEntities.MANA_BURST, BotaniaEntities.PINK_WITHER, BotaniaEntities.SPARK, BotaniaEntities.PLAYER_MOVER);
+				BotaniaEntities.CORPOREA_SPARK, BotaniaEntities.GAIA_GUARDIAN, BotaniaEntities.FLAME_RING, BotaniaEntities.GAIA_TRAP,
+				BotaniaEntities.MAGIC_MISSILE, BotaniaEntities.MANA_BURST, BotaniaEntities.PINK_WITHER, BotaniaEntities.SPARK, BotaniaEntities.LUMINIZER_BEAM
+		);
 
 		tag(BotaniaTags.Entities.KEY_IMMUNE).add(EntityType.ITEM, EntityType.ITEM_FRAME, EntityType.GLOW_ITEM_FRAME,
 				EntityType.PAINTING, EntityType.EXPERIENCE_ORB);

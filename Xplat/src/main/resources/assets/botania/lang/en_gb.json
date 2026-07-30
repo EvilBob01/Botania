@@ -281,6 +281,7 @@
 
 
 
+
   "tag.block.botania.shields_from_ring_of_magnetization": "Shields from Ring of Magnetisation",
 
 
@@ -720,8 +721,8 @@
 
 
 
-  "entity.botania.player_mover": "Luminiser Beam",
-  "entity.botania.mana_storm": "Manastorm Epicentre",
+  "entity.botania.luminizer_beam": "Luminiser Beam",
+  "entity.botania.manastorm_epicenter": "Manastorm Epicentre",
 
 
 

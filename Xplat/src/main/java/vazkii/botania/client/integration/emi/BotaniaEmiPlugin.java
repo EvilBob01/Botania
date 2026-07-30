@@ -25,12 +25,15 @@ import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.util.Unit;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.CraftingRecipe;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeHolder;
@@ -178,7 +181,7 @@ public class BotaniaEmiPlugin implements EmiPlugin {
 		registry.setDefaultComparison(BotaniaItems.BREW_VIAL, Comparison.compareComponents());
 		registry.setDefaultComparison(BotaniaItems.TAINTED_BLOOD_PENDANT, Comparison.compareComponents());
 		registry.setDefaultComparison(BotaniaItems.INCENSE_STICK, Comparison.compareComponents());
-		registry.setDefaultComparison(BotaniaItems.FLUEGEL_TIARA, Comparison.compareComponents());
+		registry.setDefaultComparison(BotaniaItems.FLUGEL_TIARA, Comparison.compareComponents());
 
 		for (RecipeHolder<CraftingRecipe> recipe : registry.getRecipeManager().getAllRecipesFor(RecipeType.CRAFTING)) {
 			if (recipe.value() instanceof TiaraWingsRecipe tiaraWingsRecipe) {
@@ -249,7 +252,7 @@ public class BotaniaEmiPlugin implements EmiPlugin {
 
 		// pool item washing
 		EmiIngredient cauldron = EmiIngredient.of(Ingredient.of(Blocks.CAULDRON));
-		int bottleAmount = XplatAbstractions.instance().isForge() ? 250 : 27_000;
+		int bottleAmount = XplatAbstractions.instance().isNeoForge() ? 250 : 27_000;
 		EmiStack waterThird = EmiStack.of(Fluids.WATER, bottleAmount);
 		for (var e : Map.of(
 				BotaniaTags.Items.DYED_MANA_POOLS, BotaniaBlocks.MANA_POOL,
@@ -355,6 +358,69 @@ public class BotaniaEmiPlugin implements EmiPlugin {
 						EmiStack.of(BotaniaItems.WAND_OF_THE_ELVEN_FOREST))), true)
 				.output(EmiStack.of(BotaniaBlocks.MANA_ENCHANTER))
 				.id(BuiltInRegistries.BLOCK.getKey(BotaniaBlocks.MANA_ENCHANTER).withPrefix("/world/wandable/"))
+				.supportsRecipeTree(false)
+				.build());
+
+		// Cacophonium block from using a cacophonium on a note block
+		registry.addRecipe(EmiWorldInteractionRecipe.builder()
+				.leftInput(EmiStack.of(BotaniaItems.CACOPHONIUM))
+				.rightInput(EmiStack.of(Blocks.NOTE_BLOCK), false)
+				.output(EmiStack.of(BotaniaBlocks.CACOPHONIUM_BLOCK))
+				.id(BuiltInRegistries.BLOCK.getKey(BotaniaBlocks.CACOPHONIUM_BLOCK).withPrefix("/world/cacophonium/"))
+				.supportsRecipeTree(false)
+				.build());
+
+		// flower/mushroom growing
+		ColorHelper.supportedColors().forEach(color -> {
+			Block mysticalFlower = BotaniaBlocks.getMysticalFlower(color);
+			registry.addRecipe(EmiWorldInteractionRecipe.builder()
+					.leftInput(EmiIngredient.of(List.of(
+							EmiStack.of(BotaniaItems.getPetal(color)),
+							EmiStack.of(mysticalFlower)
+					)))
+					.rightInput(EmiStack.of(Items.BONE_MEAL), false)
+					.output(EmiStack.of(BotaniaBlocks.getTallMysticalFlower(color)))
+					.id(BuiltInRegistries.BLOCK.getKey(BotaniaBlocks.getTallMysticalFlower(color))
+							.withPrefix("/world/tall_flower_growing/"))
+					.build());
+		});
+		BuiltInRegistries.BLOCK.getTag(BotaniaTags.Blocks.SMALL_MYSTICAL_FLOWERS).orElseThrow()
+				.stream().map(Holder::value).forEach(mysticalFlower -> {
+					ResourceLocation flowerId = BuiltInRegistries.BLOCK.getKey(mysticalFlower);
+					registry.addRecipe(EmiWorldInteractionRecipe.builder()
+							.leftInput(EmiStack.EMPTY)
+							.rightInput(EmiStack.of(BotaniaBlocks.JADED_AMARANTHUS), true)
+							.output(EmiStack.of(mysticalFlower))
+							.id(flowerId.withPrefix("/world/jaded_amaranthus/"))
+							.build());
+					registry.addRecipe(EmiWorldInteractionRecipe.builder()
+							.leftInput(EmiStack.of(BotaniaItems.FLORAL_FERTILIZER))
+							.rightInput(EmiIngredient.of(BlockTags.DIRT), true)
+							.output(EmiStack.of(mysticalFlower))
+							.id(flowerId.withPrefix("/world/floral_fertilizer/"))
+							.build());
+				});
+		BuiltInRegistries.BLOCK.getTag(BotaniaTags.Blocks.SHIMMERING_MUSHROOMS).orElseThrow()
+				.stream().map(Holder::value).forEach(shimmeringMushroom -> {
+					ResourceLocation mushroomId = BuiltInRegistries.BLOCK.getKey(shimmeringMushroom);
+					registry.addRecipe(EmiWorldInteractionRecipe.builder()
+							.leftInput(EmiStack.of(BotaniaItems.FLORAL_FERTILIZER))
+							.rightInput(EmiIngredient.of(BlockTags.MUSHROOM_GROW_BLOCK), true)
+							.output(EmiStack.of(shimmeringMushroom))
+							.id(mushroomId.withPrefix("/world/floral_fertilizer/"))
+							.build());
+				});
+
+		// Clayconia
+		registry.addRecipe(EmiWorldInteractionRecipe.builder()
+				.leftInput(EmiIngredient.of(BlockTags.SAND))
+				.rightInput(
+						EmiIngredient.of(List.of(
+								EmiStack.of(BotaniaBlocks.CLAYCONIA),
+								EmiStack.of(BotaniaBlocks.CLAYCONIA_PETITE))),
+						true)
+				.output(EmiStack.of(Items.CLAY_BALL))
+				.id(BuiltInRegistries.ITEM.getKey(Items.CLAY_BALL).withPrefix("/world/clayconia/"))
 				.build());
 	}
 

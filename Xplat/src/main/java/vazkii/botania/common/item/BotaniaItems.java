@@ -11,6 +11,7 @@ package vazkii.botania.common.item;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.cauldron.CauldronInteraction;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Unit;
@@ -298,7 +299,8 @@ public final class BotaniaItems {
 			new ManasteelSwordItem(unstackableCustomDamage()));
 	public static final Item MANASTEEL_SHEARS = make(LibItemNames.MANASTEEL_SHEARS,
 			new ManasteelShearsItem(unstackableCustomDamage()
-					.durability(238)));
+					.durability(238)
+					.component(DataComponents.TOOL, ShearsItem.createToolProperties())));
 	public static final Item ELEMENTIUM_HELMET = make(LibItemNames.ELEMENTIUM_HELMET,
 			new ElementiumHelmItem(0.11, unstackableCustomDamage()
 					.durability(ArmorItem.Type.HELMET.getDurability(18))));
@@ -323,7 +325,8 @@ public final class BotaniaItems {
 			new ElementiumSwordItem(unstackableCustomDamage()));
 	public static final Item ELEMENTIUM_SHEARS = make(LibItemNames.ELEMENTIUM_SHEARS,
 			new ElementiumShearsItem(unstackableCustomDamage()
-					.durability(238)));
+					.durability(238)
+					.component(DataComponents.TOOL, ShearsItem.createToolProperties())));
 	public static final Item TERRASTEEL_HELMET = make(LibItemNames.TERRASTEEL_HELMET,
 			new TerrasteelHelmItem(unstackableCustomDamage()
 					.durability(ArmorItem.Type.HELMET.getDurability(34))
@@ -433,7 +436,7 @@ public final class BotaniaItems {
 			new ManufactoryHaloItem(unstackable()
 					.component(BotaniaDataComponents.ACTIVE, Unit.INSTANCE)));
 	public static final Item SPELLBINDING_CLOTH = make(LibItemNames.SPELLBINDING_CLOTH,
-			new SpellbindingClothItem(XplatAbstractions.INSTANCE.noRepairOnForge(unstackable()
+			new SpellbindingClothItem(XplatAbstractions.INSTANCE.noRepairOnNeoForge(unstackable()
 					.durability(35))));
 	public static final FlowerPouchItem FLOWER_POUCH = make(LibItemNames.FLOWER_POUCH,
 			new FlowerPouchItem(unstackable()
@@ -553,7 +556,7 @@ public final class BotaniaItems {
 					.rarity(Rarity.RARE)));
 	public static final Item THE_SPECTATOR = make(LibItemNames.THE_SPECTATOR,
 			new SpectatorItem(unstackable()));
-	public static final Item FLUEGEL_TIARA = make(LibItemNames.FLUEGEL_TIARA,
+	public static final Item FLUGEL_TIARA = make(LibItemNames.FLUGEL_TIARA,
 			new FlugelTiaraItem(unstackable()
 					.rarity(Rarity.RARE)));
 
@@ -607,7 +610,7 @@ public final class BotaniaItems {
 			new OvergrowthSeedItem(defaultBuilder()));
 	public static final Item PHANTOM_INK = make(LibItemNames.PHANTOM_INK,
 			new PhantomInkItem(defaultBuilder()));
-	public static final Item POOL_MINECART = make(LibItemNames.POOL_MINECART,
+	public static final Item MANA_POOL_MINECART = make(LibItemNames.MANA_POOL_MINECART,
 			new ManaPoolMinecartItem(unstackable()));
 	public static final Item RESOLUTE_IVY = make(LibItemNames.RESOLUTE_IVY,
 			new ResoluteIvyItem(defaultBuilder()));
@@ -645,7 +648,7 @@ public final class BotaniaItems {
 			new KeyOfTheKingsLawItem(unstackable()
 					.fireResistant()
 					.rarity(Rarity.EPIC)));
-	public static final Item EYE_OF_THE_FLUEGEL = make(LibItemNames.EYE_OF_THE_FLUEGEL,
+	public static final Item EYE_OF_THE_FLUGEL = make(LibItemNames.EYE_OF_THE_FLUGEL,
 			new EyeOfTheFlugelItem(unstackable()
 					.fireResistant()
 					.rarity(Rarity.EPIC)));
@@ -857,7 +860,7 @@ public final class BotaniaItems {
 		return XplatAbstractions.INSTANCE.defaultItemBuilder();
 	}
 
-	// Forge does custom damage by just implementing a method on Item,
+	// NeoForge does custom damage by just implementing a method on Item,
 	// Fabric does it by an extra lambda to the Properties object
 	public static Item.Properties defaultBuilderCustomDamage() {
 		return XplatAbstractions.INSTANCE.defaultItemBuilderWithCustomDamageOnFabric();

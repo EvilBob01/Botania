@@ -1,4 +1,4 @@
-// 1.21.1	Botania: High Yield/Botania item models
+// 1.21.1	2026-07-25T08:00:00.464301822	Botania/Botania item models
 d4b0ba0031453560fbcac5ba06e408d0ee6a8c4f assets/botania/models/item/abstruse_platform.json
 bf099805ffd7a8d3043459d5fa421695f2890c97 assets/botania/models/item/agricarnation.json
 c3ca3c034853dd545c042e51282bd3fee9398f6e assets/botania/models/item/agricarnation_petite.json
@@ -248,7 +248,6 @@ ff3586db3d89dbedddafaad247ea76d7fd79b274 assets/botania/models/item/daffomill.js
 ca19e9fcd7018ed7c9251b04b461e50774a3ac46 assets/botania/models/item/dammitreddit.json
 23f98a7250816d989a2b9573d2e9d58ed2a88281 assets/botania/models/item/dandelifeon.json
 d4f51985d8a5556093d616ddf3c542b7d02e3918 assets/botania/models/item/dasboot.json
-f3cc6084efda50d29d91a68a5900e3e9ece3b978 assets/botania/models/item/daybloom.json
 f3cc6084efda50d29d91a68a5900e3e9ece3b978 assets/botania/models/item/daybloom_motif.json
 e8b09eef19f77a2ad6760e2f72f200345ba0757e assets/botania/models/item/deepslate_petal_apothecary.json
 dbd8a16cd5a9551b03fb092dca4e06839d42bb04 assets/botania/models/item/detector_luminizer.json
@@ -302,7 +301,6 @@ b448b593a2fe2e2cbd2adb2665743e390779bd01 assets/botania/models/item/elven_gatewa
 970912f883688fd6ff80256d4c93007fcdbc1cc3 assets/botania/models/item/elven_quartz_pillar.json
 34767fa4df5a91996dd4c40d105e8ade38242f3c assets/botania/models/item/elven_quartz_slab.json
 ad40e9ecd73cc6c9ab1c083baf21639c2014ef9a assets/botania/models/item/elven_quartz_stairs.json
-83ef3507b43a0b98b46d885d2783bbd6c1ac2df9 assets/botania/models/item/enchanted_soil.json
 2506aacc273b482e11bc21ac6b1fbca05776dcb9 assets/botania/models/item/ender_air_bottle.json
 70203495d5351ccb24aebb52d351ca93c5b8efd1 assets/botania/models/item/ender_overseer.json
 68268a26dc4fc695166dce76413a5ce06f1f7aa9 assets/botania/models/item/endoflame.json
@@ -311,7 +309,7 @@ c318b1e4212b72bdb449dad041218c6842f20511 assets/botania/models/item/entropinnyum
 78609297e67371eaaa3b174a870069f86cd8a7cb assets/botania/models/item/exoflame.json
 58f1313cd999443d44158cab281515b5adb536af assets/botania/models/item/extrapolated_bucket.json
 52e3d893104b51c526708f53c7e068801332d195 assets/botania/models/item/eye_of_the_ancients.json
-5783d211d857a165ce94480d53318104b1eb36bc assets/botania/models/item/eye_of_the_fluegel.json
+5f8b896867541c4e2b5c7eeab5163ecbb7cf6c38 assets/botania/models/item/eye_of_the_flugel.json
 8517056cc5ee26632977c76151423f4d0f67c628 assets/botania/models/item/fabulous_mana_pool.json
 7e693840cccb4bdc3be8fb80627c49d7eff26974 assets/botania/models/item/fallen_kanade.json
 c945d62cbe1c3d8c9127d25f40a587c6f6c034ab assets/botania/models/item/fel_pumpkin.json
@@ -321,7 +319,7 @@ c945d62cbe1c3d8c9127d25f40a587c6f6c034ab assets/botania/models/item/fel_pumpkin.
 e9fc210986fc3dc7eb795dadfd72e7d437dea119 assets/botania/models/item/floral_fertilizer.json
 9963033fb6095eb66e4a8853da85f9aebd5da1de assets/botania/models/item/floral_obedience_stick.json
 512040f02a9af0f31f8380fc24d995bb1fb62a47 assets/botania/models/item/flower_pouch.json
-fbe001322b2d648d681875fa670dabf6d6f8b0c4 assets/botania/models/item/fluegel_tiara.json
+60ece96ab208a6dcf504d0e71081de0f9614cb78 assets/botania/models/item/flugel_tiara.json
 eeaa2b2e6539646cc5f3a6a720559e0b4f549a59 assets/botania/models/item/force_lens.json
 96cb9722a598d04d4fd90582194876a5780a360e assets/botania/models/item/force_relay.json
 deb7fe2dcbe4891182c3d47d55c1d967b32b0bed assets/botania/models/item/fork_luminizer.json
@@ -533,6 +531,7 @@ ccf272a913f23eed61b194aa41854139a85a7e9e assets/botania/models/item/mana_in_a_bo
 6d037115aa5db5c4d625b44a3b01d3f5747a7a92 assets/botania/models/item/mana_mirror.json
 1f8d75973aac94b274b344cdc704b25414efe4ee assets/botania/models/item/mana_pearl.json
 11d3751563952351b7719fa6d9420b7a959f9126 assets/botania/models/item/mana_pool.json
+e628eeab897aca4555eaf07c222e352bbdccc69d assets/botania/models/item/mana_pool_minecart.json
 9e2becae353d25972da09260b389d4fb6f382e27 assets/botania/models/item/mana_powder.json
 1b01e8aa3cc67dbc6ab1bb89a261dfd2c9eed425 assets/botania/models/item/mana_prism.json
 a00116b1a86adf81fbccbfc798838013e598a01e assets/botania/models/item/mana_pump.json
@@ -610,7 +609,6 @@ ff8bcb82905735e7835c1380c7eb1dbb977ad3d7 assets/botania/models/item/mycelite_wal
 610f7e31086b03157d61a062a93c7e0026ffeeb1 assets/botania/models/item/natura_pylon.json
 008e4a26ce37e7e055a3dc2ae7b9e9dc2a25b911 assets/botania/models/item/necrodermal_virus.json
 322b2be28efb15fc5fe2150a8d8042c50551cb50 assets/botania/models/item/nether_brick_petal_apothecary.json
-ae89b61af119d3131cb4e3e92755197ba6c66518 assets/botania/models/item/nightshade.json
 ae89b61af119d3131cb4e3e92755197ba6c66518 assets/botania/models/item/nightshade_motif.json
 14bf57379cc782d66b51b55496252cfb37ecc7c9 assets/botania/models/item/nimbus_amulet.json
 68413ac2efc964ad10873a3a434968f2dc0a6422 assets/botania/models/item/nullodermal_virus.json
@@ -627,7 +625,6 @@ e2269c9326996732d036f2eb99b366e97beb0501 assets/botania/models/item/orange_shimm
 a06cc20d9e88f49ac0137be2f8aa7f32c687159d assets/botania/models/item/orange_tall_mystical_flower.json
 e4b58f610a51492177a7fcb370f3f1aaf0744b55 assets/botania/models/item/orechid.json
 6a3cba3c2a1efa5dd3edeb429d4e99afa4b932c3 assets/botania/models/item/orechid_ignem.json
-196581a3facc8c1c93e69c40b86e5b31cc2cc633 assets/botania/models/item/overgrowth_seed.json
 e992ab877674c9541a323fb10fb17b806f981de2 assets/botania/models/item/paintslinger_lens.json
 e105dea0173c1e3f654b2c07fe88437b44d4846a assets/botania/models/item/pasture_seeds.json
 4f59ec8f51054cac12e02dd29a01a920c28a1fbf assets/botania/models/item/pattern_framed_dreamwood.json
@@ -654,7 +651,6 @@ cedfcbe394729f2a2abcd048b038a173daba429f assets/botania/models/item/pink_tall_my
 4b4e43d0a0d44ee27915bc3989ec731f4334c862 assets/botania/models/item/polished_livingrock_stairs.json
 241d1c85f8c8a962bc54458b29159674468b8f5e assets/botania/models/item/polished_livingrock_wall.json
 24fad1edf09742efac13741bef896e6510c43586 assets/botania/models/item/pollidisiac.json
-61a3a46a540ad46e08f8d8d61f99c4642af5892e assets/botania/models/item/pool_minecart.json
 334320f4ff0c9c8dcd0c643ac685dfe782891dd2 assets/botania/models/item/potency_lens.json
 c610e0f0fe292f55be0941dc49f6765d5fab9bba assets/botania/models/item/pulse_mana_spreader.json
 13940d58a058f76cf79f71d183931f0562b4f5d1 assets/botania/models/item/pure_daisy.json

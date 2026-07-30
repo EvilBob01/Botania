@@ -75,3 +75,6 @@ Temporary Items
 # Generated stubs / decompiled sources
 /data/
 /net/
+
+# Generated package-infos
+generatedPackageInfos/
