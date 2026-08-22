@@ -1,4 +1,4 @@
-// 1.21.1	2026-08-21T19:02:19.099463348	Botania/Tags for minecraft:block
+// 1.21.1	2026-08-22T15:39:19.6737588	Botania: High Yield/Tags for minecraft:block
 7a68ff158ad853180a69e6a2276ae92648e36622 data/botania/tags/block/agricarnation/apply_bonemeal.json
 4e644771038ec0475ee832ba6109d8c859afb562 data/botania/tags/block/agricarnation/growth_candidate.json
 d4ccdd52d950205105f63938b548d92c42dd1761 data/botania/tags/block/agricarnation/growth_excluded.json
@@ -71,14 +71,14 @@ ecce163938cc925fe079c2984cf7301b86cc49fa data/minecraft/tags/block/dampens_vibra
 245211371d5edf3bb5b5acd2cba7ac8e359530c3 data/minecraft/tags/block/dirt.json
 8c36ef26663fb0e578257603c1d2c9c440e47b33 data/minecraft/tags/block/dragon_immune.json
 5e3d052fd880c72e6cf251feb7baf0f1cc4b92e5 data/minecraft/tags/block/fence_gates.json
-04909f0dca1ea103836b91b4c5a92e7fad3cf75f data/minecraft/tags/block/flower_pots.json
 08dcd70c9ce61b3db1c6f5df4024131856efb2a5 data/minecraft/tags/block/flowers.json
+04909f0dca1ea103836b91b4c5a92e7fad3cf75f data/minecraft/tags/block/flower_pots.json
 f7564fb27f40366c91189740add1236534b0686e data/minecraft/tags/block/impermeable.json
 6b553bb9832d565598020d5d025cb828c1918cdc data/minecraft/tags/block/logs_that_burn.json
 6ed52809b902aaeb855eee79b173187c1446b7ae data/minecraft/tags/block/mineable/axe.json
 0a9898eba9e523237ac5d9c9946b669c4148e29b data/minecraft/tags/block/mineable/hoe.json
 144cba9def7af68910c3f6c7ae67e5499f34c85b data/minecraft/tags/block/mineable/pickaxe.json
-6dc502923dba1a83ac5d5e380311c30ac7983924 data/minecraft/tags/block/mineable/shovel.json
+40f68c57ac93a9a08de9c4d75ef282b5b5a22704 data/minecraft/tags/block/mineable/shovel.json
 be674e83ee679e0b1aa5e1c446b262f43c024ce0 data/minecraft/tags/block/mushroom_grow_block.json
 ecce163938cc925fe079c2984cf7301b86cc49fa data/minecraft/tags/block/occludes_vibration_signals.json
 119b4275cbffb61da75b503795d3fb0af0e1f35d data/minecraft/tags/block/planks.json
@@ -91,9 +91,9 @@ daacc2cda06894509ba8f549dabeeaa5f45c023c data/minecraft/tags/block/stairs.json
 39afab18356fbfdcaf9cd34ed9931df0912ba56a data/minecraft/tags/block/stone_buttons.json
 db67f4607503106c7b1694007ed9a60fb11192aa data/minecraft/tags/block/stone_pressure_plates.json
 94016922e9f663e07cfa56aff0251da0445f4cf0 data/minecraft/tags/block/tall_flowers.json
+2a465b980c148916fbabe21713331a5b4ee75592 data/minecraft/tags/block/walls.json
 ea56578ae9b47fe5d5d47adb33906099a9f968a0 data/minecraft/tags/block/wall_hanging_signs.json
 41843e8f38d4c177be6ebbf49de1e538a62284fd data/minecraft/tags/block/wall_signs.json
-2a465b980c148916fbabe21713331a5b4ee75592 data/minecraft/tags/block/walls.json
 8c36ef26663fb0e578257603c1d2c9c440e47b33 data/minecraft/tags/block/wither_immune.json
 6dcc7700270a14747d530dd9b1985485968f21d9 data/minecraft/tags/block/wooden_buttons.json
 27093fae65c697d379a2a0c3b7e86b05af90ee38 data/minecraft/tags/block/wooden_doors.json
