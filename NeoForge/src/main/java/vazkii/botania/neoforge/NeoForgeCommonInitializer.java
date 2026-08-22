@@ -34,12 +34,11 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.EnderMan;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.ComposterBlock;
 import net.minecraft.world.level.block.FlowerPotBlock;
 import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -51,7 +50,6 @@ import net.neoforged.neoforge.capabilities.BlockCapability;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.capabilities.ItemCapability;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
-import net.neoforged.neoforge.common.ItemAbilities;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.common.util.FakePlayer;
 import net.neoforged.neoforge.common.util.TriState;
@@ -65,8 +63,6 @@ import net.neoforged.neoforge.event.entity.EntityTeleportEvent;
 import net.neoforged.neoforge.event.entity.item.ItemTossEvent;
 import net.neoforged.neoforge.event.entity.living.*;
 import net.neoforged.neoforge.event.entity.player.*;
-import net.neoforged.neoforge.event.furnace.FurnaceFuelBurnTimeEvent;
-import net.neoforged.neoforge.event.level.BlockEvent;
 import net.neoforged.neoforge.event.level.ExplosionEvent;
 import net.neoforged.neoforge.event.server.ServerAboutToStartEvent;
 import net.neoforged.neoforge.event.server.ServerStoppingEvent;
@@ -150,7 +146,6 @@ import vazkii.botania.neoforge.internal_caps.NeoForgeInternalEntityCapabilities;
 import vazkii.botania.neoforge.internal_caps.RedStringContainerCapProvider;
 import vazkii.botania.neoforge.internal_caps.WaterBowlFluidHandler;
 import vazkii.botania.neoforge.network.NeoForgePacketHandler;
-import vazkii.botania.neoforge.xplat.NeoForgeXplatImpl;
 import vazkii.botania.network.clientbound.ItemLifeTimePacket;
 import vazkii.botania.xplat.XplatAbstractions;
 import vazkii.patchouli.api.PatchouliAPI;
@@ -189,11 +184,8 @@ public class NeoForgeCommonInitializer {
 			BiConsumer<ResourceLocation, Supplier<? extends Block>> consumer = (resourceLocation, blockSupplier) -> ((FlowerPotBlock) Blocks.FLOWER_POT).addPlant(resourceLocation, blockSupplier);
 			BotaniaBlocks.registerFlowerPotPlants(consumer);
 		});
-		BotaniaBlocks.addAxeStripping();
 		BotaniaItems.registerCauldronInteractions();
 		PaintableData.init();
-		// TODO: move this to datagen
-		evt.enqueueWork(() -> CompostingData.init((itemLike, chance) -> ComposterBlock.COMPOSTABLES.putIfAbsent(itemLike.asItem(), (float) chance)));
 		DefaultCorporeaMatchers.init();
 		PlayerHelper.setFakePlayerClass(FakePlayer.class);
 
@@ -316,13 +308,6 @@ public class NeoForgeCommonInitializer {
 	private void registerEvents() {
 		IEventBus bus = NeoForge.EVENT_BUS;
 
-		int blazeTime = 2400 * (XplatAbstractions.INSTANCE.gogLoaded() ? 5 : 10);
-		bus.addListener((FurnaceFuelBurnTimeEvent e) -> {
-			if (e.getItemStack().is(BotaniaBlocks.BLAZE_MESH.asItem())) {
-				e.setBurnTime(blazeTime);
-			}
-		});
-
 		if (XplatAbstractions.INSTANCE.gogLoaded()) {
 			bus.addListener((PlayerInteractEvent.RightClickBlock e) -> {
 				InteractionResult result = SkyblockWorldEvents.onPlayerInteract(e.getEntity(), e.getLevel(), e.getHand(), e.getHitVec());
@@ -376,16 +361,6 @@ public class NeoForgeCommonInitializer {
 		bus.addListener((AnvilUpdateEvent e) -> {
 			if (SpellbindingClothItem.shouldDenyAnvil(e.getLeft(), e.getRight())) {
 				e.setCanceled(true);
-			}
-		});
-		// FabricMixinAxeItem
-		bus.addListener((BlockEvent.BlockToolModificationEvent e) -> {
-			if (e.getItemAbility() == ItemAbilities.AXE_STRIP) {
-				BlockState input = e.getState();
-				Block output = NeoForgeXplatImpl.CUSTOM_STRIPPABLES.get(input.getBlock());
-				if (output != null) {
-					e.setFinalState(output.withPropertiesOf(input));
-				}
 			}
 		});
 		// FabricMixinEnderMan
@@ -495,16 +470,16 @@ public class NeoForgeCommonInitializer {
 			BotaniaItems.ROD_OF_THE_SKIES, SkiesRodItem.AvatarBehavior::new
 	));
 
-	private static final Supplier<Map<Item, Function<ItemStack, BlockProvider>>> BLOCK_PROVIDER = Suppliers.memoize(() -> Map.of(
-			BotaniaItems.ROD_OF_THE_LANDS, s -> new LandsRodItem.BlockProviderImpl(),
-			BotaniaItems.ROD_OF_THE_HIGHLANDS, s -> new LandsRodItem.BlockProviderImpl(),
+	private static final Supplier<Map<Item, BiFunction<ItemStack, Player, BlockProvider>>> BLOCK_PROVIDER = Suppliers.memoize(() -> Map.of(
+			BotaniaItems.ROD_OF_THE_LANDS, LandsRodItem.BlockProviderImpl::new,
+			BotaniaItems.ROD_OF_THE_HIGHLANDS, LandsRodItem.BlockProviderImpl::new,
 			BotaniaItems.BLACK_HOLE_TALISMAN, BlackHoleTalismanItem.BlockProviderImpl::new,
-			BotaniaItems.ROD_OF_THE_DEPTHS, s -> new DepthsRodItem.BlockProviderImpl(),
+			BotaniaItems.ROD_OF_THE_DEPTHS, DepthsRodItem.BlockProviderImpl::new,
 			BotaniaItems.HAND_OF_ENDER, EnderHandItem.BlockProviderImpl::new,
-			BotaniaItems.ROD_OF_THE_TERRA_FIRMA, s -> new LandsRodItem.BlockProviderImpl()
+			BotaniaItems.ROD_OF_THE_TERRA_FIRMA, LandsRodItem.BlockProviderImpl::new
 	));
 
-	private static final Supplier<Map<Item, Function<ItemStack, CoordBoundItem>>> COORD_BOUND_ITEM = Suppliers.memoize(() -> Map.of(
+	private static final Supplier<Map<Item, BiFunction<ItemStack, Level, CoordBoundItem>>> COORD_BOUND_ITEM = Suppliers.memoize(() -> Map.of(
 			BotaniaItems.EYE_OF_THE_FLUGEL, EyeOfTheFlugelItem.CoordBoundItemImpl::new,
 			BotaniaItems.MANA_MIRROR, ManaMirrorItem.CoordBoundItemImpl::new,
 			BotaniaItems.WAND_OF_THE_FOREST, WandOfTheForestItem.CoordBoundItemImpl::new,
@@ -563,8 +538,8 @@ public class NeoForgeCommonInitializer {
 		);
 
 		attachMappedItemCapsWithContext(e, BotaniaNeoForgeCapabilities.getItemApiLookupById(AvatarWieldable.LOOKUP), AVATAR_WIELDABLES.get());
-		attachMappedItemCaps(e, BotaniaNeoForgeCapabilities.getItemApiLookupById(BlockProvider.LOOKUP), BLOCK_PROVIDER.get());
-		attachMappedItemCaps(e, BotaniaNeoForgeCapabilities.getItemApiLookupById(CoordBoundItem.LOOKUP), COORD_BOUND_ITEM.get());
+		attachMappedItemCapsWithContext(e, BotaniaNeoForgeCapabilities.getItemApiLookupById(BlockProvider.LOOKUP), BLOCK_PROVIDER.get());
+		attachMappedItemCapsWithContext(e, BotaniaNeoForgeCapabilities.getItemApiLookupById(CoordBoundItem.LOOKUP), COORD_BOUND_ITEM.get());
 		attachMappedItemCaps(e, BotaniaNeoForgeCapabilities.getItemApiLookupById(HourglassMaterial.LOOKUP), HOURGLASS_MATERIAL.get());
 		attachMappedItemCaps(e, BotaniaNeoForgeCapabilities.getItemApiLookupById(ManaItem.LOOKUP), MANA_ITEM.get());
 		attachMappedItemCaps(e, BotaniaNeoForgeCapabilities.getItemApiLookupById(Relic.LOOKUP), RELIC.get());

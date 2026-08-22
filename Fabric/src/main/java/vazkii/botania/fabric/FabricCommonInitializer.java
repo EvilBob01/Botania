@@ -36,6 +36,7 @@ import net.fabricmc.fabric.api.object.builder.v1.entity.MinecartComparatorLogicR
 import net.fabricmc.fabric.api.registry.CompostingChanceRegistry;
 import net.fabricmc.fabric.api.registry.FlattenableBlockRegistry;
 import net.fabricmc.fabric.api.registry.FuelRegistry;
+import net.fabricmc.fabric.api.registry.StrippableBlockRegistry;
 import net.fabricmc.fabric.api.registry.TillableBlockRegistry;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidConstants;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidStorage;
@@ -56,12 +57,15 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.Unit;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.material.Fluids;
 
@@ -210,7 +214,7 @@ public class FabricCommonInitializer implements ModInitializer {
 		BotaniaBlockEntities.registerAdditionalBlocks(BlockEntityType::addSupportedBlock);
 		BotaniaItems.registerItems(boundForItem);
 		BotaniaBlocks.addDispenserBehaviours();
-		BotaniaBlocks.addAxeStripping();
+		BotaniaBlocks.addAxeStripping(this::registerAxeStripping);
 		BotaniaItems.registerCauldronInteractions();
 		for (Block b : List.of(BotaniaBlocks.DRY_GRASS_BLOCK, BotaniaBlocks.GOLDEN_GRASS_BLOCK,
 				BotaniaBlocks.VIVID_GRASS_BLOCK, BotaniaBlocks.SCORCHED_GRASS_BLOCK,
@@ -224,6 +228,8 @@ public class FabricCommonInitializer implements ModInitializer {
 
 		int blazeTime = 2400;
 		FuelRegistry.INSTANCE.add(BotaniaBlocks.BLAZE_MESH.asItem(), blazeTime * (XplatAbstractions.INSTANCE.gogLoaded() ? 5 : 10));
+		int wallTime = 300;
+		FuelRegistry.INSTANCE.add(BotaniaTags.Items.WOODEN_WALLS, wallTime);
 
 		// GUI and Recipe
 		BotaniaItems.registerMenuTypes(bind(BuiltInRegistries.MENU));
@@ -288,6 +294,16 @@ public class FabricCommonInitializer implements ModInitializer {
 				});
 	}
 
+	private void registerAxeStripping(Block input, Block output) {
+		// not sure why Fabric restricts it to blocks with the axis property, but we have to support non-log blocks
+		if (input.getStateDefinition().getProperties().contains(BlockStateProperties.AXIS)
+				&& output.getStateDefinition().getProperties().contains(BlockStateProperties.AXIS)) {
+			StrippableBlockRegistry.register(input, output);
+		} else {
+			AxeStrippingData.addCustomStrippable(input, output);
+		}
+	}
+
 	private void registerEvents() {
 		if (XplatAbstractions.INSTANCE.gogLoaded()) {
 			UseBlockCallback.EVENT.register(SkyblockWorldEvents::onPlayerInteract);
@@ -347,19 +363,19 @@ public class FabricCommonInitializer implements ModInitializer {
 		avatarWieldableItemLookup.registerForItems(BifrostRodItem.AvatarBehavior::new, BotaniaItems.ROD_OF_THE_BIFROST);
 		avatarWieldableItemLookup.registerForItems(SkiesRodItem.AvatarBehavior::new, BotaniaItems.ROD_OF_THE_SKIES);
 
-		ItemApiLookup<BlockProvider, Unit> blockProviderItemLookup = BotaniaFabricCapabilities.getItemApiLookupById(BlockProvider.LOOKUP);
-		blockProviderItemLookup.registerForItems((stack, c) -> new LandsRodItem.BlockProviderImpl(),
+		ItemApiLookup<BlockProvider, Player> blockProviderItemLookup = BotaniaFabricCapabilities.getItemApiLookupById(BlockProvider.LOOKUP);
+		blockProviderItemLookup.registerForItems(LandsRodItem.BlockProviderImpl::new,
 				BotaniaItems.ROD_OF_THE_LANDS, BotaniaItems.ROD_OF_THE_HIGHLANDS, BotaniaItems.ROD_OF_THE_TERRA_FIRMA
 		);
-		blockProviderItemLookup.registerForItems((stack, c) -> new BlackHoleTalismanItem.BlockProviderImpl(stack), BotaniaItems.BLACK_HOLE_TALISMAN);
-		blockProviderItemLookup.registerForItems((stack, c) -> new DepthsRodItem.BlockProviderImpl(), BotaniaItems.ROD_OF_THE_DEPTHS);
-		blockProviderItemLookup.registerForItems((stack, c) -> new EnderHandItem.BlockProviderImpl(stack), BotaniaItems.HAND_OF_ENDER);
+		blockProviderItemLookup.registerForItems(BlackHoleTalismanItem.BlockProviderImpl::new, BotaniaItems.BLACK_HOLE_TALISMAN);
+		blockProviderItemLookup.registerForItems(DepthsRodItem.BlockProviderImpl::new, BotaniaItems.ROD_OF_THE_DEPTHS);
+		blockProviderItemLookup.registerForItems(EnderHandItem.BlockProviderImpl::new, BotaniaItems.HAND_OF_ENDER);
 
-		ItemApiLookup<CoordBoundItem, Unit> coordBoundItemLookup = BotaniaFabricCapabilities.getItemApiLookupById(CoordBoundItem.LOOKUP);
-		coordBoundItemLookup.registerForItems((st, c) -> new EyeOfTheFlugelItem.CoordBoundItemImpl(st), BotaniaItems.EYE_OF_THE_FLUGEL);
-		coordBoundItemLookup.registerForItems((st, c) -> new ManaMirrorItem.CoordBoundItemImpl(st), BotaniaItems.MANA_MIRROR);
-		coordBoundItemLookup.registerForItems((st, c) -> new WandOfTheForestItem.CoordBoundItemImpl(st), BotaniaItems.WAND_OF_THE_FOREST);
-		coordBoundItemLookup.registerForItems((st, c) -> new WandOfTheForestItem.CoordBoundItemImpl(st), BotaniaItems.WAND_OF_THE_ELVEN_FOREST);
+		ItemApiLookup<CoordBoundItem, Level> coordBoundItemLookup = BotaniaFabricCapabilities.getItemApiLookupById(CoordBoundItem.LOOKUP);
+		coordBoundItemLookup.registerForItems(EyeOfTheFlugelItem.CoordBoundItemImpl::new, BotaniaItems.EYE_OF_THE_FLUGEL);
+		coordBoundItemLookup.registerForItems(ManaMirrorItem.CoordBoundItemImpl::new, BotaniaItems.MANA_MIRROR);
+		coordBoundItemLookup.registerForItems(WandOfTheForestItem.CoordBoundItemImpl::new, BotaniaItems.WAND_OF_THE_FOREST);
+		coordBoundItemLookup.registerForItems(WandOfTheForestItem.CoordBoundItemImpl::new, BotaniaItems.WAND_OF_THE_ELVEN_FOREST);
 
 		ItemApiLookup<HourglassMaterial, Unit> hourglassMaterialLookup = BotaniaFabricCapabilities.getItemApiLookupById(HourglassMaterial.LOOKUP);
 		hourglassMaterialLookup.registerForItems((st, c) -> HourglassMaterial.SAND, Items.SAND);
