@@ -282,6 +282,8 @@
 
 
 
+
+
   "tag.block.botania.shields_from_ring_of_magnetization": "Shields from Ring of Magnetisation",
 
 
@@ -375,7 +377,11 @@
 
 
 
+
+
+
   "tag.item.botania.ring_of_magnetization_ignored": "Ignored by Ring of Magnetisation",
+
 
 
 
@@ -395,6 +401,7 @@
 
 
   "tag.item.botania.petals.light_gray": "Light Grey Petals",
+
 
 
 
@@ -679,6 +686,7 @@
 
 
   "armorModels.enable": "Custom Armour Models",
+
 
 
 
@@ -3229,6 +3237,7 @@
 
 
 
+
   "botania.page.craftCrate3": "Finalising a recipe can be done in two ways:$(p)Filling all 9 slots with either recipe components or placeholders will instantly try to craft and output the result, as well as any placeholders and/or leftovers remaining in the crafting grid (e.g. buckets when making cake).$(p)Note that the crate will $(o)not$() eject its contents if no recipe is possible.",
 
 
@@ -3567,6 +3576,10 @@
 
 
   "botania.page.sextant1": "To use the sextant, sneak-right click to choose a mode. Simply right-click and hold at a block to choose the shape's centre, and look around to choose its radius; blue circles will appear in the world as an outline of the final shape. Upon release of the sextant, a mirage of $(item)Cobblestone$(0) blocks will appear as a building guide.$(p)Sneak-right clicking the sextant will remove the guide.",
+
+
+
+
 
 
 
@@ -4170,6 +4183,7 @@
 
 
 
+
   "botania.subtitle.equipElementium": "Elementium armour clanks",
   "botania.subtitle.equipManasteel": "Manasteel armour clanks",
 
@@ -4189,7 +4203,7 @@
 
 
 
-  "botania.subtitle.lightRelay": "Luminiser whooshes"
+  "botania.subtitle.luminizer": "Luminiser whooshes"
 
 
 

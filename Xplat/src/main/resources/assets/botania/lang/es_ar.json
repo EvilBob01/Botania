@@ -537,6 +537,13 @@
 
 
 
+
+
+
+
+
+
+
   "botania.color.rainbow": "Arco Iris",
 
 
@@ -689,6 +696,7 @@
 
 
   "botania.baubletooltip": "Oprime la &b%s&7 para abrir el menú de Baubles",
+
 
 
 
@@ -1092,10 +1100,6 @@
   "block.botania.manasteel_block": "Bloque de Acero de Maná",
   "block.botania.terrasteel_block": "Bloque de Acero de la Tierra",
   "block.botania.elementium_block": "Bloque de Elementium"
-
-
-
-
 
 
 

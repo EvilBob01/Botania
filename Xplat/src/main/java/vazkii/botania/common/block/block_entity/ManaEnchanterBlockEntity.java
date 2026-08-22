@@ -53,8 +53,8 @@ import org.jetbrains.annotations.UnknownNullability;
 import vazkii.botania.api.block.WandHUD;
 import vazkii.botania.api.block.Wandable;
 import vazkii.botania.api.mana.ManaReceiver;
-import vazkii.botania.api.mana.spark.SparkAttachable;
-import vazkii.botania.api.mana.spark.SparkHelper;
+import vazkii.botania.api.mana.spark.ManaSparkAttachable;
+import vazkii.botania.api.mana.spark.ManaSparkHelper;
 import vazkii.botania.api.state.BotaniaStateProperties;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.fx.SparkleParticleData;
@@ -64,6 +64,7 @@ import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.helper.PlayerHelper;
 import vazkii.botania.common.lib.BotaniaTags;
 import vazkii.botania.network.clientbound.EnchanterDestroyEffectPacket;
+import vazkii.botania.xplat.BotaniaConfig;
 import vazkii.botania.xplat.XplatAbstractions;
 import vazkii.patchouli.api.IMultiblock;
 import vazkii.patchouli.api.IStateMatcher;
@@ -78,7 +79,7 @@ import java.util.stream.Collectors;
 
 import static vazkii.botania.api.BotaniaAPI.botaniaRL;
 
-public class ManaEnchanterBlockEntity extends BlockEntity implements ManaReceiver, SparkAttachable, Wandable, Clearable {
+public class ManaEnchanterBlockEntity extends BlockEntity implements ManaReceiver, ManaSparkAttachable, Wandable, Clearable {
 	private static final String TAG_STAGE = "stage";
 	private static final String TAG_STAGE_TICKS = "stageTicks";
 	private static final String TAG_STAGE_3_END_TICKS = "stage3EndTicks";
@@ -209,7 +210,7 @@ public class ManaEnchanterBlockEntity extends BlockEntity implements ManaReceive
 							int enchantLvl = entry.getIntValue();
 							if (!hasEnchantAlready(ench) && isEnchantmentValid(ench)) {
 								this.enchants.add(new EnchantmentInstance(ench, enchantLvl));
-								level.playSound(null, worldPosition, BotaniaSounds.ding, SoundSource.BLOCKS, 1F, 1F);
+								level.playSound(null, worldPosition, BotaniaSounds.DING, SoundSource.BLOCKS, 1F, 1F);
 								addedEnch = true;
 								break;
 							}
@@ -250,7 +251,7 @@ public class ManaEnchanterBlockEntity extends BlockEntity implements ManaReceive
 
 			advanceStage();
 		} else {
-			SparkHelper.registerTransferFromSparksAround(SparkAttachable.getAttachedSpark(level, getBlockPos()), level, worldPosition);
+			ManaSparkHelper.registerTransferFromSparksAround(ManaSparkHelper.getAttachedSpark(level, getBlockPos()), level, worldPosition);
 			if (stageTicks % 5 == 0) {
 				sync();
 			}
@@ -285,7 +286,7 @@ public class ManaEnchanterBlockEntity extends BlockEntity implements ManaReceive
 		if (!FORMED_MULTIBLOCK.get().validate(level, worldPosition.below(), rot)) {
 			level.setBlockAndUpdate(worldPosition, Blocks.LAPIS_BLOCK.defaultBlockState());
 			XplatAbstractions.INSTANCE.sendToNear(level, worldPosition, new EnchanterDestroyEffectPacket(worldPosition));
-			level.playSound(null, worldPosition, BotaniaSounds.enchanterFade, SoundSource.BLOCKS, 1F, 1F);
+			level.playSound(null, worldPosition, BotaniaSounds.ENCHANTER_FADE, SoundSource.BLOCKS, 1F, 1F);
 			return;
 		}
 
@@ -351,7 +352,7 @@ public class ManaEnchanterBlockEntity extends BlockEntity implements ManaReceive
 							getBlockPos().getZ() + Math.random() * 0.4 - 0.2, 0, 0, 0);
 				}
 				level.playLocalSound(worldPosition.getX(), worldPosition.getY(), worldPosition.getZ(),
-						BotaniaSounds.enchanterEnchant, SoundSource.BLOCKS, 1F, 1F, false);
+						BotaniaSounds.ENCHANTER_ENCHANT, SoundSource.BLOCKS, 1F, 1F, false);
 			}
 			return true;
 		}
@@ -524,6 +525,9 @@ public class ManaEnchanterBlockEntity extends BlockEntity implements ManaReceive
 
 	public static Wandable createLapisBlockWandable(Level level, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity, Direction direction) {
 		return (player, stack, side) -> {
+			if (!BotaniaConfig.common().enchanterEnabled()) {
+				return false;
+			}
 			Direction.Axis axis = ManaEnchanterBlockEntity.canEnchanterExist(level, pos);
 			if (axis == null) {
 				return false;
@@ -531,7 +535,7 @@ public class ManaEnchanterBlockEntity extends BlockEntity implements ManaReceive
 
 			if (!level.isClientSide()) {
 				level.setBlockAndUpdate(pos, BotaniaBlocks.MANA_ENCHANTER.defaultBlockState().setValue(BotaniaStateProperties.ENCHANTER_DIRECTION, axis));
-				level.playSound(null, pos, BotaniaSounds.enchanterForm, SoundSource.BLOCKS, 1F, 1F);
+				level.playSound(null, pos, BotaniaSounds.ENCHANTER_FORM, SoundSource.BLOCKS, 1F, 1F);
 				PlayerHelper.grantCriterion((ServerPlayer) player, botaniaRL("main/enchanter_make"), "code_triggered");
 			} else {
 				RandomSource rng = level.getRandom();

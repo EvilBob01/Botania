@@ -287,6 +287,8 @@
 
 
 
+
+
   "tag.block.botania.special_floating_flowers": "特別な浮遊している花",
   "tag.block.botania.special_flowers": "特別な花",
 
@@ -349,6 +351,7 @@
 
 
 
+
   "tag.item.botania.burst_viewers": "マナバーストの観測器具 ",
 
 
@@ -356,7 +359,9 @@
 
 
   "tag.item.botania.tall_mystical_flowers": "背の高い神秘的な花",
+
   "tag.item.botania.dreamwood_logs": "ドリームウッドの原木",
+
 
 
 
@@ -373,6 +378,7 @@
   "tag.item.botania.lens": "マナレンズ",
 
   "tag.item.botania.livingwood_logs": "リビングウッドの原木",
+
 
 
 
@@ -403,6 +409,7 @@
   "tag.item.botania.petals.red": "赤色の花びら",
   "tag.item.botania.petals.white": "白色の花びら",
   "tag.item.botania.petals.yellow": "黄色の花びら",
+
 
 
 
@@ -719,7 +726,8 @@
   "entity.botania.magic_missile": "魔弾",
   "entity.botania.thorn_chakram": "棘のチャクラム",
   "entity.botania.corporea_spark": "コーポリアスパーク",
-  "entity.botania.ender_air_bottle": "エンドの空気入り瓶",
+
+
 
   "entity.botania.mana_pool_minecart": "マナプールマインカート",
   "entity.botania.pink_wither": "桃色ウィザー",
@@ -771,7 +779,7 @@
   "advancement.botania:spawnerMoverUse": "◯◯◯脱げるもん！",
   "advancement.botania:spawnerMoverUse.desc": "生命集積器をつかってモンスタースポナーを移動させる",
 
-  "advancement.botania:enderAirMake.desc": "エンドの空気入り瓶を集める",
+
   "advancement.botania:corporeaCraft": "パケットヒーロー",
   "advancement.botania:corporeaCraft.desc": "コーポリア・ネットワークに役立つブロックをクラフトする",
   "advancement.botania:cacophoniumCraft": "ノイジーラバーソウル",
@@ -2049,7 +2057,8 @@
   "item.botania.corporea_spark": "コーポリアスパーク",
   "item.botania.master_corporea_spark": "マスターコーポリアスパーク",
   "item.botania.creative_corporea_spark": "クリエイティブコーポリアスパーク",
-  "item.botania.ender_air_bottle": "エンドの空気入り瓶",
+
+
   "item.botania.livingwood_bow": "リビングウッドの弓",
   "item.botania.crystal_bow": "水晶の弓",
   "item.botania.cosmetic_black_bowtie": "黒色の蝶ネクタイ",
@@ -3145,6 +3154,7 @@
   "botania.tagline.flasks": "より大容量の醸造容器",
   "botania.page.flasks0": "$(l:alfhomancy/elf_resources)$(item)アルフガラス$(0)$(/l)は、$(item)小瓶$(0)に使われる一般的な$(l:mana/pool)$(item)マナガラス$(0)$(/l)よりも順応性の高い素材のようです。$(l:alfhomancy/elf_resources)$(item)アルフガラス$(0)$(/l)で作られた$(item)フラスコ$(0)は、エルフの特徴的な醸造用の容器であり、$(item)小瓶$(0)が4回分であるのに対し、6回分を保存することが出来ます。",
   "botania.page.flasks1": "$(item)フラスコ$(0)での醸造コストは同じですが、$(thing)マナ$(0)コストは$(item)小瓶$(0)の2倍になります。$(p)また、$(item)フラスコ$(0)は$(item)小瓶$(0)に比べ飲み口が大きな為、内容物をより素早く飲むことが出来ます。",
+
   "botania.page.flasks2": "橋の下で手に入る",
 
   "botania.entry.complexBrews": "複雑な醸造",
@@ -3576,11 +3586,14 @@
   "botania.page.astrolabe1": "ブロックを選択すると、アストロラーベは指定された位置に構築されるブロックのプレビューを表示します。$(p)プレビューされたブロックを実際に構築するには、アストロラーベで右クリックするだけです。設置の際、$(thing)マナ$(0)やブロックは、使用者のインベントリ、または、$(l:tools/rod_of_the_shifting_crust)$(item)地殻変動の杖$(0)$(/l)、$(l:tools/rod_of_the_depths)$(item)深淵の杖$(0)$(/l)、$(l:ender/hand_of_ender)$(item)エンダーの手$(0)$(/l)等のアイテムから供給できます。",
   "botania.page.astrolabe2": "壁を建て、世界を創ろう",
 
-  "botania.entry.enderAir": "エンドの空気の抽出",
-  "botania.tagline.enderAir": "投げつけるとエンドストーンに",
-  "botania.page.enderAir0": "$(item)エンド$(0)空間に存在する空気は、突然変異を起こす性質があるようです。$(item)エンド$(0)で$(item)ガラス瓶$(0)を持ち右クリックすると、その空気を取り込み、スプラッシュポーションの様に投げることで、着地地点の付近の$(item)石$(0)を$(item)エンドストーン$(0)に変化させます。$(p)また、$(item)ディスペンサー$(0)でも、出力側の上部に何もなければ、空気を取り込むことが可能です。",
 
-  "botania.page.enderAir1": "$(item)エンド$(0)ボイドのガスが、$(thing)オーバーワールド$(0)の空気に混ざると、$(item)ガスト$(0)のような$(thing)ネザー$(0)モブに対して非常に有毒であることが\"実験\"で確認されています。$(p)$(item)エンドの空気入り瓶$(0)に蓄えられたガスは少量である為、ダメージを与えることは出来ませんが、刺激物としては有効です。$(p)特に目に入った場合は。",
+
+
+
+
+
+
+
 
   "botania.entry.enderEyeBlock": "エンダー監視ブロック",
   "botania.tagline.enderEyeBlock": "起動するにはこのレッドストーン検出器を見てください",
@@ -3604,6 +3617,7 @@
   "botania.tagline.enderDagger": "エンダーマンをバターのように切り裂く短剣",
   "botania.page.enderDagger0": "$(thing)エンダーマン$(0)。それは$(thing)クリーパー$(0)以来、最も厄介な存在です。（あいつらを考え出した$(o)奴$()には、本当に分からせてやる必要があるだろう)$(p)しかし、彼らのエネルギーを持つ材料から作られた短剣は、まるでナイフでバターを切るように、彼らを切り裂くことが出来ます。",
   "botania.page.enderDagger1": "しかし、エネルギーが凝縮されているため、短剣は数回の殺傷にしか使えません。また、そのコンパクトさ故に、通常の$(item)マナスチール$(0)の道具の様に、$(thing)マナ$(0)による修復が出来ません。それでも、あの細長い泥棒をこの世から消し去ることには苦労するだけの価値があります。",
+
 
 
   "botania.entry.spawnerClaw": "生命浸透器",
@@ -3700,7 +3714,7 @@
 
   "botania.entry.spawnerMover": "生命集積器",
   "botania.tagline.spawnerMover": "スポナーを移動することができる能力",
-  "botania.page.spawnerMover0": "$(l:alfhomancy/elf_resources)$(item)ドラゴンストーン$(0)$(/l)、$(l:alfhomancy/elf_resources)$(item)エレメンチウム$(0)$(/l)、$(l:ender/ender_air)$(item)エンドの空気$(0)$(/l)、$(l:alfhomancy/gaia_ritual)$(item)ガイアの神霊$(0)$(/l)を特定のパターンでクラフトすると、$(item)モンスタースポナー$(0)のエネルギーを抑制し、別の地点へ運ぶことができる装置が出来ます。$(p)ただし、一度使うと粉々になってしまいます。",
+  "botania.page.spawnerMover0": "$(l:alfhomancy/elf_resources)$(item)ドラゴンストーン$(0)$(/l)、$(l:alfhomancy/elf_resources)$(item)エレメンチウム$(0)$(/l)、$(l:ender/ender_essence)$(item)エンドの空気$(0)$(/l)、$(l:alfhomancy/gaia_ritual)$(item)ガイアの神霊$(0)$(/l)を特定のパターンでクラフトすると、$(item)モンスタースポナー$(0)のエネルギーを抑制し、別の地点へ運ぶことができる装置が出来ます。$(p)ただし、一度使うと粉々になってしまいます。",
   "botania.page.spawnerMover1": "スポナーの小包",
 
   "botania.entry.keepIvy": "頑固なツタ",
@@ -3734,12 +3748,12 @@
 
   "botania.entry.starSword": "スターコーラー",
   "botania.tagline.starSword": "堕ちる星を呼び出す剣",
-  "botania.page.starSword0": "$(item)スターコーラー$(0)は、星の怒りを呼び出す力を持つ剣です。振りかぶりと、使い手の視点の先へ、天から流れ落ちる星を呼び寄せ、そこにいるものにダメージを与えます。この剣は、$(l:ender/ender_air)$(item)エンドの空気$(0)$(/l)や$(l:tools/terra_blade)$(item)テラブレード$(0)$(/l)等から制作され、入手は容易ではありません。また、作成時テラブレードのエンチャントが失われる事に注意してください。",
+  "botania.page.starSword0": "$(item)スターコーラー$(0)は、星の怒りを呼び出す力を持つ剣です。振りかぶりと、使い手の視点の先へ、天から流れ落ちる星を呼び寄せ、そこにいるものにダメージを与えます。この剣は、$(l:ender/ender_essence)$(item)エンドの空気$(0)$(/l)や$(l:tools/terra_blade)$(item)テラブレード$(0)$(/l)等から制作され、入手は容易ではありません。また、作成時テラブレードのエンチャントが失われる事に注意してください。",
   "botania.page.starSword1": "訪問者、復讐、どんなことがあっても...",
 
   "botania.entry.thunderSword": "サンダーコーラー",
   "botania.tagline.thunderSword": "稲妻を呼び起こす剣",
-  "botania.page.thunderSword0": "$(item)サンダーコーラー$(0)は、稲妻を呼び起こす能力を持つ二股の剣です。$(l:tools/terra_blade)$(item)テラブレード$(0)$(/l)や$(l:ender/ender_air)$(item)エンドの空気$(0)$(/l)等から作成でき、遠距離攻撃の威力を犠牲にし、複数の対象を一撃で倒すほどの威力を持ちます。$(p)集団の中で$(item)サンダーコーラー$(0)からの攻撃を受けると、連鎖する稲妻が発生し、付近の敵対モブを攻撃します。",
+  "botania.page.thunderSword0": "$(item)サンダーコーラー$(0)は、稲妻を呼び起こす能力を持つ二股の剣です。$(l:tools/terra_blade)$(item)テラブレード$(0)$(/l)や$(l:ender/ender_essence)$(item)エンドの空気$(0)$(/l)等から作成でき、遠距離攻撃の威力を犠牲にし、複数の対象を一撃で倒すほどの威力を持ちます。$(p)集団の中で$(item)サンダーコーラー$(0)からの攻撃を受けると、連鎖する稲妻が発生し、付近の敵対モブを攻撃します。",
   "botania.page.thunderSword1": "Blessed Bladeと取引チャットで叫ぼう",
 
   "botania.entry.bIntro": "装飾品について",
@@ -4145,12 +4159,12 @@
   "botania.page.preventingDecay0": "できません",
 
   "botania.subtitle.agricarnation": "アグリカーネーションが輝く",
-  "botania.subtitle.airRod": "空の杖で高く飛び上がる",
-  "botania.subtitle.altarCraft": "花びら調合所がきらめく",
+  "botania.subtitle.rodOfTheSkies": "空の杖で高く飛び上がる",
+  "botania.subtitle.apothecaryCraft": "花びら調合所がきらめく",
   "botania.subtitle.arcane_rose_disenchant": "ローザアルカナにマナを吸われる",
   "botania.subtitle.astrolabeConfigure": "アストラーべの音",
-  "botania.subtitle.babylonAttack": "王律鍵を解き放つ",
-  "botania.subtitle.babylonSpawn": "王律鍵を発動",
+  "botania.subtitle.treasureWeaponAttack": "王律鍵を解き放つ",
+  "botania.subtitle.treasureWeaponSpawn": "王律鍵を発動",
   "botania.subtitle.manatide_bellows": "マナ流ふいごを吹く",
   "botania.subtitle.bifrostRod": "虹の橋がかかる",
   "botania.subtitle.blackHoleTalismanConfigure": "ブラックホールのお守りの音",
@@ -4159,13 +4173,14 @@
   "botania.subtitle.diceOfFate": "運命の賽が転がる",
   "botania.subtitle.ding": "森の杖の音",
   "botania.subtitle.divaCharm": "歌姫が魅了する",
-  "botania.subtitle.divinationRod": "地殻変動の杖が鳴る",
+  "botania.subtitle.rodOfThePlentifulMantle": "地殻変動の杖が鳴る",
 
   "botania.subtitle.drum": "ドラムが鳴り響く",
   "botania.subtitle.enchanterEnchant": "マナでのエンチャントが完了する",
   "botania.subtitle.enchanterFade": "マナエンチャンターが機能停止する",
   "botania.subtitle.enchanterForm": "マナエンチャンターが起動する",
-  "botania.subtitle.enderAirThrow": "エンドの空気入り瓶を投擲",
+
+
   "botania.subtitle.endoflame": "エンドフレイムが燃料を燃やす",
   "botania.subtitle.entropinnyumAngry": "エントロピニウムが不満そうにする",
   "botania.subtitle.entropinnyumHappy": "エントロピニウムがマナを生む",
@@ -4174,7 +4189,7 @@
   "botania.subtitle.equipManasteel": "マナスチールの防具を着用する",
   "botania.subtitle.equipManaweave": "マナが織り込まれた防具を着用する",
   "botania.subtitle.equipTerrasteel": "テラスチールの防具を着用する",
-  "botania.subtitle.fireRod": "地獄の杖が炎を放つ",
+  "botania.subtitle.rodOfTheHells": "地獄の杖が炎を放つ",
   "botania.subtitle.flareChakramThrow": "炎のチャクラムを投擲",
   "botania.subtitle.flugelEyeBind": "フリューゲルの目で座標指定する",
   "botania.subtitle.flugelEyeTeleport": "フリューゲルの目でテレポート",
@@ -4189,7 +4204,7 @@
   "botania.subtitle.laputaStart": "ラピュタの破片発動",
   "botania.subtitle.lexiconOpen": "ボタニア植物辞典を開く",
   "botania.subtitle.lexiconPage": "ボタニア植物辞典のページをめくる",
-  "botania.subtitle.lightRelay": "ルミナイザの風切音",
+  "botania.subtitle.luminizer": "ルミナイザの風切音",
   "botania.subtitle.manaBlaster": "マナブラスターの発砲音",
   "botania.subtitle.manaBlasterCycle": "レンズの切り替え",
   "botania.subtitle.manaBlasterMisfire": "マナブラスターの不発",
@@ -4208,8 +4223,8 @@
   "botania.subtitle.runeAltarCraft": "ルーン祭壇がパチパチ音を立てる",
   "botania.subtitle.runeAltarStart": "ルーン祭壇の始動",
   "botania.subtitle.shulkMeNot": "シュルク・ミー・ノットが爆発を起こす",
-  "botania.subtitle.smeltRod": "融解核の杖が精錬する",
-  "botania.subtitle.smeltRodSimmer": "融解核の杖が高熱を放つ",
+  "botania.subtitle.rodOfTheMoltenCore": "融解核の杖が精錬する",
+  "botania.subtitle.rodOfTheMoltenCoreSimmer": "融解核の杖が高熱を放つ",
   "botania.subtitle.spreaderAddLens": "スプレッダーにマナレンズを付ける",
   "botania.subtitle.spreaderCover": "スプレッダーにカバーを付ける",
   "botania.subtitle.spreaderFire": "スプレッダーのふわふわ",
@@ -4221,7 +4236,7 @@
   "botania.subtitle.temperanceStoneConfigure": "節制の石が鳴る",
   "botania.subtitle.terraBlade": "テラスチールの剣の発動",
   "botania.subtitle.terraPickMode": "テラシャッタラーのパワーアップ",
-  "botania.subtitle.terraformRod": "大地のテラフォーミング",
+  "botania.subtitle.rodOfTheTerraFirma": "大地のテラフォーミング",
   "botania.subtitle.terrasteelCraft": "テラスチールが輝く",
   "botania.subtitle.thermalily": "サーマリリーが飲む",
   "botania.subtitle.thornChakramThrow": "棘のチャクラムを投擲",
@@ -4234,6 +4249,14 @@
 
 
   "_commentUnmatchedBelow": "Keys below this line don't match anything in the English language file:",
+  "botania.entry.enderAir": "エンドの空気の抽出",
+  "botania.tagline.enderAir": "投げつけるとエンドストーンに",
+  "botania.page.enderAir0": "$(item)エンド$(0)空間に存在する空気は、突然変異を起こす性質があるようです。$(item)エンド$(0)で$(item)ガラス瓶$(0)を持ち右クリックすると、その空気を取り込み、スプラッシュポーションの様に投げることで、着地地点の付近の$(item)石$(0)を$(item)エンドストーン$(0)に変化させます。$(p)また、$(item)ディスペンサー$(0)でも、出力側の上部に何もなければ、空気を取り込むことが可能です。",
+  "botania.page.enderAir1": "$(item)エンド$(0)ボイドのガスが、$(thing)オーバーワールド$(0)の空気に混ざると、$(item)ガスト$(0)のような$(thing)ネザー$(0)モブに対して非常に有毒であることが\"実験\"で確認されています。$(p)$(item)エンドの空気入り瓶$(0)に蓄えられたガスは少量である為、ダメージを与えることは出来ませんが、刺激物としては有効です。$(p)特に目に入った場合は。",
+  "entity.botania.ender_essence_bottle": "エンドの空気入り瓶",
+  "advancement.botania:enderAirMake.desc": "エンドの空気入り瓶を集める",
+  "item.botania.ender_essence_bottle": "エンドの空気入り瓶",
+  "botania.subtitle.enderAirThrow": "エンドの空気入り瓶を投擲",
   "botania.page.manaAlchemy5": "$(item)グロウストーン$(0)の破壊",
   "botania.page.manaAlchemy31": "クォーツ",
   "botania.page.manaAlchemy6": "$(item)クォーツブロック$(0)の破壊",

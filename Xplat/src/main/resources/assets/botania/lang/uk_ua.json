@@ -287,6 +287,8 @@
 
 
 
+
+
   "tag.block.botania.special_floating_flowers": "Спеціальні квіти, що плавають",
   "tag.block.botania.special_flowers": "Спеціальні квіти",
 
@@ -349,6 +351,7 @@
 
 
 
+
   "tag.item.botania.burst_viewers": "Переглядачі сплесків",
 
 
@@ -356,7 +359,9 @@
 
 
   "tag.item.botania.tall_mystical_flowers": "Високі містичні квіти",
+
   "tag.item.botania.dreamwood_logs": "Колоди мрійдрева",
+
 
 
 
@@ -373,6 +378,7 @@
   "tag.item.botania.lens": "Лінзи мани",
   "tag.item.botania.lens_glue": "Клей для лінз",
   "tag.item.botania.livingwood_logs": "Колоди життєдрева",
+
 
 
 
@@ -403,6 +409,7 @@
   "tag.item.botania.petals.red": "Червоні пелюстки",
   "tag.item.botania.petals.white": "Білі пелюстки",
   "tag.item.botania.petals.yellow": "Жовті пелюстки",
+
 
 
 
@@ -719,8 +726,9 @@
   "entity.botania.magic_missile": "Чарівний снаряд",
   "entity.botania.thorn_chakram": "Терновий чакрам",
   "entity.botania.corporea_spark": "Іскра Корпореї",
-  "entity.botania.ender_air_bottle": "Пляшка з повітрям Енду",
-  "entity.botania.ender_air_cloud": "Хмара повітря Енду",
+
+
+
   "entity.botania.mana_pool_minecart": "Вагонетка з басейном мани",
   "entity.botania.pink_wither": "Гламурний Візер",
   "entity.botania.luminizer_beam": "Промінь світлювача",
@@ -770,8 +778,8 @@
   "advancement.botania:dirtRodCraft.desc": "Створіть брудну пали... ой... Жезл Земель",
   "advancement.botania:spawnerMoverUse": "Я можу зняти свій (відредаговано)",
   "advancement.botania:spawnerMoverUse.desc": "Використовуйте Агрегатор життя, щоб транспортувати розсадник монстрів",
-  "advancement.botania:enderAirMake": "Імітація повітря",
-  "advancement.botania:enderAirMake.desc": "Зберіть пляшку повітря Енду",
+
+
   "advancement.botania:corporeaCraft": "Кишеньковий герой",
   "advancement.botania:corporeaCraft.desc": "Створіть блок, який використовує мережу Корпореї",
   "advancement.botania:cacophoniumCraft": "Душа голосливого коханця",
@@ -2049,7 +2057,8 @@
   "item.botania.corporea_spark": "Іскра Корпореї",
   "item.botania.master_corporea_spark": "Головна іскра Корпореї",
   "item.botania.creative_corporea_spark": "Творча іскра Корпореї",
-  "item.botania.ender_air_bottle": "Пляшка повітря Енда",
+
+
   "item.botania.livingwood_bow": "Лук з життєдрева",
   "item.botania.crystal_bow": "Кристальний лук",
   "item.botania.cosmetic_black_bowtie": "Чорний метелик",
@@ -3145,6 +3154,7 @@
   "botania.tagline.flasks": "Більші контейнери для варива",
   "botania.page.flasks0": "$(l:alfhomancy/elf_resources)$(item)Ельфійське скло$(0)$(/l) здається більш пластичним матеріалом, ніж типове $(l:mana/pool)$(item)Мана-скло$(0)$(/l), що використовується для $(item)Флаконів$(0). $(item)Колби$(0), виготовлені із $(l:alfhomancy/elf_resources)$(item)Ельфійського скла$(0)$(/l), здається, типові ельфійські контейнери для $(thing)Варив$(0), вони тримають шість ковтків, а не чотири, як $(item)Флакони$(0).",
   "botania.page.flasks1": "Хоча кількість інгредієнтів для приготування конкретного напою в $(item)Колбах$(0) однакова, кількість $(thing)Мани$(0) вдвічі перевищує кількість для $(item)Флаконів$(0).$(p)Крім того, оскільки шийка $(item)Колби$(0) більше, ніж у $(item)Флакона$(0), її вміст можна випити швидше.",
+
   "botania.page.flasks2": "Головне не спитися",
 
   "botania.entry.complexBrews": "Комплексні варива",
@@ -3576,11 +3586,14 @@
   "botania.page.astrolabe1": "Після вибору блоку астролябія відобразить попередній перегляд того, що вона побудує в даній позиції.$(p)Для фактичної побудови попередньо переглянутих блоків (використовуючи $(thing)Ману$(0), а також блоки з інвентарю), просто клацніть ПКМ астролябією. Блоки також можна постачати з таких предметів, як $(l:tools/rod_of_the_shifting_crust)$(item)Жезл рухомої кори$(0)$(/l) та $(l:tools/rod_of_the_depths)$(item)Жезл глибин$ (0)$(/l) або $(l:ender/hand_of_ender)$(item)Рука Ендера$(0)$(/l).",
   "botania.page.astrolabe2": "Будує стіни, створює світи",
 
-  "botania.entry.enderAir": "Втягування повітря Енда",
-  "botania.tagline.enderAir": "Кидальні пляшки, які створюють ендстоун",
-  "botania.page.enderAir0": "Повітря, присутнє в порожнечі $(item)Енда$(0), здається, має мутаційні властивості. Клацніть ПКМ порожньою $(item)Пляшечкою$(0), коли ви перебуваєте в $(item)Енді$(0), щоб захопити частину цього повітря, яке потім можна кинути, як зілля, обертаючи $(item)Камінь$(0) поблизу точки приземлення в $(item)Ендстоун$(0). $(br)$(item)Роздавачі$(0) також можуть захоплювати це повітря, якщо ніщо не блокує область над виходом.",
 
-  "botania.page.enderAir1": "Було «експериментально» встановлено, що гази порожнечі $(item)Енда$(0), змішані зі звичайним повітрям $(thing)Надземного світу$(0), є досить токсичними для певних мобів $(thing)Незеру$(0), таких як $(item)Примара$(0).$(p)Хоча кількість повітря, що зберігається в $(item)Пляшечці$(0), надто мала, щоб завдати реальної шкоди, воно однаково ефективно як подразник.$(p)Особливо, якщо вдалося потрапити в очі.",
+
+
+
+
+
+
+
 
   "botania.entry.enderEyeBlock": "Контролер Ендера",
   "botania.tagline.enderEyeBlock": "Детектор редстоуна, що активується поглядом",
@@ -3604,6 +3617,7 @@
   "botania.tagline.enderDagger": "Кинджал, який розсікає Ендерменів, як масло",
   "botania.page.enderDagger0": "Ці $(thing)ендерМени$(0)... Це найнеприємніші речі з часів $(thing)Кріперів$(0). (Клянусь, той, хто придумав їх, справді повинен $(o)страждати$().)$(p)Однак кинджал, виготовлений із матеріалу з їх енергією, може прорвати їх, як тисячоградусний ніж через масло.",
   "botania.page.enderDagger1": "Однак через концентрацію енергії кинджал придатний лише для кількох убивств, а його компактність не дозволяє $(item)Манасталі$(0) у його рецепті ремонтуватися за допомогою $(thing)Мани$(0), як звичайні речі. Тим не менш, убити цих подовжених злодіїв варте клопоту.",
+
   "botania.page.enderDagger2": "Удар мою душу",
 
   "botania.entry.spawnerClaw": "Насичувач життям",
@@ -3700,7 +3714,7 @@
 
   "botania.entry.spawnerMover": "Агрегатор життя",
   "botania.tagline.spawnerMover": "Можливість переміщення спавнерів",
-  "botania.page.spawnerMover0": "Коли $(l:alfhomancy/elf_resources)$(item)Дракон-камінь$(0)$(/l), $(l:alfhomancy/elf_resources)$(item)Елементій$(0)$(/l), $(l:ender/ender_air)$(item)Повітря Енда$(0)$(/l) і $(l:alfhomancy/gaia_ritual)$(item)Дух Ґаї$(0)$(/l) створено за певним зразком, вони дають пристрій, який може стримувати цікаву енергію $(item)Спавнерів$(0) і переносити їх в іншу точку простору.$(p)На жаль, пристрій розбивається після одного використання.",
+  "botania.page.spawnerMover0": "Коли $(l:alfhomancy/elf_resources)$(item)Дракон-камінь$(0)$(/l), $(l:alfhomancy/elf_resources)$(item)Елементій$(0)$(/l), $(l:ender/ender_essence)$(item)Повітря Енда$(0)$(/l) і $(l:alfhomancy/gaia_ritual)$(item)Дух Ґаї$(0)$(/l) створено за певним зразком, вони дають пристрій, який може стримувати цікаву енергію $(item)Спавнерів$(0) і переносити їх в іншу точку простору.$(p)На жаль, пристрій розбивається після одного використання.",
   "botania.page.spawnerMover1": "Посилка спавнера",
 
   "botania.entry.keepIvy": "Рішучий плющ",
@@ -3734,12 +3748,12 @@
 
   "botania.entry.starSword": "Зореклич",
   "botania.tagline.starSword": "Меч, що викликає зірки з неба",
-  "botania.page.starSword0": "$(item)Зореклич$(0) — це клинок із силою викликати гнів зірок. Під час розмаху клинок викликає зірку з неба в точку, на яку дивиться власник, завдаючи шкоди всьому, що там стоїть. Отримати цей меч непросто: $(l:ender/ender_air)$(item)Повітря Енда$(0)$(/l) й $(l:tools/terra_blade)$(item)Тералезо$(0)$(/l) - обидва є компонентами його створення. Зауважте, що будь-які зачарування на останньому буде втрачено.",
+  "botania.page.starSword0": "$(item)Зореклич$(0) — це клинок із силою викликати гнів зірок. Під час розмаху клинок викликає зірку з неба в точку, на яку дивиться власник, завдаючи шкоди всьому, що там стоїть. Отримати цей меч непросто: $(l:ender/ender_essence)$(item)Повітря Енда$(0)$(/l) й $(l:tools/terra_blade)$(item)Тералезо$(0)$(/l) - обидва є компонентами його створення. Зауважте, що будь-які зачарування на останньому буде втрачено.",
   "botania.page.starSword1": "Виклик, лють, що завгодно...",
 
   "botania.entry.thunderSword": "Громоклич",
   "botania.tagline.thunderSword": "Меч, що викликає бурю з неба",
-  "botania.page.thunderSword0": "$(item)Громокліч$(0) — це двозубий меч із здатністю викликати блискавку. Створено з таких матеріалів, як $(l:tools/terra_blade)$(item)Тералезо$(0)$(/l) і $(l:ender/ender_air)$(item)Повітря Енда$(0)$(/ l), він жертвує потужністю далекобійних атак заради можливості знищити кілька цілей одним ударом.$(p)Атака $(item)Громокличу$(0) в натовпі створить ланцюжок блискавки, яка вражає ворожих мобів поблизу.",
+  "botania.page.thunderSword0": "$(item)Громокліч$(0) — це двозубий меч із здатністю викликати блискавку. Створено з таких матеріалів, як $(l:tools/terra_blade)$(item)Тералезо$(0)$(/l) і $(l:ender/ender_essence)$(item)Повітря Енда$(0)$(/ l), він жертвує потужністю далекобійних атак заради можливості знищити кілька цілей одним ударом.$(p)Атака $(item)Громокличу$(0) в натовпі створить ланцюжок блискавки, яка вражає ворожих мобів поблизу.",
   "botania.page.thunderSword1": "Благословенний клинок торгового чату",
 
   "botania.entry.bIntro": "Знайомство з брелоками",
@@ -4145,12 +4159,12 @@
 
 
   "botania.subtitle.agricarnation": "Агриконвалія мерехтить",
-  "botania.subtitle.airRod": "Жезл небес свистить",
-  "botania.subtitle.altarCraft": "Пелюстковий аптекар дзвенить",
+  "botania.subtitle.rodOfTheSkies": "Жезл небес свистить",
+  "botania.subtitle.apothecaryCraft": "Пелюстковий аптекар дзвенить",
   "botania.subtitle.arcane_rose_disenchant": "Таємнича троянда працює",
   "botania.subtitle.astrolabeConfigure": "Астролябія світотворця дзвенить",
-  "botania.subtitle.babylonAttack": "Ключ королівського закону розкрився",
-  "botania.subtitle.babylonSpawn": "Ключ королівського закону активувався",
+  "botania.subtitle.treasureWeaponAttack": "Ключ королівського закону розкрився",
+  "botania.subtitle.treasureWeaponSpawn": "Ключ королівського закону активувався",
   "botania.subtitle.manatide_bellows": "Міхи мани шиплять",
   "botania.subtitle.bifrostRod": "Жезл Біфресту гуде",
   "botania.subtitle.blackHoleTalismanConfigure": "Талісман чорної діри дзвенить",
@@ -4159,13 +4173,14 @@
   "botania.subtitle.diceOfFate": "Кості долі стукають",
   "botania.subtitle.ding": "Жезл лісу дзвенить",
   "botania.subtitle.divaCharm": "Шарм діви лунає",
-  "botania.subtitle.divinationRod": "Жезл великого вкриття гуде",
+  "botania.subtitle.rodOfThePlentifulMantle": "Жезл великого вкриття гуде",
 
   "botania.subtitle.drum": "Барабанний стукіт",
   "botania.subtitle.enchanterEnchant": "Зачаровувач мани свистить",
   "botania.subtitle.enchanterFade": "Зачаровувач мани зникає",
   "botania.subtitle.enchanterForm": "Зачаровувач мани формує",
-  "botania.subtitle.enderAirThrow": "Пляшечка кинута",
+
+
   "botania.subtitle.endoflame": "Жаржина спалює предмет",
   "botania.subtitle.entropinnyumAngry": "Ентропінніум незадоволений",
   "botania.subtitle.entropinnyumHappy": "Ентропінніум шипить",
@@ -4174,7 +4189,7 @@
   "botania.subtitle.equipManasteel": "Броня з манасталі clanks",
   "botania.subtitle.equipManaweave": "Броня з мана-мережива шелестить",
   "botania.subtitle.equipTerrasteel": "Броня з терасталі брязкає",
-  "botania.subtitle.fireRod": "Жезл пекла кипить",
+  "botania.subtitle.rodOfTheHells": "Жезл пекла кипить",
   "botania.subtitle.flareChakramThrow": "Палючий чакрам кинуто",
   "botania.subtitle.flugelEyeBind": "Око Флігеля шурхає",
   "botania.subtitle.flugelEyeTeleport": "Око Флігеля телепортує",
@@ -4189,7 +4204,7 @@
   "botania.subtitle.laputaStart": "Уламок острову Лапута спрацьовує",
   "botania.subtitle.lexiconOpen": "Лексика Ботанія відкривається",
   "botania.subtitle.lexiconPage": "Лексика Ботанія гортається",
-  "botania.subtitle.lightRelay": "Світлювач свистить",
+  "botania.subtitle.luminizer": "Світлювач свистить",
   "botania.subtitle.manaBlaster": "Мана-бластер стріляє",
   "botania.subtitle.manaBlasterCycle": "Затиск для лінз дзижчить",
   "botania.subtitle.manaBlasterMisfire": "Мана-бластер дає осічку",
@@ -4208,8 +4223,8 @@
   "botania.subtitle.runeAltarCraft": "Рунічний вівтар тріщить",
   "botania.subtitle.runeAltarStart": "Рунічний вівтар починає",
   "botania.subtitle.shulkMeNot": "Незашалкерутка бухкає",
-  "botania.subtitle.smeltRod": "Жезл розплавленого ядра готує",
-  "botania.subtitle.smeltRodSimmer": "Жезл розплавленого ядра кипить",
+  "botania.subtitle.rodOfTheMoltenCore": "Жезл розплавленого ядра готує",
+  "botania.subtitle.rodOfTheMoltenCoreSimmer": "Жезл розплавленого ядра кипить",
   "botania.subtitle.spreaderAddLens": "Мана-лінзу прикріплено до розсіювача",
   "botania.subtitle.spreaderCover": "Розсіювач закритий",
   "botania.subtitle.spreaderFire": "Розсіювач стріляє",
@@ -4221,7 +4236,7 @@
   "botania.subtitle.temperanceStoneConfigure": "Камінь поміркованості дзвенить",
   "botania.subtitle.terraBlade": "Терасталь меч активується",
   "botania.subtitle.terraPickMode": "Терарозколювач посилюється",
-  "botania.subtitle.terraformRod": "Ґрунт змінюється",
+  "botania.subtitle.rodOfTheTerraFirma": "Ґрунт змінюється",
   "botania.subtitle.terrasteelCraft": "Терасталь світиться",
   "botania.subtitle.thermalily": "Термолілія сьорбає",
   "botania.subtitle.thornChakramThrow": "Терновий чакрам кинуто",
@@ -4234,6 +4249,16 @@
 
 
   "_commentUnmatchedBelow": "Keys below this line don't match anything in the English language file:",
+  "botania.entry.enderAir": "Втягування повітря Енда",
+  "botania.tagline.enderAir": "Кидальні пляшки, які створюють ендстоун",
+  "botania.page.enderAir0": "Повітря, присутнє в порожнечі $(item)Енда$(0), здається, має мутаційні властивості. Клацніть ПКМ порожньою $(item)Пляшечкою$(0), коли ви перебуваєте в $(item)Енді$(0), щоб захопити частину цього повітря, яке потім можна кинути, як зілля, обертаючи $(item)Камінь$(0) поблизу точки приземлення в $(item)Ендстоун$(0). $(br)$(item)Роздавачі$(0) також можуть захоплювати це повітря, якщо ніщо не блокує область над виходом.",
+  "botania.page.enderAir1": "Було «експериментально» встановлено, що гази порожнечі $(item)Енда$(0), змішані зі звичайним повітрям $(thing)Надземного світу$(0), є досить токсичними для певних мобів $(thing)Незеру$(0), таких як $(item)Примара$(0).$(p)Хоча кількість повітря, що зберігається в $(item)Пляшечці$(0), надто мала, щоб завдати реальної шкоди, воно однаково ефективно як подразник.$(p)Особливо, якщо вдалося потрапити в очі.",
+  "entity.botania.ender_essence_bottle": "Пляшка з повітрям Енду",
+  "entity.botania.ender_essence_cloud": "Хмара повітря Енду",
+  "advancement.botania:enderAirMake": "Імітація повітря",
+  "advancement.botania:enderAirMake.desc": "Зберіть пляшку повітря Енду",
+  "item.botania.ender_essence_bottle": "Пляшка повітря Енда",
+  "botania.subtitle.enderAirThrow": "Пляшечка кинута",
   "botania.page.manaAlchemy5": "Дроблення $(item)Світлокаменю$(0)",
   "botania.page.manaAlchemy31": "Кварц",
   "botania.page.manaAlchemy6": "Дроблення $(item)Кварцу$(0)",

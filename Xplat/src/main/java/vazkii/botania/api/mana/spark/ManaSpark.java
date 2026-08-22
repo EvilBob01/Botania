@@ -8,6 +8,8 @@
  */
 package vazkii.botania.api.mana.spark;
 
+import net.minecraft.world.item.ItemStack;
+
 import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.item.SparkEntity;
@@ -23,7 +25,7 @@ public interface ManaSpark extends SparkEntity {
 	 * Get the thing this spark is attached to, if any
 	 */
 	@Nullable
-	SparkAttachable getAttachedTile();
+	ManaSparkAttachable getAttachedTile();
 
 	/**
 	 * @return The attached mana receiver under the spark, if available
@@ -52,12 +54,12 @@ public interface ManaSpark extends SparkEntity {
 	 */
 	void updateTransfers();
 
-	SparkUpgradeType getUpgrade();
+	ItemStack getUpgrade();
 
-	void setUpgrade(SparkUpgradeType upgrade);
+	void setUpgrade(ItemStack upgrade);
 
 	/**
-	 * See {@link SparkAttachable#areIncomingTransfersDone()}
+	 * See {@link ManaSparkAttachable#areIncomingTransfersDone()}
 	 */
 	boolean areIncomingTransfersDone();
 }

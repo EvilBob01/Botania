@@ -32,6 +32,7 @@ import vazkii.botania.common.handler.BotaniaSounds;
 import vazkii.botania.common.helper.PlayerHelper;
 import vazkii.botania.common.item.BotaniaItems;
 import vazkii.botania.common.loot.BotaniaLootTables;
+import vazkii.botania.xplat.BotaniaConfig;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,7 +63,7 @@ public class DiceOfFateItem extends RelicItem {
 				return InteractionResultHolder.success(stack);
 			}
 
-			world.playSound(null, player.getX(), player.getY(), player.getZ(), BotaniaSounds.diceOfFate, SoundSource.PLAYERS, 1F, 0.4F / (world.random.nextFloat() * 0.4F + 0.8F));
+			world.playSound(null, player.getX(), player.getY(), player.getZ(), BotaniaSounds.DICE_OF_FATE, SoundSource.PLAYERS, 1F, 0.4F / (world.random.nextFloat() * 0.4F + 0.8F));
 
 			List<Integer> possible = new ArrayList<>();
 			for (int i = 0; i < 6; i++) {
@@ -122,7 +123,8 @@ public class DiceOfFateItem extends RelicItem {
 	}
 
 	private boolean hasRelicAlready(Player player, int relicId) {
-		if (relicId < 0 || relicId > 6 || !(player instanceof ServerPlayer mpPlayer)) {
+		if (relicId < 0 || relicId > 6 || !(player instanceof ServerPlayer mpPlayer)
+				|| !BotaniaConfig.common().relicsEnabled()) {
 			return true;
 		}
 

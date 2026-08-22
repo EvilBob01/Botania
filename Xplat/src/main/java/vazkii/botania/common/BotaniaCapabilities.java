@@ -14,6 +14,7 @@ import org.jetbrains.annotations.ApiStatus;
 import vazkii.botania.api.block.EdibleBlockWithEffects;
 import vazkii.botania.api.block.ExoflameHeatable;
 import vazkii.botania.api.block.HourglassTrigger;
+import vazkii.botania.api.block.LifeAggregatorCarryable;
 import vazkii.botania.api.block.PhantomInkableBlock;
 import vazkii.botania.api.block.WandBindable;
 import vazkii.botania.api.block.Wandable;
@@ -32,7 +33,7 @@ import vazkii.botania.api.mana.ManaCollisionGhost;
 import vazkii.botania.api.mana.ManaItem;
 import vazkii.botania.api.mana.ManaReceiver;
 import vazkii.botania.api.mana.ManaTrigger;
-import vazkii.botania.api.mana.spark.SparkAttachable;
+import vazkii.botania.api.mana.spark.ManaSparkAttachable;
 
 public final class BotaniaCapabilities {
 	public static void registerCapabilities(ApiIdRegistration registration) {
@@ -50,11 +51,12 @@ public final class BotaniaCapabilities {
 		registration.register(HourglassTrigger.LOOKUP);
 		registration.register(ManaCollisionGhost.LOOKUP);
 		registration.register(ManaReceiver.LOOKUP);
-		registration.register(SparkAttachable.LOOKUP);
+		registration.register(ManaSparkAttachable.LOOKUP);
 		registration.register(ManaTrigger.LOOKUP);
 		registration.register(Wandable.LOOKUP);
 		registration.register(WandBindable.LOOKUP);
 		registration.register(PhantomInkableBlock.LOOKUP);
+		registration.register(LifeAggregatorCarryable.LOOKUP);
 	}
 
 	private BotaniaCapabilities() {}

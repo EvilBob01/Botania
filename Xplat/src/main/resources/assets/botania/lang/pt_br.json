@@ -278,6 +278,8 @@
   "tag.block.botania.mundane_floating_flowers": "Flores Mundanas Flutuantes",
   "tag.block.botania.small_mystical_flowers": "Flores Místicas",
 
+
+
   "tag.block.botania.quartz_blocks": "Blocos de Quartzo",
 
 
@@ -348,6 +350,7 @@
 
 
 
+
   "tag.item.botania.ancient_wills": "Vontades Ancestrais",
   "tag.item.botania.burst_viewers": "Visualizadores de Rajada",
 
@@ -356,7 +359,9 @@
 
 
   "tag.item.botania.tall_mystical_flowers": "Flores Místicas Altas",
+
   "tag.item.botania.dreamwood_logs": "Troncos de Madeira dos Sonhos",
+
 
 
 
@@ -375,6 +380,7 @@
   "tag.item.botania.livingwood_logs": "Troncos de Madeira Viva",
   "tag.item.botania.loonium_excluded": "Excluidos do Gerânio-do-Saque",
   "tag.item.botania.loonium_offhand_equipment": "Equipamento de Gerânio-do-Saque para Mão Secundária",
+
 
 
 
@@ -406,6 +412,7 @@
 
 
   "tag.item.botania.quartz_blocks": "Blocos de Quartzo",
+
   "tag.item.botania.rods": "Cajados",
   "tag.item.botania.runes": "Runas",
   "tag.item.botania.seed_apothecary_reagent": "Reagentes de Semente",
@@ -719,8 +726,9 @@
   "entity.botania.magic_missile": "Míssil Mágico",
   "entity.botania.thorn_chakram": "Chakram Espinhento",
   "entity.botania.corporea_spark": "Fagulha Corporea",
-  "entity.botania.ender_air_bottle": "Frasco de ar do End",
-  "entity.botania.ender_air_cloud": "Nuvem de ar do End",
+
+
+
   "entity.botania.mana_pool_minecart": "Carrinho com Poço de Mana",
   "entity.botania.pink_wither": "Wither Rosa",
   "entity.botania.luminizer_beam": "Feixe de Luminizador",
@@ -770,8 +778,8 @@
   "advancement.botania:dirtRodCraft.desc": "Crie um graveto su- er... Cajado das Terras",
   "advancement.botania:spawnerMoverUse": "Posso tirar meu (rasurado)",
   "advancement.botania:spawnerMoverUse.desc": "Use um Agregador de Vida para transportar um Invocador de Monstros",
-  "advancement.botania:enderAirMake": "Imitação de Ar",
-  "advancement.botania:enderAirMake.desc": "Colete um Frasco de ar do End",
+
+
   "advancement.botania:corporeaCraft": "Herói de Pacotes",
   "advancement.botania:corporeaCraft.desc": "Crie um bloco que faça uso da Rede de Corporea",
   "advancement.botania:cacophoniumCraft": "Alma Amante de Barulho",
@@ -2049,7 +2057,8 @@
   "item.botania.corporea_spark": "Fagulha Corporea",
   "item.botania.master_corporea_spark": "Fagulha Corporea Mestra",
   "item.botania.creative_corporea_spark": "Fagulha Corporea Criativa",
-  "item.botania.ender_air_bottle": "Frasco de ar do End",
+
+
   "item.botania.livingwood_bow": "Arco de Madeira Viva",
   "item.botania.crystal_bow": "Arco de Cristal",
   "item.botania.cosmetic_black_bowtie": "Gravata Borboleta Preta",
@@ -3145,6 +3154,7 @@
   "botania.tagline.flasks": "Recipientes maiores para elixires",
   "botania.page.flasks0": "$(l:alfhomancy/elf_resources)$(item)Vidro Élfico$(0)$(/l) parece ser um material mais maleável que o tradicional $(l:mana/pool)$(item)Vidro de Mana$(0)$(/l) usado para $(item)Garrafas$(0). Um $(item)Cantil$(0) moldado a partir de $(l:alfhomancy/elf_resources)$(item)Vidro Élfico$(0)$(/l) parece ser o recipiente típico dos Élfos para $(thing)Elixires$(0), carregando seis doses ao invés das quatro que uma $(item)Garrafa$(0) pode carregar.",
   "botania.page.flasks1": "Enquanto o custo de ingredientes para fermentar um elixir específico em um $(item)Cantil$(0) é o mesmo, o custo de $(thing)Mana$(0) é o dobro do de uma $(item)Garrafa$(0).$(p)Adicionalmente, pelo gargalo de um $(item)Cantil$(0) ser mais largo que o de uma $(item)Garrafa$(0), seu conteúdo pode ser bebido mais rápido.",
+
   "botania.page.flasks2": "Beba com moderação... ou não",
 
   "botania.entry.complexBrews": "Elixires Complexos",
@@ -3576,11 +3586,14 @@
   "botania.page.astrolabe1": "Uma vez que um bloco é selecionado, o astrolábio mostrará uma prévia do que seria construído em uma determinada posição.$(p)Para realmente construir os blocos exibidos na prévia (usando tanto $(thing)Mana$(0) quanto blocos do inventário do usuário), basta clicar com o botão direito com o astrolábio. Blocos podem também ser fornecidos de itens como um $(l:tools/rod_of_the_lands)$(item)Cajado das Terras$(0)$(/l), um $(l:tools/rod_of_the_depths)$(item)Cajado das Profundezas$(0)$(/l), ou uma $(l:ender/hand_of_ender)$(item)Mão do End$(0)$(/l).",
   "botania.page.astrolabe2": "Construa paredes, crie mundos",
 
-  "botania.entry.enderAir": "Extraindo ar do End",
-  "botania.tagline.enderAir": "Garrafas arremessáveis que criam Pedra do End",
-  "botania.page.enderAir0": "O ar do vazio do $(thing)End$(0) parece possuir propriedades mutativas. Clicar com o botão direito com um $(item)Frasco de Vidro$(0) vazio estando no $(thing)End$(0) irá capturar um pouco do ar de lá, que pode ser depois jogado como uma poção arremessável, transformando $(item)Pedras$(0) próximas do lugar atingido em $(item)Pedras do End$(0).$(br)$(item)Ejetores$(0) também podem capturar esse ar, se nada estiver bloqueando sua saída.",
 
-  "botania.page.enderAir1": "Foi \"experimentalmente\" descoberto que os gases do vazio do $(thing)End$(0), quando misturados com o ar comum da $(thing)Superfície$(0), são muito tóxicos para certas criaturas do $(thing)Nether$(0), como o $(thing)Ghast$(0).$(p)Embora a quantidade armazenada em um $(item)Frasco de ar do End$(0) seja muito pequena para causar qualquer dano real, certamente é eficaz para irritar. Principalmente se conseguir atingir os olhos.",
+
+
+
+
+
+
+
 
   "botania.entry.enderEyeBlock": "Supervisor do End",
   "botania.tagline.enderEyeBlock": "Detector de redstone ativado por olhar",
@@ -3604,6 +3617,7 @@
   "botania.tagline.enderDagger": "Uma adaga que corta Endermans como se fossem manteiga",
   "botania.page.enderDagger0": "Aqueles $(thing)Endermans$(0)... Eles são as criaturas mais irritantes depois dos $(thing)Creepers$(0). (Sério, quem foi o idiota que inventou essa coisa?)$(p)De qualquer forma, uma adaga feita a partir de um material com a energia deles pode cortá-los como se fosse uma faca a mil graus cortando manteiga.",
   "botania.page.enderDagger1": "Porém, devido a concentração de energia, a adaga é boa apenas para algumas mortes, e seu formato compacto previne que o $(item)Aço-Mana$(0) em sua receita repare essa arma com $(thing)Mana$(0), como ferramentas comuns fariam. Mesmo assim, eliminar esses ladrões alongados vale a pena.",
+
   "botania.page.enderDagger2": "Golpeia minha Alma",
 
   "botania.entry.spawnerClaw": "Imbuidor de Vida",
@@ -3700,7 +3714,7 @@
 
   "botania.entry.spawnerMover": "Agregador de Vida",
   "botania.tagline.spawnerMover": "A habilidade de mover Invocadores",
-  "botania.page.spawnerMover0": "Quando uma $(l:alfhomancy/elf_resources)$(item)Pedra Dracônica$(0)$(/l), $(l:alfhomancy/elf_resources)$(item)Elementium$(0)$(/l), $(l:ender/ender_air)$(item)Ar do Ender$(0)$(/l), e $(l:alfhomancy/gaia_ritual)$(item)Espíritos de Gaia$(0)$(/l) são juntados em uma receita especifica, eles produzem um dispositivo que pode conter as energias curiosas de um $(item)Gerador de Criaturas$(0) e carregar ele para outro ponto do espaço.$(p)Infelizmente, o dispositivo irá quebrar depois de usado uma vez.",
+  "botania.page.spawnerMover0": "Quando uma $(l:alfhomancy/elf_resources)$(item)Pedra Dracônica$(0)$(/l), $(l:alfhomancy/elf_resources)$(item)Elementium$(0)$(/l), $(l:ender/ender_essence)$(item)Ar do Ender$(0)$(/l), e $(l:alfhomancy/gaia_ritual)$(item)Espíritos de Gaia$(0)$(/l) são juntados em uma receita especifica, eles produzem um dispositivo que pode conter as energias curiosas de um $(item)Gerador de Criaturas$(0) e carregar ele para outro ponto do espaço.$(p)Infelizmente, o dispositivo irá quebrar depois de usado uma vez.",
   "botania.page.spawnerMover1": "Uma parcela de Gerador",
 
   "botania.entry.keepIvy": "Hera Resoluta",
@@ -3734,12 +3748,12 @@
 
   "botania.entry.starSword": "Fúria Estelar",
   "botania.tagline.starSword": "Espada que invoca estrelas cadentes",
-  "botania.page.starSword0": "A $(item)Fúria Estelar$(0) é uma espada que pode invocar a fúria das estrelas. Quando brandida, a lâmina invoca uma estrela cadente dos céus para o ponto para onde o portador está olhando, causando dano a qualquer coisa que fique lá. Essa espada possui $(l:ender/ender_air)$(item)Ar do End$(0)$(/l) e uma $(l:tools/terra_blade)$(item)Lâmina da Terra$(0)$(/l) como componentes de sua fabricação, portanto não é tão fácil de ser adquirida.",
+  "botania.page.starSword0": "A $(item)Fúria Estelar$(0) é uma espada que pode invocar a fúria das estrelas. Quando brandida, a lâmina invoca uma estrela cadente dos céus para o ponto para onde o portador está olhando, causando dano a qualquer coisa que fique lá. Essa espada possui $(l:ender/ender_essence)$(item)Ar do End$(0)$(/l) e uma $(l:tools/terra_blade)$(item)Lâmina da Terra$(0)$(/l) como componentes de sua fabricação, portanto não é tão fácil de ser adquirida.",
   "botania.page.starSword1": "Invocadora, fúria, qualquer coisa...$(br2)$(br2)Nota: Quaisquer encantamentos da espada que é usada na fabricação serão perdidos ao fabricar essa.",
 
   "botania.entry.thunderSword": "Fúria-Trovão",
   "botania.tagline.thunderSword": "Espada que invoca trovões",
-  "botania.page.thunderSword0": "A $(item)Fúria-Trovão$(0) é uma espada de dois gumes capaz de conjurar relâmpagos. Feita a partir de materiais como uma $(l:tools/terra_blade)$(item)Lâmina da Terra$(0)$(/l) e $(l:ender/ender_air)$(item)Ar do End$(0)$(/l), ela sacrifica o poder de ataques a longa distância pelo de eletrocutar múltiplos alvos em um golpe.$(br)Um ataque com a $(item)Fúria-Trovão$(0), em uma horda de inimigos, gerará uma cadeia de raios que eletrocutará criaturas hostis próximas.",
+  "botania.page.thunderSword0": "A $(item)Fúria-Trovão$(0) é uma espada de dois gumes capaz de conjurar relâmpagos. Feita a partir de materiais como uma $(l:tools/terra_blade)$(item)Lâmina da Terra$(0)$(/l) e $(l:ender/ender_essence)$(item)Ar do End$(0)$(/l), ela sacrifica o poder de ataques a longa distância pelo de eletrocutar múltiplos alvos em um golpe.$(br)Um ataque com a $(item)Fúria-Trovão$(0), em uma horda de inimigos, gerará uma cadeia de raios que eletrocutará criaturas hostis próximas.",
   "botania.page.thunderSword1": "Lâmina Abençoada do chat de trocas$(br2)$(br2)Nota: Quaisquer encantamentos da espada que é usada na fabricação serão perdidos ao fabricar essa.",
 
   "botania.entry.bIntro": "Introdução aos Trinkets",
@@ -4145,12 +4159,12 @@
   "botania.page.preventingDecay0": "Não",
 
   "botania.subtitle.agricarnation": "Agricravo cintila",
-  "botania.subtitle.airRod": "Cajado dos Céus assopra",
-  "botania.subtitle.altarCraft": "Boticário de Pétalas cintila",
+  "botania.subtitle.rodOfTheSkies": "Cajado dos Céus assopra",
+  "botania.subtitle.apothecaryCraft": "Boticário de Pétalas cintila",
   "botania.subtitle.arcane_rose_disenchant": "Rosa Arcana desencanta",
   "botania.subtitle.astrolabeConfigure": "Astrolábio do Construtor tintila",
-  "botania.subtitle.babylonAttack": "Chave da Lei do Rei é liberada",
-  "botania.subtitle.babylonSpawn": "Chave da Lei do Rei é ativada",
+  "botania.subtitle.treasureWeaponAttack": "Chave da Lei do Rei é liberada",
+  "botania.subtitle.treasureWeaponSpawn": "Chave da Lei do Rei é ativada",
   "botania.subtitle.manatide_bellows": "Fole da Maré de Mana sopra",
   "botania.subtitle.bifrostRod": "Cajado de Bifrost zumbe",
   "botania.subtitle.blackHoleTalismanConfigure": "Talismã do Buraco-Negro tintila",
@@ -4159,13 +4173,14 @@
   "botania.subtitle.diceOfFate": "Dado do Destino chocalha",
   "botania.subtitle.ding": "Varinha da Floresta tintila",
   "botania.subtitle.divaCharm": "Amuleto da Diva ecoa",
-  "botania.subtitle.divinationRod": "Cajado do Manto Rico dá estrondo",
+  "botania.subtitle.rodOfThePlentifulMantle": "Cajado do Manto Rico dá estrondo",
   "botania.subtitle.doit": "FAÇA ISSO!!",
   "botania.subtitle.drum": "Tambor ressoa",
   "botania.subtitle.enchanterEnchant": "Encantador de Mana sibila",
   "botania.subtitle.enchanterFade": "Encantador de Mana enfraquece",
   "botania.subtitle.enchanterForm": "Encantador de Mana forma",
-  "botania.subtitle.enderAirThrow": "Frasco de Ar do End lançado",
+
+
   "botania.subtitle.endoflame": "Endochama incinera item",
   "botania.subtitle.entropinnyumAngry": "Entropilóbio fica insatisfeito",
   "botania.subtitle.entropinnyumHappy": "Entropilóbio crepita",
@@ -4174,7 +4189,7 @@
   "botania.subtitle.equipManasteel": "Tinido de Armadura de Aço-Mana",
   "botania.subtitle.equipManaweave": "Ruído de Robe de Tecido de Mana",
   "botania.subtitle.equipTerrasteel": "Tinido de Armadura de Aço-Terra",
-  "botania.subtitle.fireRod": "Cajado dos Infernos ferve",
+  "botania.subtitle.rodOfTheHells": "Cajado dos Infernos ferve",
   "botania.subtitle.flareChakramThrow": "Chakram Flamejante lançado",
   "botania.subtitle.flugelEyeBind": "Olho de Flügel ativando",
   "botania.subtitle.flugelEyeTeleport": "Olho de Flügel teleporta",
@@ -4189,7 +4204,7 @@
   "botania.subtitle.laputaStart": "Fragmento de Laputa é ativado",
   "botania.subtitle.lexiconOpen": "Lexica Botania se abre",
   "botania.subtitle.lexiconPage": "Lexica Botania muda página",
-  "botania.subtitle.lightRelay": "Luminizador sibila",
+  "botania.subtitle.luminizer": "Luminizador sibila",
   "botania.subtitle.manaBlaster": "Blaster de Mana dispara",
   "botania.subtitle.manaBlasterCycle": "Pente de Lentes zune",
   "botania.subtitle.manaBlasterMisfire": "Blaster de Mana falha",
@@ -4208,8 +4223,8 @@
   "botania.subtitle.runeAltarCraft": "Altar Rúnico crepita",
   "botania.subtitle.runeAltarStart": "Altar Rúnico inicia",
   "botania.subtitle.shulkMeNot": "Shulk Me Not estala",
-  "botania.subtitle.smeltRod": "Cajado da Fusão Ígnea funde",
-  "botania.subtitle.smeltRodSimmer": "Cajado da Fusão Ígnea fervilha",
+  "botania.subtitle.rodOfTheMoltenCore": "Cajado da Fusão Ígnea funde",
+  "botania.subtitle.rodOfTheMoltenCoreSimmer": "Cajado da Fusão Ígnea fervilha",
   "botania.subtitle.spreaderAddLens": "Lentes de Mana é colocado no dispersor",
   "botania.subtitle.spreaderCover": "Dispersor é coberto",
   "botania.subtitle.spreaderFire": "Dispersor dispara",
@@ -4221,7 +4236,7 @@
   "botania.subtitle.temperanceStoneConfigure": "Pedra da Moderação tintila",
   "botania.subtitle.terraBlade": "Espada de Aço-Terra ativada",
   "botania.subtitle.terraPickMode": "Terra-Destruidor potencializa-se",
-  "botania.subtitle.terraformRod": "Terra se transforma",
+  "botania.subtitle.rodOfTheTerraFirma": "Terra se transforma",
   "botania.subtitle.terrasteelCraft": "Aço-Terra cintila",
   "botania.subtitle.thermalily": "Termalírio bebe",
   "botania.subtitle.thornChakramThrow": "Chakram de Espinhos lançado",
@@ -4234,6 +4249,16 @@
 
 
   "_commentUnmatchedBelow": "Keys below this line don't match anything in the English language file:",
+  "botania.entry.enderAir": "Extraindo ar do End",
+  "botania.tagline.enderAir": "Garrafas arremessáveis que criam Pedra do End",
+  "botania.page.enderAir0": "O ar do vazio do $(thing)End$(0) parece possuir propriedades mutativas. Clicar com o botão direito com um $(item)Frasco de Vidro$(0) vazio estando no $(thing)End$(0) irá capturar um pouco do ar de lá, que pode ser depois jogado como uma poção arremessável, transformando $(item)Pedras$(0) próximas do lugar atingido em $(item)Pedras do End$(0).$(br)$(item)Ejetores$(0) também podem capturar esse ar, se nada estiver bloqueando sua saída.",
+  "botania.page.enderAir1": "Foi \"experimentalmente\" descoberto que os gases do vazio do $(thing)End$(0), quando misturados com o ar comum da $(thing)Superfície$(0), são muito tóxicos para certas criaturas do $(thing)Nether$(0), como o $(thing)Ghast$(0).$(p)Embora a quantidade armazenada em um $(item)Frasco de ar do End$(0) seja muito pequena para causar qualquer dano real, certamente é eficaz para irritar. Principalmente se conseguir atingir os olhos.",
+  "entity.botania.ender_essence_bottle": "Frasco de ar do End",
+  "entity.botania.ender_essence_cloud": "Nuvem de ar do End",
+  "advancement.botania:enderAirMake": "Imitação de Ar",
+  "advancement.botania:enderAirMake.desc": "Colete um Frasco de ar do End",
+  "item.botania.ender_essence_bottle": "Frasco de ar do End",
+  "botania.subtitle.enderAirThrow": "Frasco de Ar do End lançado",
   "botania.page.manaAlchemy5": "Desfazendo $(item)Blocos de Pedra Luminosa$(0)",
   "botania.page.manaAlchemy31": "Quartzo",
   "botania.page.manaAlchemy6": "Desfazendo $(item)Blocos de Quartzo$(0)",

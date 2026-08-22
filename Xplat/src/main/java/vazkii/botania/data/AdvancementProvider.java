@@ -108,11 +108,11 @@ public class AdvancementProvider {
 							.playerKilledEntity(EntityPredicate.Builder.entity().of(BotaniaEntities.GAIA_GUARDIAN)))
 					.save(writer, mainId("gaia_guardian_kill"));
 
-			AdvancementHolder enderAirMake = Advancement.Builder.advancement()
-					.display(simple(BotaniaItems.ENDER_AIR_BOTTLE, "enderAirMake", AdvancementType.TASK))
+			AdvancementHolder enderEssenceMake = Advancement.Builder.advancement()
+					.display(simple(BotaniaItems.PURE_ENDER_ESSENCE, "enderEssenceMake", AdvancementType.TASK))
 					.parent(elfPortalOpen)
-					.addCriterion("air", onPickup(BotaniaItems.ENDER_AIR_BOTTLE))
-					.save(writer, mainId("ender_air_make"));
+					.addCriterion("essence", onPickup(BotaniaTags.Items.ENDER_ESSENCES))
+					.save(writer, mainId("ender_essence_make"));
 
 			// Parent: root
 			Advancement.Builder.advancement()
@@ -272,13 +272,13 @@ public class AdvancementProvider {
 			// Parent: ender air
 			Advancement.Builder.advancement()
 					.display(simple(BotaniaBlocks.LUMINIZER, "luminizerRide", AdvancementType.TASK))
-					.parent(enderAirMake)
+					.parent(enderEssenceMake)
 					.addCriterion("code_triggered",
 							CriteriaTriggers.IMPOSSIBLE.createCriterion(new ImpossibleTrigger.TriggerInstance()))
 					.save(writer, mainId("luminizer_ride"));
 			Advancement.Builder.advancement()
 					.display(simple(BotaniaBlocks.CORPOREA_CRYSTAL_CUBE, "corporeaCraft", AdvancementType.TASK))
-					.parent(enderAirMake)
+					.parent(enderEssenceMake)
 					.addCriterion("pickup", onPickup(
 							BotaniaBlocks.CORPOREA_CRYSTAL_CUBE, BotaniaBlocks.CORPOREA_FUNNEL,
 							BotaniaBlocks.CORPOREA_INDEX, BotaniaBlocks.CORPOREA_INTERCEPTOR,

@@ -22,7 +22,6 @@ import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.event.player.AttackBlockCallback;
 import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
-import net.fabricmc.fabric.api.event.player.UseItemCallback;
 import net.fabricmc.fabric.api.event.registry.FabricRegistryBuilder;
 import net.fabricmc.fabric.api.item.v1.EnchantmentEvents;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
@@ -73,6 +72,7 @@ import vazkii.botania.api.block.EdibleBlockWithEffects;
 import vazkii.botania.api.block.ExoflameHeatable;
 import vazkii.botania.api.block.HourglassTrigger;
 import vazkii.botania.api.block.IslandType;
+import vazkii.botania.api.block.LifeAggregatorCarryable;
 import vazkii.botania.api.block.PhantomInkableBlock;
 import vazkii.botania.api.block.WandBindable;
 import vazkii.botania.api.block.Wandable;
@@ -91,7 +91,7 @@ import vazkii.botania.api.mana.ManaItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.api.mana.ManaReceiver;
 import vazkii.botania.api.mana.ManaTrigger;
-import vazkii.botania.api.mana.spark.SparkAttachable;
+import vazkii.botania.api.mana.spark.ManaSparkAttachable;
 import vazkii.botania.api.recipe.StateIngredientType;
 import vazkii.botania.client.fx.BotaniaParticles;
 import vazkii.botania.common.BotaniaCapabilities;
@@ -129,7 +129,6 @@ import vazkii.botania.common.item.*;
 import vazkii.botania.common.item.equipment.bauble.FlugelTiaraItem;
 import vazkii.botania.common.item.equipment.tool.terrasteel.TerraBladeItem;
 import vazkii.botania.common.item.equipment.tool.terrasteel.TerraTruncatorItem;
-import vazkii.botania.common.item.material.EnderAirItem;
 import vazkii.botania.common.item.relic.*;
 import vazkii.botania.common.item.rod.*;
 import vazkii.botania.common.lib.BotaniaTags;
@@ -316,7 +315,6 @@ public class FabricCommonInitializer implements ModInitializer {
 		ServerTickEvents.END_WORLD_TICK.register(TerraTruncatorItem::onTickEnd);
 		UseBlockCallback.EVENT.register(RedStringInterceptorBlock::onInteract);
 		UseBlockCallback.EVENT.register(RingOfLokiItem::onPlayerInteract);
-		UseItemCallback.EVENT.register(EnderAirItem::onPlayerInteract);
 	}
 
 	private static <T> BiConsumer<T, ResourceLocation> bind(Registry<? super T> registry) {
@@ -418,7 +416,8 @@ public class FabricCommonInitializer implements ModInitializer {
 				BotaniaBlocks.MANA_VOID
 		);
 
-		BlockApiLookup<SparkAttachable, Unit> sparkAttachableBlockLookup = BotaniaFabricCapabilities.getBlockApiLookupById(SparkAttachable.LOOKUP);
+		BlockApiLookup<ManaSparkAttachable, Unit> sparkAttachableBlockLookup = BotaniaFabricCapabilities.getBlockApiLookupById(
+				ManaSparkAttachable.LOOKUP);
 		sparkAttachableBlockLookup.registerSelf(BlockEntityConstants.SELF_SPARK_ATTACHABLE_BES.toArray(BlockEntityType[]::new));
 
 		BlockApiLookup<ManaTrigger, Unit> manaTriggerBlockLookup = BotaniaFabricCapabilities.getBlockApiLookupById(ManaTrigger.LOOKUP);
@@ -459,6 +458,16 @@ public class FabricCommonInitializer implements ModInitializer {
 
 		ItemStorage.SIDED.registerForBlockEntity(FabricRedStringContainerBlockEntity::getStorage, BotaniaBlockEntities.RED_STRINGED_CONTAINER);
 		ItemStorage.SIDED.registerForBlockEntity(RedStringContainerStorage::new, BotaniaBlockEntities.RED_STRINGED_DISPENSER);
+
+		BlockApiLookup<LifeAggregatorCarryable, Unit> lifeAggregatorCarryableBlockLookup = BotaniaFabricCapabilities.getBlockApiLookupById(LifeAggregatorCarryable.LOOKUP);
+		lifeAggregatorCarryableBlockLookup.registerForBlockEntity(
+				(blockEntity, context) -> new LifeAggregatorHandler.MonsterSpawnerCarryable(blockEntity),
+				BlockEntityType.MOB_SPAWNER
+		);
+		lifeAggregatorCarryableBlockLookup.registerForBlockEntity(
+				(blockEntity, context) -> new LifeAggregatorHandler.TrialSpawnerCarryable(blockEntity),
+				BlockEntityType.TRIAL_SPAWNER
+		);
 
 		if (XplatAbstractions.INSTANCE.isModLoaded("team_reborn_energy")) {
 			FluxfieldTRStorage.register();

@@ -287,6 +287,8 @@
 
 
 
+
+
   "tag.block.botania.special_floating_flowers": "Fleurs flottantes spéciales",
   "tag.block.botania.special_flowers": "Fleurs spéciales",
 
@@ -349,6 +351,7 @@
 
 
 
+
   "tag.item.botania.burst_viewers": "Mana-vision",
 
 
@@ -356,7 +359,9 @@
 
 
   "tag.item.botania.tall_mystical_flowers": "Grandes fleurs mystiques",
+
   "tag.item.botania.dreamwood_logs": "Bûches en boisrêve",
+
 
 
 
@@ -373,6 +378,7 @@
   "tag.item.botania.lens": "Lentilles de mana",
   "tag.item.botania.lens_glue": "Colle de lentille",
   "tag.item.botania.livingwood_logs": "Bûches de vifbois",
+
 
 
 
@@ -403,6 +409,7 @@
   "tag.item.botania.petals.red": "Pétales rouges",
   "tag.item.botania.petals.white": "Pétales blancs",
   "tag.item.botania.petals.yellow": "Pétales jaunes",
+
 
 
 
@@ -719,8 +726,9 @@
   "entity.botania.magic_missile": "Missile magique",
   "entity.botania.thorn_chakram": "Chakram d'épines",
   "entity.botania.corporea_spark": "Étincelle Corporea",
-  "entity.botania.ender_air_bottle": "Fiole d'air du néant",
-  "entity.botania.ender_air_cloud": "Nuage d'air du néant",
+
+
+
   "entity.botania.mana_pool_minecart": "Wagonnet à bassin",
   "entity.botania.pink_wither": "Wither rose",
   "entity.botania.luminizer_beam": "Rayon luminiseur",
@@ -770,8 +778,8 @@
   "advancement.botania:dirtRodCraft.desc": "Fabriquez un go- euh... bâton des terres",
   "advancement.botania:spawnerMoverUse": "Déménageur de l'extrême",
   "advancement.botania:spawnerMoverUse.desc": "Utilisez un assembleur de vie pour transporter un générateur de monstres",
-  "advancement.botania:enderAirMake": "Paquet de chips",
-  "advancement.botania:enderAirMake.desc": "Récupérez une fiole d'air du néant",
+
+
   "advancement.botania:corporeaCraft": "Circuit court",
   "advancement.botania:corporeaCraft.desc": "Fabriquez un bloc qui servira au réseau Corporea",
   "advancement.botania:cacophoniumCraft": "Dépasse l'entendement",
@@ -2049,7 +2057,8 @@
   "item.botania.corporea_spark": "Étincelle Corporea",
   "item.botania.master_corporea_spark": "Étincelle maîtresse Corporea",
   "item.botania.creative_corporea_spark": "Étincelle créative Corporea",
-  "item.botania.ender_air_bottle": "Fiole d'air du néant",
+
+
   "item.botania.livingwood_bow": "Arc en vifbois",
   "item.botania.crystal_bow": "Arc de cristal",
   "item.botania.cosmetic_black_bowtie": "Noeud papillon noir",
@@ -3145,6 +3154,7 @@
   "botania.tagline.flasks": "TAGLINE",
   "botania.page.flasks0": "Il semblerait que le $(l:alfhomancy/elf_resources)verre elfique$(/l) soit plus malléable que le $(l:mana/pool)verre de mana$(/l).$(p)Une $(item)flasque$(0) en $(l:alfhomancy/elf_resources)verre elfique$(/l) sera capable de contenir $(thing)6$(0) doses, à la différence d'un $(l:devices/brewery)philtre$(/l) en $(l:mana/pool)verre de mana$(/l) qui sera limité à $(thing)4$(0) doses.",
   "botania.page.flasks1": "Même si les ingrédients sont les mêmes, une $(item)flasque$(0) aura besoin de deux fois plus de mana par rapport à un $(l:devices/brewery)philtre$(/l). La taille du goulot d'une $(item)flasque$(0) étant plus large, boire son contenu sera plus rapide.",
+
   "botania.page.flasks2": "$(o)rigide et solide$()",
 
   "botania.entry.complexBrews": "Breuvages avancés",
@@ -3576,11 +3586,14 @@
   "botania.page.astrolabe1": "Quand un type de bloc est sélectionné, l'$(item)astrolabe$(0) va afficher un hologramme de ce qu'il pourrait placer.$(p)Pour réellement placer les blocs, il vous suffit de faire un clic-droit ($(o)et d'avoir assez de $(thing)mana$(0) dans votre inventaire$()). Les blocs peuvent provenir de votre inventaire, d'un $(l:tools/rod_of_the_shifting_crust)bâton équivalent$(/l), d'un $(l:tools/rod_of_the_depths)bâton des pierres$(/l) ou d'une $(l:ender/hand_of_ender)clé de l'Ender$(/l).",
   "botania.page.astrolabe2": "$(o)maçon de père en fils$()",
 
-  "botania.entry.enderAir": "Récolter l'air du néant",
-  "botania.tagline.enderAir": "TAGLINE",
-  "botania.page.enderAir0": "L'air qui est présent dans l'$(thing)End$(0) semble avoir des propriétés mutagènes.$(p)Clic-droit dans l'$(thing)End$(0) avec une $(item)fiole$(0) vide vous donnera une $(item)fiole d'air du néant$(0). Un objet que l'on peut lancer, et qui transforme la $(item)roche$(0) en $(item)pierre de l'End$(0). Même un $(item)distributeur$(0) peut capturer cet air, tant qu'il n'est pas obstrué.",
 
-  "botania.page.enderAir1": "En faisant des expériences; nous avons découvert que si des gaz de l'$(thing)End$(0) sont mélangés à l'air de la $(thing)Surface$(0), alors ils formeront un mélange toxique pour les créatures du $(thing)Nether$(0), comme le $(thing)Ghast$(0).$(p)Les $(item)fioles d'air du néant$(0) sont trop petites pour faire un vrai poison anti-$(thing)Nether$(0), mais elles sont suffisamment grandes pour faire $(o)un produit très irritant pour les yeux$().",
+
+
+
+
+
+
+
 
   "botania.entry.enderEyeBlock": "Veilleur du néant",
   "botania.tagline.enderEyeBlock": "TAGLINE",
@@ -3604,6 +3617,7 @@
   "botania.tagline.enderDagger": "TAGLINE",
   "botania.page.enderDagger0": "Les $(thing)Endermen$(0), la deuxième pire chose, juste derrière les $(thing)Creepers$(0) ($(o)nan mais sérieux, qui a eu l'idée d'inventer ça$()).$(p)Cette dague est chargée d'énergie du néant, ce qui est parfait pour découper les $(thing)Endermen$(0) aussi facilement que du beurre.",
   "botania.page.enderDagger1": "Sa densité énergétique est aussi un inconvénient. Malgré la présence de $(l:mana/pool)manacier$(/l) dans sa fabrication, il n'est pas possible de réparer cet arme avec du $(thing)mana$(0).$(p)Mais c'est le prix à payer pour pouvoir éradiquer ces sales voleurs de blocs.",
+
   "botania.page.enderDagger2": "$(o)la Voix des morts$()",
 
   "botania.entry.spawnerClaw": "Injecteur de vie",
@@ -3700,7 +3714,7 @@
 
   "botania.entry.spawnerMover": "Assembleur de vie",
   "botania.tagline.spawnerMover": "TAGLINE",
-  "botania.page.spawnerMover0": "Combiner de la $(l:alfhomancy/elf_resources)dragonite$(/l), de l'$(l:alfhomancy/elf_resources)élémentium$(/l), de l'$(l:ender/ender_air)air du néant$(/l), et des $(l:alfhomancy/gaia_ritual)esprits de Gaïa$(/l) permet de fabriquer une machine mystérieuse avec la faculté de déplacer les $(item)générateurs de monstres$(0).$(p)Malheureusement, cette machine ne fonctionne qu'une seule fois.",
+  "botania.page.spawnerMover0": "Combiner de la $(l:alfhomancy/elf_resources)dragonite$(/l), de l'$(l:alfhomancy/elf_resources)élémentium$(/l), de l'$(l:ender/ender_essence)air du néant$(/l), et des $(l:alfhomancy/gaia_ritual)esprits de Gaïa$(/l) permet de fabriquer une machine mystérieuse avec la faculté de déplacer les $(item)générateurs de monstres$(0).$(p)Malheureusement, cette machine ne fonctionne qu'une seule fois.",
   "botania.page.spawnerMover1": "$(o)gemme de capture d'âme$()",
 
   "botania.entry.keepIvy": "Lierre philosophal",
@@ -3734,12 +3748,12 @@
 
   "botania.entry.starSword": "Furie étoilée",
   "botania.tagline.starSword": "TAGLINE",
-  "botania.page.starSword0": "$(item)Furie étoilée$(0) est une épée infusée d'un pouvoir céleste. Si vous la maniez, des étoiles filantes s'abattront à l'endroit où sont porteur regarde ($(o)de préférence, sur des ennemis$()).$(p)Sa fabrication ne sera pas simple, vous aurez besoin d'$(l:ender/ender_air)air du néant$(/l) et d'une $(l:tools/terra_blade)lame Terra$(/l).$(p)Méfiez-vous, les enchantement ne seront pas transmis d'une épée vers une autre.",
+  "botania.page.starSword0": "$(item)Furie étoilée$(0) est une épée infusée d'un pouvoir céleste. Si vous la maniez, des étoiles filantes s'abattront à l'endroit où sont porteur regarde ($(o)de préférence, sur des ennemis$()).$(p)Sa fabrication ne sera pas simple, vous aurez besoin d'$(l:ender/ender_essence)air du néant$(/l) et d'une $(l:tools/terra_blade)lame Terra$(/l).$(p)Méfiez-vous, les enchantement ne seront pas transmis d'une épée vers une autre.",
   "botania.page.starSword1": "$(o)hokuto de cuisine$()",
 
   "botania.entry.thunderSword": "Lame-tonnerre",
   "botania.tagline.thunderSword": "TAGLINE",
-  "botania.page.thunderSword0": "$(item)Lame-tonnerre$(0) est une épée infusée d'un pouvoir céleste. Si vous la maniez, de la foudre ira se propager sur les autres monstres à proximité.$(p)Sa fabrication ne sera pas simple, vous aurez besoin d'$(l:ender/ender_air)air du néant$(/l) et d'une $(l:tools/terra_blade)lame Terra$(/l).$(p)Méfiez-vous, les enchantement ne seront pas transmis d'une épée vers une autre.",
+  "botania.page.thunderSword0": "$(item)Lame-tonnerre$(0) est une épée infusée d'un pouvoir céleste. Si vous la maniez, de la foudre ira se propager sur les autres monstres à proximité.$(p)Sa fabrication ne sera pas simple, vous aurez besoin d'$(l:ender/ender_essence)air du néant$(/l) et d'une $(l:tools/terra_blade)lame Terra$(/l).$(p)Méfiez-vous, les enchantement ne seront pas transmis d'une épée vers une autre.",
   "botania.page.thunderSword1": "$(o)hokuto de salle à manger$()",
 
   "botania.entry.bIntro": "Introduction aux bibelots",
@@ -4145,12 +4159,12 @@
   "botania.page.preventingDecay0": "C'est non !",
 
   "botania.subtitle.agricarnation": "Agricarnation qui brille",
-  "botania.subtitle.airRod": "Bâton des cieux qui souffle",
-  "botania.subtitle.altarCraft": "Apothicaire de pétales qui crépite",
+  "botania.subtitle.rodOfTheSkies": "Bâton des cieux qui souffle",
+  "botania.subtitle.apothecaryCraft": "Apothicaire de pétales qui crépite",
   "botania.subtitle.arcane_rose_disenchant": "Rosa Arcana qui désenchante",
   "botania.subtitle.astrolabeConfigure": "Astrolabe en élémentium qui s'actionne",
-  "botania.subtitle.babylonAttack": "Clé de Babylone déployée",
-  "botania.subtitle.babylonSpawn": "Clé de Babylone activée",
+  "botania.subtitle.treasureWeaponAttack": "Clé de Babylone déployée",
+  "botania.subtitle.treasureWeaponSpawn": "Clé de Babylone activée",
   "botania.subtitle.manatide_bellows": "Soufflet qui souffle",
   "botania.subtitle.bifrostRod": "Bâton du Bifrost qui résonne",
   "botania.subtitle.blackHoleTalismanConfigure": "Tintement d'un talisman du néant",
@@ -4159,13 +4173,14 @@
   "botania.subtitle.diceOfFate": "Dé du destin qui claque",
   "botania.subtitle.ding": "Baguette sylvestre qui résonne",
   "botania.subtitle.divaCharm": "Broche séductrice qui résonne",
-  "botania.subtitle.divinationRod": "Bâton des visions qui résonne",
+  "botania.subtitle.rodOfThePlentifulMantle": "Bâton des visions qui résonne",
   "botania.subtitle.doit": "VAS-Y !!",
   "botania.subtitle.drum": "Tambour qui tambourine",
   "botania.subtitle.enchanterEnchant": "Enchanteur de mana qui s'active",
   "botania.subtitle.enchanterFade": "Enchanteur de mana qui se vide",
   "botania.subtitle.enchanterForm": "Enchanteur de mana qui se charge",
-  "botania.subtitle.enderAirThrow": "Fiole d'air du néant lancée",
+
+
   "botania.subtitle.endoflame": "Endoflamme qui incinère",
   "botania.subtitle.entropinnyumAngry": "Entropinnyum qui rage",
   "botania.subtitle.entropinnyumHappy": "Entropinnyum qui ronronne",
@@ -4174,7 +4189,7 @@
   "botania.subtitle.equipManasteel": "Tintement d'armure en manacier",
   "botania.subtitle.equipManaweave": "Froissement d'armure en manasoie",
   "botania.subtitle.equipTerrasteel": "Tintement d'armure en terracier",
-  "botania.subtitle.fireRod": "Bâton des feux qui incinère",
+  "botania.subtitle.rodOfTheHells": "Bâton des feux qui incinère",
   "botania.subtitle.flareChakramThrow": "Chakram ardent lancé",
   "botania.subtitle.flugelEyeBind": "Oeil du Flügel qui s'active",
   "botania.subtitle.flugelEyeTeleport": "Oeil du Flügel qui se téléporte",
@@ -4189,7 +4204,7 @@
   "botania.subtitle.laputaStart": "Cristal de Laputa activé",
   "botania.subtitle.lexiconOpen": "Lexica Botania qui s'ouvre",
   "botania.subtitle.lexiconPage": "Page tournée",
-  "botania.subtitle.lightRelay": "Luminiseur qui transporte",
+  "botania.subtitle.luminizer": "Luminiseur qui transporte",
   "botania.subtitle.manaBlaster": "Pistolet à mana qui tire",
   "botania.subtitle.manaBlasterCycle": "Pistolet à mana qui vibre",
   "botania.subtitle.manaBlasterMisfire": "Pistolet à mana qui échoue",
@@ -4208,8 +4223,8 @@
   "botania.subtitle.runeAltarCraft": "Autel runique qui crépite",
   "botania.subtitle.runeAltarStart": "Autel runique qui démarre",
   "botania.subtitle.shulkMeNot": "Myosato qui explose",
-  "botania.subtitle.smeltRod": "Bâton des fontes qui crépite",
-  "botania.subtitle.smeltRodSimmer": "Bâton des fontes qui crépite",
+  "botania.subtitle.rodOfTheMoltenCore": "Bâton des fontes qui crépite",
+  "botania.subtitle.rodOfTheMoltenCoreSimmer": "Bâton des fontes qui crépite",
   "botania.subtitle.spreaderAddLens": "Lentille équipée à un diffuseur",
   "botania.subtitle.spreaderCover": "Diffuseur est couvert",
   "botania.subtitle.spreaderFire": "Diffuseur qui diffuse",
@@ -4221,7 +4236,7 @@
   "botania.subtitle.temperanceStoneConfigure": "Pierre de modération activée",
   "botania.subtitle.terraBlade": "Lame Terra activée",
   "botania.subtitle.terraPickMode": "Destructeur Terra activé",
-  "botania.subtitle.terraformRod": "Terraformation",
+  "botania.subtitle.rodOfTheTerraFirma": "Terraformation",
   "botania.subtitle.terrasteelCraft": "Terracier fabriqué",
   "botania.subtitle.thermalily": "Thermalys qui bois",
   "botania.subtitle.thornChakramThrow": "Chakram épineux lancé",
@@ -4234,6 +4249,16 @@
 
 
   "_commentUnmatchedBelow": "Keys below this line don't match anything in the English language file:",
+  "botania.entry.enderAir": "Récolter l'air du néant",
+  "botania.tagline.enderAir": "TAGLINE",
+  "botania.page.enderAir0": "L'air qui est présent dans l'$(thing)End$(0) semble avoir des propriétés mutagènes.$(p)Clic-droit dans l'$(thing)End$(0) avec une $(item)fiole$(0) vide vous donnera une $(item)fiole d'air du néant$(0). Un objet que l'on peut lancer, et qui transforme la $(item)roche$(0) en $(item)pierre de l'End$(0). Même un $(item)distributeur$(0) peut capturer cet air, tant qu'il n'est pas obstrué.",
+  "botania.page.enderAir1": "En faisant des expériences; nous avons découvert que si des gaz de l'$(thing)End$(0) sont mélangés à l'air de la $(thing)Surface$(0), alors ils formeront un mélange toxique pour les créatures du $(thing)Nether$(0), comme le $(thing)Ghast$(0).$(p)Les $(item)fioles d'air du néant$(0) sont trop petites pour faire un vrai poison anti-$(thing)Nether$(0), mais elles sont suffisamment grandes pour faire $(o)un produit très irritant pour les yeux$().",
+  "entity.botania.ender_essence_bottle": "Fiole d'air du néant",
+  "entity.botania.ender_essence_cloud": "Nuage d'air du néant",
+  "advancement.botania:enderAirMake": "Paquet de chips",
+  "advancement.botania:enderAirMake.desc": "Récupérez une fiole d'air du néant",
+  "item.botania.ender_essence_bottle": "Fiole d'air du néant",
+  "botania.subtitle.enderAirThrow": "Fiole d'air du néant lancée",
   "botania.page.manaAlchemy5": "Transmuter en$(br)$(item)poudre lumineuse$(0)",
   "botania.page.manaAlchemy6": "Transmuter en $(item)quartz$(0)",
   "botania.page.manaAlchemy7": "Transmuter en $(item)pierre sculptée$(0)",

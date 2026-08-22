@@ -31,7 +31,6 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.api.item.AncientWillContainer;
 import vazkii.botania.api.item.PhantomInkable;
-import vazkii.botania.api.mana.spark.SparkUpgradeType;
 import vazkii.botania.api.state.enums.CraftyCratePattern;
 import vazkii.botania.client.gui.bag.ColoredContentsPouchMenu;
 import vazkii.botania.client.gui.box.TrinketCaseMenu;
@@ -42,6 +41,7 @@ import vazkii.botania.common.block.mana.ManaPoolBlock;
 import vazkii.botania.common.component.BotaniaDataComponents;
 import vazkii.botania.common.helper.ColorHelper;
 import vazkii.botania.common.item.brew.BaseBrewItem;
+import vazkii.botania.common.item.brew.FlaskItem;
 import vazkii.botania.common.item.brew.IncenseStickItem;
 import vazkii.botania.common.item.brew.VialItem;
 import vazkii.botania.common.item.equipment.armor.elementium.*;
@@ -74,7 +74,6 @@ import vazkii.botania.xplat.XplatAbstractions;
 
 import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.function.BiConsumer;
 
@@ -132,7 +131,8 @@ public final class BotaniaItems {
 	public static final Item DREAMWOOD_TWIG = make(LibItemNames.DREAMWOOD_TWIG, new Item(defaultBuilder()));
 	public static final Item GAIA_INGOT = make(LibItemNames.GAIA_INGOT,
 			new GaiaRitualSacrificeItem(defaultBuilder().rarity(Rarity.RARE), true));
-	public static final Item ENDER_AIR_BOTTLE = make(LibItemNames.ENDER_AIR_BOTTLE, new EnderAirItem(defaultBuilder()));
+	public static final Item PURE_ENDER_ESSENCE = make(LibItemNames.PURE_ENDER_ESSENCE, new ThrowableEnderEssenceItem(defaultBuilder()));
+	public static final Item DILUTED_ENDER_ESSENCE = make(LibItemNames.DILUTED_ENDER_ESSENCE, new Item(defaultBuilder()));
 	public static final Item MANA_INFUSED_STRING = make(LibItemNames.MANA_STRING, new Item(defaultBuilder()));
 	public static final Item MANASTEEL_NUGGET = make(LibItemNames.MANASTEEL_NUGGET, new Item(defaultBuilder()));
 	public static final Item TERRASTEEL_NUGGET = make(LibItemNames.TERRASTEEL_NUGGET,
@@ -590,14 +590,22 @@ public final class BotaniaItems {
 			new EquestrianVirusItem(defaultBuilder()
 					.rarity(Rarity.UNCOMMON)));
 	public static final Item SPARK = make(LibItemNames.SPARK, new ManaSparkItem(defaultBuilder()));
-	public static final Item SPARK_AUGMENT_DISPERSIVE = make(LibItemNames.SPARK_AUGMENT + "_" + SparkUpgradeType.DISPERSIVE.name().toLowerCase(Locale.ROOT),
-			new SparkAugmentItem(SparkUpgradeType.DISPERSIVE, defaultBuilder()));
-	public static final Item SPARK_AUGMENT_DOMINANT = make(LibItemNames.SPARK_AUGMENT + "_" + SparkUpgradeType.DOMINANT.name().toLowerCase(Locale.ROOT),
-			new SparkAugmentItem(SparkUpgradeType.DOMINANT, defaultBuilder()));
-	public static final Item SPARK_AUGMENT_RECESSIVE = make(LibItemNames.SPARK_AUGMENT + "_" + SparkUpgradeType.RECESSIVE.name().toLowerCase(Locale.ROOT),
-			new SparkAugmentItem(SparkUpgradeType.RECESSIVE, defaultBuilder()));
-	public static final Item SPARK_AUGMENT_ISOLATED = make(LibItemNames.SPARK_AUGMENT + "_" + SparkUpgradeType.ISOLATED.name().toLowerCase(Locale.ROOT),
-			new SparkAugmentItem(SparkUpgradeType.ISOLATED, defaultBuilder()));
+	public static final Item SPARK_AUGMENT_DISPERSIVE = make(LibItemNames.SPARK_AUGMENT + "_dispersive",
+			new Item(defaultBuilder()
+					.component(BotaniaDataComponents.AUGMENT_ICON, botaniaRL("item/spark_augment_rune_dispersive"))
+					.component(BotaniaDataComponents.AUGMENT_ID, (byte) 1)));
+	public static final Item SPARK_AUGMENT_DOMINANT = make(LibItemNames.SPARK_AUGMENT + "_dominant",
+			new Item(defaultBuilder()
+					.component(BotaniaDataComponents.AUGMENT_ICON, botaniaRL("item/spark_augment_rune_dominant"))
+					.component(BotaniaDataComponents.AUGMENT_ID, (byte) 2)));
+	public static final Item SPARK_AUGMENT_RECESSIVE = make(LibItemNames.SPARK_AUGMENT + "_recessive",
+			new Item(defaultBuilder()
+					.component(BotaniaDataComponents.AUGMENT_ICON, botaniaRL("item/spark_augment_rune_recessive"))
+					.component(BotaniaDataComponents.AUGMENT_ID, (byte) 3)));
+	public static final Item SPARK_AUGMENT_ISOLATED = make(LibItemNames.SPARK_AUGMENT + "_isolated",
+			new Item(defaultBuilder()
+					.component(BotaniaDataComponents.AUGMENT_ICON, botaniaRL("item/spark_augment_rune_isolated"))
+					.component(BotaniaDataComponents.AUGMENT_ID, (byte) 4)));
 	public static final Item CORPOREA_SPARK = make(LibItemNames.CORPOREA_SPARK,
 			new CorporeaSparkItem(defaultBuilder()));
 	public static final Item MASTER_CORPOREA_SPARK = make(LibItemNames.MASTER_CORPOREA_SPARK,
@@ -705,7 +713,7 @@ public final class BotaniaItems {
 	public static final Item MANAGLASS_VIAL = make(LibItemNames.MANAGLASS_VIAL,
 			new VialItem(defaultBuilder()));
 	public static final Item ALFGLASS_FLASK = make(LibItemNames.ALFGLASS_FLASK,
-			new VialItem(defaultBuilder()));
+			new FlaskItem(defaultBuilder()));
 	public static final BaseBrewItem BREW_VIAL = make(LibItemNames.BREW_VIAL,
 			new BaseBrewItem(32, () -> MANAGLASS_VIAL, unstackable()
 					.component(BotaniaDataComponents.MAX_USES, BaseBrewItem.DEFAULT_USES_VIAL)));

@@ -283,6 +283,8 @@
 
 
 
+
+
   "tag.block.botania.shimmering_mushrooms": "微光蘑菇",
 
 
@@ -349,6 +351,7 @@
 
 
 
+
   "tag.item.botania.burst_viewers": "瑪那檢測",
 
 
@@ -356,7 +359,9 @@
 
 
   "tag.item.botania.tall_mystical_flowers": "高神秘花",
+
   "tag.item.botania.dreamwood_logs": "夢之木原木",
+
 
 
 
@@ -375,6 +380,7 @@
   "tag.item.botania.livingwood_logs": "活木原木",
 
   "tag.item.botania.loonium_offhand_equipment": "聚寶花已裝備於非慣用手欄",
+
 
 
 
@@ -403,6 +409,7 @@
   "tag.item.botania.petals.red": "紅色神秘花瓣",
   "tag.item.botania.petals.white": "白色神秘花瓣",
   "tag.item.botania.petals.yellow": "淺綠色神秘花瓣",
+
 
 
 
@@ -719,8 +726,9 @@
   "entity.botania.magic_missile": "瑪那飛彈",
   "entity.botania.thorn_chakram": "尖刺飛輪",
   "entity.botania.corporea_spark": "多媒體火花",
-  "entity.botania.ender_air_bottle": "瓶裝終界空氣",
-  "entity.botania.ender_air_cloud": "終界空氣雲團",
+
+
+
   "entity.botania.mana_pool_minecart": "瑪那池礦車",
   "entity.botania.pink_wither": "粉色凋零怪",
   "entity.botania.luminizer_beam": "微光束",
@@ -771,7 +779,7 @@
   "advancement.botania:spawnerMoverUse": "◯◯◯脱げるもん！",
   "advancement.botania:spawnerMoverUse.desc": "用一個生命聚合器來轉移生怪磚",
 
-  "advancement.botania:enderAirMake.desc": "收集一瓶終界空氣",
+
 
   "advancement.botania:corporeaCraft.desc": "合成一個使用多媒體網路的方塊",
   "advancement.botania:cacophoniumCraft": "ノイジーラバーソウル",
@@ -2049,7 +2057,8 @@
   "item.botania.corporea_spark": "多媒體火花",
   "item.botania.master_corporea_spark": "主媒體火花",
   "item.botania.creative_corporea_spark": "創造多媒體火花",
-  "item.botania.ender_air_bottle": "瓶裝終界空氣",
+
+
   "item.botania.livingwood_bow": "活木弓",
   "item.botania.crystal_bow": "水晶弓",
   "item.botania.cosmetic_black_bowtie": "黑領結",
@@ -3145,6 +3154,7 @@
   "botania.tagline.flasks": "更大的釀造容器",
   "botania.page.flasks0": "$(l:alfhomancy/elf_resources)$(item)精靈玻璃$(0)$(/l)看起來比用於製作$(item)玻璃小瓶$(0)的$(l:mana/pool)$(item)瑪那玻璃$(0)$(/l)更具韌性。使用$(l:alfhomancy/elf_resources)$(item)精靈玻璃$(0)$(/l)製作的$(item)燒瓶$(0)是精靈一族用於存放$(thing)精釀$(0)的典型容器，並且可儲存6瓶劑量，比只能儲存4瓶劑量的$(item)小瓶$(0)更大。",
   "botania.page.flasks1": "雖然使用$(item)燒瓶$(0)釀造藥水所需的材料消耗相同，但是$(thing)瑪那$(0)消耗是原先的兩倍。$(p)最後，鑑於$(item)燒瓶$(0)的瓶頸比$(item)小瓶$(0)的要大出很多，裡面的藥水也因此會被更快飲用。",
+
   "botania.page.flasks2": "在橋下找到一瓶",
 
   "botania.entry.complexBrews": "高級釀造",
@@ -3576,11 +3586,14 @@
   "botania.page.astrolabe1": "手持星盤指向任意方塊時，星盤會顯示效果預覽，藉由此可得知右鍵放置方塊後的效果。$(p)方塊放置時會消耗$(thing)瑪那$(0)，自然地也會消耗對應的方塊；不過你也可以使用能給$(item)移殼法杖$(0)提供方塊的物品（比如$(item)深淵法杖$(0)和$(item)終界之手$(0)）。",
   "botania.page.astrolabe2": "建造高牆，創造世界。",
 
-  "botania.entry.enderAir": "取得終界空氣",
-  "botania.tagline.enderAir": "製造終界石的可投擲瓶子",
-  "botania.page.enderAir0": "$(item)終界$(0)的空氣看起來有一些變異的功能。如果在$(item)終界$(0)用空的$(item)玻璃瓶$(0)右鍵就會收集到那裡的空氣，它也可以像飛濺藥水一樣扔出去，著陸點附近的$(item)石頭$(0)則會變成$(item)終界石$(0)。",
 
-  "botania.page.enderAir1": "經「實驗」證明，$(item)終界$(0)空氣與$(thing)主世界$(0)空氣混合時會產生一種對某些$(thing)地獄$(0)生物（比如$(item)地獄幽靈$(0)）有劇毒的氣體。$(p)儘管$(item)瓶裝終界空氣$(0)的量還是小了些，以至於造成不了什麼實質性的傷害，但用來煩人還是可以的。$(p)特別是弄到它們眼睛裡的時候。",
+
+
+
+
+
+
+
 
   "botania.entry.enderEyeBlock": "終界監視者",
   "botania.tagline.enderEyeBlock": "看著來啟動紅石訊號",
@@ -3604,6 +3617,7 @@
   "botania.tagline.enderDagger": "如奶油搬擊殺終界使者的匕首",
   "botania.page.enderDagger0": "那些$(thing)終界使者$(0)。他們是繼$(thing)苦力怕$(0)之後第二惱人的。我詛咒，想出它的人一定是和$(o)notch$(0)喝多了。$(p)然而，給一般的匕首注入它們的能量，就能做出$(item)靈魂匕首$(0)，一把能像切奶油般對付$(item)終界$(0)$(item)人$(0)的匕首。",
   "botania.page.enderDagger1": "由於注魔的關係這把匕首只能承受很少的擊殺量，並且所用的能量阻止了$(item)魔鋼$(0)取得$(thing)瑪那$(0)預防磨損，它就和普通的工具一樣了。一切都是為了那個怪物。",
+
   "botania.page.enderDagger2": "靈魂的衝擊",
 
   "botania.entry.spawnerClaw": "生命灌注器",
@@ -3700,7 +3714,7 @@
 
   "botania.entry.spawnerMover": "生命聚合器",
   "botania.tagline.spawnerMover": "移動生怪磚",
-  "botania.page.spawnerMover0": "透過特殊形式組合$(l:alfhomancy/elf_resources)$(item)龍石$(0)$(/l)、$(l:alfhomancy/elf_resources)$(item)源質鋼錠$(0)$(/l)、$(l:ender/ender_air)$(item)瓶裝終界空氣$(0)$(/l)和$(l:alfhomancy/gaia_ritual)$(item)蓋亞之魂$(0)$(/l)，就能製作出一個可以容納構成$(item)生怪磚$(0)的奇異能量，並將它放置在其他地方的裝置。$(p)不幸的是，這個裝置只要用一次就會碎掉。",
+  "botania.page.spawnerMover0": "透過特殊形式組合$(l:alfhomancy/elf_resources)$(item)龍石$(0)$(/l)、$(l:alfhomancy/elf_resources)$(item)源質鋼錠$(0)$(/l)、$(l:ender/ender_essence)$(item)瓶裝終界空氣$(0)$(/l)和$(l:alfhomancy/gaia_ritual)$(item)蓋亞之魂$(0)$(/l)，就能製作出一個可以容納構成$(item)生怪磚$(0)的奇異能量，並將它放置在其他地方的裝置。$(p)不幸的是，這個裝置只要用一次就會碎掉。",
   "botania.page.spawnerMover1": "生怪磚宅急配",
 
   "botania.entry.keepIvy": "堅毅之藤",
@@ -3734,12 +3748,12 @@
 
   "botania.entry.starSword": "召星者",
   "botania.tagline.starSword": "一把召喚流星的劍",
-  "botania.page.starSword0": "$(item)召星者$(0)是一把有著召喚群星之怒能力的劍，在揮動它的時候，劍會從天上召喚一顆流星落到持有者所看的位置，對所有接觸到的實體造成傷害。製作這把劍可不是一個簡單的任務，它需要$(l:ender/ender_air)$(item)瓶裝終界空氣$(0)$(/l)以及一把$(l:tools/terra_blade)$(item)泰拉之刃$(0)$(/l)。注意：這麼做會祛除泰拉之刃上的附魔。",
+  "botania.page.starSword0": "$(item)召星者$(0)是一把有著召喚群星之怒能力的劍，在揮動它的時候，劍會從天上召喚一顆流星落到持有者所看的位置，對所有接觸到的實體造成傷害。製作這把劍可不是一個簡單的任務，它需要$(l:ender/ender_essence)$(item)瓶裝終界空氣$(0)$(/l)以及一把$(l:tools/terra_blade)$(item)泰拉之刃$(0)$(/l)。注意：這麼做會祛除泰拉之刃上的附魔。",
   "botania.page.starSword1": "召星者、星怒……管他呢",
 
   "botania.entry.thunderSword": "召雷者",
   "botania.tagline.thunderSword": "一把召喚雷電的劍",
-  "botania.page.thunderSword0": "$(item)召雷者$(0)是一把能召喚雷電的雙刃。製作它需要$(l:tools/terra_blade)$(item)泰拉之刃$(0)$(/l)、$(l:ender/ender_air)$(item)瓶裝終界空氣$(0)$(/l)以及一些其他材料。$(item)召雷者$(0)犧牲了原本的遠距離攻擊能力，換取了能同時攻擊多個目標的能力。$(p)攻擊時，$(item)召雷者$(0)會形成一道會在附近怪物間彈跳的閃電鏈。",
+  "botania.page.thunderSword0": "$(item)召雷者$(0)是一把能召喚雷電的雙刃。製作它需要$(l:tools/terra_blade)$(item)泰拉之刃$(0)$(/l)、$(l:ender/ender_essence)$(item)瓶裝終界空氣$(0)$(/l)以及一些其他材料。$(item)召雷者$(0)犧牲了原本的遠距離攻擊能力，換取了能同時攻擊多個目標的能力。$(p)攻擊時，$(item)召雷者$(0)會形成一道會在附近怪物間彈跳的閃電鏈。",
   "botania.page.thunderSword1": "交易頻道的祝福之劍",
 
   "botania.entry.bIntro": "飾品介紹",
@@ -4145,12 +4159,12 @@
   "botania.page.preventingDecay0": "絕不",
 
   "botania.subtitle.agricarnation": "田園康乃馨閃光",
-  "botania.subtitle.airRod": "天空法杖呼呼作響",
-  "botania.subtitle.altarCraft": "花葯煉製結束",
+  "botania.subtitle.rodOfTheSkies": "天空法杖呼呼作響",
+  "botania.subtitle.apothecaryCraft": "花葯煉製結束",
   "botania.subtitle.arcane_rose_disenchant": "阿卡納薔薇吸收聲",
   "botania.subtitle.astrolabeConfigure": "蓋世六分儀鏗鏘聲",
-  "botania.subtitle.babylonAttack": "王之寶鑰封印解除",
-  "botania.subtitle.babylonSpawn": "王之寶鑰啟動",
+  "botania.subtitle.treasureWeaponAttack": "王之寶鑰封印解除",
+  "botania.subtitle.treasureWeaponSpawn": "王之寶鑰啟動",
   "botania.subtitle.manatide_bellows": "魔源風箱嘶嘶作響",
   "botania.subtitle.bifrostRod": "彩虹橋法杖嗡嗡作響",
   "botania.subtitle.blackHoleTalismanConfigure": "黑洞護符叮咚聲",
@@ -4159,13 +4173,14 @@
   "botania.subtitle.diceOfFate": "命運之骰哐啷哐啷聲",
   "botania.subtitle.ding": "森林法杖叮噹作響",
   "botania.subtitle.divaCharm": "女王項鍊的回聲",
-  "botania.subtitle.divinationRod": "占礦法杖嗡嗡作響",
+  "botania.subtitle.rodOfThePlentifulMantle": "占礦法杖嗡嗡作響",
 
   "botania.subtitle.drum": "鼓聲隆隆",
   "botania.subtitle.enchanterEnchant": "瑪那附魔結束",
   "botania.subtitle.enchanterFade": "瑪那附魔台崩解",
   "botania.subtitle.enchanterForm": "瑪那附魔台成型",
-  "botania.subtitle.enderAirThrow": "瓶裝終界空氣被扔出",
+
+
   "botania.subtitle.endoflame": "火紅蓮燃燒物品",
   "botania.subtitle.entropinnyumAngry": "熱爆花生氣",
   "botania.subtitle.entropinnyumHappy": "熱爆花湮滅",
@@ -4174,7 +4189,7 @@
   "botania.subtitle.equipManasteel": "魔鋼盔甲鏗鏘聲",
   "botania.subtitle.equipManaweave": "魔源盔甲：沙沙作響",
   "botania.subtitle.equipTerrasteel": "泰拉鋼盔甲鏗鏘聲",
-  "botania.subtitle.fireRod": "地獄法杖噼啪作響",
+  "botania.subtitle.rodOfTheHells": "地獄法杖噼啪作響",
   "botania.subtitle.flareChakramThrow": "閃耀飛輪被投擲",
   "botania.subtitle.flugelEyeBind": "天翼族之眼綁定",
   "botania.subtitle.flugelEyeTeleport": "天翼族之眼傳送",
@@ -4189,7 +4204,7 @@
   "botania.subtitle.laputaStart": "拉普達碎片啟動",
   "botania.subtitle.lexiconOpen": "植物魔法辭典開啟",
   "botania.subtitle.lexiconPage": "植物魔法辭典翻頁",
-  "botania.subtitle.lightRelay": "微光嗖嗖聲",
+  "botania.subtitle.luminizer": "微光嗖嗖聲",
   "botania.subtitle.manaBlaster": "瑪那脈衝槍發射",
   "botania.subtitle.manaBlasterCycle": "透鏡夾旋轉",
   "botania.subtitle.manaBlasterMisfire": "瑪那脈衝槍走火",
@@ -4208,8 +4223,8 @@
   "botania.subtitle.runeAltarCraft": "符文祭壇停止工作",
   "botania.subtitle.runeAltarStart": "符文祭壇啟動",
   "botania.subtitle.shulkMeNot": "勿落草爆炸",
-  "botania.subtitle.smeltRod": "熾心法杖熔煉",
-  "botania.subtitle.smeltRodSimmer": "熾心法杖噼啪作響",
+  "botania.subtitle.rodOfTheMoltenCore": "熾心法杖熔煉",
+  "botania.subtitle.rodOfTheMoltenCoreSimmer": "熾心法杖噼啪作響",
   "botania.subtitle.spreaderAddLens": "瑪那發射器裝入瑪那透鏡",
   "botania.subtitle.spreaderCover": "瑪那發射器套上羊毛",
   "botania.subtitle.spreaderFire": "瑪那發射器發射瑪那",
@@ -4221,7 +4236,7 @@
   "botania.subtitle.temperanceStoneConfigure": "節制之石叮咚聲",
   "botania.subtitle.terraBlade": "泰拉之刃啟動",
   "botania.subtitle.terraPickMode": "泰拉粉碎者升級",
-  "botania.subtitle.terraformRod": "大地被塑形",
+  "botania.subtitle.rodOfTheTerraFirma": "大地被塑形",
   "botania.subtitle.terrasteelCraft": "泰拉鋼製作完成",
   "botania.subtitle.thermalily": "熾玫瑰消耗熔岩",
   "botania.subtitle.thornChakramThrow": "尖刺飛輪被投擲",
@@ -4234,6 +4249,15 @@
 
 
   "_commentUnmatchedBelow": "Keys below this line don't match anything in the English language file:",
+  "botania.entry.enderAir": "取得終界空氣",
+  "botania.tagline.enderAir": "製造終界石的可投擲瓶子",
+  "botania.page.enderAir0": "$(item)終界$(0)的空氣看起來有一些變異的功能。如果在$(item)終界$(0)用空的$(item)玻璃瓶$(0)右鍵就會收集到那裡的空氣，它也可以像飛濺藥水一樣扔出去，著陸點附近的$(item)石頭$(0)則會變成$(item)終界石$(0)。",
+  "botania.page.enderAir1": "經「實驗」證明，$(item)終界$(0)空氣與$(thing)主世界$(0)空氣混合時會產生一種對某些$(thing)地獄$(0)生物（比如$(item)地獄幽靈$(0)）有劇毒的氣體。$(p)儘管$(item)瓶裝終界空氣$(0)的量還是小了些，以至於造成不了什麼實質性的傷害，但用來煩人還是可以的。$(p)特別是弄到它們眼睛裡的時候。",
+  "entity.botania.ender_essence_bottle": "瓶裝終界空氣",
+  "entity.botania.ender_essence_cloud": "終界空氣雲團",
+  "advancement.botania:enderAirMake.desc": "收集一瓶終界空氣",
+  "item.botania.ender_essence_bottle": "瓶裝終界空氣",
+  "botania.subtitle.enderAirThrow": "瓶裝終界空氣被扔出",
   "botania.page.manaAlchemy5": "粉碎$(item)螢石$(0)",
   "botania.page.manaAlchemy31": "石英",
   "botania.page.manaAlchemy6": "粉碎$(item)石英方塊$(0)",

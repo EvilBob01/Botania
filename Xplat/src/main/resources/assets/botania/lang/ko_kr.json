@@ -287,6 +287,8 @@
 
 
 
+
+
   "tag.block.botania.special_floating_flowers": "특별한 떠다니는 꽃",
   "tag.block.botania.special_flowers": "특별한 꽃",
 
@@ -349,6 +351,7 @@
 
 
 
+
   "tag.item.botania.burst_viewers": "마나버스트 관측 장비",
 
 
@@ -356,7 +359,9 @@
 
 
   "tag.item.botania.tall_mystical_flowers": "키 큰 신비로운 꽃",
+
   "tag.item.botania.dreamwood_logs": "꿈나무 원목",
+
 
 
 
@@ -373,6 +378,7 @@
   "tag.item.botania.lens": "마나 렌즈",
   "tag.item.botania.lens_glue": "렌즈 접착제",
   "tag.item.botania.livingwood_logs": "생기있는 나무 원목",
+
 
 
 
@@ -403,6 +409,7 @@
   "tag.item.botania.petals.red": "붉은색 꽃잎",
   "tag.item.botania.petals.white": "흰색 꽃잎",
   "tag.item.botania.petals.yellow": "노란색 꽃잎",
+
 
 
 
@@ -719,8 +726,9 @@
   "entity.botania.magic_missile": "매직미사일",
   "entity.botania.thorn_chakram": "던져지는 챠크람",
   "entity.botania.corporea_spark": "코포리아 스파크",
-  "entity.botania.ender_air_bottle": "엔더 공기가 담겨 있는 병",
-  "entity.botania.ender_air_cloud": "엔더 공기 구름",
+
+
+
   "entity.botania.mana_pool_minecart": "마나 웅덩이 마인카트",
   "entity.botania.pink_wither": "분홍 위더",
   "entity.botania.luminizer_beam": "루미나이저 빔",
@@ -771,7 +779,7 @@
   "advancement.botania:spawnerMoverUse": "(검열삭제)를 벗을 수 있는 걸",
   "advancement.botania:spawnerMoverUse.desc": "생명 수집기를 사용하여 몬스터 생성자 스포너 이동시키기",
 
-  "advancement.botania:enderAirMake.desc": "엔더의 공기를 병에 넣어보세요",
+
 
   "advancement.botania:corporeaCraft.desc": "코포리아 네트워크를 활용한 블록 생성",
 
@@ -2049,7 +2057,8 @@
   "item.botania.corporea_spark": "코포리아 스파크",
   "item.botania.master_corporea_spark": "마스터 코포리아 스파크",
   "item.botania.creative_corporea_spark": "영원한 코포리아 스파크",
-  "item.botania.ender_air_bottle": "엔더 공기가 담긴 병",
+
+
   "item.botania.livingwood_bow": "생명의 나무 활",
   "item.botania.crystal_bow": "수정 활",
   "item.botania.cosmetic_black_bowtie": "검은색 나비넥타이",
@@ -3145,6 +3154,7 @@
   "botania.tagline.flasks": "더 큰 양조 용기",
   "botania.page.flasks0": "$(l:alfhomancy/elf_resources)$(item)알프글라스$(0)$(/l)는 일반적으로 $(l:mana/pool)$(item)매나글라스$(0)$(/l)보다 더 흐물거리는 소재인 것 같습니다. $(l:alfhomancy/elf_resources)$(item)알프글라스$(0)$(/l)로 만든 $(item)유리병$(0)은 $(thing)양조$(0)를 위한 전형적인 엘프용 용기로, $(item)유리병$(0)의 4배에 달하는 6회분을 담을 수 있습니다.",
   "botania.page.flasks1": "특정한 $(item)유리병$(0)에서 특정한 양조를 위한 재료 비용은 동일하지만, $(item)유리병$(0)의 $(thing)마나$(0) 비용은 두 배입니다.$(p)또한 $(item)유리병$(0)의 병목이 $(item)유리병$(0)보다 크기 때문에 내용물을 더 빨리 마실 수 있습니다.",
+
   "botania.page.flasks2": "다리 밑에 하나 구해라",
 
   "botania.entry.complexBrews": "복합 양조",
@@ -3576,11 +3586,14 @@
   "botania.page.astrolabe1": "한 번 블록이 선택되면 아스트롤라브는 주어진 위치에서 구성될 내용의 미리보기를 표시합니다.$(p)실제로 미리보기된 블록을 구성하려면 ($(thing)마나$(0) 및 사용자 인벤토리의 블록을 사용), 아스트롤라브를 오른쪽 클릭하면 됩니다. 블록은 $(l:tools/rod_of_the_shifting_crust)$(item)Rod of the Shifting Crust$(0)$(/l), $(l:tools/rod_of_the_depths)$(item)Rod of the Depths$(0)$(/l), 또는 $(l:ender/hand_of_ender)$(item)Hand of Ender$(0)$(/l)와 같은 아이템에서 제공될 수도 있습니다.",
   "botania.page.astrolabe2": "벽을 세우며 세계를 창조합니다",
 
-  "botania.entry.enderAir": "엔더 공기 추출",
-  "botania.tagline.enderAir": "던지면 엔드 스톤이 생성되는 던짐 병",
-  "botania.page.enderAir0": "엔드의 공간에 존재하는 공기는 변이적인 특성을 가지고 있는 것으로 보입니다. $(thing)엔드$(0)에서 빈 $(item)유리 병$(0)으로 오른쪽 클릭하면 그 공기 일부를 포획할 수 있으며, 이것은 나중에 햇갈리는 포션처럼 던져질 수 있어 던지는 지점 근처의 $(item)돌$(0)을 $(item)엔드 스톤$(0)으로 변환시킵니다. $(p)$(item)발사기$(0)도 이 공기를 포획할 수 있습니다. 출력 위에 아무 것도 가로막지 않은 경우입니다.",
 
-  "botania.page.enderAir1": "엔드의 공기의 가스가 평범한 $(thing)오버월드$(0) 공기와 섞일 때, 특히 $(thing)화산 지옥$(0) 몬스터 중 일부에게는 상당히 유독하다는 \"실험적\"으로 밝혀졌습니다. $(p)$(item)엔더 공기 병$(0)에 저장된 양은 실제로 피해를 주기에는 훨씬 작지만, 자극제로서 효과적입니다.$(p)특히 눈에 들어가면 더욱 효과적입니다.",
+
+
+
+
+
+
+
 
   "botania.entry.enderEyeBlock": "엔더 감시자",
   "botania.tagline.enderEyeBlock": "시선 활성화된 레드스톤 감지기",
@@ -3604,6 +3617,7 @@
   "botania.tagline.enderDagger": "엔더맨을 버터처럼 가르는 단검",
   "botania.page.enderDagger0": "저 $(thing)엔더맨$(0)들. $(thing)크리퍼$(0) 이후로 가장 귀찮은 존재입니다. (진짜, 그걸 만든 사람은 정말로 단계를 내리라고 말할 필요가 있어요.)$(p)그러나 그들의 에너지로 만든 단검은 그들을 마치 버터를 통과하는 천도 칼처럼 찢어버릴 수 있습니다.",
   "botania.page.enderDagger1": "에너지의 농도 때문에 단, 몇 번의 처치에만 유용하며, 레시피의 $(item)마나합금$(0)이 $(thing)마나$(0)로 회복되지 않아 일반적인 도구처럼 회복되지 않습니다. 그래도 저긴 그 긴 혈관 도둑들을 죽이는 데 수고할 가치가 있습니다.",
+
   "botania.page.enderDagger2": "내 영혼에게 일격",
 
   "botania.entry.spawnerClaw": "생명 부여자",
@@ -3700,7 +3714,7 @@
 
   "botania.entry.spawnerMover": "생명의 관리자",
   "botania.tagline.spawnerMover": "스포너 이동 능력",
-  "botania.page.spawnerMover0": "특정한 패턴으로 $(l:alfhomancy/elf_resources)$(item)Dragonstone$(0)$(/l), $(l:alfhomancy/elf_resources)$(item)Elementium$(0)$(/l), $(l:ender/ender_air)$(item)Ender Air$(0)$(/l), 및 $(l:alfhomancy/gaia_ritual)$(item)Gaia Spirits$(0)$(/l)을 제작하면 $(item)Monster Spawner$(0)의 호기심 많은 에너지를 억제하고 다른 공간으로 옮길 수 있는 장치가 생성됩니다.$(p)불행히도 이 장치는 한 번 사용한 후에 파괴됩니다.",
+  "botania.page.spawnerMover0": "특정한 패턴으로 $(l:alfhomancy/elf_resources)$(item)Dragonstone$(0)$(/l), $(l:alfhomancy/elf_resources)$(item)Elementium$(0)$(/l), $(l:ender/ender_essence)$(item)Ender Air$(0)$(/l), 및 $(l:alfhomancy/gaia_ritual)$(item)Gaia Spirits$(0)$(/l)을 제작하면 $(item)Monster Spawner$(0)의 호기심 많은 에너지를 억제하고 다른 공간으로 옮길 수 있는 장치가 생성됩니다.$(p)불행히도 이 장치는 한 번 사용한 후에 파괴됩니다.",
   "botania.page.spawnerMover1": "스포너 소포",
 
   "botania.entry.keepIvy": "단호한 아이비",
@@ -3734,12 +3748,12 @@
 
   "botania.entry.starSword": "별부름검",
   "botania.tagline.starSword": "별을 떨어뜨리는 검",
-  "botania.page.starSword0": "$(item)별부름검$(0)는 별의 분노를 불러 일으킬 수 있는 검입니다. 휘두를 때 검은 하늘에서 지점을 향해 떨어지는 별을 소환하여 그 자리에 서 있는 모든 것에 피해를 입힙니다. 이 검은 획득이 쉬운 것이 아닌데, $(l:ender/ender_air)$(item)Ender Air$(0)$(/l)와 $(l:tools/terra_blade)$(item)Terra Blade$(0)$(/l)가 제작 구성품으로 사용됩니다. 단, 후자에 부여된 모든 마법이 사라집니다.",
+  "botania.page.starSword0": "$(item)별부름검$(0)는 별의 분노를 불러 일으킬 수 있는 검입니다. 휘두를 때 검은 하늘에서 지점을 향해 떨어지는 별을 소환하여 그 자리에 서 있는 모든 것에 피해를 입힙니다. 이 검은 획득이 쉬운 것이 아닌데, $(l:ender/ender_essence)$(item)Ender Air$(0)$(/l)와 $(l:tools/terra_blade)$(item)Terra Blade$(0)$(/l)가 제작 구성품으로 사용됩니다. 단, 후자에 부여된 모든 마법이 사라집니다.",
 
 
   "botania.entry.thunderSword": "우레부름검",
   "botania.tagline.thunderSword": "우레을 부르는 검",
-  "botania.page.thunderSword0": "$(item)우레부름검$(0)는 번개를 불러 일으킬 수 있는 이중 날 검입니다. $(l:tools/terra_blade)$(item)Terra Blade$(0)$(/l)와 $(l:ender/ender_air)$(item)Ender Air$(0)$(/l)와 같은 재료로 제작되었으며, 원거리 공격의 힘을 희생하고 하나의 공격으로 여러 대상에게 감전의 힘을 전합니다.$(p)$(item)우레부름검$(0)의 공격은 군중 속에서 주변의 적 모브에게 번개를 일으키는 연쇄를 생성합니다.",
+  "botania.page.thunderSword0": "$(item)우레부름검$(0)는 번개를 불러 일으킬 수 있는 이중 날 검입니다. $(l:tools/terra_blade)$(item)Terra Blade$(0)$(/l)와 $(l:ender/ender_essence)$(item)Ender Air$(0)$(/l)와 같은 재료로 제작되었으며, 원거리 공격의 힘을 희생하고 하나의 공격으로 여러 대상에게 감전의 힘을 전합니다.$(p)$(item)우레부름검$(0)의 공격은 군중 속에서 주변의 적 모브에게 번개를 일으키는 연쇄를 생성합니다.",
 
 
   "botania.entry.bIntro": "트링켓 소개",
@@ -4233,7 +4247,16 @@
 
 
 
+
   "_commentUnmatchedBelow": "Keys below this line don't match anything in the English language file:",
+  "botania.entry.enderAir": "엔더 공기 추출",
+  "botania.tagline.enderAir": "던지면 엔드 스톤이 생성되는 던짐 병",
+  "botania.page.enderAir0": "엔드의 공간에 존재하는 공기는 변이적인 특성을 가지고 있는 것으로 보입니다. $(thing)엔드$(0)에서 빈 $(item)유리 병$(0)으로 오른쪽 클릭하면 그 공기 일부를 포획할 수 있으며, 이것은 나중에 햇갈리는 포션처럼 던져질 수 있어 던지는 지점 근처의 $(item)돌$(0)을 $(item)엔드 스톤$(0)으로 변환시킵니다. $(p)$(item)발사기$(0)도 이 공기를 포획할 수 있습니다. 출력 위에 아무 것도 가로막지 않은 경우입니다.",
+  "botania.page.enderAir1": "엔드의 공기의 가스가 평범한 $(thing)오버월드$(0) 공기와 섞일 때, 특히 $(thing)화산 지옥$(0) 몬스터 중 일부에게는 상당히 유독하다는 \"실험적\"으로 밝혀졌습니다. $(p)$(item)엔더 공기 병$(0)에 저장된 양은 실제로 피해를 주기에는 훨씬 작지만, 자극제로서 효과적입니다.$(p)특히 눈에 들어가면 더욱 효과적입니다.",
+  "entity.botania.ender_essence_bottle": "엔더 공기가 담겨 있는 병",
+  "entity.botania.ender_essence_cloud": "엔더 공기 구름",
+  "advancement.botania:enderAirMake.desc": "엔더의 공기를 병에 넣어보세요",
+  "item.botania.ender_essence_bottle": "엔더 공기가 담긴 병",
   "botania.page.manaAlchemy5": "$(item)발광석 블록$(0) 분해",
   "botania.page.manaAlchemy31": "석영",
   "botania.page.manaAlchemy6": "$(item)석영 블록$(0) 분해",

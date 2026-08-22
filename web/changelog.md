@@ -40,6 +40,7 @@ Here's a general overview of what you can expect to change in terms of gameplay:
 * Add: New Petal Apothecary variants (blackstone, netherbricks, red netherbricks)
 * Add: New ambient music by Firel - Runes of Air, Runes of Mana, and Garden of Glass (the latter only plays when the Garden of Glass mod is loaded)
 * Add: Dog. (IYKYK)
+* Add: Life Aggregator can also pick up Trial Spawners
 * Change: Fel Blaze spawning now matches snow golem spawning, in that the block shape can be placed sideways or even upside down
 * Change: Botania's banner patterns now have dedicated pattern items instead of using certain Botania items directly
 * Change: Botania grass variants spread and decay like vanilla grass or mycelium
@@ -73,6 +74,10 @@ Here's a general overview of what you can expect to change in terms of gameplay:
 * Change: Terra Truncator can cut down huge mushrooms and nether fungi, and properly breaks larger tree crowns (e.g. of large jungle trees)
 * Change: Managlass, Alfglass, and Bifrost blocks/panes are no longer faster to mine with any pickaxe
   (you need a vitreous pickaxe for fast breaking now, but you can still obtain these blocks without any tools)
+* Change: Ender Essence (previously called Ender Air) can no longer be obtained directly from the air in the End, but there are new ways to generate Ender Essence clouds by interacting with Endermen
+* Change: Recipes for most Corporea-related blocks and items have changed to no longer use sparks directly; some of them are now available before going to the End
+* Change: Agricarnation can also grow sugarcane and cactus (with some risk of wasted mana) and speed up the spread of small mushrooms;
+  also, using its regular size is now about as powerful as covering the same area with multiple of the petite version
 * Remove: Overgrowth Seed and Enchanted Soil
 * Remove: Crafting recipes for recombining slabs into full blocks
 * API: Runic Altar recipes define catalyst items separately (these are returned unchanged when crafting is complete)
@@ -85,6 +90,9 @@ Here's a general overview of what you can expect to change in terms of gameplay:
 {% include changelog_header.html version="Upcoming" %}
 The following changes will be released in an upcoming version of Botania for 1.20.1:
 
+* Add: Manaseer Monocle on the Vinculotus shows where Endermen will teleport to
+* Add: Placing sparks while holding dye in your other hand will dye the spark that color
+* Add: Mana Enchanter also accepts mystical 
 * Change: Hopperhock no longer shows a secondary range indicator, as it doesn't really match its container access pattern
 * Change: Ender Overseer line of sight check type switched from collision to visual (like 3rd-person camera or trial spawners)
 * Remove: Quark frog as rare cocoon spawn (catching up to 1.19 – woo, so up-to-date!)
@@ -93,6 +101,10 @@ The following changes will be released in an upcoming version of Botania for 1.2
 * Fix: Floating special flowers now show the type and reference lines, like their non-floating versions do
 * Fix: Diagonal Windows iron bars now also work for summoning fel blazes
 * Fix: Loonium could cause a crash when spawning a spider jockey
+* Fix: Potential crashes related to failed block entity access due to other mods using Botania blocks in weird ways
+* Fix: Warning log spam related to `botania:pylon` and `botania:film_grain_particle` shaders (ErythroCraft)
+* Fix: Lopsided teleportation target zone around the Vinculotus
+* Fix: Occasional crash on Forge startup during composter data registration
 
 ---
 

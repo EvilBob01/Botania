@@ -28,7 +28,6 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Container;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -82,6 +81,7 @@ import vazkii.botania.api.block.Avatar;
 import vazkii.botania.api.block.EdibleBlockWithEffects;
 import vazkii.botania.api.block.ExoflameHeatable;
 import vazkii.botania.api.block.HourglassTrigger;
+import vazkii.botania.api.block.LifeAggregatorCarryable;
 import vazkii.botania.api.block.PhantomInkableBlock;
 import vazkii.botania.api.block.WandBindable;
 import vazkii.botania.api.block.Wandable;
@@ -92,7 +92,7 @@ import vazkii.botania.api.item.CoordBoundItem;
 import vazkii.botania.api.item.HourglassMaterial;
 import vazkii.botania.api.item.Relic;
 import vazkii.botania.api.mana.*;
-import vazkii.botania.api.mana.spark.SparkAttachable;
+import vazkii.botania.api.mana.spark.ManaSparkAttachable;
 import vazkii.botania.api.neoforge.BotaniaNeoForgeCapabilities;
 import vazkii.botania.api.neoforge.mana.ManaNetworkEvent;
 import vazkii.botania.client.fx.BotaniaParticles;
@@ -135,7 +135,6 @@ import vazkii.botania.common.item.equipment.armor.terrasteel.TerrasteelHelmItem;
 import vazkii.botania.common.item.equipment.bauble.*;
 import vazkii.botania.common.item.equipment.tool.terrasteel.TerraBladeItem;
 import vazkii.botania.common.item.equipment.tool.terrasteel.TerraTruncatorItem;
-import vazkii.botania.common.item.material.EnderAirItem;
 import vazkii.botania.common.item.relic.*;
 import vazkii.botania.common.item.rod.*;
 import vazkii.botania.common.loot.BotaniaLootModifiers;
@@ -194,7 +193,7 @@ public class NeoForgeCommonInitializer {
 		BotaniaItems.registerCauldronInteractions();
 		PaintableData.init();
 		// TODO: move this to datagen
-		CompostingData.init((itemLike, chance) -> ComposterBlock.COMPOSTABLES.putIfAbsent(itemLike.asItem(), (float) chance));
+		evt.enqueueWork(() -> CompostingData.init((itemLike, chance) -> ComposterBlock.COMPOSTABLES.putIfAbsent(itemLike.asItem(), (float) chance)));
 		DefaultCorporeaMatchers.init();
 		PlayerHelper.setFakePlayerClass(FakePlayer.class);
 
@@ -368,13 +367,6 @@ public class NeoForgeCommonInitializer {
 		bus.addListener((PlayerInteractEvent.RightClickBlock e) -> {
 			RedStringInterceptorBlock.onInteract(e.getEntity(), e.getLevel(), e.getHand(), e.getHitVec());
 			RingOfLokiItem.onPlayerInteract(e.getEntity(), e.getLevel(), e.getHand(), e.getHitVec());
-		});
-		bus.addListener((PlayerInteractEvent.RightClickItem e) -> {
-			InteractionResultHolder<ItemStack> result = EnderAirItem.onPlayerInteract(e.getEntity(), e.getLevel(), e.getHand());
-			if (result.getResult().consumesAction()) {
-				e.setCanceled(true);
-				e.setCancellationResult(result.getResult());
-			}
 		});
 
 		bus.addListener(EntityEvent.EntityConstructing.class, NeoForgeInternalEntityCapabilities::trackTntSpawning);
@@ -631,8 +623,8 @@ public class NeoForgeCommonInitializer {
 				BotaniaBlocks.MANA_VOID
 		);
 
-		BlockCapability<SparkAttachable, Void> sparkAttachableBlockCap =
-				BotaniaNeoForgeCapabilities.getBlockApiLookupById(SparkAttachable.LOOKUP);
+		BlockCapability<ManaSparkAttachable, Void> sparkAttachableBlockCap =
+				BotaniaNeoForgeCapabilities.getBlockApiLookupById(ManaSparkAttachable.LOOKUP);
 		BlockEntityConstants.SELF_SPARK_ATTACHABLE_BES.forEach(blockEntityType -> e.registerBlockEntity(
 				sparkAttachableBlockCap, blockEntityType, (blockEntity, context) -> blockEntity));
 
@@ -682,6 +674,13 @@ public class NeoForgeCommonInitializer {
 
 		BlockEntityConstants.SELF_WORLDLY_CONTAINERS.forEach(blockEntityType -> e.registerBlockEntity(
 				Capabilities.ItemHandler.BLOCK, blockEntityType, SidedInvWrapper::new));
+
+		BlockCapability<LifeAggregatorCarryable, Void> lifeAggregatorCarryableBlockCap =
+				BotaniaNeoForgeCapabilities.getBlockApiLookupById(LifeAggregatorCarryable.LOOKUP);
+		e.registerBlockEntity(lifeAggregatorCarryableBlockCap, BlockEntityType.MOB_SPAWNER,
+				(blockEntity, context) -> new LifeAggregatorHandler.MonsterSpawnerCarryable(blockEntity));
+		e.registerBlockEntity(lifeAggregatorCarryableBlockCap, BlockEntityType.TRIAL_SPAWNER,
+				(blockEntity, context) -> new LifeAggregatorHandler.TrialSpawnerCarryable(blockEntity));
 
 		e.registerBlockEntity(Capabilities.EnergyStorage.BLOCK, BotaniaBlockEntities.MANA_FLUXFIELD,
 				// we only provide a view of the energy level, no interaction allowed
