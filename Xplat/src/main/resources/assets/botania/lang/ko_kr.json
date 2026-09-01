@@ -1605,6 +1605,16 @@
   "block.botania.potted_manastar": "화분에 심은 마나의 별",
   "block.botania.floating_manastar": "떠있는 마나의 별",
 
+
+
+
+
+
+
+
+
+
+
   "block.botania.endoflame": "엔도플레임",
   "block.botania.endoflame.reference": "흡열 같은 반응성",
   "block.botania.potted_endoflame": "화분에 심은 엔도플레임",
@@ -2027,6 +2037,7 @@
   "item.botania.rod_of_the_depths": "심연의 지팡이",
   "item.botania.rod_of_the_molten_core": "용암 핵의 지팡이",
   "item.botania.world_seed": "세계 씨앗",
+
   "item.botania.spellbinding_cloth": "주문결합 옷감",
   "item.botania.thorn_chakram": "가시 차크람",
   "item.botania.flare_chakram": "화염 차크람",
