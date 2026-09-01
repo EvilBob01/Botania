@@ -72,7 +72,7 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 	}
 
 	public ManaSparkEntity(Level world) {
-		this(BotaniaEntities.SPARK, world);
+		this(BotaniaEntities.MANA_SPARK, world);
 	}
 
 	@Override
@@ -168,6 +168,9 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 				particlesTowards(player);
 			}
 
+			if (receiverWasFull && !receiver.isFull()) {
+				notifyOthers(getNetwork());
+			}
 		} else if (upgrade.is(BotaniaItems.SPARK_AUGMENT_DOMINANT)) {
 			if (!receiver.isFull()) {
 				updateTransfers();
@@ -304,7 +307,7 @@ public class ManaSparkEntity extends SparkBaseEntity implements ManaSpark {
 	}
 
 	protected Item getSparkItem() {
-		return BotaniaItems.SPARK;
+		return BotaniaItems.MANA_SPARK;
 	}
 
 	private void dropAndKill() {
