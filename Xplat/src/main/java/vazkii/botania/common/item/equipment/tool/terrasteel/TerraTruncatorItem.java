@@ -18,6 +18,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Tier;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.state.BlockState;
@@ -57,11 +58,6 @@ public class TerraTruncatorItem extends ManasteelAxeItem implements SequentialBr
 	private static final int LEAF_BLOCK_RANGE = 3;
 
 	/**
-	 * The amount of mana required to restore 1 point of damage.
-	 */
-	private static final int MANA_PER_DAMAGE = 100;
-
-	/**
 	 * Represents a map of dimension IDs to a set of all block swappers
 	 * active in that dimension.
 	 */
@@ -72,8 +68,8 @@ public class TerraTruncatorItem extends ManasteelAxeItem implements SequentialBr
 	 */
 	private static boolean tickingSwappers = false;
 
-	public TerraTruncatorItem(Properties props) {
-		super(BotaniaAPI.instance().getTerrasteelItemTier(), props.attributes(TerraTruncatorItem.createAttributes(BotaniaAPI.instance().getTerrasteelItemTier(), 5.0F, -3.0F)));
+	public TerraTruncatorItem(Tier tier, Properties properties) {
+		super(tier, properties);
 	}
 
 	public static boolean shouldBreak(Player player) {
@@ -90,11 +86,6 @@ public class TerraTruncatorItem extends ManasteelAxeItem implements SequentialBr
 				BotaniaAPI.instance().breakOnAllCursors(player, stack, pos, face);
 			}
 		}
-	}
-
-	@Override
-	public int getManaPerDamage() {
-		return MANA_PER_DAMAGE;
 	}
 
 	@Override

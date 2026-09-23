@@ -203,9 +203,10 @@ idea {
 }
 
 pmd {
-    toolVersion = "6.55.0"
-    incrementalAnalysis.set(true)
+    toolVersion = "7.27.0"
+    incrementalAnalysis = true
     ruleSetFiles = rootProject.files("spotless/pmd-ruleset.xml")
+    consoleOutput = true
 }
 
 spotless {
